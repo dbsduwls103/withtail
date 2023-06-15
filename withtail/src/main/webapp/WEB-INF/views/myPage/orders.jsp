@@ -258,6 +258,79 @@ select {
     font-style: normal;
 }
 
+.ov-text-btn {
+    align-items: flex-end;
+    border: 1px none;
+    flex-direction: column;
+    gap: 6px;
+    width: 140px;
+}
+
+.order-view-product-layout {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ov-status-text {
+    align-self: stretch;
+    flex: 1;
+    margin-top: -1px;
+    text-align: right;
+    color: rgb(137 133 133);
+    font-weight: 400;
+    font-style: normal;
+    width: 77px;
+}
+
+
+.ov-status-text-container {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    flex-direction: column;
+    width: 130px;
+}
+
+.ov-status-text-wrap {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.ov-status-text-layout {
+    align-items: center;
+    align-self: stretch;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: rgb(248 248 248);
+    border-left-style: solid;
+    border-left-width: 1px;
+    display: flex;
+    flex: 1;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 40px 28px;
+}
+
+.btn2 {
+    margin-top: 17px;
+    width: 162px;
+    margin-left: -58px;
+    border-radius: 6px;
+    border: none;
+    font-size: 12px;
+    height: 33px;
+    color: #fff;
+    background-color: #82ae46;
+}
+
   </style>
 
   <div class="container -min">
@@ -297,6 +370,8 @@ select {
 						<a href="#" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 					</div>
 				</div>
+				
+				<!-- 한번에 주문했을떄의 상품 리스트 (상품1) -->
 				<div class="order-view-product-wrap">
 					<div class="order-view-product-layout">
 						<div class="order-list-layout">
@@ -317,12 +392,208 @@ select {
 												(1개)
 											</div>
 										</a>
+										<div>
+										</div>
 									</div>
 								</div>
 							</div>
+							<div class="ov-text-btn">
+								<button type="button" class="btn2">장바구니 담기</button>
+							</div>
+						</div>
+					</div>
+					<div class="ov-status-text-container">
+						<div class="ov-status-text-wrap">
+							<div class="ov-status-text-layout">
+								<div class="ov-status-text valign-text-middle">
+									배송완료
+								</div>
+							</div> 
 						</div>
 					</div>
 				</div>
+				
+				<!-- 상품2 -->
+				<div class="order-view-product-wrap">
+					<div class="order-view-product-layout">
+						<div class="order-list-layout">
+							<div class="product-info-layout">
+								<div class="product-info">
+									<div class="product-image-layout">
+										<div class="product-image">
+											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+										</div>
+									</div>
+									<div class="product-name">
+										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
+										<a href="#" class="ov-price-layout">
+											<div class="price-text valign-text-middle">
+												9,740원
+											</div>
+											<div class="ov-counting-text valign-text-middle">
+												(1개)
+											</div>
+										</a>
+										<div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ov-text-btn">
+								<button type="button" class="btn2">장바구니 담기</button>
+							</div>
+						</div>
+					</div>
+					<div class="ov-status-text-container">
+						<div class="ov-status-text-wrap">
+							<div class="ov-status-text-layout">
+								<div class="ov-status-text valign-text-middle">
+								 	배송완료
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				
+				<!-- 상품3 -->
+				
+				<div class="order-view-product-wrap">
+					<div class="order-view-product-layout">
+						<div class="order-list-layout">
+							<div class="product-info-layout">
+								<div class="product-info">
+									<div class="product-image-layout">
+										<div class="product-image">
+											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+										</div>
+									</div>
+									<div class="product-name">
+										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
+										<a href="#" class="ov-price-layout">
+											<div class="price-text valign-text-middle">
+												9,740원
+											</div>
+											<div class="ov-counting-text valign-text-middle">
+												(1개)
+											</div>
+										</a>
+										<div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ov-text-btn">
+								<button type="button" class="btn2">장바구니 담기</button>
+							</div>
+						</div>
+					</div>
+					<div class="ov-status-text-container">
+						<div class="ov-status-text-wrap">
+							<div class="ov-status-text-layout">
+								<div class="ov-status-text valign-text-middle">
+								 	배송완료
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				
+				<!-- 다른날 주문 -->
+			
+				<div class="order-date-layout">
+					<div class="order-date">
+						<div class="date valign-text-middle">
+							<span>2023년 7월 18일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#802<!-- 주문번호 --></span>
+						</div>
+						<a href="#" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
+					</div>
+				</div>
+				
+				<!-- 상품1 -->
+				
+				<div class="order-view-product-wrap">
+					<div class="order-view-product-layout">
+						<div class="order-list-layout">
+							<div class="product-info-layout">
+								<div class="product-info">
+									<div class="product-image-layout">
+										<div class="product-image">
+											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+										</div>
+									</div>
+									<div class="product-name">
+										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
+										<a href="#" class="ov-price-layout">
+											<div class="price-text valign-text-middle">
+												9,740원
+											</div>
+											<div class="ov-counting-text valign-text-middle">
+												(1개)
+											</div>
+										</a>
+										<div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ov-text-btn">
+								<button type="button" class="btn2">장바구니 담기</button>
+							</div>
+						</div>
+					</div>
+					<div class="ov-status-text-container">
+						<div class="ov-status-text-wrap">
+							<div class="ov-status-text-layout">
+								<div class="ov-status-text valign-text-middle">
+									상품 준비중
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				
+				<!-- 상품2 -->
+				<div class="order-view-product-wrap">
+					<div class="order-view-product-layout">
+						<div class="order-list-layout">
+							<div class="product-info-layout">
+								<div class="product-info">
+									<div class="product-image-layout">
+										<div class="product-image">
+											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+										</div>
+									</div>
+									<div class="product-name">
+										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
+										<a href="#" class="ov-price-layout">
+											<div class="price-text valign-text-middle">
+												9,740원
+											</div>
+											<div class="ov-counting-text valign-text-middle">
+												(1개)
+											</div>
+										</a>
+										<div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ov-text-btn">
+								<button type="button" class="btn2">장바구니 담기</button>
+							</div>
+						</div>
+					</div>
+					<div class="ov-status-text-container">
+						<div class="ov-status-text-wrap">
+							<div class="ov-status-text-layout">
+								<div class="ov-status-text valign-text-middle">
+									상품 준비중
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				
 			</div>		
 		</div>
 	</div>

@@ -101,7 +101,7 @@
 .help > .content > ul > li {
     font-size: 13px;
     color: #888;;
-   margin : 5px 0px;
+   margin : 5px 18px;
    line-height: 140%;
 }
 
@@ -372,7 +372,7 @@
              </div>
              
              <div class="help">
-                <h3>&gt; 우드테일 배송 이용안내<span style="font-size: 10px; color: #d6d6d6">&nbsp;&nbsp;&nbsp;- 이 항목은 읽어두시면,많은 도움이 됩니다.</span></h3>
+                <h3>&gt; 위드테일 배송 이용안내<span style="font-size: 10px; color: #d6d6d6">&nbsp;&nbsp;&nbsp;- 이 항목은 읽어두시면,많은 도움이 됩니다.</span></h3>
                 <div class="content">
                    <ul style="list-style: none;">
                       <li class="item1">브랜드별 배송 제품은 각 브랜드에서 직접 발송됩니다. 교환 반품시에는 브랜드별로 배송비가 부과됩니다.</li>   
