@@ -269,6 +269,7 @@
 
 
 
+
   </style>
 
   <div class="container -min">
@@ -386,9 +387,9 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 10px;">김성훈</p>
-							<p style="margin-bottom: 0px; font-size: 10px;">jy98220@naver.com</p>
-							<p style="margin-bottom: 0px; font-size: 10px;">비밀번호 : ********</p>						
+							<p style="margin-bottom: 0px; font-size: 13px;">김성훈</p>
+							<p style="margin-bottom: 0px; font-size: 13px;">jy98220@naver.com</p>
+							<p style="margin-bottom: 0px; font-size: 13px;">비밀번호 : ********</p>						
 						</div>
 					</div>
 				</div>  
@@ -400,7 +401,7 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 10px;">없음</p>					
+							<p style="margin-bottom: 0px; font-size: 13px;">없음</p>					
 						</div>
 					</div>
 				</div> 	
@@ -412,7 +413,7 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >적립금</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 10px;">1000원</p>					
+							<p style="margin-bottom: 0px; font-size: 13px;">1000원</p>					
 						</div>
 					</div>
 				</div> 	
@@ -424,7 +425,7 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >쿠폰</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 10px;">1장</p>					
+							<p style="margin-bottom: 0px; font-size: 13px;">1장</p>					
 						</div>
 					</div>
 				</div> 	
