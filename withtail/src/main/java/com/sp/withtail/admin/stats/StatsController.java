@@ -12,7 +12,7 @@ public class StatsController {
 		
 		return ".admin.stats.customerList";
 	}
-	
+	 
 	@RequestMapping(value = "shoppingList")
 	public String shoppingList() throws Exception{
 		

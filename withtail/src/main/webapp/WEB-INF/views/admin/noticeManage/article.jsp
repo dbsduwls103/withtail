@@ -18,7 +18,7 @@
 	
 		if(confirm("위 자료를 삭제 하시 겠습니까 ? ")) {
 			location.href = url;
-		}
+		} 
 	}
 </c:if>
 </script>

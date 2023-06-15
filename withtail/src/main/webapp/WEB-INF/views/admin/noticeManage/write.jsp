@@ -19,7 +19,7 @@
 		$.post(url, {fileNum:fileNum}, function(data){
 			$("#f"+fileNum).remove();
 		}, "json");
-  }
+  } 
 </c:if>
 
  */

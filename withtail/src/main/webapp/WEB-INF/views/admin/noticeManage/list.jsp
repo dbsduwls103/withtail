@@ -20,7 +20,7 @@ function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
-</script>
+</script> 
 
 <div class="body-container">
     <div class="body-title">
