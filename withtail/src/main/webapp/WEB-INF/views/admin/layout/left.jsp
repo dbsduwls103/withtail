@@ -126,10 +126,10 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">리뷰 관리</a>
+					<a href="<c:url value='/admin/reviewManage/list'/>" class="sub_menu--link">리뷰 관리</a>
 				</li>
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">공지사항</a>
+					<a href="<c:url value='/admin/noticeManage/list'/>" class="sub_menu--link">공지사항</a>
 				</li>
 				<li class="sub_menu--item">
 					<a href="<c:url value=''/>" class="sub_menu--link">1:1문의</a>
@@ -147,10 +147,10 @@ $(function(){
 			</label>
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">고객 통계</a>
+					<a href="<c:url value='/admin/stats/customerList'/>" class="sub_menu--link">고객 통계</a>
 				</li>
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">판매 통계</a>
+					<a href="<c:url value='/admin/stats/shoppingList'/>" class="sub_menu--link">판매 통계</a>
 				</li>
 			</ul>
 		</li>
