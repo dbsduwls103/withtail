@@ -191,7 +191,7 @@
     position: relative;
 }
 </style>
-아무거나
+
 
 <div class="hero-wrap hero-bread" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg');">
       
