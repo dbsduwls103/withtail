@@ -14,4 +14,10 @@ public class ShopController {
 		
 		return ".shop.list";
 	}
+	
+	@GetMapping("info")
+	public String productInfo(Model model) {
+		
+		return ".shop.info";
+	}
 }
