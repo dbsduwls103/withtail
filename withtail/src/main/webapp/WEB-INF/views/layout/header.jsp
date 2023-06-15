@@ -27,7 +27,7 @@
 	}
 
 	.searchbar input[type=text]::placeholder {
-		color: #999;
+		color: #999 !important;
 	}
 
 	/*카트*/
@@ -132,6 +132,39 @@
 	    color: #82ae46;
 	}
 	
+	/* 내 계정 > 로그인 */
+	.a-login {
+		background: #eee;
+		text-align: center;
+		border-top: 1px solid #dad7d7;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.a-login:hover {
+		background: #eee !important;
+	}
+	
+	.login_btn_span {
+		background: #82ae46;
+		padding: 5px 30px;
+		color: #fff;
+		display: inline-block;
+		border-radius: 5px;
+	}
+	
+	/* 환영합니다. */
+	.a-user {
+		border-top: 1px solid #dad7d7;
+		padding-top: 5px;
+		background: #eee;
+	}
+	.a-user:hover {
+		font-weight: normal;
+		cursor: auto;
+		background: #eee !important;
+	}
+	
 	@media (max-width: 1200px) {
 		.searchbar {
 		    width: 400px;
@@ -180,7 +213,12 @@
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a>
 					<a class="dropdown-item" href="#">주문 조회</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a>
-					<a class="dropdown-item" href="#">로그인</a>
+					<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/login">
+						<span class="login_btn_span">로그인</span>
+					</a>
+					<a class="dropdown-item a-user" href="#">
+						김자바님 환영합니다.
+					</a>
 				</div>
               </li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart/cart" class="nav-link"><span class="icon-shopping_cart"></span><span class="cart-count">0</span> <span class="">장바구니</span></a></li>
@@ -230,7 +268,7 @@
 				
 				<li><a href="#" class="nav-bold">놀이터</a>
 					<ul class="main2">
-						<li><a href="#">위드테일지도</a></li>
+						<li><a href="#">Tail & Path</a></li>
 						<li><a href="#">커뮤니티</a></li>
 					</ul></li>
 		

@@ -118,6 +118,11 @@
 		transform: scale(1.2);
 	}
 	
+	/* 제품 아이콘 */
+	.ftco-services .services .icon {
+		cursor: pointer;
+	}
+	
 	</style>
 	
 	<!-- 모바일 플로팅 버튼 -->
