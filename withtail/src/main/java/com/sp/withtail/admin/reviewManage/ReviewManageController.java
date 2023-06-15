@@ -12,5 +12,11 @@ public class ReviewManageController {
 		
 		return ".admin.reviewManage.list";
 	}
+	
+	@RequestMapping(value = "article")
+	public String article() throws Exception{
+		
+		return ".admin.reviewManage.article";
+	}
 }
  
