@@ -192,5 +192,10 @@ $(function(){
 			</a>
 		</li>
 	</ul>
+	
+	<button id="collapse_menu" class="collapse_menu">
+		<i class="collapse_menu--icon fa fa-fw"></i>
+		<span class="menu--label">Recolher menu</span>
+	</button>
 
 </nav>
