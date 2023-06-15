@@ -6,8 +6,21 @@
 
     <style>
 	
+	.info-btn {
+		border-color: #82ae46;
+		color: #82ae46; 
+	}
+	
+	.info-btn:hover {
+		background-color: #82ae46;
+		color: white;
+		
+	}
+	
 	.buttons {
 		display: flex;
+		gap: 10px;
+		
 	}
 	.cart {
 	  display: flex;
@@ -215,50 +228,30 @@
 	          	<div class="review-header">
 					<p>리뷰헤더리뷰헤더</p>
 				</div>
+				
 		          <div class="col-md-12 d-flex ftco-animate" style="border-bottom: 1px solid #ccc; width: 100%">
-		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0">
+		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0" style="width:100%;">
 		              <div class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
 		              <div class="text d-block pl-md-4">
 						<div class="meta mb-3">
 							<div class="d-flex mb-5 justify-content-end">
 								<p class="text-left mr-4">
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-								</p>
-								<div class="float-right mr-3">관리자</div>
-								<div class="float-right mr-3">2019년 7월 20일</div>
-								<div class="float-right"><a class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-							</div>
-							
-						</div>
-						<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
-					  </div>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex ftco-animate" style="border-bottom: 1px solid #ccc; width: 100%">
-		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0">
-		              <div class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
-		              <div class="text d-block pl-md-4">
-						<div class="meta mb-3">
-							<div class="d-flex mb-5 justify-content-end">
-								<p class="text-left mr-4">
-									<div class="star-layout-two">
-                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
-                                 	</div>
-									<div class="star-layout-two">
-                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
-                                 	</div>
-                                 	<div class="star-layout-two">
-                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
-                                 	</div>
-                                 	<div class="star-layout-two">
-                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
-                                 	</div>
-                                 	<div class="star-layout-two">
-                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+									<div class="mr-3" style="display:flex">
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
                                  	</div>
 								</p>
 								<div class="float-right mr-3">관리자</div>
@@ -273,17 +266,29 @@
 		          </div>
 		          
 		          <div class="col-md-12 d-flex ftco-animate" style="border-bottom: 1px solid #ccc; width: 100%">
-		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0">
-		              <div class="block-20");"></div>
+		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0" style="width:100%;">
+		              <div class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
 		              <div class="text d-block pl-md-4">
 						<div class="meta mb-3">
 							<div class="d-flex mb-5 justify-content-end">
 								<p class="text-left mr-4">
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
-									<a><span class="ion-ios-star-outline"></span></a>
+									<div class="mr-3" style="display:flex">
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
+                                 	</div>
 								</p>
 								<div class="float-right mr-3">관리자</div>
 								<div class="float-right mr-3">2019년 7월 20일</div>
@@ -291,14 +296,45 @@
 							</div>
 							
 						</div>
-						<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
+						<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
 					  </div>
 		            </div>
 		          </div>
-	          </div>
-	        </div>
-	      </div>       
-	    </div>
+		          
+		          <div class="col-md-12 d-flex ftco-animate" style="border-bottom: 1px solid #ccc; width: 100%">
+		            <div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0" style="width:100%;">
+		              <div class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
+		              <div class="text d-block pl-md-4">
+						<div class="meta mb-3">
+							<div class="d-flex mb-5 justify-content-end">
+								<p class="text-left mr-4">
+									<div class="mr-3" style="display:flex">
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+										<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
+	                                 	<div class="star-layout-two">
+	                                    <img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">         
+	                                 	</div>
+                                 	</div>
+								</p>
+								<div class="float-right mr-3">관리자</div>
+								<div class="float-right mr-3">2019년 7월 20일</div>
+								<div class="float-right"><a class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+							</div>
+						</div>
+						<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
+					  </div>
+		            </div>
+		          </div>
 	  </section>
 	
 	 
@@ -538,7 +574,6 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
-
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 			  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 			  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -585,9 +620,9 @@
 				</span>
 			</span>
 			
-			<div class="buttons">
-			<p><a class="btn py-3 px-5">장바구니</a></p>
-			<p><a class="btn py-3 px-5">주문하기</a></p>
+			<div class="buttons my-3">
+			<button type="button" class="btn btn-outline-success info-btn px-5">장바구니</button>
+			<button type="button" class="btn btn-outline-success info-btn px-5">주문하기</button>
 			</div>
 			
 	  </div>
