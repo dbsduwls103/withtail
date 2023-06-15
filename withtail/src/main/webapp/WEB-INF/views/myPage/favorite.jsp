@@ -265,7 +265,7 @@
  			<div class="f-product-info">
 			 	<div style="position: relative;">
  					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/d3b9142c2ad60c913e9763341b85fabe.jpg">
+ 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
  					</a>
  				</div>	
  				<div class="f-product-wrap">
