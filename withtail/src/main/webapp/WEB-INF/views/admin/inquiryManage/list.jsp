@@ -45,6 +45,7 @@ function searchList() {
 
 				</tr>
 			</thead>
+			
 		 	<tbody>
 					<tr> 
 						<td>배송</td>
@@ -56,6 +57,24 @@ function searchList() {
 						<td>답변대기</td>
 					</tr>
 		  	</tbody>
+		  	
+		  	
+		  				<!--  위에 지우고 사용해주세용
+		 	<tbody>
+				<c:forEach var="dto" items="${list}">
+					<tr> 
+						<td>${dto.category}</td>
+						<td class="left">
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+						</td>
+						<td>${dto.userName}</td>
+						<td>${dto.reg_date}</td>
+						<td>${(empty dto.answer_date)?"답변대기":"답변완료"}</td>
+					</tr>
+				</c:forEach>
+		  	</tbody>			
+			-->
+			
 		</table>
 		 
 		<div class="page-navigation">

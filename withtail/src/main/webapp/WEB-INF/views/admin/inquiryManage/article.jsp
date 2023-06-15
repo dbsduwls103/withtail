@@ -125,7 +125,38 @@ function sendAnswerOk() {
 					</tr>
 				</tbody>
 			</table>
-		
+
+        <!--  위에 지우고 사용하세용
+		<c:if test="${not empty dto.answer}">
+			<table class="table table-border table-article">
+				<tbody>
+					<tr style="border: none;">
+						<td colspan="2" style="padding: 0 0 0 0;">
+							<div class="row-flex">
+								<div class="left-item left-answer">A</div>
+								<div class="right-item right-answer">[답변] ${dto.subject}</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width="50%" align="left">
+							담당자 : ${dto.answerName}
+						</td>
+						<td width="50%" align="right">
+							답변일자 :  ${dto.answer_date}
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" valign="top" height="150">
+							${dto.answer}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</c:if>               
+        -->
+				
 		<table class="table">
 			<tr>
 				<td width="50%" align="left">
@@ -163,5 +194,35 @@ function sendAnswerOk() {
 					</table>
 				</form>
 			</div>
+			
+			
+			<!-- 위에 지우고 사용해주세용
+			<c:if test="${empty dto.answer}">
+				<div class="reply">
+					<form name="answerForm" method="post">
+						<div class='form-header'>
+							<span class="bold">답변달기</span><span> - 문의에 대한 답변을 입력 하세요</span>
+						</div>
+						
+						<table class="table reply-form">
+							<tr>
+								<td>
+									<textarea class='form-control' name='answer'></textarea>
+								</td>
+							</tr>
+							<tr>
+							   <td align='right'>
+							        <button type='button' class='btn' onclick="sendAnswerOk()">답변 등록</button>
+							        <input type="hidden" name="num" value="${dto.num}">
+							        <input type="hidden" name="page" value="${page}">
+							        <input type="hidden" name="condition" value="${condition}">
+							        <input type="hidden" name="keyword" value="${keyword}">
+							    </td>
+							 </tr>
+						</table>
+					</form>
+				</div>
+			</c:if>			
+			-->
 	</div>
 </div>
