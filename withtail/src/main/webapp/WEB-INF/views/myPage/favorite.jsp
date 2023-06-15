@@ -289,7 +289,7 @@ hr.vertical-line {
 	<div class="submenu-layout">
 	  <ul>
 	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a></li>
-	    <li><a class="submenu" href="#">주문조회</a></li>
+	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/orders">주문조회</a></li>
 	    <li><a class="submenu active" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a></li>
 	    <li><a class="submenu" href="#">놀이터</a></li>
 	  </ul>
@@ -322,10 +322,10 @@ hr.vertical-line {
 									<div class="rating">
 										<div class="stars">
 											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
 											</div>
 											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">			
 											</div>
 											<div class="star-layout-two">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			

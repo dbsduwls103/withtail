@@ -276,7 +276,7 @@
 	<div class="submenu-layout">
 	  <ul>
 	    <li><a class="submenu active" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a></li>
-	    <li><a class="submenu" href="#">주문조회</a></li>
+	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/orders">주문조회</a></li>
 	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a></li>
 	    <li><a class="submenu" href="#">놀이터</a></li>
 	  </ul>

@@ -17,4 +17,10 @@ public class MyPageController {
 	
 		return ".myPage.favorite";
 	}
+    
+    @GetMapping("orders")
+	public String execute1() throws Exception {
+	
+		return ".myPage.orders";
+	}
 }
