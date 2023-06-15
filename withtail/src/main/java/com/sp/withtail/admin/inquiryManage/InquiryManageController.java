@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 //인콰이어리(1:1 문의)
 @Controller("admin.inquiryManageController")
@@ -16,7 +15,7 @@ public class InquiryManageController {
 		
 		return ".admin.inquiryManage.list";
 	}
-
+ 
 	@GetMapping("article")
 	public String inquiryArticle(Model model) {
 		

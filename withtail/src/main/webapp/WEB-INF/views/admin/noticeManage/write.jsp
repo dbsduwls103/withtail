@@ -12,14 +12,17 @@
 </style>
 
 <script type="text/javascript">
+/*
 <c:if test="${mode=='update'}">
   function deleteFile(fileNum) {
 		let url = "${pageContext.request.contextPath}/admin/noticeManage/deleteFile";
 		$.post(url, {fileNum:fileNum}, function(data){
 			$("#f"+fileNum).remove();
 		}, "json");
-  }
+  } 
 </c:if>
+
+ */
 </script>
 
 <script type="text/javascript">
@@ -40,7 +43,7 @@
             return false;
         }
 
-    	f.action="${pageContext.request.contextPath}/admin/noticeManage/${mode}";
+    	//f.action="${pageContext.request.contextPath}/admin/noticeManage/${mode}";
 
         return true;
     }
@@ -58,7 +61,7 @@
 				<tr> 
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td> 
-						<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
+						<input type="text" name="subject" maxlength="100" class="form-control" value="제목">
 					</td>
 				</tr>
 			
@@ -81,14 +84,14 @@
 				<tr> 
 					<td>작성자</td>
 					<td> 
-						<p class="form-control-plaintext">${sessionScope.member.userName}</p>
+						<p class="form-control-plaintext">관리자</p>
 					</td>
 				</tr>
 			
 				<tr> 
 					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td valign="top"> 
-						<textarea name="content" id="ir1" class="form-control">${dto.content}</textarea>
+						<textarea name="content" id="ir1" class="form-control">내용입니다</textarea>
 					</td>
 				</tr>
 			  
@@ -99,16 +102,16 @@
 					</td>
 				</tr>
 	              
-				<c:if test="${mode=='update'}">
-					<c:forEach var="vo" items="${listFile}">
-						<tr id="f${vo.fileNum}"> 
+				<c:if test="">
+					<!-- foreach자리 -->
+						<tr id="f1"> 
 							<td>첨부된파일</td>
 							<td> 
-								<a href="javascript:deleteFile('${vo.fileNum}');"><i class="fa-solid fa-trash-can"></i></a> 
-								${vo.originalFilename}
+								<a href="javascript:deleteFile('파일번호');"><i class="fa-solid fa-trash-can"></i></a> 
+								파일이름
 							</td>
 						  </tr>
-					</c:forEach>
+					
 				</c:if>
 			</table>
 				
