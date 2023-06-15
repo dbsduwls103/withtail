@@ -198,7 +198,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;">
 				</a>
-				<div class="dropdown-menu" aria-labelledby="dropdown02">
+				<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0;">
 					<a class="dropdown-item" href="#">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;"> 강아지
 					</a>
@@ -209,14 +209,14 @@
 			  </li>
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/myPage/myPage" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">내 계정</a>
-				<div class="dropdown-menu" aria-labelledby="dropdown03">
+				<div class="dropdown-menu" aria-labelledby="dropdown03" style="margin: 0; padding: 0;">
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a>
 					<a class="dropdown-item" href="#">주문 조회</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a>
 					<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/login">
 						<span class="login_btn_span">로그인</span>
 					</a>
-					<a class="dropdown-item a-user" href="#">
+					<a class="dropdown-item a-user" href="#" style="display: none;">
 						김자바님 환영합니다.
 					</a>
 				</div>
