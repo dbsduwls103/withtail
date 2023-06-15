@@ -13,3 +13,4 @@ public class ReviewManageController {
 		return ".admin.reviewManage.list";
 	}
 }
+ 

@@ -78,72 +78,67 @@ function sendAnswerOk() {
 					<td colspan="2" style="padding: 10px 0 0 0;">
 						<div class="row-flex">
 							<div class="left-item left-question">Q</div>
-							<div class="right-item right-question">[${dto.category}] ${dto.subject}</div>
+							<div class="right-item right-question">[배송] 닭가슴살 주세요</div>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td width="50%" align="left">
-						작성자 : ${dto.userName}(${dto.userId})
+						작성자 : 최포포(popo123)
 					</td>
 					<td width="50%" align="right">
-						문의일자 : ${dto.reg_date}
+						문의일자 : 2023-06-15
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" valign="top" height="150">
-						${dto.content}
+						닭가슴살 언제 오나요.
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		
-		<c:if test="${not empty dto.answer}">
 			<table class="table table-border table-article">
 				<tbody>
 					<tr style="border: none;">
 						<td colspan="2" style="padding: 0 0 0 0;">
 							<div class="row-flex">
 								<div class="left-item left-answer">A</div>
-								<div class="right-item right-answer">[답변] ${dto.subject}</div>
+								<div class="right-item right-answer">[답변] 그만 드세요</div>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td width="50%" align="left">
-							담당자 : ${dto.answerName}
+							담당자 : 관리자
 						</td>
 						<td width="50%" align="right">
-							답변일자 :  ${dto.answer_date}
+							답변일자 : 2023-06-17
 						</td>
 					</tr>
 					
 					<tr>
 						<td colspan="2" valign="top" height="150">
-							${dto.answer}
+							닭가슴살 과잉 섭취로 주문 취소 했습니다.
 						</td>
 					</tr>
 				</tbody>
 			</table>
-		</c:if>
 		
 		<table class="table">
 			<tr>
 				<td width="50%" align="left">
 					<button type="button" class="btn" onclick="deleteInquiry('${dto.num}');">질문삭제</button>
-					<c:if test="${not empty dto.answer}">
-						<button type="button" class="btn" onclick="deleteAnswer('${dto.num}');">답변삭제</button>
-					</c:if>
+				    <button type="button" class="btn" onclick="deleteAnswer('${dto.num}');">답변삭제</button>
 				</td>
 			
 				<td align="right">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/inquiryManage/list?${query}';">리스트</button>
+					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/';">리스트</button>
 				</td>
 			</tr>
 		</table>
 		
-		<c:if test="${empty dto.answer}">
 			<div class="reply">
 				<form name="answerForm" method="post">
 					<div class='form-header'>
@@ -168,6 +163,5 @@ function sendAnswerOk() {
 					</table>
 				</form>
 			</div>
-		</c:if>
 	</div>
 </div>

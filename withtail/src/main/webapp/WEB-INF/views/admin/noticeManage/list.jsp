@@ -20,7 +20,7 @@ function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
-</script>
+</script> 
 
 <div class="body-container">
     <div class="body-title">
@@ -32,7 +32,7 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">
-					${dataCount}개(${page}/${total_page} 페이지)
+					1개(1/1 페이지)
 				</td>
 				<td align="right">
 					&nbsp;
@@ -54,49 +54,48 @@ function searchList() {
 			</thead>
 		 
 		 	<tbody>
-				<c:forEach var="dto" items="${noticeList}">
+		 		<!-- 공지일때 -->
 					<tr> 
 						<td><span class="badge">공지</span></td>
 						<td class="left">
-							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+							<a href="#">제목입니다</a>
 						</td>
 						<td>관리자</td>
-						<td>${dto.reg_date}</td>
-						<td>${dto.hitCount}</td>
+						<td>0000.00.00</td>
+						<td>1</td>
 						<td>
-							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
-							</c:if>		      
+							<c:if test="">
+								<a href="#"><i class="fa-solid fa-file-zipper"></i></a>
+							</c:if>
 						</td>
 						<td>&nbsp;</td>
 					</tr>
-				</c:forEach>
-
-				<c:forEach var="dto" items="${list}" varStatus="status">
+				
+				<!--일반게시물  -->
 					<tr> 
-						<td>${dataCount - (page-1) * size - status.index}</td>
+						<td>1</td>
 						<td class="left">
-							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
-							<c:if test="${dto.gap < 1}">
-								<img src='${pageContext.request.contextPath}/resources/images/new.gif'>
+							<a href="#">제목입니다</a>
+							<c:if test="">
+								<img src='#'>
 							</c:if>
 						</td>
 						<td>관리자</td>
-						<td>${dto.reg_date}</td>
-						<td>${dto.hitCount}</td>
+						<td>0000.00.00</td>
+						<td>1</td>
 						<td>
-							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
+							<c:if test="">
+								<a href="#"><i class="fa-solid fa-file-zipper"></i></a>
 							</c:if>		      
 						</td>
-						<td>${dto.showNotice == 1 ? "표시" : "숨김" }</td>
+						<td>표시</td>
 					</tr>
-				</c:forEach>
+					
 			</tbody>
 		</table>
 		 
 		<div class="page-navigation">
-			${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			123
 		</div>
 		
 		<table class="table">
