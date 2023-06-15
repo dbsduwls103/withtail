@@ -23,4 +23,10 @@ public class MyPageController {
 	
 		return ".myPage.orders";
 	}
+    
+    @GetMapping("orderDetail")
+	public String execute2() throws Exception {
+	
+		return ".myPage.orderDetail";
+	}
 }

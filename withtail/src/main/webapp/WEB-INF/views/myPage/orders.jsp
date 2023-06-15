@@ -367,7 +367,7 @@ select {
 						<div class="date valign-text-middle">
 							<span>2023년 6월 15일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#801<!-- 주문번호 --></span>
 						</div>
-						<a href="#" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
+						<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 					</div>
 				</div>
 				
@@ -505,7 +505,7 @@ select {
 						<div class="date valign-text-middle">
 							<span>2023년 7월 18일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#802<!-- 주문번호 --></span>
 						</div>
-						<a href="#" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
+						<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 					</div>
 				</div>
 				
