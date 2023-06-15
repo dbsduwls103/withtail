@@ -175,11 +175,11 @@
 				</div>
 			  </li>
 			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">내 계정</a>
+				<a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/myPage/myPage" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">내 계정</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown03">
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a>
 					<a class="dropdown-item" href="#">주문 조회</a>
-					<a class="dropdown-item" href="#">즐겨찾기</a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a>
 					<a class="dropdown-item" href="#">로그인</a>
 				</div>
               </li>
