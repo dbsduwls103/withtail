@@ -25,9 +25,16 @@ vertical-align: baseline;
 
 .imgbox {
      width: 90px;
-     height: 80px;
+     height: 90px;
      padding: 10px;
-     border:  1px solid black;
+     border: 1px solid #999;
+}
+
+.btn-light {
+    padding: 5px;
+    margin: 3px;
+    background-color: #fff;
+    border-radius: 4px;
 }
 
 </style>
@@ -37,6 +44,7 @@ function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
+
 </script>
 
 <div class="body-container">
@@ -100,7 +108,7 @@ function searchList() {
 					<tr> 
 						<td class="product-remove"><input type="checkbox"></td>
 						<td>3</td>
-                        <td><div class="imgbox" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
+                        <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png); background-size:cover;"></div></td>
 						<td class="left">
 							<a href="#">포포 닭가슴살</a>
 						</td>
@@ -159,7 +167,9 @@ function searchList() {
 					</form>
 				</td>
 				<td align="right" width="100">
-					&nbsp;
+					<div class="col text-end">
+					    <button type="button" class="btn-light" onclick="location.href='${pageContext.request.contextPath}/bbs/write';">글올리기</button>
+				    </div>
 				</td>
 			</tr>
 		</table>
