@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController { 
     @GetMapping("myPage")
     public String main() {  
-        return "myPage/myPage";
+        return ".myPage.myPage";
     }
     
     @GetMapping("favorite")
 	public String execute() throws Exception {
 	
-		return "myPage/favorite";
+		return ".myPage.favorite";
 	}
 }

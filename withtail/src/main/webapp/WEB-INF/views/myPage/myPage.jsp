@@ -305,9 +305,6 @@
 
   </style>
 </head>
-<header>
-  <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-</header>
 
 <body>
   <div class="container">
