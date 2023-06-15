@@ -148,8 +148,8 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: 12px;
     justify-content: center;
+    cursor: pointer;
 }
 
 .f-product-text-layout {
@@ -158,7 +158,6 @@
     border: 1px none;
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
 
 .f-brand-text {
@@ -182,19 +181,106 @@
 
 .f-item-text {
     overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
     display: -webkit-box !important;
-    -webkit-box-orient: vertical;
-    color: black;
-    font-size: var(--font-size-15px);
-    font-weight: 400;
+    color: #545454;
+    font-weight: 200;
     font-style: normal;
 }
 
 .-min {
 	min-height: 550px;
+}
+
+.rating {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.stars {
+    margin-right: 3px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.star-layout {
+    width: 14px;
+    height: 14px;
+    display: flex;
+}
+
+img {
+    max-width: 100%;
+}
+
+.star-layout-two {
+    width: 14px;
+    height: 14px;
+    display: flex;
+}
+
+.f-price-layout {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+}
+
+.f-price-underline {
+    color: #b9b9b9;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    text-align: right;
+    text-decoration: line-through;
+    width: fit-content;
+}
+
+.f-price-text {
+	color: black;
+	font-size: 20px;
+	font-weight: 500;
+	font-style: normal;
+	margin-top: -1px;
+	text-align: right;
+	width: fit-content;
+}
+
+.f-button-layout {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 50px;
+    width: fit-content;
+}
+
+hr.vertical-line {
+    display: inline-block;
+    border: none;
+    border-left: 1px solid #b9b9b9;
+    height: 38px;
+    margin: 0;
+  }
+
+.btn1 {
+	border-radius: 3px;
+   	background-color: #82ae46;
+   	border: none;
+   	height: 35px;
+    width: 140px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.btn1:hover {
+	border-radius: 3px;
+   	background-color: #3b6601;
+   	border: none;
+   	height: 35px;
+    width: 140px;
+    color: #fff;
+    font-size: 13px;
 }
 
   </style>
@@ -232,12 +318,106 @@
 							<div class="f-product-text-layout">
 								<a class="f-brand-text valign-text-middle" href="#">두바보</a>
 								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">두바보 MDF 펜던트 (펜던트만) P13</a>
-							</div> 						
+								<a href="#" style="display: contents">		
+									<div class="rating">
+										<div class="stars">
+											<div class="star star-layout">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+										</div>
+									</div>
+								</a>	
+							</div>
+							<a class="f-price-layout" href="#">
+								<div class="f-price-text valign-text-middle">
+									3,960원
+								</div>
+								<div class="f-price-underline valign-text-middle">
+									7,500원
+								</div>								
+							</a> 						
  						</div>
  					</div>
  				</div>
+ 				<div class="f-button-layout">
+ 					<hr class="vertical-line">
+ 					<button class="btn1">장바구니 담기</button>							
+ 					<hr class="vertical-line">
+ 					<a href="#">삭제</a>
+ 				</div>
  			</div>	
  		</div>	
+ 		
+ 		<!-- 위 내용 반복임 c:foreach 사용해서 구현할것. -->
+ 		<hr style="border-color: #f1f1f1; width: 100%; border: 1px solid; margin-bottom: 0px; margin-top: 0px;">
+ 		<div class="favorite-list">
+ 			<div class="f-product-info">
+			 	<div style="position: relative;">
+ 					<a class="f-product-image-layout" href="#">
+ 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
+ 					</a>
+ 				</div>	
+ 				<div class="f-product-wrap">
+ 					<div style="display: contents;"> 
+ 						<div class="f-product-name">
+							<div class="f-product-text-layout">
+								<a class="f-brand-text valign-text-middle" href="#">두바보</a>
+								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">두바보 MDF 펜던트 (펜던트만) P13</a>
+								<a href="#" style="display: contents">		
+									<div class="rating">
+										<div class="stars">
+											<div class="star star-layout">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+											<div class="star-layout-two">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
+											</div>
+										</div>
+									</div>
+								</a>	
+							</div>
+							<a class="f-price-layout" href="#">
+								<div class="f-price-text valign-text-middle">
+									3,960원
+								</div>
+								<div class="f-price-underline valign-text-middle">
+									7,500원
+								</div>								
+							</a> 						
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<div class="f-button-layout">
+ 					<hr class="vertical-line">
+ 					<button class="btn1">장바구니 담기</button>							
+ 					<hr class="vertical-line">
+ 					<a href="#">삭제</a>
+ 				</div>
+ 			</div>	
+ 		</div>
+ 		
+ 		
  	</div>
   
 	
