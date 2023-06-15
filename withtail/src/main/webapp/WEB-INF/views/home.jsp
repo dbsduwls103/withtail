@@ -73,6 +73,7 @@
 	    width: 100px;
 	    box-shadow: rgba(255, 255, 255, 0.12) 0px 0px 2px 0px inset, rgba(0, 0, 0, 0.05) 0px 0px 2px 1px, rgba(0, 0, 0, 0.22) 0px 4px 20px;
 	    text-align: center;
+	    border-radius: 10px;
 	}
 	
 	.rc_layout p {
@@ -80,6 +81,7 @@
 		background: #82ae46;
 		padding: 5px;
 		color: #fff;
+		border-radius: 10px 10px 0 0;
 	}
 	
 	.rc_layout ul {
@@ -283,11 +285,11 @@
 	<!-- 랭킹 -->
 	<section class="ftco-section" style="padding: 0;">
     	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-            <h2 class="mb-4">랭킹 지난 달 대망의 1위는?!</h2>
-          </div>
-        </div>   		
+			<div class="row justify-content-center mb-3 pb-3">
+	          <div class="col-md-12 heading-section text-center ftco-animate">
+	            <h2 class="mb-4">랭킹 지난 달 대망의 1위는?!</h2>
+	          </div>
+        	</div>   		
     	</div>
     	<div class="container">
     		<div class="row">
@@ -408,6 +410,7 @@
     				</div>
     			</div>
 		
+    	</div>
     	</div>
     </section>
     <!-- //랭킹 -->
@@ -649,7 +652,7 @@
     					</div>
     				</div>
     			</div>
-				
+			</div>	
     	</div>
     </section>
     <!-- //핫딜 -->
