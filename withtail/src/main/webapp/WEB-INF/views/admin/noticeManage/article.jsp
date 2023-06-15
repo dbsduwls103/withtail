@@ -34,7 +34,7 @@
 			<thead>
 				<tr>
 					<td colspan="2" align="center">
-						${dto.subject}${dto.showNotice == 1 ? "" : " [숨김]" }
+						제목
 					</td>
 				</tr>
 			</thead>
@@ -42,16 +42,16 @@
 			<tbody>
 				<tr>
 					<td width="50%" align="left">
-						이름 : ${dto.userName}
+						이름 : 김땡땡
 					</td>
 					<td width="50%" align="right">
-						${dto.reg_date} | 조회 ${dto.hitCount}
+						0000.00.00 | 조회 1
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" valign="top" height="200">
-						${dto.content}
+						내용입니다.
 					</td>
 				</tr>
 				

@@ -21,4 +21,10 @@ public class NoticeManageController {
 		return ".admin.noticeManage.write";
 	}
 	
+	@RequestMapping(value = "article")
+	public String article() throws Exception{
+		
+		return ".admin.noticeManage.article";
+	}
+	
 }
