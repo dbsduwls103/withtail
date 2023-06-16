@@ -697,7 +697,7 @@ img {
 									<img class="od-product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
 								</div>
 								<div class="od-product-detail-wrap">
-									<a class="od-product-name">
+									<a href="#" class="od-product-name">
 										<div class="od-brand-text valign-text-middle">
 											KONG
 										</div>
