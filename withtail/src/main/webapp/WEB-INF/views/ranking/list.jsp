@@ -65,20 +65,20 @@
 		<div class="container">
 			<!--  
 			<p class="hotdeal-tit">
-				<a href="${pageContext.request.contextPath}/">위드테일</a> <span>&gt;</span> <a href="#">핫딜</a>
+				<a href="${pageContext.request.contextPath}/">위드테일</a> <span>&gt;</span> <a href="#">랭킹</a>
 			</p>
 			-->
-			<img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="핫딜 배너">
+			<img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="랭킹 배너">
 		</div>
 		
     	<div class="container">
 			<div class="row justify-content-center mb-3 pb-3">
 	          <div class="col-md-12 ftco-animate">
-	            <h3 class="hotdeal-tit-h3">핫딜</h3>
+	            <h3 class="hotdeal-tit-h3">랭킹</h3>
 	            <div class="hotdeal-sort">
 	            	<ul class="d-flex">
 	            		<li class="col-lg-6 col-md-6">
-	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">핫딜</span><span class="li-span">&gt;</span>총 <span class="color-bk">98</span> 제품
+	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">랭킹</span><span class="li-span">&gt;</span>총 <span class="color-bk">98</span> 제품
 	            		</li>
 	            		<li class="col-lg-6 col-md-6 sort-list text-right" style="padding-right: 0;">
 	            			<a href="#">신상품</a>

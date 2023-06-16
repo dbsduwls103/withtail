@@ -262,7 +262,7 @@
 		
 				<li><a href="${pageContext.request.contextPath}/hotdeal/list" class="nav-bold">핫딜</a></li>
 		
-				<li><a href="#" class="nav-bold">랭킹</a></li>
+				<li><a href="${pageContext.request.contextPath}/ranking/list" class="nav-bold">랭킹</a></li>
 				
 				<li><a href="#" class="nav-bold">신상</a></li>
 				
