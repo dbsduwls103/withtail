@@ -275,7 +275,7 @@
 				<li><a href="#" class="nav-bold">고객센터</a>
 					<ul class="main2">
 						<li><a href="#">1:1문의</a></li>
-						<li><a href="#">FAQ</a></li>
+						<li><a href="${pageContext.request.contextPath}/faq/list">FAQ</a></li>
 						<li><a href="#">공지사항</a></li>
 					</ul></li>
 			</ul>
