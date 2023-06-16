@@ -147,6 +147,13 @@ main {
     word-break: break-all;
 }
 
+.x-layout1 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    gap: 10px;
+}
+
 .add-address-text {
     color: rgb(139 139 139);
     font-size: 15px;
@@ -312,7 +319,7 @@ main {
     flex: 1;
     flex-direction: column;
     gap: 10px;
-    height: 200px;
+    height: 230px;
     justify-content: center;
     padding: 10px 15px;
     flex-grow: 0 !important;
@@ -329,7 +336,7 @@ main {
     flex: 1;
     flex-direction: column;
     gap: 7px;
-    height: 200px;
+    height: 230px;
     padding: 10px 15px;
     word-break: break-all;
     flex-grow: 0 !important;
@@ -469,6 +476,8 @@ main {
     gap: 10px;
     width: 100%;
     justify-content: space-between;
+    margin-top: -28px;
+    margin-bottom: -26px;
 }
 
 .information-title {
@@ -486,6 +495,455 @@ main {
     justify-content: flex-end;
 }
 
+.mud-input-control {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex: 1 1 auto;
+    max-width: 100%;
+    position: relative;
+    flex-direction: column;
+    vertical-align: top;
+    margin-top: 0px !important;
+}
+
+.mud-input-control-input-container {
+    width: 100%;
+}
+
+.mud-input-control>.mud-input-control-input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.mud-input.mud-input-outlined {
+    background-color: #fff;
+    position: relative;
+    border-width: 0;
+}
+
+.mud-input {
+    line-height: normal !important;
+    position: relative;
+    color: #424242;
+    cursor: text;
+    display: inline-flex;
+    font-size: 1rem;
+    box-sizing: border-box;
+    align-items: center;
+    font-weight: 400;
+    line-height: 1.1876em;
+    letter-spacing: .00938em;
+}
+
+.inp {
+    height: 38px;
+    border-radius: 5px;
+    border: solid 1px #d9d9d9;
+    padding-left: 22px
+}
+
+input::placeholder {
+  color: #b8b8b8;
+  font-size: 10px;
+}
+
+.inp:focus {
+  border-color: green;
+}
+
+.btn4 {
+	border: none;
+    height: 34px;
+    width: 100px;
+    font-size: 14px;
+    color: white;
+    background-color: #82ae46;
+    border-radius: 5px;
+}
+
+.information-title-2 {
+    margin-top: -1px;
+    width: 75px;
+    font-size: 19px;
+    font-weight: 500;
+    color: black;
+}
+
+.component {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.payment-information {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.order-button-wrap {
+    align-items: center;
+    align-self: stretch;
+    background-color: white;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.agreement-text {
+    align-self: stretch;
+    text-align: center;
+    color: rgb(91 91 91);
+    font-size: 12px;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.agreement-text .normal {
+    color: rgb(91 91 91);
+    font-size: 12px;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.agreement-text .bold {
+    color: #82ae46;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.btn5 {
+	max-width: 400px;
+    width: 400px;
+    height: 54px;
+    border: none;
+    background-color: #dbdbdb;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn5.active {
+    background-color: #82ae46; 
+  }
+
+.btn6 {
+	border: solid 1px #cecccc;
+    background-color: white;
+    width: 200px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #717171
+}
+
+.btn6:hover {
+	border: solid 1px #4494f1;
+}
+
+.btn6.clicked {
+    border: solid 1px #4494f1;
+}
+
+.order-details-container {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.btn7 {
+    height: 25px;
+    width: 69px;
+    padding: 0px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #82ae46;
+    font-size: 13px;
+}
+
+.btn8 {
+    height: 25px;
+    width: 69px;
+    padding: 0px;
+    background-color: #82ae46;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 13px;
+}
+
+.order-details-wrap {
+    align-items: center;
+    align-self: stretch;
+    background-color: white;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.order-details-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.product1 {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+}
+
+.product-text {
+    font-size: 19px;
+    font-weight: 500;
+    flex: 1;
+    margin-top: -1px;
+    color: black;
+}
+
+.x-text {
+    color: rgb(91 91 91);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    width: fit-content;
+}
+
+.product-list {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 450px;
+}
+
+.product-5 {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    gap: 15px;
+}
+
+.product-image-box {
+    align-items: flex-start;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.product-image {
+    object-fit: cover;
+}
+
+img {
+	max-width: 100%;
+}
+
+.product-text-3 {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.product-4 {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+}
+
+.product-price-10 {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+}
+
+.price-text {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.details-component-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.o-details-component {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.o-details-main-dt {
+    width: fit-content;
+    flex: 1;
+    margin-top: -1px;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.btn3 {
+	width: 130px;
+    font-size: 12px;
+    height: 34px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #82ae46;
+}
+
+.details-price-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 5px 0px;
+}
+
+.o-details-small-dt-layout {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 243px;
+    width: fit-content;
+}
+
+.o-details-small-dt {
+    margin-top: -1px;
+    width: fit-content;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-small-dd {
+    flex: 1;
+    margin-top: -1px;
+    text-align: right;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.total-d {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.o-details-minimal-dt {
+    margin-top: -1px;
+    width: fit-content;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-minimal-dd {
+    flex: 1;
+    margin-top: -1px;
+    text-align: right;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-main-text-dt {
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: -1px;
+    width: fit-content;
+}
+
+.o-details-main-dd {
+    color: rgba(0,0,0,0);
+    flex: 1;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: -1px;
+    text-align: right;
+}
+
+.span0 {
+    color: rgb(68 148 241);
+    font-weight: 700;
+	font-size: 16px;
+	font-style: normal;
+}
+
+.span1{
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.o-details-main-text-min{
+    align-self: stretch;
+    text-align: right;
+    font-size: 8px;
+}
+
 </style>
 
 <div class="container -min">
@@ -500,97 +958,83 @@ main {
 						<div class="information-title-layout">
 							<div class="information-title valign-text-middle">배송지 정보</div>
 							<div class="minimal-text-btn">
-								<div class="text valign-text-middle" onclick="showInputField()">
-									변경</div>
+							  <a href="#" class="text valign-text-middle change-button" onclick="toggleElements()">변경</a>
+							  <a href="#" class="text valign-text-middle back-button" onclick="toggleElements()" style="display: none;">돌아오기</a>
 							</div>
 						</div>
-
+						
 						<!-- 주소지 추가 -->
-						<div class="x-layout two-row-scroll">
-							<!-- 새로운 주소지 추가 -->
-							<a href="#" class="address-box1">
-								<div>
-									<div
-										class="add-address-text valign-text-middle notosanskr-normal-stack-15px">
-										+ <br> 새로운 주소 추가
-									</div>
-								</div>
-							</a>
-							<!-- 기본 배송지 -->
-							<div class="address-box selected">
-								<div class="address-icon-bar">
-									<div class="icon">
-										<div class="registered-address-box">
-											<div class="registered-address-name">기본배송지</div>
-										</div>
-									</div>
-									<div class="right-icon-layout">
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 수정 </a>
-										</div>
-										<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
-										</div>
-									</div>
-								</div>
-								<div class="address-text-wrap">
-									<div class="address-text-layout-1">
-										<div class="registered-address-name-1 valign-text-middle">
-											최수징</div>
-										<p class="registered-address-1 valign-text-middle">경기도 고양시
-											일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
-										<div class="phone-number-1 valign-text-middle">
-											010-1111-1111</div>
-										<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
-									</div>
-									<div class="address-check-btn">
-										<button type="button" class="">선택</button>
-									</div>
-								</div>
-							</div>
-							<!-- 일반 배송지1 -->
-							<div class="address-box">
-								<div class="address-icon-bar">
-									<div class="icon"></div>
-									<div class="right-icon-layout">
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 수정 </a>
-										</div>
-										<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
-										</div>
-									</div>
-								</div>
-								<div class="address-text-wrap">
-									<div class="address-text-layout-1">
-										<div class="registered-address-name-1 valign-text-middle">
-											김성훈</div>
-										<p class="registered-address-1 valign-text-middle">경기도 화성시
-											일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
-										<div class="phone-number-1 valign-text-middle">
-											010-2222-2222</div>
-										<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
-									</div>
-									<div class="address-check-btn">
-										<button type="button" class="">선택</button>
-									</div>
-								</div>
-							</div>
+<div class="x-layout two-row-scroll" style="display: none;">
+	<!-- 새로운 주소지 추가 -->
+	<a href="#" class="address-box1">
+		<div>
+			<div class="add-address-text valign-text-middle notosanskr-normal-stack-15px">
+				+ <br> 새로운 주소 추가
+			</div>
+		</div>
+	</a>
 
+	<!-- 기본 배송지 -->
+	<div class="address-box selected">
+		<div class="address-icon-bar">
+			<div class="icon">
+				<div class="registered-address-box">
+					<div class="registered-address-name">기본배송지</div>
+				</div>
+			</div>
+			<div class="right-icon-layout">
+				<div class="minimal-text-btn">
+					<a href="#" class="text-2 valign-text-middle"> 수정 </a>
+				</div>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+				<div class="minimal-text-btn">
+					<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
+				</div>
+			</div>
+		</div>
+								
+		<div class="address-text-wrap">
+			<div class="address-text-layout-1">
+				<div class="registered-address-name-1 valign-text-middle">최수징</div>
+				<p class="registered-address-1 valign-text-middle">경기도 고양시 일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
+				<div class="phone-number-1 valign-text-middle">010-1111-1111</div>
+				<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
+			</div>
+			<div class="address-check-btn">
+				<button type="button" class="btn8">선택</button>
+			</div>
+		</div>
+	</div>
 
+	<!-- 일반 배송지1 -->
+	<div class="address-box">
+		<div class="address-icon-bar">
+			<div class="icon"></div>
+			<div class="right-icon-layout">
+				<div class="minimal-text-btn">
+					<a href="#" class="text-2 valign-text-middle"> 수정 </a>
+				</div>
+				<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+				<div class="minimal-text-btn">
+					<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
+				</div>
+			</div>
+		</div>
+		<div class="address-text-wrap">
+			<div class="address-text-layout-1">
+				<div class="registered-address-name-1 valign-text-middle">김성훈</div>
+				<p class="registered-address-1 valign-text-middle">경기도 화성시 일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
+				<div class="phone-number-1 valign-text-middle">010-2222-2222</div>
+				<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
+			</div>
+			<div class="address-check-btn">
+				<button type="button" class="btn7">선택</button>
+			</div>
+		</div>
+	</div>
+</div>
+				
 
-
-
-
-
-
-
-
-
-
-							<!-- 
             <div class="delivery-information">
               <div class="x-layout">
                 <div class="list valign-text-middle">
@@ -617,25 +1061,24 @@ main {
                 </div>								
               </div>
             </div>
-             -->
+   
 
-
-						</div>
+						
 					</div>
 					<hr
 						style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
 					
 					<!-- 쿠폰선택 -->
 					<div class="accordion accordion-flush" id="accordionFlushExample"
-						style="width: 1050px; --bs-accordion-active-color: #fff; --bs-accordion-active-bg: #fff; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgb(255 255 255/ 25%);
+						style="width: 100%; --bs-accordion-active-color: #fff; --bs-accordion-active-bg: #fff; --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgb(255 255 255/ 25%);
 								--bs-accordion-border-color: fff">
 						<div class="accordion-item">
 							<h2 class="accordion-header" id="flush-headingOne">
-								<button class="pl-0 pt-0 accordion-button collapsed" type="button"
+								<button class="pl-0 pb-0 pt-0 accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 									aria-expanded="false" aria-controls="flush-collapseOne">
 									<div class="information-title valign-text-middle">쿠폰</div>
-									<div class="information-title valign-text-middle count1">보유 쿠폰 2장</div>
+									<div class="valign-text-middle count1">보유 쿠폰 2장</div>
 								</button>
 							</h2>
 							<div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -698,20 +1141,213 @@ main {
 										</div>
 									</div>									
 								</div>
+							</div>			
+						</div>
+					</div>
+					<hr style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
+					<div class="point-wrap">
+						<div class="point-layout medium">
+							<div class="information-title valign-text-middle">
+								적립금
 							</div>
-							<hr style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
-							<div class="point-wrap">
-								<div class="point-layout medium">
-									<div class="information-title valign-text-middle">
-										적립금
-									</div>
-									<div class="point">
-										<input type="text" placeholder="0원">
-										<button type="button">전액 사용</button>
+							<div class="point">
+								<div class="mud-input-control">
+									<div class="mud-input-control-input-container">
+										<div class="mud-input mud-input-outlined">
+											<input class="inp" type="text" placeholder="0원">
+										</div>
+										<div>
+											<p style="font-size: 11px; color: gray;">잔여 적립금: 0원</p>
+										</div>
 									</div>
 								</div>
+								<button type="button" class="btn4">전액 사용</button>
 							</div>
+						</div>
+					</div>
+					<hr style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
+					<div class="x-layout1">
+						<div class="information-title-2 valign-text-middle">
+							결제수단
+						</div>
+						<div class="component">
+							<div class="payment-information">
+								<button class="btn6" type="button" onclick="toggleButtons() ">신용카드</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 아래쪽 주문하기 버튼 -->
+				<div class="order-button-wrap">
+					<button class="btn5" type="button" id="orderButton1" disabled>48,830원 주문하기</button>
+					<p class="agreement-text valign-text-middle">
+						<span>
+							<span class="normal">주문 내용을 확인했으며 결제 및 서비스 이용약관에 </span>
+							<span class="bold" style="cursor: pointer;">동의</span>
+							<span class="normal">합니다.</span>
+						</span>
+					</p>
+				</div>				
+			</div>
+			
+			<!-- 오른쪽 바 -->
+			<div class="order-details-container">
+				<div class="order-button-wrap">
+					<button class="btn5" type="button" id="orderButton2" disabled style="width: 345px;">48,830원 주문하기</button>
+					<p class="agreement-text valign-text-middle">
+						<span>
+							<span class="normal">주문 내용을 확인했으며 결제 및 서비스 이용약관에 </span>
+							<span class="bold" style="cursor: pointer;">동의</span>
+							<span class="normal">합니다.</span>
+						</span>
+					</p>
+				</div>
+				<div class="order-details-wrap">
+					<div class="order-details-layout">
+						<div class="product1"> 
+							<div class="product-text valign-text-middle">
+								주문상품 : 6개
+							</div>
+							<a href="${pageContext.request.contextPath}/cart/cart" class="x-text valign-text-middle">
+								장바구니 수정
+							</a>
+						</div>
+						<!-- 상품	1 -->
+						<hr style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
+						<div class="product-list">
+							<div class="product-5">
+								<div class="product-image-box">
+									<div style="position: relative;">
+										<img width="40" height="40" class="product-image" alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+									</div>
+								</div>
+								<div class="product-text-3">
+									<div class="product-4">		
+										<p style="margin-bottom: -5px; font-size: 11px;"> KONG &nbsp;&nbsp;|&nbsp;&nbsp;테니스공 장난감(대)
+									</div>
+									<div class="product-price-10">
+										<div class="price-text valign-text-middle">
+											9,740원
+										</div>
+										<div class="x-text valign-text-middle">
+												(수량 : 3)
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+						<!-- 상품2 -->
+						<hr style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
+						<div class="product-list">
+							<div class="product-5">
+								<div class="product-image-box">
+									<div style="position: relative;">
+										<img width="40" height="40" class="product-image" alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+									</div>
+								</div>
+								<div class="product-text-3">
+									<div class="product-4">		
+										<p style="margin-bottom: -5px; font-size: 11px;"> KONG &nbsp;&nbsp;|&nbsp;&nbsp;테니스공 장난감(대)
+									</div>
+									<div class="product-price-10">
+										<div class="price-text valign-text-middle">
+											9,740원
+										</div>
+										<div class="x-text valign-text-middle">
+												(수량 : 3)
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+					<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
+					<div class="details-price-layout">
+						<div class="o-details-component">
+							<div class="o-details-small-dt-layout">
+								<div class="o-details-small-dt valign-text-middle">
+									상품 금액
+								</div>
+								<div class="o-details-small-dd valign-text-middle">
+									14,000원
+								</div>
+							</div>
+						</div>	
+						<div class="total-d">
+							<div class="o-details-component">
+								<div class="o-details-small-dt-layout">
+									<div class="o-details-small-dt valign-text-middle">
+										할인 금액
+									</div>
+								</div>
+								<div class="o-details-small-dd valign-text-middle">
+									- 4,260원
+								</div>
+							</div>
+							<div class="o-details-component">
+								<div class="o-details-minimal-dt valign-text-middle">
+									상품 할인
+								</div>
+								<div class="o-details-minimal-dd valign-text-middle">
+									- 4,260원
+								</div>
+							</div>
+						</div>
+						<div class="total-d">
+							<div class="o-details-component">
+								<div class="o-details-small-dt-layout">
+									<div class="o-details-small-dt valign-text-middle">
+										배송비
+									</div>
+								</div>
+								<div class="o-details-small-dd valign-text-middle">
+									3,000원
+								</div>
+							</div>
+							<div class="o-details-component">
+								<div class="o-details-minimal-dt valign-text-middle">
+									배송비
+								</div>
+								<div class="o-details-minimal-dd valign-text-middle">
+									3,000원
+								</div>
+							</div>
+						</div>
+						<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
 						
+						<div class="total-d">
+							<div class="o-details-component">
+								<div class="o-details-small-dt-layout">
+									<div class="o-details-small-dt valign-text-middle">
+										쿠폰 할인
+									</div>
+								</div>
+								<div class="o-details-small-dd valign-text-middle">
+									- 0원
+								</div>
+							</div>
+							<div class="o-details-component">
+								<div class="o-details-small-dt-layout">
+									<div class="o-details-small-dt valign-text-middle">
+										적립금 사용
+									</div>
+								</div>
+								<div class="o-details-small-dd valign-text-middle">
+									- 0원
+								</div>
+							</div>
+						</div>
+						<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
+						<div class="o-details-component" style="margin-top: -6px; margin-bottom: -6px;">
+							<div class="o-details-main-text-dt valign-text-middle">
+								결제 금액
+							</div>
+							<div class="o-details-main-dd valign-text-middle">
+								<span>	
+									<span class="span0">12,740</span>
+									<span class="span1">원</span>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -721,56 +1357,91 @@ main {
 </div>
 
 
-<script>
-	function showInputField() {
-		var recipientValue = document.getElementById("recipientValue").innerHTML;
-		var addressValue = document.getElementById("addressValue").innerHTML;
-		var contactValue = document.getElementById("contactValue").innerHTML;
-
-		document.getElementById("recipientValue").innerHTML = '<input type="text" id="recipientInput" value="' + recipientValue + '">';
-		document.getElementById("addressValue").innerHTML = '<input type="text" id="addressInput" value="' + addressValue + '">';
-		document.getElementById("contactValue").innerHTML = '<input type="text" id="contactInput" value="' + contactValue + '">';
-
-		document.getElementsByClassName("text")[0].innerHTML = "돌아가기";
-		document.getElementsByClassName("text")[0].onclick = saveInput;
-	}
-
-	function saveInput() {
-		var recipientInputValue = document.getElementById("recipientInput").value;
-		var addressInputValue = document.getElementById("addressInput").value;
-		var contactInputValue = document.getElementById("contactInput").value;
-
-		document.getElementById("recipientValue").innerHTML = recipientInputValue;
-		document.getElementById("addressValue").innerHTML = addressInputValue;
-		document.getElementById("contactValue").innerHTML = contactInputValue;
-
-		document.getElementsByClassName("text")[0].innerHTML = "변경";
-		document.getElementsByClassName("text")[0].onclick = showInputField;
-	}
-	
-	// 모든 쿠폰을 선택합니다
+<script>	
+	// 쿠폰 선택 이벤트
 	const coupons = document.querySelectorAll('.coupon');
 
-	// 각 쿠폰에 대해 이벤트를 추가합니다
 	coupons.forEach(coupon => {
 	  const checkbox = coupon.querySelector('input[type="checkbox"]');
 	  
-	  // 쿠폰을 클릭할 때 이벤트를 처리합니다
 	  coupon.addEventListener('click', () => {
-	    // 체크박스의 상태를 변경합니다
 	    checkbox.checked = !checkbox.checked;
 
 	    if (checkbox.checked) {
-	      // 체크박스가 선택되었을 때 배경색을 파란색으로 변경합니다
 	      coupon.style.backgroundColor = '#f5fbff';
 	    } else {
-	      // 체크박스가 선택 해제되었을 때 배경색을 원래대로 돌립니다
 	      coupon.style.backgroundColor = '';
 	    }
 	  });
 	});
+
+	// 신용카드 버튼을 누르면 주문하기 버튼이 활성화되고 다시 버튼을 누르면 비활성화되는 스크립트
+	function toggleButtons() {
+    toggleOrderButton();
+    toggleCreditCardButton();
+  }
+
+  function toggleOrderButton() {
+    var orderButton1 = document.getElementById("orderButton1");
+    var orderButton2 = document.getElementById("orderButton2");
+
+    // 버튼 1 처리
+    if (orderButton1.disabled) {
+      orderButton1.disabled = false; // 버튼 활성화
+      orderButton1.classList.add("active"); // 활성화된 버튼에 클래스 추가
+    } else {
+      orderButton1.disabled = true; // 버튼 비활성화
+      orderButton1.classList.remove("active"); // 활성화된 버튼 클래스 제거
+    }
+
+    // 버튼 2 처리
+    if (orderButton2.disabled) {
+      orderButton2.disabled = false; // 버튼 활성화
+      orderButton2.classList.add("active"); // 활성화된 버튼에 클래스 추가
+    } else {
+      orderButton2.disabled = true; // 버튼 비활성화
+      orderButton2.classList.remove("active"); // 활성화된 버튼 클래스 제거
+    }
+  }
+
+  function toggleCreditCardButton() {
+    var creditCardButton = document.querySelector(".btn6");
+
+    if (creditCardButton.classList.contains("clicked")) {
+      creditCardButton.classList.remove("clicked"); // 버튼이 눌린 경우의 클래스 제거
+    } else {
+      creditCardButton.classList.add("clicked"); // 버튼이 눌린 경우의 클래스 추가
+    }
+  }
+  
+  function toggleElements() {
+	    // delivery-information 요소 선택
+	    var deliveryInfoElement = document.querySelector('.delivery-information');
+	    
+	    // x-layout two-row-scroll 요소 선택
+	    var layoutElement = document.querySelector('.x-layout.two-row-scroll');
+
+	    // 변경 버튼 요소 선택
+	    var changeButton = document.querySelector('.change-button');
+	    
+	    // 돌아오기 버튼 요소 선택
+	    var backButton = document.querySelector('.back-button');
+
+	    // delivery-information 요소와 x-layout two-row-scroll 요소의 상태를 토글
+	    if (deliveryInfoElement.style.display === 'none') {
+	      deliveryInfoElement.style.display = 'flex';
+	      layoutElement.style.display = 'none';
+	      changeButton.style.display = '';
+	      backButton.style.display = 'none';
+	    } else {
+	      deliveryInfoElement.style.display = 'none';
+	      layoutElement.style.display = 'flex';
+	      changeButton.style.display = 'none';
+	      backButton.style.display = '';
+	    }
+	  }
 	
-	
+
 
 
 </script>
