@@ -264,7 +264,7 @@
 		
 				<li><a href="${pageContext.request.contextPath}/ranking/list" class="nav-bold">랭킹</a></li>
 				
-				<li><a href="#" class="nav-bold">신상</a></li>
+				<li><a href="${pageContext.request.contextPath}/newest/list" class="nav-bold">신상</a></li>
 				
 				<li><a href="#" class="nav-bold">놀이터</a>
 					<ul class="main2">
