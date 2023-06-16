@@ -266,6 +266,353 @@
     display: flex;
     flex-direction: column;
 }
+
+.od-product-title-layout {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 16px;
+}
+
+.od-pd-title {
+    color: black;
+    font-size: 19px;
+    font-weight: 500;
+    font-style: normal;
+    width: fit-content;
+}
+
+.minimal-text-btn {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    gap: 10px;
+    padding: 2px;
+    width: fit-content;
+}
+
+.text-1 {
+    color: rgb(68 148 241);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+.od-product-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+}
+
+.od-product {
+    align-items: center;
+    align-self: stretch;
+    border-color: rgb(241 241 241);
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: flex;
+    gap: 20px;
+    padding: 20px 16px;
+}
+
+.od-product-info {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    gap: 20px;
+}
+
+.od-product-image-layout {
+    align-items: flex-start;
+    background-color: rgb(255 255 255);
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    height: 60px;
+    min-width: 60px;
+    overflow: hidden;
+    aspect-ratio: 1/1 !important;
+}
+
+.od-product-image {
+    height: 60px;
+    min-width: 60px;
+    object-fit: cover;
+}
+
+img {
+	max-width: 100%;
+}
+
+.od-product-detail-wrap {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.od-product-name {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.od-brand-text {
+    align-self: stretch;
+    white-space: normal;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: -5px;
+}
+
+.od-price-layout {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    gap: 5px;
+}
+
+.od-price-text {
+    margin-top: -1px;
+    width: fit-content;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.od-retail-price {
+    text-decoration: line-through;
+    width: fit-content;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.od-counting-text {
+    align-self: stretch;
+    flex: 1;
+    margin-top: -1px;
+    color: black;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.od-product-detail {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+    width: fit-content;
+}
+
+.od-status-layout {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 110px;
+}
+
+.od-status-text {
+    align-self: stretch;
+    margin-top: -1px;
+    text-align: right;
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.od-text-btn-layout {
+    align-items: flex-end;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 140px;
+}
+
+.layout1 {
+	display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: stretch;
+    min-width: 280px;
+    white-space: nowrap;
+}
+
+.od-details-wrap {
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: rgb(219 219 219));
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.details-component-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.o-details-component {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.o-details-main-dt {
+    width: fit-content;
+    flex: 1;
+    margin-top: -1px;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.btn3 {
+	width: 130px;
+    font-size: 12px;
+    height: 34px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #82ae46;
+}
+
+.details-price-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 5px 0px;
+}
+
+.o-details-small-dt-layout {
+    align-items: center;
+    border: 1px none;
+    display: flex;
+    gap: 124px;
+    width: fit-content;
+}
+
+.o-details-small-dt {
+    margin-top: -1px;
+    width: fit-content;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-small-dd {
+    flex: 1;
+    margin-top: -1px;
+    text-align: right;
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.total-d {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.o-details-minimal-dt {
+    margin-top: -1px;
+    width: fit-content;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-minimal-dd {
+    flex: 1;
+    margin-top: -1px;
+    text-align: right;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.o-details-main-text-dt {
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: -1px;
+    width: fit-content;
+}
+
+.o-details-main-dd {
+    color: rgba(0,0,0,0);
+    flex: 1;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: -1px;
+    text-align: right;
+}
+
+.span0 {
+    color: rgb(68 148 241);
+    font-weight: 700;
+	font-size: 16px;
+	font-style: normal;
+}
+
+.span1{
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.o-details-main-text-min{
+    align-self: stretch;
+    text-align: right;
+    font-size: 8px;
+}
+
   </style>
 
   <div class="container -min">
@@ -331,11 +678,174 @@
 				</div>
 				
 				<div class="od-product-list">
-				</div>
-				
+					<div class="od-product-title-layout">
+						<div class="od-pd-title valign-text-middle">
+							주문 상품
+						</div>
+						<div class="od-title-btn-layout-1">
+							<div class="minimal-text-btn">
+								<a class="text-1 valign-text-middle" style="cursor:pointer; color: rgb(68 148 241);">
+									전체 장바구니 담기
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="od-product-layout">
+						<div class="od-product">
+							<div class="od-product-info">
+								<div class="od-product-image-layout">
+									<img class="od-product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+								</div>
+								<div class="od-product-detail-wrap">
+									<a class="od-product-name">
+										<div class="od-brand-text valign-text-middle">
+											KONG
+										</div>
+										<p class="x-text valign-text-middle">KONG 테니스공 장난감(대)</p>
+										<div class="od-price-layout">
+											<div class="od-price-text valign-text-middle">
+												9,740원
+											</div>
+											<div class="od-retail-price valign-text-middle">
+												14,000원
+											</div>
+											<div class="od-counting-text valign-text-middle">
+												(1개)
+											</div>
+										</div>
+									</a>
+									<div class="od-product-detail">
+										<div class="od-status-layout">
+											<div class="od-status-text valign-text-middle">
+												상품 준비중
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="od-text-btn-layout">
+								<button type="button" class="btn3">장바구니 담기</button>
+							</div>
+						</div>
+					</div>				
+				</div>			
 			</div>
-		</div>
-	</div>
-	
+			<!-- 오른쪽 가격창 -->
+			<div class="layout1">
+				<div class="od-details-wrap">
+					<div class="details-component-layout">
+						<div class="o-details-component">
+							<div class="o-details-main-dt valign-text-middle">
+								결제 정보
+							</div>
+						</div>
+						<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
+							<div class="details-price-layout">
+								<div class="o-details-component">
+									<div class="o-details-small-dt-layout">
+										<div class="o-details-small-dt valign-text-middle">
+											상품 금액
+										</div>
+										<div class="o-details-small-dd valign-text-middle">
+											14,000원
+										</div>
+									</div>
+								</div>	
+								<div class="total-d">
+									<div class="o-details-component">
+										<div class="o-details-small-dt-layout">
+											<div class="o-details-small-dt valign-text-middle">
+												할인 금액
+											</div>
+										</div>
+										<div class="o-details-small-dd valign-text-middle">
+											- 4,260원
+										</div>
+									</div>
+									<div class="o-details-component">
+										<div class="o-details-minimal-dt valign-text-middle">
+											상품 할인
+										</div>
+										<div class="o-details-minimal-dd valign-text-middle">
+											- 4,260원
+										</div>
+									</div>
+								</div>
+								<div class="total-d">
+									<div class="o-details-component">
+										<div class="o-details-small-dt-layout">
+											<div class="o-details-small-dt valign-text-middle">
+												배송비
+											</div>
+										</div>
+										<div class="o-details-small-dd valign-text-middle">
+											3,000원
+										</div>
+									</div>
+									<div class="o-details-component">
+										<div class="o-details-minimal-dt valign-text-middle">
+											배송비
+										</div>
+										<div class="o-details-minimal-dd valign-text-middle">
+											3,000원
+										</div>
+									</div>
+								</div>
+								<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
+								
+								<div class="total-d">
+									<div class="o-details-component">
+										<div class="o-details-small-dt-layout">
+											<div class="o-details-small-dt valign-text-middle">
+												쿠폰 할인
+											</div>
+										</div>
+										<div class="o-details-small-dd valign-text-middle">
+											- 0원
+										</div>
+									</div>
+									<div class="o-details-component">
+										<div class="o-details-small-dt-layout">
+											<div class="o-details-small-dt valign-text-middle">
+												적립금 사용
+											</div>
+										</div>
+										<div class="o-details-small-dd valign-text-middle">
+											- 0원
+										</div>
+									</div>
+								</div>
+								<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
+								<div class="o-details-component" style="margin-top: -6px; margin-bottom: -6px;">
+									<div class="o-details-main-text-dt valign-text-middle">
+										결제 금액
+									</div>
+									<div class="o-details-main-dd valign-text-middle">
+										<span>	
+											<span class="span0">12,740</span>
+											<span class="span1">원</span>
+										</span>
+									</div>
+								</div>	
+								<hr style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">							
+								<div class="o-details-component" style="margin-top: -6px; margin-bottom: -6px;">
+									<div class="o-details-main-text-dt valign-text-middle">
+										결제 수단
+									</div>
+									<div class="o-details-main-text-dd-layout">
+										<div class="o-details-main-text-dd valign-text-middle">
+											신용카드
+										</div>
+										<div class="o-details-main-text-min valign-text-middle">
+											삼성
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
   </div>
  	
