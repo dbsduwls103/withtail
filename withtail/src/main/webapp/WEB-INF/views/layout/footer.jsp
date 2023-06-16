@@ -252,7 +252,7 @@
 							TEL :
 						</p>
 						<p class="item1">
-							010-4193-8346
+							010-1234-5678
 						</p>
 					</div>
 				</div>
@@ -294,7 +294,7 @@
 					<img alt="call" class="icon-call" src="${pageContext.request.contextPath}/resources/images/footer/call.png">
 					<p class="help-text">고객상담 바로가기</p>
 				</div>
-				<p class="phone-number">010 - 4193 - 8346</p>
+				<p class="phone-number">010 - 1234 - 5678</p>
 				<div class="help-layout">
 					<div class="engagement-layout">
 						<p class="engagement-text">평일 10 : 00 - 18 : 00
