@@ -264,9 +264,10 @@ hr.vertical-line {
 								<!--상품 상세보기 페이지 연결  -->
 								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
 									<div class="rating">
+										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 										<div class="stars">
 											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
 											</div>
 											<div class="star-layout-two">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
@@ -315,6 +316,7 @@ hr.vertical-line {
 								<!--상품 상세보기 페이지 연결  -->
 								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
 									<div class="rating">
+										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 										<div class="stars">
 											<div class="star star-layout">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
