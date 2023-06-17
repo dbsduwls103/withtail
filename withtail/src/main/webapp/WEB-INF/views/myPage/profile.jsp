@@ -240,7 +240,7 @@ hr {
 			</div>
 		</div>
 		<div class="bottom-min-text">
-			<a class="text-logout" href="#">회원탈퇴</a>
+			<a class="text-logout" href="${pageContext.request.contextPath}/myPage/unregister">회원탈퇴</a>
 			<p class="text-logout"> | </p>
 			<a class="text-logout" href="#">로그아웃</a>
 			<p class="text-logout"> | </p>

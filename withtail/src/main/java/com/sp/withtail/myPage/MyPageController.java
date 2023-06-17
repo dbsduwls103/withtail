@@ -41,4 +41,12 @@ public class MyPageController {
 	
 		return ".myPage.profile";
 	}
+    
+    @GetMapping("unregister")
+   	public String execute5() throws Exception {
+   	
+   		return ".myPage.unregister";
+   	}
+    
+  
 }
