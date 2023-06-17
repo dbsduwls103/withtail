@@ -303,7 +303,7 @@
 	  		<div class="pets-profile d-none d-md-flex">
 	  			
 	  			<!-- 반복임 foreach사용 바람 -->
-	  			<a class="pets" href="#">
+	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
 	  				<div class="image-layout">
 	  					<div class="image">
 		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
@@ -317,7 +317,7 @@
 	  					</div>
 	  				</div>
 	  			</a>
-	  			<a class="pets" href="#">
+	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
 	  				<div class="image-layout">
 	  					<div class="image">
 		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
@@ -332,7 +332,7 @@
 	  				</div>
 	  			</a>
 	  			
-	  			<a class="pets" href="#">
+	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
 	  				<div class="image-layout">
 	  					<div class="image">
 		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
@@ -347,7 +347,7 @@
 	  				</div>
 	  			</a>
 	  			
-	  			<a class="pets" href="#">
+	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
 	  				<div class="image-layout">
 	  					<div class="image">
 		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
@@ -362,7 +362,7 @@
 	  				</div>
 	  			</a>
 	  		
-	  			<a class="pets" href="#">
+	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
 	  				<div class="image-layout">
 	  					<div class="image">
 		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">

@@ -29,4 +29,10 @@ public class MyPageController {
 	
 		return ".myPage.orderDetail";
 	}
+    
+    @GetMapping("pet")
+	public String execute3() throws Exception {
+	
+		return ".myPage.pet";
+	}
 }
