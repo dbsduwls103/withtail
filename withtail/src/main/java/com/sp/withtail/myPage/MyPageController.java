@@ -35,4 +35,10 @@ public class MyPageController {
 	
 		return ".myPage.pet";
 	}
+    
+    @GetMapping("profile")
+	public String execute4() throws Exception {
+	
+		return ".myPage.profile";
+	}
 }

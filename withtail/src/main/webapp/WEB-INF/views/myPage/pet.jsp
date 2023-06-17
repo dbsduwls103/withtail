@@ -258,7 +258,7 @@ img {
 						</div>
 					</div>
 					<div>
-						<button class="btn10" type="button">쇼핑하러 가기</button>
+						<button class="btn10" type="button" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
 					</div>
 				</div>
 			</div>

@@ -382,7 +382,7 @@
 	  	</div> 
 	  	
 	  	<div class="setting">
-			<a href="#" class="detailed-information"> 	  	
+			<a href="${pageContext.request.contextPath}/myPage/profile" class="detailed-information"> 	  	
 				<div>
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
