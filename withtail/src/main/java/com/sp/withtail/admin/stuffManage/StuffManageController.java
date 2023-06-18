@@ -16,16 +16,16 @@ public class StuffManageController {
 		return ".admin.stuffManage.list";
 	}
  
-	@GetMapping("write")
-	public String stuffArticle(Model model) {
-		
-		return ".admin.stuffManage.article";
-	}
-	
-	@GetMapping("article")
+	@RequestMapping("write")
 	public String stuffWrite(Model model) {
 		
 		return ".admin.stuffManage.write";
 	}
-
+	
+	@RequestMapping("optionList")
+	public String stuffOptionList(Model model) {
+		
+		return ".admin.stuffManage.optionList";
+	}
+	
 }

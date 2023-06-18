@@ -201,15 +201,7 @@ function searchList() {
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
-				<td align="right" width="150">
-					<div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">글올리기</button>
-				    </div>
-				    
-				    <div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="">삭제</button>
-				    </div>
-				</td>
+				
 			</tr>
 		</table>
 

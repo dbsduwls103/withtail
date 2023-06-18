@@ -15,25 +15,4 @@ public class MemberManageController {
 		
 		return ".admin.memberManage.list";
 	}
-	
-	/*
-	@GetMapping("optionList")
-	public String stuffOptionList(Model model) {
-		
-		return ".admin.stuffManage.optionList";
-	}
- 
-	@GetMapping("write")
-	public String stuffWriteForm(Model model) {
-		
-		return ".admin.stuffManage.write";
-	}
-	
-	@RequestMapping(value = "article")
-	public String stuffArticle(Model model) {
-		
-		return ".admin.stuffManage.article";
-	}
-	*/
-
 }

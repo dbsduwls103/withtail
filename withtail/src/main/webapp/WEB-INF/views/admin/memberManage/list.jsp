@@ -107,6 +107,74 @@ vertical-align: baseline;
 
 </style>
 
+ <style>
+        #modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            background: #f4f4f4;
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid gray;
+            width: 400px;
+            height: 250px;
+            position: relative;
+            left: 10px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+        }
+        
+.modalbtn {
+     margin: 30px auto;
+}     
+
+.modalbtnbox{
+  text-align: center;
+}   
+
+
+.modalinput {
+  padding: 3px;
+}
+
+    </style>
+
 <script type="text/javascript">
 function searchList() {
 	const f = document.searchForm;
@@ -141,6 +209,8 @@ function block() {
             
         })
     </script>
+    
+  
 
 <div class="body-container">
 
@@ -169,10 +239,13 @@ function block() {
 							    <option value=""> 이름 </option>
 							</select>
 						</div>
-						<div style="display: inline-block;">
+						<div style="display: inline-block; width: 200px;" >
 					    	<input type="text" name="key" maxlength="100" class="form-control" value="검색값">
 						</div>
-					</td>
+						<div style="display: inline-block;" >
+						  <button type="button" class="btn">검색</button> 						
+				    </div>
+		            </td>
 				</tr>
 				
 			
@@ -199,6 +272,11 @@ function block() {
 						<button class="btn">지난달</button>
 						<button class="btn">3개월</button>
 						<button class="btn">전체</button>
+					</td>
+					<td>
+					<div>
+						 <button type="button" class="btn">검색</button> 						
+				     </div>
 					</td>
 				</tr>
 			</table>
@@ -251,7 +329,7 @@ function block() {
 						<td>2023-03-15</td>
 						<td>2023-06-18 17:23:34</td>
 						<td>
-							<button class="btn" onclick="block();">정지</button> 
+							<button class="btn" onclick="modalOn();">정지</button> 
 							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
 						</td>
 					</tr>
@@ -268,7 +346,7 @@ function block() {
 						<td>2023-02-14</td>
 						<td>2023-06-10 12:26:30</td>
 						<td>
-							<button class="btn" onclick="block();">정지</button> 
+							<button class="btn" id="btn-modal" onclick="modalOn();" >정지</button> 
 							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
 						</td>
 					</tr>
@@ -360,6 +438,61 @@ function block() {
 				</td>
 			</tr>
 		</table>
+		
+   <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>회원 정지</h2>
+            </div>
+            <div class="close-area">X</div>
+            <form action="" name="blockForm">
+            <div class="content">회원 아이디 : 
+                    <input name="userId" value="shsh0000" class="modalinput">  
+            </div>
+            <div class="content">정지 일자 : 
+                    <input name="regDate" value="2023-06-18" class="modalinput"> 
+            </div>
+            <div class="content">정지 사유 : 
+                        <select  class="modalinput">
+                           <option value="">패스워드 5회이상 실패</option>
+                           <option value="">불법적인 방법으로 로그임</option>
+                           <option value="">불건전 게시물 등록</option>
+                           <option value="">다른 유저 비방</option>
+                           <option value="">타계정 도용</option>
+                           <option value="">기타 약관 위반</option>
+                           <option value="">1년 이상 로그인하지 않음</option>
+                           <option value="">퇴사</option>
+                        </select>
+            </div>
+            <div class="modalbtnbox">
+            <button type="button" class="btn modalbtn">확인</button>
+            </div>
+            </form>
+        </div>
+    </div>
+		
       </div>
 	</div>
 </div>
+
+<script>
+const modal = document.getElementById("modal")
+        
+        function modalOn() {
+            modal.style.display = "flex"
+        }
+        
+        function isModalOn() {
+            return modal.style.display === "flex"
+        }
+        
+        function modalOff() {
+            modal.style.display = "none"
+        }
+        
+        const closeBtn = modal.querySelector(".close-area")
+        closeBtn.addEventListener("click", e => {
+            modalOff();
+        });
+
+</script>  
