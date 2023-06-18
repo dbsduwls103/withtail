@@ -10,6 +10,45 @@
 	max-width: 900px;
 }
 
+.tabmenu{ 
+  margin: 0 auto; 
+  position:relative; 
+}
+.tabmenu ul{
+  position: relative;
+}
+.tabmenu ul li{
+  display:  inline-block;
+  width:200px; 
+  float:left;  
+  text-align:center; 
+  background :#f9f9f9;
+  line-height:40px;
+}
+.tabmenu label{
+  display:block;
+  width:200; 
+  height:40px;
+  line-height:40px;
+}
+.tabmenu input{display:none;}
+.tabCon{
+  display:none; 
+  width: 100%;
+  text-align:left; 
+  padding: 20px;
+  position:absolute; 
+  left:0; top:40px; 
+  box-sizing: border-box; 
+  border : 5px solid #f9f9f9;
+}
+.tabmenu input:checked ~ label{
+  background:#ccc;
+}
+.tabmenu input:checked ~ .tabCon{
+  display:block;
+}
+
 .long {
     margin: 5px auto;
     width: 500px;
@@ -57,6 +96,15 @@ vertical-align: baseline;
     border-radius: 4px;
 }
 
+.tap {
+    border: none;
+    background: #f3f3f3;
+    width: 100px;
+    height: 30px;
+    padding: 6px;
+    display: inline-block
+}
+
 </style>
 
 <script type="text/javascript">
@@ -65,7 +113,34 @@ function searchList() {
 	f.submit();
 }
 
+function block() {
+	if(!confirm('이 회원을 정지 시키겠습니까?')) {
+		return;
+	}
+}
+
 </script>
+
+<script type="text/javascript">
+        window.onload = function() {
+
+            $("#table1").show();
+            $("#table2").hide();
+        }
+        $(document).ready(function() {
+            $("#btn_1").click(function() {
+
+                $("#table1").show();
+                $("#table2").hide();
+            })
+            $("#btn_2").click(function() {
+
+                $("#table1").hide();
+                $("#table2").show();
+            })
+            
+        })
+    </script>
 
 <div class="body-container">
 
@@ -75,12 +150,13 @@ function searchList() {
     </div>
     
     <div class="body-main">
-
-	   <h4><i class="fa-solid fa-magnifying-glass"></i> 회원 검색 </h4>
-	   
-	   
+    
+        <div style="margin-bottom: 10px">
+		<h4 ><i class="fa-solid fa-magnifying-glass"></i> 회원 검색 </h4>
+	    </div>
+	    
 	    <div class="body-main">
-    	
+	    
 		<form name="noticeForm" method="post" >
 			<table class="table table-border border-top2 table-form">
 				<tr> 
@@ -106,8 +182,8 @@ function searchList() {
 						<div style="display: inline-block;">
 							<select name="condition" class="category">
 							    <option value="">  :: 선택 :: </option>
-							    <option value=""> 아이디 </option>
-							    <option value=""> 이름 </option>
+							    <option value=""> 가입기간 </option>
+							    <option value=""> 정지기간 </option>
 							</select>
 						</div>
 						<div style="display: inline-block; text-align: center; width: 20%">
@@ -128,98 +204,130 @@ function searchList() {
 			</table>
 	   </form>
 	   
-	   
-	   
-	   <!-- 
-		<table class="table">
+      <table class="table" style="margin-top: 50px;">
 			<tr>
-				<td align="left" width="50%">
-					<select name="대분류카테고리" >
-					    <option> 강아지 </option>
-					    <option> 고양이 </option>
-					</select>
-					
-					    <option> 주식 </option>
-					    <option> 간식 </option>
-					    <option> 패션 </option>
-					    <option> 산책 · 외출 </option>
-					    <option> 건강보조제 </option>
-					    <option> 홈 · 리빙 </option>
-					    <option> 장난감 </option>
-					    <option> 목욕 · 위생 </option>
-					</select>
-					
-					<select name="소분류 카테고리" >
-					    <option> 키블사료 </option>
-					    <option> 습식사료 </option>
-					    <option> 동결건조 </option>
-					    <option> 화식 · 자연식 · 화식 </option>
-					</select>
-				</td>
-				<td align="right" width="30%">
+			  <td>
+			    <div>
+				   <h4><i class="fa-solid fa-user-check"></i> 회원 목록 </h4>
+		        </div>
+              </td>
+		      <td align="right" width="50%">
 					1개(1/1 페이지)
-				</td>
+			  </td>
 			</tr>
 		</table>
-		-->
 		
 		
-		<table class="table table-border table-list" style="margin-top: 100px;">
-			<thead>
+    <div class="tabmenu out-tabmenu">
+        <button type="button" id="btn_1" class="tap">정상 회원</button>
+        <button type="button" id="btn_2" class="tap">정지 회원</button>
+    </div>
+    <div style="clear:both;"></div>
+    <div >
+        <div id="table1" width="100%">
+           <table class="table table-border table-list" style="margin-top: 10px;">
+	  		<thead>
 				<tr>
 					<th class="wx-50"><input type="checkbox"></th>
-					<th class="wx-80">상품 코드</th>
-					<th class="wx-130">상품 사진</th>
-					<th class="wx-150">상품명</th>
-					<th class="wx-100">가격</th>
-					<th class="wx-80">할인율</th>
-					<!-- 옵션 상관없는 전체 재고 -->
-					<th class="wx-80">재고</th>
-					<th class="wx-80">진열</th>
-					<th class="wx-100">수정일</th>
-					<th class="wx-80">변경</th>
+					<th class="wx-80">회원 코드</th>
+					<th class="wx-100">회원 아이디</th>
+					<th class="wx-100">회원 이름</th>
+					<th class="wx-80">상태</th>
+					<th class="wx-130">가입 날짜</th>
+					<th class="wx-200">마지막 로그인</th>
+					<th class="wx-200">관리</th>
 				</tr>
 			</thead>
 			
 		 	<tbody>
-					<tr> 
+					<tr>
 						<td class="product-remove"><input type="checkbox"></td>
-						<td>3</td>
-                        <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png); background-size:cover;"></div></td>
+						<td>1</td>
 						<td class="left">
-						    <!-- 제품 상세 페이지로 이동 -->
-							<a href="#">포포 닭가슴살</a>
+							<a href="#">popo1111</a>
 						</td>
-						<td>10,000</td>
-						<td>5%</td>
-						<td>13</td>
-						<td>진열</td>
-						<td>2023-06-24</td>
+						<td>최포포</td>
+						<td>정상</td>
+						<td>2023-03-15</td>
+						<td>2023-06-18 17:23:34</td>
 						<td>
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/optionList';">재고</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">수정</button> 
+							<button class="btn" onclick="block();">정지</button> 
+							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
 						</td>
 					</tr>
 		  	</tbody>
-		  	
-		  	
-		   <!--  위에 지우고 사용해주세용
 		 	<tbody>
-				<c:forEach var="dto" items="${list}">
-					<tr> 
-						<td>${dto.category}</td>
+					<tr>
+						<td class="product-remove"><input type="checkbox"></td>
+						<td>2</td>
 						<td class="left">
-							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+							<a href="#">popo2222</a>
 						</td>
-						<td>${dto.userName}</td>
-						<td>${dto.reg_date}</td>
-						<td>${(empty dto.answer_date)?"답변대기":"답변완료"}</td>
+						<td>강포포</td>
+						<td>정상</td>
+						<td>2023-02-14</td>
+						<td>2023-06-10 12:26:30</td>
+						<td>
+							<button class="btn" onclick="block();">정지</button> 
+							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
+						</td>
 					</tr>
-				</c:forEach>
-		  	</tbody>			
-		   -->
+		  	</tbody>
+            </table>
+
+        </div>
+
+        <div id="table2" width="100%">
+            <table class="table table-border table-list" style="margin-top: 10px;">
+	  		<thead>
+				<tr>
+					<th class="wx-50"><input type="checkbox"></th>
+					<th class="wx-80">회원 코드</th>
+					<th class="wx-100">회원 아이디</th>
+					<th class="wx-100">회원 이름</th>
+					<th class="wx-80">상태</th>
+					<th class="wx-130">가입 날짜</th>
+					<th class="wx-200">정지 날짜</th>
+					<th class="wx-200">관리</th>
+				</tr>
+			</thead>
 			
-		</table>
+		 	<tbody>
+					<tr>
+						<td class="product-remove"><input type="checkbox"></td>
+						<td>1</td>
+						<td class="left">
+							<a href="#">shsh0000</a>
+						</td>
+						<td>김성훈</td>
+						<td>정지</td>
+						<td>2023-01-23</td>
+						<td>2023-06-15</td>
+						<td>
+							<button class="btn" onclick="block();">정지 해제</button> 
+						</td>
+					</tr>
+		  	</tbody>
+		 	<tbody>
+					<tr>
+						<td class="product-remove"><input type="checkbox"></td>
+						<td>1</td>
+						<td class="left">
+							<a href="#">msms1111</a>
+						</td>
+						<td>이민석</td>
+						<td>정지</td>
+						<td>2023-02-14</td>
+						<td>2023-03-24</td>
+						<td>
+							<button class="btn" onclick="block();">정지 해제</button> 
+						</td>
+					</tr>
+		  	</tbody>
+            </table>
+        </div>
+
+		</div>
 		 
 		<div class="page-navigation">
 			1 2 3 
@@ -233,12 +341,9 @@ function searchList() {
 				<td align="center">
 					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
 						<select name="condition" class="form-select">
-							<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
 							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
-							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
-							<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
-							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+							<option value="userName" ${condition=="userName"?"selected='selected'":""}>이름</option>
+							<option value="regDate" ${condition=="regDate"?"selected='selected'":""}>가입날짜</option>
 						</select>
 						<input type="text" name="keyword" value="${keyword}" class="form-control">
 						<button type="button" class="btn" onclick="searchList()">검색</button>

@@ -110,7 +110,7 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">회원 목록</a>
+					<a href="<c:url value='/admin/memberManage/list'/>" class="sub_menu--link">회원 목록</a>
 				</li>
 				<li class="sub_menu--item">
 					<a href="<c:url value=''/>" class="sub_menu--link">정지된 회원 목록</a>

@@ -38,6 +38,20 @@ vertical-align: baseline;
     border-radius: 4px;
 }
 
+.stuck_input {
+    width: 50px;
+    text-align: center;
+    border-radius: 50px;
+    padding: 15px;
+    margin: 10px auto;
+}
+
+.updatebtn {
+    margin: 30px;
+    width:30px;
+    height: 30px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -96,13 +110,12 @@ function searchList() {
 					<th class="wx-80">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
+					<th class="wx-100">상위 옵션</th>
+					<th class="wx-100">하위 옵션</th>
 					<th class="wx-100">가격</th>
-					<th class="wx-80">할인율</th>
-					<!-- 옵션 상관없는 전체 재고 -->
 					<th class="wx-80">재고</th>
-					<th class="wx-80">진열</th>
 					<th class="wx-100">수정일</th>
-					<th class="wx-80">변경</th>
+					<th class="wx-100">확인</th>
 				</tr>
 			</thead>
 			
@@ -115,14 +128,33 @@ function searchList() {
 						    <!-- 제품 상세 페이지로 이동 -->
 							<a href="#">포포 닭가슴살</a>
 						</td>
-						<td>10,000</td>
-						<td>5%</td>
-						<td>13</td>
-						<td>진열</td>
+						<td>간식</td>
+						<td>육포/져키</td>
+						<td>10000</td>
+						 <td class="quantity">
+                          <div style="display: flex; justify-content: space-between; align-items: center">
+                          
+                            <span >
+                              <button type="button" data-type="plus" class="updatebtn">
+                               <i class="fa-sharp fa-solid fa-plus"></i>
+                              </button>
+                            </span >
+                            
+                            <span>
+                              <input type="text" id="quantity" name="stock" class="form-control stuck_input" value="13" min="1" max="100">
+                            </span>
+                            
+                            <span>
+                              <button type="button" data-type="minus" class="updatebtn">
+                                <i class="fa-solid fa-minus"></i>
+                              </button>
+                            </span>
+                            
+                          </div>
+                        </td>
 						<td>2023-06-24</td>
 						<td>
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/optionList';">재고</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">수정</button> 
+							<button class="btn" style="pause: 3px;" onclick="">변경</button> 
 						</td>
 					</tr>
 		  	</tbody>
