@@ -114,7 +114,7 @@ vertical-align: baseline;
             position: absolute;
             left: 0;
             top: 0;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -478,21 +478,17 @@ function block() {
 <script>
 const modal = document.getElementById("modal")
         
-        function modalOn() {
-            modal.style.display = "flex"
-        }
+function modalOn() {
+      modal.style.display = "flex"
+}
         
-        function isModalOn() {
-            return modal.style.display === "flex"
-        }
+function modalOff() {
+       modal.style.display = "none"
+}
         
-        function modalOff() {
-            modal.style.display = "none"
-        }
-        
-        const closeBtn = modal.querySelector(".close-area")
-        closeBtn.addEventListener("click", e => {
-            modalOff();
-        });
+const closeBtn = modal.querySelector(".close-area")
+closeBtn.addEventListener("click", e => {
+    modalOff();
+});
 
 </script>  
