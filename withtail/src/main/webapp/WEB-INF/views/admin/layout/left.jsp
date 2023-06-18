@@ -191,7 +191,7 @@ $(function(){
 	
 	<button id="collapse_menu" class="collapse_menu">
 		<i class="collapse_menu--icon fa fa-fw"></i>
-		<span class="menu--label">Recolher menu</span>
+		<span class="menu--label">닫기</span>
 	</button>
 
 </nav>
