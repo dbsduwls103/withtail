@@ -71,7 +71,9 @@ vertical-align: baseline;
   margin-top: 0;
 }
 
-
+th:first-child, td:first-child{width: 10%;}
+th:nth-child(4), td:nth-child(4){width: 4%;}
+th:nth-child(5), td:nth-child(5){width: 10%;}
 
 
 </style>
@@ -159,6 +161,11 @@ function openTab(evt, tabName) {
 					<button class="btn">지난달</button>
 					<button class="btn">3개월</button>
 					<button class="btn">전체</button>
+				</td>
+				<td>
+					<div>
+						 <button type="button" class="btn">검색</button> 						
+				     </div>
 				</td>
 			</tr>
 		</table>
@@ -262,11 +269,11 @@ function openTab(evt, tabName) {
 					<th >회원 아이디</th>
 					<th >상품명</th>
 					<th >수량 </th>
-					<th >결제 금액</th>
+					<th >결제금액</th>
 					<th >주문일</th>
-					<th >환불 상태</th>
-					<th >환불 상태 선택</th>
-					<th >환불 처리 일자</th>
+					<th >환불상태</th>
+					<th >환불상태 선택</th>
+					<th >환불처리 일자</th>
 				</tr>
 			</thead>
 			
@@ -308,7 +315,7 @@ function openTab(evt, tabName) {
 								<option>환불처리완료</option>
 							</select> 
 						</td>
-						<td> 2023-03-13 </td>
+						<td> -- </td>
 					</tr>
 		  	</tbody>
         
