@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-  <style>
+<style type="text/css">
 
 .favorite {
     align-items: flex-start;
@@ -61,7 +61,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px 16px;
-    border-top: solid 2px black; 
+    border-top: solid 2px #e9e9e9; 
 }
 
 .favorite-list:first-child{
@@ -245,7 +245,7 @@ hr.vertical-line {
   </style>
 
  	 <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
+		<h2><i class="fa-solid fa-pen"></i></i> 리뷰 관리 </h2>
     </div>
  	
  	<div class="favorite-section">

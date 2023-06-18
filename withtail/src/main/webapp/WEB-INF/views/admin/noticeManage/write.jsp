@@ -51,7 +51,7 @@
 
 <div class="body-container">
     <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 공지사항 </h2>
+		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
     
     <div class="body-main">

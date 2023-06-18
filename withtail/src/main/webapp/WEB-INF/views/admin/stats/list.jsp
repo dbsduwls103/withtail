@@ -86,6 +86,7 @@
   align-items: center;
   margin-right: 0px;
   padding-top: 15px;
+  color: #575757;
 	
 }
 
@@ -160,47 +161,62 @@ text-align: left;
 
 }
 
+table {
+  width: 1080px; 
+  height : 100px;
+  border-collapse: collapse;
+  font-weight: bold;
+  color: #575757;
+}
+
+td {
+  text-align: center; border: 4px solid #eaeaea; width: 16%
+}
+
+tr:nth-child(1) {
+  height: 60%;
+}
+
+tr:nth-child(2) {
+  height: 40%;
+  color: #115dc2;
+}
+
 
 </style>
+
 
 
 
 <div>
 
 <div class="body-title">
-<h2><i class="fas fa-clipboard-list"></i> 통계 </h2>
+<h2><i class="fa-solid fa-chart-simple"></i> 통계 </h2>
 </div>
 
-<div class="container">
-  <div class="box">
-  	<div class="boxprice">30,000 원</div>
-  	<div class="smallBox">
-	  	<div class="left">오늘</div>
-	  	<div class="right">12건</div>
-  	</div>
-  </div>
-  <div class="box">
-  	<div class="boxprice color1">450,000 원</div>
-  	<div class="smallBox">
-	  	<div class="left">이번주</div>
-	  	<div class="right color1">46건</div>
-  	</div>
-  </div>
-  <div class="box">
-  	<div class="boxprice color2">230,000 원</div>
-  	<div class="smallBox">
-	  	<div class="left">이번달</div>
-	  	<div class="right color2">212건</div>
-  	</div>
-  </div>
-  <div class="box">
-  	<div class="boxprice color3">17,060,100 원</div>
-  	<div class="smallBox">
-	  	<div class="left">올해</div>
-	  	<div class="right color3">1540건</div>
-  	</div>
-  </div>
-</div>
+
+
+<table>
+  <tr>
+    <td>신규 회원 수<span style="color: #a4a4a4;">(오늘)</span></td>
+    <td>누적 회원 수</td>
+    <td>현재 접속 수</td>
+    <td>오늘 방문자 수</td>
+    <td>월별 방문자 수</td>
+    <td>연도별 방문자 수</td>
+  </tr>
+  <tr>
+    <td>0명</td>
+    <td>0명</td>
+    <td>0명</td>
+    <td>0명</td>
+    <td>0명</td>
+    <td>0명</td>
+  </tr>
+</table>
+
+
+
 
 <br><br>
 
