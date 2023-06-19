@@ -27,10 +27,97 @@
 .overlay-info .link:hover { color: #5085BB; }
 </style>
 
-<div id="map" class="map"></div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	a84a8c9ffa738292336ba7066a947a45&libraries=services"></script>
+ <div class="course_all" style="z-index: 100">
+        <div class="course_all_top">
+            <h3>
+                댕댕여지도 검색
+            </h3>
+            <label for="search" class="blind">검색</label>
+            <input id="search" name="searchMap" type="text" placeholder="주소 또는 명칭으로 검색하실 수있습니다." />
+
+            <ul class="search_list clearfix">
+                <li class="tourism">
+                    <a href="/pet/tour/spot">
+                        <span>관광</span>
+                    </a>
+                </li>
+                <li class="lodgment">
+                    <a href="/pet/tour/sleep">
+                        <span>숙박</span>
+                    </a>
+                </li>
+                <li class="beverage">
+                    <a href="/pet/tour/drink">
+                        <span>식음료</span>
+                    </a>
+                </li>
+                <li class="experience">
+                    <a href="/pet/tour/experience">
+                        <span>체험</span>
+                    </a>
+                </li>
+                <li class="animal_hospital">
+                    <a href="/pet/tour/hospital">
+                        <span>동물병원</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- //search_list -->
+        </div>
+        <!-- //course_all_top -->
+
+        <div class="course_all_box choose-filed">
+            <strong>주변 탐색</strong>
+            <ul>
+                <li>
+                    <input type="checkbox" id="tourist_destination" name="partCode" value="PC03" checked>
+                    <label for="tourist_destination">관광지</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="lodgment" name="partCode" value="PC02" checked>
+                    <label for="lodgment">숙박</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="beverage" name="partCode" value="PC01" checked>
+                    <label for="beverage">식음료</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="experience" name="partCode" value="PC04" checked>
+                    <label for="experience">체험</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="animal_hospital" name="partCode" value="PC05" checked>
+                    <label for="animal_hospital">동물병원</label>
+                </li>
+            </ul>
+        </div>
+        <!-- //course_all_box -->
+
+        <div class="btn3">
+            <button class="btn3_3 btn-tour-course"><span>나만의 여행 코스 짜기</span></button>
+        </div>
+
+        <div class="btn_box01">
+            <button class="btn_open"><span class="blind">댕댕여지도 검색 열기</span></button>
+            <button class="btn_close"><span class="blind">댕댕여지도 검색 닫기</span></button>
+        </div>
+        <!-- //btn3 -->
+
+    </div>
+    <!-- //course_all -->
+
+<div style="min-height: 700px;">
+<div id="map" class="map"></div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a84a8c9ffa738292336ba7066a947a45&libraries=clusterer"></script>
 <script type="text/javascript">
+//a84a8c9ffa738292336ba7066a947a45
 function ajaxFun(url, method, query, dataType, fn) {
 	$.ajax({
 		type:method,
@@ -55,174 +142,34 @@ function ajaxFun(url, method, query, dataType, fn) {
 }
 </script>
 
-
-<script type="text/javascript">
-	var mapContainer = document.getElementById('map');
-	var locPosition = new kakao.maps.LatLng(37.557714093880406, 126.92450981105797);
-	var mapOption = {
-		center: locPosition,  // 지도의 중심좌표 : 위도(latitude), 경도(longitude)
-		level: 3  // 지도의 레벨(확대, 축소 정도)
-	};
-	
-	// 지도를 생성
-	var map = new kakao.maps.Map(mapContainer, mapOption);
-	
-	// Chrome 브라우저는 https 환경에서만 geolocation을 지원할 수 있음
-	// IP 기반 위도, 경도 받아오기
-	if (navigator.geolocation) {
-		// GeoLocation을 이용해서 접속 위치를 얻어 오기
-	    navigator.geolocation.getCurrentPosition(function(position) {
-	        
-	        var lat = position.coords.latitude, // 위도
-	            lon = position.coords.longitude; // 경도
-	        
-	        locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-	        
-	        // 지도의 중심을 현재 위치 정보로 변경
-	        map.setCenter(locPosition);
-	    });
-	}
-
-	// 주소 - 좌표 변환 객체를 생성
-	var geocoder = new kakao.maps.services.Geocoder();
-
-	// 좌표로 주소 알아내기
-	searchDetailAddrFromCoords(locPosition, function(result, status) {
-        var detailAddr = !!result[0].road_address ? '도로명주소 : ' + result[0].road_address.address_name + ', ' : '';
-        detailAddr += '지번 주소 : ' + result[0].address.address_name;
-
-		console.log(detailAddr);
-	});
-
-	// AJAX - 마커를 출력할 위도/경도 및 제목을 불러오기
-	var url = "${pageContext.request.contextPath}/maps/regions";
-	var query = null;
-	var fn = function(data) {
-		createMarker(data);
-	}
-	ajaxFun(url, "get", query, "json", fn);
-
-	var overlayArray = [];
-	function createMarker(data) {
-		var cnt = -1;
-		overlayArray.length = 0;
-		
-		$(data.list).each(function(index, item){
-			var num = item.num;
-			var subject = item.subject;
-			var addr = item.addr;
-			var img = item.imageFilename;
-			
-			// 주소로 마커 찍기
-			geocoder.addressSearch(addr, function(result, status) {
-
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-			        // 결과값으로 받은 위치를 마커로 표시
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-
-			        // 인포 윈도우로 장소에 대한 설명을 표시
-			        var infowindow = new kakao.maps.InfoWindow({
-			        	content:"<div class='marker-info'>"+subject+"</div>"
-			        });
-
-				    // 클릭할 때 마커에 표시할 커스텀오버레이를 생성
-				    var imgSrc = "${pageContext.request.contextPath}/resources/images/noimage.png";
-				    if( img ) {
-				    	imgSrc = "${pageContext.request.contextPath}/resources/images/"+img;
-				    }
-				    cnt++;
-				    var content = 
-				    	  "<div class='overlaybox'>"
-				    	+ "    <div class='overlay-info'>"
-				    	+ "        <div class='overlay-title'>"
-				    	+              subject
-				    	+ "            <div class='close' title='닫기' onclick='closeOverlay("+cnt+")'></div>"
-				    	+ "        </div>"
-				    	+ "        <div class='overlay-body'>"
-				    	+ "            <div class='img'><img src='"+imgSrc+"' width='73' height='70'></div>"
-				    	+ "            <div class='desc'>"
-				    	+ "                <div class='ellipsis'>"+addr+"</div>"
-				    	+ "                <div class='link' data-num='"+num+"'>자세히 보기</div>"
-				    	+ "            </div>"
-				    	+ "         </div>"
-				    	+ "    </div>"
-				    	+ "</div>";
-			        
-			    	var overlay = new kakao.maps.CustomOverlay({
-						content: content,
-						map: map,
-						position: coords
-					});
-			    	overlay.setMap(null);
-			    	overlayArray.push(overlay);
-				    	
-				    // 마커에 click 이벤트를 등록
-				    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
-
-				    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-				    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));			        
-			    } 
-			});
-		});
-		
-		// click시 오버레이 표시
-		function makeClickListener(map, marker, overlay) {
-		    return function() {
-		    	closeAllOverlay();
-				
-				overlay.setMap(map);
-		    };
-		}
-		
-		// 모든 overlay 닫기
-		function closeAllOverlay() {
-		    for(var idx = 0; idx < overlayArray.length; idx++){
-		    	overlayArray[idx].setMap(null);
-		    }
-		}
-		
-		// 인포윈도우를 표시하는 클로저를 만드는 함수
-		function makeOverListener(map, marker, infowindow) {
-		    return function() {
-		        infowindow.open(map, marker);
-		    };
-		}
-
-		// 인포윈도우를 닫는 클로저를 만드는 함수
-		function makeOutListener(infowindow) {
-		    return function() {
-		        infowindow.close();
-		    };
-		}
-		
-	}
-	
-    // 좌표로 법정동 상세 주소 정보를 요청
-	function searchDetailAddrFromCoords(coords, callback) {
-		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-	}
+<script>
+    var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
+        center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표 
+        level : 14 // 지도의 확대 레벨 
+    });
     
-	$("body").on("click", ".overlay-body .link", function(){
-		var num = $(this).attr("data-num");
-		alert(num);
-	});
-	
-	function closeOverlay(idx) {
-		try {
-			overlayArray[idx].setMap(null);
-		} catch (e) {
-		}
-	}
+    // 마커 클러스터러를 생성합니다 
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+    });
+ 
+    // 데이터를 가져오기 위해 jQuery를 사용합니다
+    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+    $.get("/download/web/data/chicken.json", function(data) {
+        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+        var markers = $(data.positions).map(function(i, position) {
+            return new kakao.maps.Marker({
+                position : new kakao.maps.LatLng(position.lat, position.lng)
+            });
+        });
 
+        // 클러스터러에 마커들을 추가합니다
+        clusterer.addMarkers(markers);
+    });
 </script>
-
 
 
 
