@@ -13,5 +13,11 @@ public class TailPathController {
 		return ".tailPath.main";
 	}
 	
+	@RequestMapping(value = "article")
+	public String article() throws Exception{
+		
+		return ".tailPath.article";
+	}
+	
 
 }
