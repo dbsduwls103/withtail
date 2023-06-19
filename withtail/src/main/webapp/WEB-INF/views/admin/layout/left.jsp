@@ -138,7 +138,7 @@ $(function(){
 					<a href="<c:url value='/admin/inquiryManage/list'/>" class="sub_menu--link">1:1문의</a>
 				</li>
 				<li class="sub_menu--item">
-					<a href="<c:url value='/admin/faqManage/list'/>" class="sub_menu--link">FAQ</a>
+					<a href="<c:url value='/admin/faqManage/main'/>" class="sub_menu--link">FAQ</a>
 				</li>
 			</ul>
 		</li>
