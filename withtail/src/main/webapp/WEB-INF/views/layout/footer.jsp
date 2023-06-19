@@ -313,13 +313,7 @@
 			</div>
 			<div class="help-layout">
 				<div class="inquery link-hover">
-					<!--!-->
 					<p class="text">제휴 및 입점문의 &gt;</p>
-				</div>
-				<!--!-->
-				<div class="inquery link-hover">
-					<!--!-->
-					<p class="text">채팅 상담 &gt;</p>
 				</div>
 			</div>
 		</div>
