@@ -43,7 +43,7 @@
 				<tr> 
 					<td>시설명</td>
 					<td> 
-						<input type="text" name="placeName" maxlength="100" class="form-control" value="제목">
+						<input type="text" name="placeName" maxlength="100" class="form-control" value="">
 					</td>
 				</tr>
 				<tr> 
@@ -68,8 +68,8 @@
   				<tr>
 			        <td>우편번호</td>
 					<td>
-			           	<input type="text" name="zip" id="zip" class="form-control" placeholder="우편번호" value="${dto.zip}" readonly="readonly">
-		           		<button class="btn btn-light" type="button" style="margin-left: 3px;" onclick="daumPostcode();">우편번호 검색</button>
+			           	<input type="text" name="zip" id="zip" class="form-control" placeholder="우편번호" value="${dto.zip}" readonly="readonly" style="width:80%; display:inline-block;">
+		           		<button class="btn btn-light" type="button" style="margin-left: 3px;" onclick="daumPostcode();" style="width:20%" >우편번호 검색</button>
 					</td>
 			 	 </tr>
 			 	 <tr>
@@ -93,11 +93,11 @@
 					<td>전화번호</td>
 					<td>
 						<div class="col-sm-3 pe-1">
-							<input type="text" name="tel1" id="tel1" class="form-control" value="${dto.tel1}" maxlength="3" style="width:30%; display:inline-block">
+							<input type="text" name="tel1" id="tel1" class="form-control" value="${dto.tel1}" maxlength="3" style="width:31%; display:inline-block;">
 							-
-							<input type="text" name="tel2" id="tel2" class="form-control" value="${dto.tel2}" maxlength="4" style="width:30%; display:inline-block">
+							<input type="text" name="tel2" id="tel2" class="form-control" value="${dto.tel2}" maxlength="4" style="width:31%; display:inline-block;">
 							-
-							<input type="text" name="tel3" id="tel3" class="form-control" value="${dto.tel3}" maxlength="4" style="width:30%; display:inline-block">
+							<input type="text" name="tel3" id="tel3" class="form-control" value="${dto.tel3}" maxlength="4" style="width:31%; display:inline-block;">
 						</div>
 					</td>
 				</tr>

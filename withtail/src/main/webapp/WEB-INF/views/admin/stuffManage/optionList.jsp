@@ -107,7 +107,7 @@ function searchList() {
 			<thead>
 				<tr>
 					<th class="wx-50"><input type="checkbox"></th>
-					<th class="wx-80">상품 코드</th>
+					<th class="wx-100">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
 					<th class="wx-100">상위 옵션</th>

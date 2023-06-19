@@ -259,11 +259,11 @@ function block() {
 	    
 	    <div class="body-main">
 	    
-		<form name="noticeForm" method="post" >
 			<table class="table table-border border-top2 table-form">
 				<tr> 
 					<td>검색어</td>
 					<td> 
+					<form name="memberForm1" method="post">
 						<div style="display: inline-block;">
 							<select name="condition" class="category">
 							    <option value="">  :: 선택 :: </option>
@@ -276,7 +276,8 @@ function block() {
 						</div>
 						<div style="display: inline-block;" >
 						  <button type="button" class="btn">검색</button> 						
-				    </div>
+				       </div>
+				    </form>
 		            </td>
 				</tr>
 				
@@ -284,7 +285,8 @@ function block() {
 				<tr> 
 					<td>기간 </td>
 					<td> 
-						<div style="display: inline-block;">
+					<form name="memberForm2" method="post">
+					   <div style="display: inline-block;">
 							<select name="condition" class="category">
 							    <option value="">  :: 선택 :: </option>
 							    <option value=""> 가입기간 </option>
@@ -298,21 +300,21 @@ function block() {
 						<div style="display: inline-block; text-align: center; width: 20%">
 					    	<input type="date" name="end" maxlength="100" class="form-control" value="끝날짜">
 						</div>
+						<div style="display: inline-block;">
 						<button class="btn">어제</button>
 						<button class="btn">오늘</button>
 						<button class="btn">일주일</button>
 						<button class="btn">지난달</button>
 						<button class="btn">3개월</button>
 						<button class="btn">전체</button>
-					</td>
-					<td>
-					<div>
-						 <button type="button" class="btn">검색</button> 						
-				     </div>
-					</td>
+						</div>
+						<div style="display: inline-block; margin-left: 10px;">
+							 <button type="button" class="btn">검색</button> 						
+					     </div>
+					</form>
+				    </td>
 				</tr>
 			</table>
-	   </form>
 	   
       <table class="table" style="margin-top: 50px;">
 			<tr>

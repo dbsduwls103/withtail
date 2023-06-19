@@ -305,9 +305,12 @@ $(function(){
 					<td>카테고리</td>
 					<td > 
 						<select name="categoryNum" class="form-select">
-							<c:forEach var="vo" items="${listCategory}">
+						<option value="">1</option>
+						<option value="">2</option>
+						<option value="">3</option>
+							<!--<c:forEach var="vo" items="${listCategory}">
 								<option value="${vo.categoryNum}" ${dto.categoryNum==vo.categoryNum?"selected='selected'":""}>${vo.category}</option>
-							</c:forEach>
+							</c:forEach>-->
 						</select>
 						<button type="button" class="btn btnCategoryDialog"> 변경 </button>
 					</td>
