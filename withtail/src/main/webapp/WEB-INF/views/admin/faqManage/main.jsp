@@ -139,7 +139,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 				login();
 				return false;
 			} else if(jqXHR.status === 400) {
-				alert("요청 처리가 실패했습니다.");
+				//alert("요청 처리가 실패했습니다.");
 				return false;
 			}
 	    	
@@ -149,22 +149,25 @@ function ajaxFun(url, method, query, dataType, fn) {
 }
 
 // 글리스트 및 페이징 처리
+
+
 function listPage(page) {
 	const $tab = $(".tabs .active");
 	let categoryNum = $tab.attr("data-categoryNum");
 	
-	let url = "${pageContext.request.contextPath}/admin/faqManage/list";
-	let query = "pageNo="+page+"&categoryNum="+categoryNum;
-	let search = $('form[name=faqSearchForm]').serialize();
-	query = query+"&"+search;
+	//let url = "${pageContext.request.contextPath}/admin/faqManage/list";
+	//let query = "pageNo="+page+"&categoryNum="+categoryNum;
+	//let search = $('form[name=faqSearchForm]').serialize();
+	//query = query+"&"+search;
 	
 	let selector = "#tab-content";
 	
-	const fn = function(data){
-		$(selector).html(data);
-	};
-	ajaxFun(url, "get", query, "html", fn);
+	//const fn = function(data){
+		//$(selector).html(data);
+	//};
+	//ajaxFun(url, "get", query, "html", fn);
 }
+
 
 // 검색
 function searchList() {
@@ -211,12 +214,15 @@ function deleteFaq(num, page) {
 		<div>
 			<ul class="tabs">
 				<li id="tab-0" data-categoryNum="0">모두</li>
+				<li id="tab-1" data-categoryNum="1">1</li>
+				<li id="tab-2" data-categoryNum="2">2</li>
+				<li id="tab-3" data-categoryNum="3">3</li>
 				<c:forEach var="dto" items="${listCategory}">
 					<li id="tab-${dto.categoryNum}" data-categoryNum="${dto.categoryNum}">${dto.category}</li>
 				</c:forEach>
 			</ul>
 		</div>
-		<div id="tab-content" style="padding: 15px 10px 5px; clear: both;"></div>
+		<div id="tab-content" style="padding: 15px 10px 5px; clear: both;"><a href="${pageContext.request.contextPath}/admin/faqManage/write">1번 faq</a></div>
 		
 		<table class="table">
 			<tr>
