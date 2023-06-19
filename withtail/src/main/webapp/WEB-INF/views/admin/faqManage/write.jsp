@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
@@ -305,12 +305,9 @@ $(function(){
 					<td>카테고리</td>
 					<td > 
 						<select name="categoryNum" class="form-select">
-						<option value="">1</option>
-						<option value="">2</option>
-						<option value="">3</option>
-							<!--<c:forEach var="vo" items="${listCategory}">
+							<c:forEach var="vo" items="${listCategory}">
 								<option value="${vo.categoryNum}" ${dto.categoryNum==vo.categoryNum?"selected='selected'":""}>${vo.category}</option>
-							</c:forEach>-->
+							</c:forEach>
 						</select>
 						<button type="button" class="btn btnCategoryDialog"> 변경 </button>
 					</td>

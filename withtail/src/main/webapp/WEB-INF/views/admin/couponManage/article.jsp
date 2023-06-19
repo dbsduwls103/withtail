@@ -69,23 +69,6 @@
 					</td>
 				</tr>
 				
-				<tr>
-					<td colspan="2">
-						이전쿠폰 :
-						<c:if test="${not empty preReadDto}">
-							<a href="${pageContext.request.contextPath}/admin/couponManage/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
-						</c:if>
-					</td>
-				</tr>
-				
-				<tr>
-					<td colspan="2">
-						다음쿠폰 :
-						<c:if test="${not empty nextReadDto}">
-							<a href="${pageContext.request.contextPath}/admin/couponManage/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
-						</c:if>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 			
