@@ -49,14 +49,19 @@
 					<td width="50%" align="left">
 						할인율 : 10%
 					</td>
-					<td width="50%" align="right">
-						2000-01-01 ~ 2000-01-31
+				</tr>
+
+				<tr>
+					<td width="50%" align="left">
+						시작일 : 2000-01-01
+					</td>
+				</tr>
+				<tr>
+					<td width="50%" align="left">
+						종료일 : 2000-01-31
 					</td>
 				</tr>
 				
-				<tr>
-
-				</tr>
 				<tr>
 					<td colspan="2">
 						이전쿠폰 :
