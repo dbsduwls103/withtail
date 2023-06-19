@@ -53,6 +53,13 @@
 
 				<tr>
 					<td width="50%" align="left">
+						최소 주문 금액 : 30000
+					</td>
+				</tr>
+
+
+				<tr>
+					<td width="50%" align="left">
 						시작일 : 2000-01-01
 					</td>
 				</tr>

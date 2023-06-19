@@ -87,6 +87,16 @@
 				</tr>
 				<tr>
 
+
+				<tr>
+					<td class="form-control-plaintext">최소 주문 금액</td>
+					<td>
+						<input type="date" >
+					</td>
+				</tr>
+				<tr>
+
+
 				</tr>
 	            <tr>
 	            	<td class="form-control-plaintext">구분</td>
