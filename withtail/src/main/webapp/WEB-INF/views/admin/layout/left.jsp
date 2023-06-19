@@ -115,9 +115,6 @@ $(function(){
 				<li class="sub_menu--item">
 					<a href="<c:url value='/admin/memberManage/list'/>" class="sub_menu--link">회원 목록</a>
 				</li>
-				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">정지된 회원 목록</a>
-				</li>
 			</ul>
 		</li>
 	
@@ -174,12 +171,6 @@ $(function(){
 			</a>
 		</li>
 		
-		<li class="menu--item">
-			<a href="<c:url value='/admin/stats/list'/>" class="menu--link" title="통계">
-				<i class="menu--icon  fa-solid fa-chart-pie" style="padding-left: 12px;"></i>
-				<span class="menu--label">통계</span>
-			</a>
-		</li>
 
 		<li class="menu--item">
 			<a href="#" class="menu--link" title="Logout">
