@@ -230,7 +230,7 @@
 				</tr>
 				
 				<tr>
-					<td class="table-light col-sm-2" scope="row">대표 이미지</td>
+					<td class="table-light col-sm-2" scope="row">상세 이미지</td>
 					<td>
 						<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
 						<input type="file" name="selectFile" accept="image/*" multiple="multiple" style="display: none;" class="form-control">
