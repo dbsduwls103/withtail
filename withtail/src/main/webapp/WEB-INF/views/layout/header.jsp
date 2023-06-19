@@ -282,7 +282,7 @@
 					<ul class="main2">
 						<li><a href="${pageContext.request.contextPath}/inquiry/list">1:1문의</a></li>
 						<li><a href="${pageContext.request.contextPath}/faq/list">FAQ</a></li>
-						<li><a href="#">공지사항</a></li>
+						<li><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
 					</ul>
 				</li>
 					
