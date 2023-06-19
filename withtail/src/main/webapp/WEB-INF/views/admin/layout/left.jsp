@@ -163,14 +163,6 @@ $(function(){
 			</ul>
 		</li>
 		
-		
-		<li class="menu--item">
-			<a href="#" class="menu--link" title="고객 상담">
-				<i class="menu--icon  fa-fw fa-regular fa-calendar"></i>
-				<span class="menu--label">고객 상담</span>
-			</a>
-		</li>
-		
 
 		<li class="menu--item">
 			<a href="#" class="menu--link" title="Logout">
