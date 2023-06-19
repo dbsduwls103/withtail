@@ -72,6 +72,23 @@
 					</td>
 				</tr>
 			
+				 <tr>
+	            	<td class="form-control-plaintext">구분</td>
+					<td>            	
+					<label><input type="radio" name="category" value="disPrice" checked="checked">할인가</label>
+					<label><input type="radio" name="category" value="disRate">할인율</label>
+					</td>
+	            </tr>
+	            <tr>
+	            	<td>가격</td>
+	            	<td><input type="text" name="price" maxlength="100" class="form-control" value="5000" style="width:80px;"></td>
+	            </tr>
+			
+				<tr>
+					<td class="form-control-plaintext">최소 주문 금액</td>
+					<td><input type="text" name="minPirce" maxlength="100" class="form-control" value="30000" style="width:80px;"></td>
+				</tr>
+
 				<tr>
 					<td class="form-control-plaintext">시작일</td>
 					<td>
@@ -87,18 +104,9 @@
 				</tr>
 				<tr>
 
-				</tr>
-	            <tr>
-	            	<td class="form-control-plaintext">구분</td>
-					<td>            	
-					<label><input type="radio" name="category" value="disPrice" checked="checked">할인가</label>
-					<label><input type="radio" name="category" value="disRate">할인율</label>
-					</td>
-	            </tr>
-	            <tr>
-	            	<td>가격</td>
-	            	<td><input type="text" name="subject" maxlength="100" class="form-control" value="5000" style="width:80px;"></td>
-	            </tr>
+
+
+
 			</table>
 				
 			<table class="table">

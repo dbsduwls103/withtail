@@ -14,4 +14,9 @@ public class MemberController {
 		
 		return ".member.login";
 	}
+	
+	@GetMapping("join")
+	public String joinForm(Model model) {
+		return ".member.join";
+	}
 }

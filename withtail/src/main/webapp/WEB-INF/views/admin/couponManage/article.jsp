@@ -49,31 +49,26 @@
 					<td width="50%" align="left">
 						할인율 : 10%
 					</td>
-					<td width="50%" align="right">
-						2000-01-01 ~ 2000-01-31
-					</td>
 				</tr>
-				
-				<tr>
 
+				<tr>
+					<td width="50%" align="left">
+						최소 주문 금액 : 30000
+					</td>
+				</tr>
+
+
+				<tr>
+					<td width="50%" align="left">
+						시작일 : 2000-01-01
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						이전쿠폰 :
-						<c:if test="${not empty preReadDto}">
-							<a href="${pageContext.request.contextPath}/admin/couponManage/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
-						</c:if>
+					<td width="50%" align="left">
+						종료일 : 2000-01-31
 					</td>
 				</tr>
 				
-				<tr>
-					<td colspan="2">
-						다음쿠폰 :
-						<c:if test="${not empty nextReadDto}">
-							<a href="${pageContext.request.contextPath}/admin/couponManage/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
-						</c:if>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 			

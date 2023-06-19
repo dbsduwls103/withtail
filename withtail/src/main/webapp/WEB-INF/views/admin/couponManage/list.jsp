@@ -3,16 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+
+
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1200px;
 }
 
-.badge {
-	display: inline-block; padding:2px 3px; background: #0d6efd; color: #fff; font-weight: 500;
-	font-size: 11px;
-}
+
 </style>
 <style>
 .submenu-layout {
@@ -82,9 +81,9 @@ a {
 }
 
 .coupon-layout {
-	display:flex;
     align-items: flex-start;
     align-self: stretch;
+    display: flex;
     flex-direction: row;
     gap: 10px;
     background-color: rgb(248 248 248);
@@ -187,7 +186,7 @@ function searchList() {
     <div class="body-main">
 	<div class="coupon-wrap">
 		<div class="coupon-layout">
-			<div class="coupon" style="cursor: pointer;">
+			<div class="coupon" style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath}/admin/couponManage/article'">
 				<div class="coupon-upper">
 					<div class="coupon-text-layout">
 						<div class="coupon-title valign-text-middle">위드테일과
