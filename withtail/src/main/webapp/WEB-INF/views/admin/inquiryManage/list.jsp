@@ -50,7 +50,7 @@ function searchList() {
 					<tr> 
 						<td>배송</td>
 						<td class="left">
-							<a href="#">닭가슴살 주세요</a>
+							<a href="${pageContext.request.contextPath}/admin/inquiryManage/article">닭가슴살 주세요</a>
 						</td>
 						<td>최포포</td>
 						<td>2023-06-15</td>
