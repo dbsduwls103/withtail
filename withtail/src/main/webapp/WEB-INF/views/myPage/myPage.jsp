@@ -420,7 +420,7 @@
 			</a>
 			<hr style="width: 100%; margin-top: 0px; margin-bottom: 0px;">
 		
-			<a href="#" class="detailed-information">
+			<a href="${pageContext.request.contextPath}/myPage/coupon" class="detailed-information">
 				<div>
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >쿠폰</p>

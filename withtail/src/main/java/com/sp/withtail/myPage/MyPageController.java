@@ -54,6 +54,12 @@ public class MyPageController {
    		return ".myPage.storecredit";
    	}
     
+    @GetMapping("coupon")
+   	public String execute7() throws Exception {
+   	
+   		return ".myPage.coupon";
+   	}
+    
     
   
 }
