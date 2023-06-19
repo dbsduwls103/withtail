@@ -276,7 +276,7 @@
 					</ul>
 				</li>
 				
-				<li><a href="${pageContext.request.contextPath}/hotdeal/list" class="nav-bold">이벤트</a></li>
+				<li><a href="${pageContext.request.contextPath}/event/list" class="nav-bold">이벤트</a></li>
 		
 				<li><a href="#" class="nav-bold">고객센터</a>
 					<ul class="main2">
