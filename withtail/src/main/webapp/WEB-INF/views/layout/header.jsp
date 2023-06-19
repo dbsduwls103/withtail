@@ -245,7 +245,8 @@
 								<li><a href="${pageContext.request.contextPath}/shop/list">홈·리빙</a></li>
 								<li><a href="${pageContext.request.contextPath}/shop/list">장난감</a></li>
 								<li><a href="${pageContext.request.contextPath}/shop/list">목욕·위생</a></li>
-						</ul></li>
+							</ul>
+						</li>
 		
 						<li><a href="#">고양이</a>
 							<ul class="main3">
@@ -257,8 +258,10 @@
 								<li><a href="${pageContext.request.contextPath}/shop/list">목욕·위생</a></li>
 								<li><a href="${pageContext.request.contextPath}/shop/list">산책·외출</a></li>
 								<li><a href="${pageContext.request.contextPath}/shop/list">건강보조제</a></li>
-						</ul></li>
-					</ul></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
 		
 				<li><a href="${pageContext.request.contextPath}/hotdeal/list" class="nav-bold">핫딜</a></li>
 		
@@ -270,14 +273,19 @@
 					<ul class="main2">
 						<li><a href="#">Tail & Path</a></li>
 						<li><a href="#">커뮤니티</a></li>
-					</ul></li>
+					</ul>
+				</li>
+				
+				<li><a href="${pageContext.request.contextPath}/hotdeal/list" class="nav-bold">이벤트</a></li>
 		
 				<li><a href="#" class="nav-bold">고객센터</a>
 					<ul class="main2">
-						<li><a href="#">1:1문의</a></li>
+						<li><a href="${pageContext.request.contextPath}/inquiry/list">1:1문의</a></li>
 						<li><a href="${pageContext.request.contextPath}/faq/list">FAQ</a></li>
 						<li><a href="#">공지사항</a></li>
-					</ul></li>
+					</ul>
+				</li>
+					
 			</ul>
 		</div>
 	</nav>

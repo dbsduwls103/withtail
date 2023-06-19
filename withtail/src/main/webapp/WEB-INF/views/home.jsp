@@ -145,9 +145,9 @@
 	<div class="rc_layout">
 		<p>최근 본 상품</p>
 		<ul>
-			<li><a href="#"><img alt="rc_img01" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
-			<li><a href="#"><img alt="rc_img02" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
-			<li><a href="#"><img alt="rc_img03" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
+			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img01" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
+			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img02" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
+			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img03" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
 		</ul>
 	</div>
 	<!-- //최근 본 상품 -->
