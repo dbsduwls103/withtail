@@ -24,7 +24,7 @@ function searchList() {
 
 <div class="body-container">
     <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 쿠폰 관리 </h2>
+		<h2><i class="fas fa-clipboard-list"></i> 댕댕여지도 </h2>
     </div>
     
     <div class="body-main">
