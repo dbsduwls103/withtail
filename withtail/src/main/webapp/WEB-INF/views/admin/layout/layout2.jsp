@@ -14,7 +14,8 @@
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/jquery/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fontawesome/css/all.min.css" type="text/css">
-	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu2.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminstyle.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css" type="text/css">
@@ -39,6 +40,7 @@
 	<div class="loader"></div>
 </div>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.ui.datepicker-ko.js"></script>
 
