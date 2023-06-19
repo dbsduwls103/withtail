@@ -19,8 +19,8 @@
 	<div class="container">
 		<h3 class="text-center inquiry-h3">1:1 문의</h3>
 		
-		<table class="table">
-		
+		<table class="table table-bordered mx-auto">
+			
 		</table>
 	</div>
 </section>

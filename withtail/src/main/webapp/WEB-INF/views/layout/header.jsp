@@ -271,7 +271,7 @@
 				
 				<li><a href="#" class="nav-bold">놀이터</a>
 					<ul class="main2">
-						<li><a href="#">Tail & Path</a></li>
+						<li><a href="${pageContext.request.contextPath}/tailPath/main">Tail & Path</a></li>
 						<li><a href="#">커뮤니티</a></li>
 					</ul>
 				</li>
