@@ -49,6 +49,15 @@
   display:block;
 }
 
+.tab-menu {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab {
+  display: flex;
+}
+
 .long {
     margin: 5px auto;
     width: 500px;
@@ -96,14 +105,34 @@ vertical-align: baseline;
     border-radius: 4px;
 }
 
-.tap {
-    border: none;
-    background: #f3f3f3;
-    width: 100px;
-    height: 30px;
-    padding: 6px;
-    display: inline-block
+.tab-menu {
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
+
+.tab {
+  display: flex;
+}
+
+.tab-button {
+    background-color: #f2f2f2;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    flex: 1;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #ddd;
+}
+
+.tab-button.active {
+  background-color: #ccc;
+}
+
 
 </style>
 
@@ -180,7 +209,7 @@ function searchList() {
 }
 
 function block() {
-	if(!confirm('이 회원을 정지 시키겠습니까?')) {
+	if(!confirm('이 회원의 정지를 해제하시겠습니까??')) {
 		return;
 	}
 }
@@ -198,11 +227,16 @@ function block() {
 
                 $("#table1").show();
                 $("#table2").hide();
+                $("#btn_1").addClass("active");
+                $("#btn_2").removeClass("active");
+                
             })
             $("#btn_2").click(function() {
 
                 $("#table1").hide();
                 $("#table2").show();
+                $("#btn_1").removeClass("active");
+                $("#btn_2").addClass("active");
             })
             
         })
@@ -294,13 +328,13 @@ function block() {
 		</table>
 		
 		
-    <div class="tabmenu out-tabmenu">
-        <button type="button" id="btn_1" class="tap">정상 회원</button>
-        <button type="button" id="btn_2" class="tap">정지 회원</button>
+    <div class="tab-menu" style="border: none;">
+        <button type="button" class="tab-button active" id="btn_1">정상 회원</button>
+        <button type="button" class="tab-button" id="btn_2">정지 회원</button>
     </div>
     <div style="clear:both;"></div>
     <div >
-        <div id="table1" width="100%">
+        <div id="table1" width="100%" style="padding: 0px;">
            <table class="table table-border table-list" style="margin-top: 10px;">
 	  		<thead>
 				<tr>

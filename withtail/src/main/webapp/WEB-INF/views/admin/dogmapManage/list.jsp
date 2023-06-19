@@ -44,60 +44,25 @@ function searchList() {
 			<thead>
 				<tr>
 					<th class="wx-60">번호</th>
-					<th>제목</th>
-					<th class="wx-100">시작일</th>
-					<th class="wx-100">종료일</th>
-					<th class="wx-50">구분</th>
-					<th class="wx-50">가격</th>
+					<th>시설명</th>
+					<th class="wx-100">지역</th>
+					<th class="wx-100">분야</th>
+					<th class="wx-100">대표키워드</th>
 				</tr>
 			</thead>
 		 
 		 	<tbody>				
 
 					<tr> 
-						<td>${dto.num}</td>
+						<td>${dto.num}1</td>
 						<td class="left">
-							<a href="#">${dto.name}</a>
+							<a href="${pageContext.request.contextPath}/admin/dogmapManage/article">${dto.placeName}제목</a>
 						</td>
-						<td>${dto.startDate}</td>
-						<td>${dto.endDate}</td>
-						<td>
-							<c:choose>
-								<c:when test="${dto.category==0}">
-									<a><i class="fa-solid fa-category">할인가</i></a>
-								</c:when>
-								<c:when test="${dto.category==1}">
-									<a><i class="fa-solid fa-category">할인율</i></a>
-								</c:when>		
-								<c:otherwise>
-								</c:otherwise>	 
-							</c:choose>     
-						</td>
-						<td>
-							<c:choose>
-								<c:when test="${dto.category==0}">
-									<a href="#"><i class="fa-solid fa-price">${dto.price}</i></a>
-								</c:when>
-								<c:when test="${dto.category==1}">
-									<a href="#"><i class="fa-solid fa-price">${dto.price}%</i></a>
-								</c:when>
-								<c:otherwise>
-								</c:otherwise>		 
-							</c:choose>     
-						</td>
+						<td>${dto.city}</td>
+						<td>${dto.category}152</td>
+						<td>${dto.keyword}7867</td>
+						
 					</tr>
-					
-					
-					
-					<tr>
-						<td>1</td>
-						<td><a href="${pageContext.request.contextPath}/admin/couponManage/article">가입이벤트</a></td>
-						<td>2000-01-01</td>
-						<td>2000-01-31</td>
-						<td>할인율</td>
-						<td>10%</td>
-					</tr>
-					
 			</tbody>
 		</table>
 		 
@@ -108,23 +73,22 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/couponManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/dogmapManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
-					<form name="searchForm" action="${pageContext.request.contextPath}/admin/couponManage/list" method="post">
+					<form name="searchForm" action="${pageContext.request.contextPath}/admin/dogmapManage/list" method="post">
 						<select name="condition" class="form-select">
-							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-							<option value="startDate" ${condition=="startDate"?"selected='selected'":""}>시작일</option>
-							<option value="endDate" ${condition=="endDate"?"selected='selected'":""}>종료일</option>
-							<option value="discount" ${condition=="discount"?"selected='selected'":""}>할인가/할인율</option>
-							<option value="price" ${condition=="price"?"selected='selected'":""}>가격</option>
+							<option value="placeName" ${condition=="subject"?"selected='selected'":""}>시설명</option>
+							<option value="city" ${condition=="startDate"?"selected='selected'":""}>지역</option>
+							<option value="category" ${condition=="endDate"?"selected='selected'":""}>분야</option>
+							<option value="keyword" ${condition=="discount"?"selected='selected'":""}>대표키워드</option>
 						</select>
 						<input type="text" name="keyword" value="${keyword}" class="form-control">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/couponManage/write';">글올리기</button>
+					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/dogmapManage/write';">글올리기</button>
 				</td>
 			</tr>
 		</table>
