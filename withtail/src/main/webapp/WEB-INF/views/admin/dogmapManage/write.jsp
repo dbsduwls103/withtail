@@ -27,7 +27,7 @@
 
 <div class="body-container">
     <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 댕댕여지도 </h2>
+		<h2><i class="fa-solid fa-democrat" ></i> 댕댕여지도 </h2>
     </div>
     
     <div class="body-main">
@@ -50,6 +50,12 @@
 					<td>지역</td>
 					<td> 
 						<input type="text" name="placeName" maxlength="100" class="form-control" value="">
+						<select name="city">
+							<option value="">선택</option>
+							<option value="seoul">서울</option>
+							<option value="gyeonggi">경기</option>
+							<option value="incheon">인천</option>
+						</select>
 					</td>
 				</tr>
 				
