@@ -25,88 +25,20 @@
 .overlay-info:after { content: '';position: absolute; margin-left: -16px; left: 50%; bottom: 0; width: 22px; height: 12px; background: url('${pageContext.request.contextPath}/resources/images/vertex_white.png'); }
 .overlay-info .link { color: #333; }
 .overlay-info .link:hover { color: #5085BB; }
+
 </style>
 
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">▶</button>
 
- <div class="course_all" style="z-index: 100">
-        <div class="course_all_top">
-            <h3>
-                댕댕여지도 검색
-            </h3>
-            <label for="search" class="blind">검색</label>
-            <input id="search" name="searchMap" type="text" placeholder="주소 또는 명칭으로 검색하실 수있습니다." />
-
-            <ul class="search_list clearfix">
-                <li class="tourism">
-                    <a href="/pet/tour/spot">
-                        <span>관광</span>
-                    </a>
-                </li>
-                <li class="lodgment">
-                    <a href="/pet/tour/sleep">
-                        <span>숙박</span>
-                    </a>
-                </li>
-                <li class="beverage">
-                    <a href="/pet/tour/drink">
-                        <span>식음료</span>
-                    </a>
-                </li>
-                <li class="experience">
-                    <a href="/pet/tour/experience">
-                        <span>체험</span>
-                    </a>
-                </li>
-                <li class="animal_hospital">
-                    <a href="/pet/tour/hospital">
-                        <span>동물병원</span>
-                    </a>
-                </li>
-            </ul>
-            <!-- //search_list -->
-        </div>
-        <!-- //course_all_top -->
-
-        <div class="course_all_box choose-filed">
-            <strong>주변 탐색</strong>
-            <ul>
-                <li>
-                    <input type="checkbox" id="tourist_destination" name="partCode" value="PC03" checked>
-                    <label for="tourist_destination">관광지</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="lodgment" name="partCode" value="PC02" checked>
-                    <label for="lodgment">숙박</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="beverage" name="partCode" value="PC01" checked>
-                    <label for="beverage">식음료</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="experience" name="partCode" value="PC04" checked>
-                    <label for="experience">체험</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="animal_hospital" name="partCode" value="PC05" checked>
-                    <label for="animal_hospital">동물병원</label>
-                </li>
-            </ul>
-        </div>
-        <!-- //course_all_box -->
-
-        <div class="btn3">
-            <button class="btn3_3 btn-tour-course"><span>나만의 여행 코스 짜기</span></button>
-        </div>
-
-        <div class="btn_box01">
-            <button class="btn_open"><span class="blind">댕댕여지도 검색 열기</span></button>
-            <button class="btn_close"><span class="blind">댕댕여지도 검색 닫기</span></button>
-        </div>
-        <!-- //btn3 -->
-
-    </div>
-    <!-- //course_all -->
-
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body" >
+    <p>Try scrolling the rest of the page to see this option in action.</p>
+  </div>
+</div>
 <div style="min-height: 700px;">
 <div id="map" class="map"></div>
 </div>
