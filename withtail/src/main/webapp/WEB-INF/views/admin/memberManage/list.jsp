@@ -258,12 +258,12 @@ function block() {
 	    </div>
 	    
 	    <div class="body-main">
-	    
+	    	
+	    	<form name="memberForm1" method="post">
 			<table class="table table-border border-top2 table-form">
 				<tr> 
 					<td>검색어</td>
 					<td> 
-					<form name="memberForm1" method="post">
 						<div style="display: inline-block;">
 							<select name="condition" class="category">
 							    <option value="">  :: 선택 :: </option>
@@ -274,10 +274,6 @@ function block() {
 						<div style="display: inline-block; width: 200px;" >
 					    	<input type="text" name="key" maxlength="100" class="form-control" value="검색값">
 						</div>
-						<div style="display: inline-block;" >
-						  <button type="button" class="btn">검색</button> 						
-				       </div>
-				    </form>
 		            </td>
 				</tr>
 				
@@ -285,7 +281,6 @@ function block() {
 				<tr> 
 					<td>기간 </td>
 					<td> 
-					<form name="memberForm2" method="post">
 					   <div style="display: inline-block;">
 							<select name="condition" class="category">
 							    <option value="">  :: 선택 :: </option>
@@ -311,7 +306,6 @@ function block() {
 						<div style="display: inline-block; margin-left: 10px;">
 							 <button type="button" class="btn">검색</button> 						
 					     </div>
-					</form>
 				    </td>
 				</tr>
 			</table>
@@ -328,11 +322,13 @@ function block() {
 			  </td>
 			</tr>
 		</table>
-		
+		</form>
 		
     <div class="tab-menu" style="border: none;">
-        <button type="button" class="tab-button active" id="btn_1">정상 회원</button>
-        <button type="button" class="tab-button" id="btn_2">정지 회원</button>
+    	 <div class="tab">
+	        <button type="button" class="tab-button active" id="btn_1" >정상 회원</button>
+	        <button type="button" class="tab-button" id="btn_2" >정지 회원</button>
+   		</div>
     </div>
     <div style="clear:both;"></div>
     <div >

@@ -118,58 +118,58 @@ function openTab(evt, tabName) {
      	<div style="margin-bottom: 10px">
 			<h4 ><i class="fa-solid fa-magnifying-glass"></i> 주문 검색 </h4>
 	    </div>
-
-		<form name="noticeForm" method="post" >
-		<table class="table table-border border-top2 table-form">
-			<tr> 
-				<td>검색어</td>
-				<td> 
-					<div style="display: inline-block;">
-						<select name="condition" class="category">
-						    <option value="">  :: 선택 :: </option>
-						    <option value=""> 아이디 </option>
-						    <option value=""> 이름 </option>
-						</select>
-					</div>
-					<div style="display: inline-block;">
-				    	<input type="text" name="key" maxlength="100" class="form-control" value="검색값">
-					</div>
-				</td>
-			</tr>
-			
 		
-			<tr> 
-				<td>기간 </td>
-				<td> 
-					<div style="display: inline-block;">
-						<select name="condition" class="category">
-						    <option value="">  :: 선택 :: </option>
-						    <option value=""> 가입기간 </option>
-						    <option value=""> 정지기간 </option>
-						</select>
-					</div>
-					<div style="display: inline-block; text-align: center; width: 20%">
-				    	<input type="date" name="start" maxlength="100" class="form-control" value="시작날짜">
-					</div>
-					<span>~</span>
-					<div style="display: inline-block; text-align: center; width: 20%">
-				    	<input type="date" name="end" maxlength="100" class="form-control" value="끝날짜">
-					</div>
-					<button class="btn">어제</button>
-					<button class="btn">오늘</button>
-					<button class="btn">일주일</button>
-					<button class="btn">지난달</button>
-					<button class="btn">3개월</button>
-					<button class="btn">전체</button>
-				</td>
-				<td>
-					<div>
-						 <button type="button" class="btn">검색</button> 						
-				     </div>
-				</td>
-			</tr>
-		</table>
-   </form>
+		<form name="orderForm1" method="post">
+		<table class="table table-border border-top2 table-form">
+				<tr> 
+					<td>검색어</td>
+					<td> 
+						<div style="display: inline-block;">
+							<select name="condition" class="category">
+							    <option value="">  :: 선택 :: </option>
+							    <option value=""> 아이디 </option>
+							    <option value=""> 이름 </option>
+							</select>
+						</div>
+						<div style="display: inline-block; width: 200px;" >
+					    	<input type="text" name="key" maxlength="100" class="form-control" value="검색값">
+						</div>
+		            </td>
+				</tr>
+				
+			
+				<tr> 
+					<td>기간 </td>
+					<td> 
+					   <div style="display: inline-block;">
+							<select name="condition" class="category">
+							    <option value="">  :: 선택 :: </option>
+							    <option value=""> 주문 리스트 </option>
+							    <option value=""> 환불 리스트 </option>
+							</select>
+						</div>
+						<div style="display: inline-block; text-align: center; width: 20%">
+					    	<input type="date" name="start" maxlength="100" class="form-control" value="시작날짜">
+						</div>
+						<span>~</span>
+						<div style="display: inline-block; text-align: center; width: 20%">
+					    	<input type="date" name="end" maxlength="100" class="form-control" value="끝날짜">
+						</div>
+						<div style="display: inline-block;">
+						<button class="btn">어제</button>
+						<button class="btn">오늘</button>
+						<button class="btn">일주일</button>
+						<button class="btn">지난달</button>
+						<button class="btn">3개월</button>
+						<button class="btn">전체</button>
+						</div>
+						<div style="display: inline-block; margin-left: 10px;">
+							 <button type="button" class="btn">검색</button> 						
+					     </div>
+				    </td>
+				</tr>
+			</table>
+			</form>
 	
 	<br><br>
 		
@@ -207,12 +207,12 @@ function openTab(evt, tabName) {
 						<td>결제 완료</td>
 						<td> 
 							<select name="state">
-								<option></option>
-								<option>결제 완료</option>
-								<option>상품 준비중</option>
-								<option>배송중</option>
-								<option>배송 완료</option>
-								<option>구매 확정</option>
+								<option value="">  :: 선택 :: </option>
+								<option value="">결제 완료</option>
+								<option value="">상품 준비중</option>
+								<option value="">배송중</option>
+								<option value="">배송 완료</option>
+								<option value="">구매 확정</option>
 							</select> 
 						</td>
 						<td> 2023-03-15 </td>
@@ -232,12 +232,12 @@ function openTab(evt, tabName) {
 						<td>상품 준비중</td>
 						<td> 
 							<select name="state">
-								<option></option>
-								<option>결제 완료</option>
-								<option>상품 준비중</option>
-								<option>배송중</option>
-								<option>배송 완료</option>
-								<option>구매 확정</option>
+								<option value="">  :: 선택 :: </option>
+								<option value="">결제 완료</option>
+								<option value="">상품 준비중</option>
+								<option value="">배송중</option>
+								<option value="">배송 완료</option>
+								<option value="">구매 확정</option>
 							</select> 
 						</td>
 						<td> 2023-03-13 </td>
@@ -290,8 +290,8 @@ function openTab(evt, tabName) {
 						<td>환불 처리</td>
 						<td> 
 							<select name="state">
-								<option></option>
-								<option>환불처리완료</option>
+								<option value="">  :: 선택 :: </option>
+								<option value="">환불처리완료</option>
 							</select> 
 						</td>
 						<td> 2023-03-15 </td>
@@ -311,8 +311,8 @@ function openTab(evt, tabName) {
 						<td>환불 요청</td>
 						<td> 
 							<select name="state">
-								<option></option>
-								<option>환불처리완료</option>
+								<option value="">  :: 선택 :: </option>
+								<option value="">환불처리완료</option>
 							</select> 
 						</td>
 						<td> -- </td>

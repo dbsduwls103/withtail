@@ -44,7 +44,7 @@ function searchList() {
 			<thead>
 				<tr>
 					<th class="wx-60">번호</th>
-					<th>제목</th>
+					<th >제목</th>
 					<th class="wx-100">작성자</th>
 					<th class="wx-100">작성일</th>
 					<th class="wx-70">조회수</th>
@@ -57,7 +57,7 @@ function searchList() {
 		 		<!-- 공지일때 -->
 					<tr> 
 						<td><span class="badge">공지</span></td>
-						<td class="left">
+						<td >
 							<a href="#">제목입니다</a>
 						</td>
 						<td>관리자</td>
@@ -74,7 +74,7 @@ function searchList() {
 				<!--일반게시물  -->
 					<tr> 
 						<td>1</td>
-						<td class="left">
+						<td >
 							<a href="#">제목입니다</a>
 							<c:if test="">
 								<img src='#'>
