@@ -151,8 +151,6 @@ vertical-align: baseline;
             float: right;
             padding-right: 10px;
             cursor: pointer;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
         }
         
         #modal .content {
@@ -447,10 +445,10 @@ function block() {
             <div class="close-area">X</div>
             <form action="" name="blockForm">
             <div class="content">회원 아이디 : 
-                    <input name="userId" value="shsh0000" class="modalinput">  
+                    <input type="text" name="userId" value="shsh0000" class="modalinput">  
             </div>
             <div class="content">정지 일자 : 
-                    <input name="regDate" value="2023-06-18" class="modalinput"> 
+                    <input type="date" name="regDate" value="2023-06-18" class="modalinput"> 
             </div>
             <div class="content">정지 사유 : 
                         <select  class="modalinput">

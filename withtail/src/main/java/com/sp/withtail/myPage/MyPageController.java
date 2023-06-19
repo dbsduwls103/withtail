@@ -48,5 +48,18 @@ public class MyPageController {
    		return ".myPage.unregister";
    	}
     
+    @GetMapping("storecredit")
+   	public String execute6() throws Exception {
+   	
+   		return ".myPage.storecredit";
+   	}
+    
+    @GetMapping("coupon")
+   	public String execute7() throws Exception {
+   	
+   		return ".myPage.coupon";
+   	}
+    
+    
   
 }

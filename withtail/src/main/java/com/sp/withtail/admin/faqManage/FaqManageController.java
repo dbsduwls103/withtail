@@ -47,7 +47,7 @@ public class FaqManageController {
 			Model model) throws Exception {
 
 
-		return "admin/faqManage/list";
+		return ".admin.faqManage.list";
 	}
 
 	@GetMapping("write")
