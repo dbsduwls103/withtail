@@ -60,6 +60,14 @@ public class MyPageController {
    		return ".myPage.coupon";
    	}
     
+    @GetMapping("delivery")
+   	public String execute8() throws Exception {
+   	
+   		return ".myPage.delivery";
+   	}
+    
+ 
+    
     
   
 }
