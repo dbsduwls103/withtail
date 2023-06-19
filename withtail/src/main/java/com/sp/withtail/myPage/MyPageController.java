@@ -29,4 +29,24 @@ public class MyPageController {
 	
 		return ".myPage.orderDetail";
 	}
+    
+    @GetMapping("pet")
+	public String execute3() throws Exception {
+	
+		return ".myPage.pet";
+	}
+    
+    @GetMapping("profile")
+	public String execute4() throws Exception {
+	
+		return ".myPage.profile";
+	}
+    
+    @GetMapping("unregister")
+   	public String execute5() throws Exception {
+   	
+   		return ".myPage.unregister";
+   	}
+    
+  
 }

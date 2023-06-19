@@ -94,6 +94,9 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
+					<a href="<c:url value='/admin/orderManage/list'/>" class="sub_menu--link">주문 관리</a>
+				</li>
+				<li class="sub_menu--item">
 					<a href="<c:url value='/admin/stuffManage/list'/>" class="sub_menu--link">상품 관리</a>
 				</li>
 				<li class="sub_menu--item">
@@ -110,7 +113,7 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value=''/>" class="sub_menu--link">회원 목록</a>
+					<a href="<c:url value='/admin/memberManage/list'/>" class="sub_menu--link">회원 목록</a>
 				</li>
 				<li class="sub_menu--item">
 					<a href="<c:url value=''/>" class="sub_menu--link">정지된 회원 목록</a>
@@ -141,20 +144,6 @@ $(function(){
 		</li>
 
 		<li class="menu--item menu--item__has_sub_menu">
-			<label class="menu--link" title="통계">
-				<i class="menu--icon  fa-solid fa-chart-pie" style="padding-left: 12px;"></i>
-				<span class="menu--label">통계</span>
-			</label>
-			<ul class="sub_menu">
-				<li class="sub_menu--item">
-					<a href="<c:url value='/admin/stats/customerList'/>" class="sub_menu--link">고객 통계</a>
-				</li>
-				<li class="sub_menu--item">
-					<a href="<c:url value='/admin/stats/shoppingList'/>" class="sub_menu--link">판매 통계</a>
-				</li>
-			</ul>
-		</li>
-		<li class="menu--item menu--item__has_sub_menu">
 			<label class="menu--link" title="놀이터">
 				<i class="menu--icon  fa-solid fa-democrat" style="padding-left: 12px;" ></i>
 				<span class="menu--label">놀이터</span>
@@ -184,6 +173,13 @@ $(function(){
 				<span class="menu--label">고객 상담</span>
 			</a>
 		</li>
+		
+		<li class="menu--item">
+			<a href="<c:url value='/admin/stats/list'/>" class="menu--link" title="통계">
+				<i class="menu--icon  fa-solid fa-chart-pie" style="padding-left: 12px;"></i>
+				<span class="menu--label">통계</span>
+			</a>
+		</li>
 
 		<li class="menu--item">
 			<a href="#" class="menu--link" title="Logout">
@@ -195,7 +191,7 @@ $(function(){
 	
 	<button id="collapse_menu" class="collapse_menu">
 		<i class="collapse_menu--icon fa fa-fw"></i>
-		<span class="menu--label">Recolher menu</span>
+		<span class="menu--label">닫기</span>
 	</button>
 
 </nav>

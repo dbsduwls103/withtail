@@ -14,4 +14,10 @@ public class CartController {
 		
 		return ".cart.cart";
 	}
+	
+	@GetMapping("checkout")
+	public String execute() throws Exception {
+	
+		return ".cart.checkout";
+	}
 }

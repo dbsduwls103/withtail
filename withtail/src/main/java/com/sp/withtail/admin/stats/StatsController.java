@@ -7,16 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/stats/*")
 public class StatsController {
 	
-	@RequestMapping(value = "customerList")
-	public String customerList() throws Exception{
-		
-		return ".admin.stats.customerList";
-	}
-	 
-	@RequestMapping(value = "shoppingList")
+	@RequestMapping(value = "list")
 	public String shoppingList() throws Exception{
 		
-		return ".admin.stats.shoppingList";
+		return ".admin.stats.list";
 	}
 
 }

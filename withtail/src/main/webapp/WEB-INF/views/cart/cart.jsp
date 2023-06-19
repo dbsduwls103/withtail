@@ -366,8 +366,8 @@
                 <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button>
                </p> 
                <p style="display: inline-block; float: right;"> 
-                   <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;; ">선택 상품만 주문</button>
-                   <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;;">전체상품 주문</button>
+                   <button type="button" class="-btn1" onclick="location.href='${pageContext.request.contextPath}/cart/checkout'" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
+                   <button type="button" class="-btn1" onclick="location.href='${pageContext.request.contextPath}/cart/checkout'" style="padding: 0 18px; height: 41px !important; ">전체상품 주문</button>
                 </p>
              </div>
              

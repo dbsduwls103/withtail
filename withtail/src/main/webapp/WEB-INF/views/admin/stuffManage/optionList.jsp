@@ -38,65 +38,21 @@ vertical-align: baseline;
     border-radius: 4px;
 }
 
-</style>
+.stuck_input {
+    width: 50px;
+    text-align: center;
+    border-radius: 50px;
+    padding: 15px;
+    margin: 10px auto;
+}
 
-  <style>
-         #modal.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal .modal-window {
-            background: rgba( 69, 139, 197, 0.70 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 400px;
-            height: 500px;
-            position: relative;
-            top: -100px;
-            padding: 10px;
-        }
-        #modal .title {
-            padding-left: 10px;
-            display: inline;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-            
-        }
-        #modal .title h2 {
-            display: inline;
-        }
-        #modal .close-area {
-            display: inline;
-            float: right;
-            padding-right: 10px;
-            cursor: pointer;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-        #modal .content {
-            margin-top: 20px;
-            padding: 0px 10px;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-    </style>
+.updatebtn {
+    margin: 30px;
+    width:30px;
+    height: 30px;
+}
+
+</style>
 
 <script type="text/javascript">
 function searchList() {
@@ -105,8 +61,6 @@ function searchList() {
 }
 
 </script>
-
-
 
 <div class="body-container">
     <div class="body-title">
@@ -156,13 +110,12 @@ function searchList() {
 					<th class="wx-80">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
+					<th class="wx-100">상위 옵션</th>
+					<th class="wx-100">하위 옵션</th>
 					<th class="wx-100">가격</th>
-					<th class="wx-80">할인율</th>
-					<!-- 옵션 상관없는 전체 재고 -->
 					<th class="wx-80">재고</th>
-					<th class="wx-80">진열</th>
 					<th class="wx-100">수정일</th>
-					<th class="wx-80">변경</th>
+					<th class="wx-100">확인</th>
 				</tr>
 			</thead>
 			
@@ -175,14 +128,33 @@ function searchList() {
 						    <!-- 제품 상세 페이지로 이동 -->
 							<a href="#">포포 닭가슴살</a>
 						</td>
-						<td>10,000</td>
-						<td>5%</td>
-						<td>13</td>
-						<td>진열</td>
+						<td>간식</td>
+						<td>육포/져키</td>
+						<td>10000</td>
+						 <td class="quantity">
+                          <div style="display: flex; justify-content: space-between; align-items: center">
+                          
+                            <span >
+                              <button type="button" data-type="plus" class="updatebtn">
+                               <i class="fa-sharp fa-solid fa-plus"></i>
+                              </button>
+                            </span >
+                            
+                            <span>
+                              <input type="text" id="quantity" name="stock" class="form-control stuck_input" value="13" min="1" max="100">
+                            </span>
+                            
+                            <span>
+                              <button type="button" data-type="minus" class="updatebtn">
+                                <i class="fa-solid fa-minus"></i>
+                              </button>
+                            </span>
+                            
+                          </div>
+                        </td>
 						<td>2023-06-24</td>
 						<td>
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/optionList';">재고</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">수정</button> 
+							<button class="btn" style="pause: 3px;" onclick="">변경</button> 
 						</td>
 					</tr>
 		  	</tbody>
@@ -229,16 +201,9 @@ function searchList() {
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
-				<td align="right" width="150">
-					<div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">글올리기</button>
-				    </div>
-				    
-				    <div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="">삭제</button>
-				    </div>
-				</td>
+				
 			</tr>
 		</table>
+
 	</div>
 </div>

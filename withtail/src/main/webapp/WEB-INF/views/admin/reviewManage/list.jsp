@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-  <style>
+<style type="text/css">
 
 .favorite {
     align-items: flex-start;
@@ -61,7 +61,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px 16px;
-    border-top: solid 2px black; 
+    border-top: solid 2px #e9e9e9; 
 }
 
 .favorite-list:first-child{
@@ -245,7 +245,7 @@ hr.vertical-line {
   </style>
 
  	 <div class="body-title">
-		<h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
+		<h2><i class="fa-solid fa-pen"></i></i> 리뷰 관리 </h2>
     </div>
  	
  	<div class="favorite-section">
@@ -264,9 +264,10 @@ hr.vertical-line {
 								<!--상품 상세보기 페이지 연결  -->
 								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
 									<div class="rating">
+										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 										<div class="stars">
 											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
 											</div>
 											<div class="star-layout-two">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
@@ -315,6 +316,7 @@ hr.vertical-line {
 								<!--상품 상세보기 페이지 연결  -->
 								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
 									<div class="rating">
+										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 										<div class="stars">
 											<div class="star star-layout">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">

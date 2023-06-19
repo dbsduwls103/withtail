@@ -13,7 +13,9 @@
 </style>
 
 <script type="text/javascript">
+
 /*
+
 <c:if test="${mode=='update'}">
   function deleteFile(fileNum) {
 		let url = "${pageContext.request.contextPath}/admin/noticeManage/deleteFile";
@@ -23,7 +25,8 @@
   } 
 </c:if>
 
- */
+*/
+ 
 </script>
 
 <script type="text/javascript">
