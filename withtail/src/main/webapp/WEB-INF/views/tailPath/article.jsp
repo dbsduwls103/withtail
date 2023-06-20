@@ -156,8 +156,6 @@ a, a:hover, a:link, a:visited, a:active {
     border-radius: 10px;
 }
 
-
-
 .contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     position: absolute;
     top: -20px;
@@ -168,20 +166,14 @@ a, a:hover, a:link, a:visited, a:active {
     width: 40px;
     height: 40px;
     transition: all .3s;
+    border: none;
 }
 
-
-.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn01 {
+/*
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn03 {
     background: url(${pageContext.request.contextPath}/resources/images/btn01.png)no-repeat;
 }
-
-.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn02 {
-    background: url(${pageContext.request.contextPath}/resources/images/btn02.png)no-repeat;
-}
-
-.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn03 {
-    background: url(${pageContext.request.contextPath}/resources/images/btn03.png)no-repeat;
-}
+*/
 
 
 .contents_wrap .contents .detail_box .detail_text .info_text {
@@ -202,8 +194,9 @@ a, a:hover, a:link, a:visited, a:active {
 
 .contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     position: absolute;
-    top: -20px;
-    right: 15px;
+    top: 20px;
+    right: 35px;
+    
 }
 
 
@@ -233,10 +226,6 @@ button {
 
 .bbs:not(:disabled):not(.disabled) {
     cursor: pointer;
-}
-
-.three {
-   border: none;
 }
 
 .contents_wrap .contents .detail_box .detail_text .info_text dl dt::before {
@@ -377,6 +366,16 @@ li {
     width: 29px;
     height: 28px;
     background: url(${pageContext.request.contextPath}/resources/images/tit.png)no-repeat;
+}
+
+.bbscontainer {
+    font-size: 30px;
+    background: #ffff;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: pink;
 }
 
 .contents_wrap .contents .text_box h4.title {
@@ -621,10 +620,8 @@ function fnMessagePopupClose() {
                         <a href="https://naver.me/FzHm83rm" target="_blank">https://naver.me/FzHm83rm</a>
                     </dd>
                 </dl>
-                <div class="bbs">
-                    <button class="btn01 btn-content-like three btnn" title="좋아요"><span class="blind">좋아요</span></button>
-                    <button class="btn02 btn-content-favorite three btnn" title="찜하기"><span class="blind">찜하기</span></button>
-                    <button class="btn03 btn-content-modify three btnn" title="수정요청"><span class="blind">수정요청</span></button>
+                <div class="bbs bbscontainer" style="font-size: 20px;">
+                    <button class="btn03 jjimbtn btn-content-favorite btnn" data-state="true" title="찜하기"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
             <!-- //info_text -->
@@ -720,64 +717,6 @@ function fnMessagePopupClose() {
     </div>
     <!-- //text_box -->
 
-    <div class="text_box">
-        <h4 class="title">주변여행지</h4>
-        
-            <ul class="travel_destination clearfix">
-                
-                    <li>
-                        <a href="/pet/tour/drink?contentSeq=64">
-                            <div class="img-box">
-                                    
-                                 <img src="/upload/mapdata/C0064/thumb/list/C0064_F20210830104454001.jpg" alt="유기농카페">
-                            </div>
-                            <p class="text-box">
-                                유기농카페
-                            </p>
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/pet/tour/sleep?contentSeq=69">
-                            <div class="img-box">
-                                    
-                                        <img src="/upload/mapdata/C0069/thumb/list/C0069_F20210828152228001.jpg" alt="해피리버펜션">
-                            </div>
-                            <p class="text-box">
-                                해피리버펜션
-                            </p>
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/pet/tour/drink?contentSeq=44">
-                            <div class="img-box">
-                                    
-                                        <img src="/upload/mapdata/C0044/thumb/list/C0044_F20210825162920001.jpg" alt="세계주류마켓">
-                            </div>
-                            <p class="text-box">
-                                세계주류마켓
-                            </p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pet/tour/drink?contentSeq=70">
-                            <div class="img-box">
-                                
-                                        <img src="/upload/mapdata/C0070/thumb/list/C0070_F20210828164617001.jpg" alt="쿠키멍스터">
-                            </div>
-                            <p class="text-box">
-                                쿠키멍스터
-                            </p>
-                        </a>
-                    </li>
-            </ul>
-    </div>
-
-    </div>
-    <!-- //text_box -->
-
-
 </div>
 
 <form name="pageForm" method="post">
@@ -848,3 +787,28 @@ $(document).ready(function () {
 
 		<button class="pop_btn2" onclick="fnMessagePopupClose();">확인</button>
 </div>
+
+
+<script type="text/javascript">
+$(function() {
+            $(".jjimbtn").click(function() {
+            	const state = $(this).attr("data-state");
+            	
+            	if(state === "true") {
+            		document.querySelector(".jjimbtn").innerHTML = '<i class="fa-solid fa-heart"></i>';
+            		$(this).attr("data-state", "false");
+            	} else {
+            		document.querySelector(".jjimbtn").innerHTML = '<i class="fa-regular fa-heart"></i>';
+            		$(this).attr("data-state", "true");
+            	}
+            	
+            	
+            	
+            	
+                
+
+               
+            });
+});
+
+    </script>
