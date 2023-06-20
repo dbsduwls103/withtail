@@ -10,15 +10,7 @@ $(function() {
 	    $('.step1').hide();
 	    $('.step2').show();
 	  });
-
-	  // 이전 단계로 돌아가기
-	  $('.icon').click(function() {
-	    var currentStep = $(this).closest('.add-content-container');
-	    var previousStep = currentStep.prev('.add-content-container');
-	    currentStep.hide();
-	    previousStep.show();
-	  });
-
+	  
 	  // 이름 입력 후 다음 단계로 이동
 	  $('.step2 .btn-2').click(function() {
 	    var name = $('.step2 .inp').val();
@@ -84,6 +76,21 @@ $(function() {
 		    }
 		  });
 	});
+
+
+$(function() {
+  // 이전 버튼 클릭 이벤트 처리
+  $(".previous-button").click(function() {
+    var currentStep = $(this).closest(".add-content-container").parent();
+    var prevStep = currentStep.prev(); 
+
+	// console.log(currentStep);
+	// console.log(prevStep);
+	
+  currentStep.hide(); 
+    prevStep.show(); 
+  });
+});
 	
 $(function() {
 	  // step2 다음 버튼 유효성 검사
@@ -157,7 +164,7 @@ $(function() {
 	    }
 	  });
 	  
-	// step6 다음 버튼 유효성 검사
+	// step7 다음 버튼 유효성 검사
 	  $('.step7 .inp').on('input', function() {
 	    var inputValue = $(this).val();
 	    var btnNext = $('.step7 .btn-2');

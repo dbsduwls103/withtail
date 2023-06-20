@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/dogs.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/cats.js"></script>
+
 <script src="${pageContext.request.contextPath}/resources/js/newAnimal.js"></script>
 
 
@@ -169,6 +166,7 @@ img {
     height: 60px;
     border-radius: 5px;
     border: solid 1px #bebebe;
+    padding-left: 10px;
 }
 
 .btn-2 {
@@ -181,7 +179,6 @@ img {
 }
 
 input::placeholder {
-	margin-left: 20px;
 	color: #bebebe;
 }
 
@@ -369,7 +366,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -396,7 +393,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -426,7 +423,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -453,7 +450,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -480,7 +477,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -506,7 +503,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -532,7 +529,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -544,13 +541,13 @@ align-items: flex-start;
 							아지의 사진을 골라주세요.
 						</div>
 					</div>
-					<div class="input-content">
+					<div class="input-content" style="align-items: center;">
 						<div class="img-viewer"></div>
 						<input type="file" name="selectFile" accept="image/*" style="display: none;" class="form-control">	
 						<p>사진은 1장 업로드 가능합니다.</p>					
 					</div>				
 					<div>
-						<button type="button" class="btn-2">다음</button>
+						<button type="button" class="btn-2" style="background-color: #82ae46;">다음</button>
 					</div>
 				</div>
 			</div>
@@ -560,7 +557,7 @@ align-items: flex-start;
 			<div class="add-content-container">
 				<div class="top-btn" style="justify-content: space-between;">
 					<div>
-						<img class="icon" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
+						<img class="previous-button" alt="" src="${pageContext.request.contextPath}/resources/images/icon/back.png">
 					</div>
 					<a href="${pageContext.request.contextPath}/myPage/myPage">
 						<img class="icon-1" alt=""  src="${pageContext.request.contextPath}/resources/images/icon/close.png">
@@ -595,7 +592,7 @@ align-items: flex-start;
 						</div>				
 					</div>				
 					<div>
-						<button type="button" class="btn-2" onclick="location.href='${pageContext.request.contextPath}/'" >쇼핑하러 가기</button>
+						<button type="button" class="btn-2" onclick="location.href='${pageContext.request.contextPath}/'" style="background-color: #82ae46;">쇼핑하러 가기</button>
 					</div>
 				</div>
 			</div>
@@ -603,4 +600,12 @@ align-items: flex-start;
 		
 	</form>
 </div>
+
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/dogs.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/cats.js"></script>
 
