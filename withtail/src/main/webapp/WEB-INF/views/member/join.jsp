@@ -133,22 +133,24 @@ input {
 					<div>
 						<div>
 							<div class="input-group">
-								<input type="text" id="userId" name="userId" maxlength="20" class="form-control" placeholder="아이디*" onkeyup="checkUsernameValidity(); updateCharacterCount1(this);">
+								<input type="text" id="userId" name="userId" maxlength="20" class="form-control" placeholder="아이디*" onkeyup="checkUserIdValidity(); updateCharacterCount2(this);">
+								<button type="button" class="btn btn-light" style="border-radius: 5px" onclick="checkDuplicateId()">중복 검사</button>
 							</div>
 							<div class="d-flex">
-								<div id="usernameError" style="color: #da1e28;"></div>
-								<div id="characterCount1" class="charCount" style="margin-left:auto">0/20</div>
+								<div id="userIdError" style="color: #da1e28;"></div>
+								<div id="characterCount2" class="charCount" style="margin-left:auto">0/20</div>
 							</div>
 						</div>
 					</div>
 					<div>
 						<div>
 							<div class="input-group">
-								<input type="text" id="nickName" name="nickName" maxlength="20" class="form-control" placeholder="닉네임*" onkeyup="checkUsernameValidity(); updateCharacterCount1(this);">
+								<input type="text" id="nickName" name="nickName" maxlength="20" class="form-control" placeholder="닉네임*" onkeyup="checkNickNameValidity(); updateCharacterCount3(this);">
+								<button type="button" class="btn btn-light" style="border-radius: 5px" onclick="checkDuplicateNickname()">중복 검사</button>
 							</div>
 							<div class="d-flex">
-								<div id="usernameError" style="color: #da1e28;"></div>
-								<div id="characterCount1" class="charCount" style="margin-left:auto">0/20</div>
+								<div id="nickNameError" style="color: #da1e28;"></div>
+								<div id="characterCount3" class="charCount" style="margin-left:auto">0/20</div>
 							</div>
 						</div>
 					</div>
@@ -257,5 +259,63 @@ function updateCharacterCount1(input) {
 
 	characterCountElement.textContent = currentLength + "/" + maxLength;
 }
+
+function updateCharacterCount2(input) {
+	var maxLength = input.getAttribute("maxlength");
+	var currentLength = input.value.length;
+	var characterCountElement = document.getElementById("characterCount2");
+
+	characterCountElement.textContent = currentLength + "/" + maxLength;
+}
+
+function updateCharacterCount3(input) {
+	var maxLength = input.getAttribute("maxlength");
+	var currentLength = input.value.length;
+	var characterCountElement = document.getElementById("characterCount3");
+
+	characterCountElement.textContent = currentLength + "/" + maxLength;
+}
+
+
+function checkUserIdValidity() {
+   var input = document.getElementById("userId");
+   var errorDiv = document.getElementById("userIdError");
+   var regex = /^[a-zA-Z0-9]+$/; // 영문 대소문자와 숫자 입력 패턴을 확인하는 정규식
+
+   if (!regex.test(input.value)) {
+     input.style.borderColor = "#da1e28";
+     errorDiv.innerHTML = "아이디는 영문 대소문자와 숫자로만 입력해주세요.";
+   } else {
+     input.style.borderColor = "#ced4da";
+     errorDiv.innerHTML = "";
+   }
+ }
+
+// 닉네임 유효성 검사 및 이벤트 효과
+ function checkNickNameValidity() {
+   var input = document.getElementById("nickName");
+   var errorDiv = document.getElementById("nickNameError");
+   var regex = /^[가-힣0-9]+$/; // 한글과 숫자 입력 패턴을 확인하는 정규식
+
+   if (!regex.test(input.value)) {
+     input.style.borderColor = "#da1e28";
+     errorDiv.innerText = "닉네임은 한글과 숫자로만 입력해주세요.";
+   } else {
+     input.style.borderColor = "#ced4da";
+     errorDiv.innerText = "";
+   }
+ }
+ 
+ // 아이디 중복 검사 함수
+ function checkDuplicateId() {
+   // 여기에 중복 검사 로직을 작성하세요.
+   // 중복 여부에 따라 처리 로직을 구현하면 됩니다.
+ }
+
+ // 닉네임 중복 검사 함수
+ function checkDuplicateNickname() {
+   // 여기에 중복 검사 로직을 작성하세요.
+   // 중복 여부에 따라 처리 로직을 구현하면 됩니다.
+ }
 
 </script>
