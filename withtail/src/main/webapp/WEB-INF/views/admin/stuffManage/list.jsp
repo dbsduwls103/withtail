@@ -114,7 +114,7 @@ function searchList() {
     </div>
     
     <div class="body-main">
-
+       <form name="searchForm">
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">
@@ -142,12 +142,15 @@ function searchList() {
 					    <option> 동결건조 </option>
 					    <option> 화식 · 자연식 · 화식 </option>
 					</select>
+					
+					<button class="btn">검색</button>
 				</td>
 				<td align="right" width="30%">
 					1개(1/1 페이지)
 				</td>
 			</tr>
 		</table>
+		</form>
 		
 		<table class="table table-border table-list">
 			<thead>
