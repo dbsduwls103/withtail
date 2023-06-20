@@ -200,7 +200,72 @@ vertical-align: baseline;
   padding: 3px;
 }
 
-    </style>
+</style>
+
+<style>
+        #infomodal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #infomodal .modal-window {
+            background: #f4f4f4;
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid gray;
+            width: 600px;
+            position: relative;
+            left: 10px;
+            padding: 10px;
+        }
+        #infomodal .title {
+            padding-left: 10px;
+            display: inline;
+            
+        }
+        #infomodal .title h2 {
+            display: inline;
+        }
+        #infomodal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        
+        #infomodal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+        }
+        
+.modalbtn {
+     margin: 30px auto;
+}     
+
+.modalbtnbox{
+  text-align: center;
+}   
+
+
+.modalinput {
+  padding: 3px;
+}
+
+</style>
 
 <script type="text/javascript">
 function searchList() {
@@ -352,7 +417,7 @@ function block() {
 						<td class="product-remove"><input type="checkbox"></td>
 						<td>1</td>
 						<td class="left">
-							<a href="#">popo1111</a>
+							<a href="javascript:infoOn();">popo1111</a>
 						</td>
 						<td>최포포</td>
 						<td>정상</td>
@@ -500,6 +565,77 @@ function block() {
             </form>
         </div>
     </div>
+
+   <div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
+        <div class="modal-window">
+            <div class="title">
+                <h2>회원 상세</h2>
+            </div>
+            <div class="close-area">X</div>
+           <table class="table table-border border-top2 table-form">
+				<tr> 
+					<td>아이디</td>
+					<td> 
+						popo1111
+		            </td>
+				</tr>
+				<tr> 
+					<td>이름</td>
+					<td> 
+						최포포
+		            </td>
+				</tr>
+				<tr> 
+					<td>닉네임</td>
+					<td> 
+						포포짱
+		            </td>
+				</tr>
+				<tr> 
+					<td>가입 날짜</td>
+					<td> 
+						2023-06-18
+		            </td>
+				</tr>
+				<tr> 
+					<td>적립금</td>
+					<td> 
+						10,000
+		            </td>
+				</tr>
+			</table>
+			
+            <div class="title" style="margin-top: 20px;">
+                <h4>회원 상태 변경</h4>
+            </div>
+          <table class="table table-border table-list" style="margin-top: 10px;">
+	  		<thead>
+				<tr>
+					<th class="wx-80">회원 코드</th>
+					<th class="wx-100">회원 아이디</th>
+					<th class="wx-80">상태</th>
+					<th class="wx-150">변경 날짜</th>
+					<th class="wx-150">사유</th>
+				</tr>
+			</thead>
+			
+		 	<tbody>
+					<tr>
+						<td>1</td>
+						<td>
+							popo1111
+						</td>
+						<td>정지</td>
+						<td>2023-06-15</td>
+						<td>다른 유저 비방</td>
+					</tr>
+		  	</tbody>
+		  	</table>
+            <div class="modalbtnbox">
+            <button type="button" class="btn modalbtn">확인</button>
+            </div>
+        </div>
+    </div>
 		
       </div>
 	</div>
@@ -519,6 +655,24 @@ function modalOff() {
 const closeBtn = modal.querySelector(".close-area")
 closeBtn.addEventListener("click", e => {
     modalOff();
+});
+
+</script>  
+
+<script>
+const infomodal = document.getElementById("infomodal")
+        
+function infoOn() {
+	infomodal.style.display = "flex"
+}
+        
+function infoOff() {
+	infomodal.style.display = "none"
+}
+        
+const infocloseBtn = infomodal.querySelector(".close-area")
+infocloseBtn.addEventListener("click", e => {
+	infoOff();
 });
 
 </script>  

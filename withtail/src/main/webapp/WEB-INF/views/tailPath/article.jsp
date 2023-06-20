@@ -12,7 +12,7 @@
 }
 
 .imgbox {
-     height: 400px;
+     height: 500px;
      padding: 10px;
      margin: 10px 20px;
      margin: 30px 30px;
@@ -156,32 +156,30 @@ a, a:hover, a:link, a:visited, a:active {
     border-radius: 10px;
 }
 
-.btn {
-    box-shadow: none;
-}
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn {
+
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     position: absolute;
     top: -20px;
     right: 15px;
 }
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn button {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs .btnn {
     width: 40px;
     height: 40px;
     transition: all .3s;
 }
 
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn button.btn01 {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn01 {
     background: url(${pageContext.request.contextPath}/resources/images/btn01.png)no-repeat;
 }
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn button.btn02 {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn02 {
     background: url(${pageContext.request.contextPath}/resources/images/btn02.png)no-repeat;
 }
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn button.btn03 {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs button.btn03 {
     background: url(${pageContext.request.contextPath}/resources/images/btn03.png)no-repeat;
 }
 
@@ -202,7 +200,7 @@ a, a:hover, a:link, a:visited, a:active {
     line-height: 19px;
 }
 
-.contents_wrap .contents .detail_box .detail_text .info_text .btn {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     position: absolute;
     top: -20px;
     right: 15px;
@@ -233,7 +231,7 @@ button {
     cursor: pointer;
 }
 
-.btn:not(:disabled):not(.disabled) {
+.bbs:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
 
@@ -414,7 +412,7 @@ li {
 }
 
 @media (max-width: 1024px)
-.contents_wrap .contents .detail_box .detail_text .info_text .btn {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     transform: scale(0.8);
 }
 
@@ -425,7 +423,7 @@ li {
 }
 
 @media (max-width: 1199px)
-.contents_wrap .contents .detail_box .detail_text .info_text .btn {
+.contents_wrap .contents .detail_box .detail_text .info_text .bbs {
     transform: scale(0.9);
 }
 
@@ -518,10 +516,10 @@ li {
                         <a href="https://naver.me/FzHm83rm" target="_blank">https://naver.me/FzHm83rm</a>
                     </dd>
                 </dl>
-                <div class="btn">
-                    <button class="btn01 btn-content-like three" title="좋아요"><span class="blind">좋아요</span></button>
-                    <button class="btn02 btn-content-favorite three" title="찜하기"><span class="blind">찜하기</span></button>
-                    <button class="btn03 btn-content-modify three" title="수정요청"><span class="blind">수정요청</span></button>
+                <div class="bbs">
+                    <button class="btn01 btn-content-like three btnn" title="좋아요"><span class="blind">좋아요</span></button>
+                    <button class="btn02 btn-content-favorite three btnn" title="찜하기"><span class="blind">찜하기</span></button>
+                    <button class="btn03 btn-content-modify three btnn" title="수정요청"><span class="blind">수정요청</span></button>
                 </div>
             </div>
             <!-- //info_text -->
