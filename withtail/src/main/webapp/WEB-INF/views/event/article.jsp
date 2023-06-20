@@ -69,6 +69,21 @@
 		vertical-align: middle;
 	}
 	
+	.name-span {
+		font-weight: 600;
+	}
+	
+	.num-span {
+		font-weight: 600;
+		color: red;
+	}
+	
+	/* 당첨자 모달 */
+	.winner-div {
+		display: inline-block;
+		padding: 5px 10px;
+	}
+	
 </style>
 
 <section class="ftco-section" style="min-height: 550px;">
@@ -86,16 +101,36 @@
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						작성자 : 관리자
+						이벤트 기간 : 2023-06-19 09:00 ~ 2023-06-26 17:00
 					</td>
 					<td style="text-align: right !important;">
-						작성일 : 2023-06-19 09:00<span class="bar-span">|</span>조회 : 0
+						작성자 : 관리자<span class="bar-span">|</span>조회 : 0
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left !important;">
+						당첨일자 : 2023-06-26 18:00
+					</td>
+					<td style="text-align: right !important;">
+						당첨인원 : 5명
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<p style="margin: 0; padding: 1rem 0; font-size: 16px;">
+							축하합니다. <span class="name-span">김자바</span>님은 이벤트에 <span class="num-span">1등</span>으로 당첨되었습니다.
+						</p>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: left !important; vertical-align: top;">
 						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/resources/images/sample/event01.png" class="event_img mb-2">
 						구매후기를 올리시면 5명을 추첨하여 30% 할인 쿠폰을 드립니다.
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding: 20px 0;">
+						<button type="button" class="btn btn-outline-secondary btnEventWinnerList">이벤트 당첨자 확인</button>
 					</td>
 				</tr>
 				<tr>
@@ -116,4 +151,39 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 모달 -->
+	<script type="text/javascript">
+		$(function(){
+			$(".btnEventWinnerList").click(function(){
+				$("#eventWinnerModal").modal("show");	
+			});
+		});
+	</script>
+	
+	<div class="modal fade" id="eventWinnerModal" tabindex="-1" aria-labelledby="eventWinnerModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eventWinnerModalLabel">이벤트 당첨자 리스트</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center">
+	                 <div class="row row-cols-4 g-1">
+	                 		<div class="col">
+	                 			<div class="border winner-div">
+									<span>
+										1등 :
+									</span>
+									<span style="font-weight: 500;">
+										김*바(kim**)
+									</span>
+								</div>
+	                 		</div>
+	                 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //모달 -->
 </section>

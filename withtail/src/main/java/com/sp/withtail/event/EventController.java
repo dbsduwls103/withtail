@@ -20,4 +20,10 @@ public class EventController {
 		
 		return ".event.article";
 	}
+	
+	@GetMapping("winner")
+	public String winner(Model model) {
+		
+		return ".event.winner";
+	}
 }
