@@ -93,6 +93,6 @@ public class FaqController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("categoryNum", categoryNum);
 
-		return "faq/list";
+		return ".faq.list";
 	}
 }
