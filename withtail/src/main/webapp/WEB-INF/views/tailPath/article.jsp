@@ -406,6 +406,52 @@ li {
     background: url(${pageContext.request.contextPath}/resources/images/tit.png)no-repeat;
 }
 
+.pop {
+    z-index: 10000;
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 352px;
+    width: 100%;
+    height: 146px;
+    box-shadow: 0 0 7px rgba(0,0,0,.3);
+}
+
+
+.pop .pop_text {
+    position: relative;
+    padding: 28.5px 10px;
+    background: #fff;
+    border: 1px solid #c1c1c1;
+    border-width: 1px 1px 0 1px;
+}
+
+.pop .pop_text p {
+    text-align: center;
+    color: #000;
+    line-height: 22px;
+}
+
+.pop.type2 button.pop_btn2 {
+    width: 100%;
+}
+
+.pop button.pop_btn2 {
+    background: #98B2C7;
+    border: 1px solid #798D9E;
+    color: #fff;
+}
+
+.pop button {
+    float: left;
+    width: 50%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+}
+
 @media (max-width: 1199px)
 .container {
     padding: 0 10px;
@@ -427,7 +473,26 @@ li {
     transform: scale(0.9);
 }
 
+@media (max-width: 1199px)
+.pop {
+    width: 92%;
+}
+
+
 </style>
+
+<script>
+function fnMessagePopup(_message) {
+    $(".popup-alert p").html(_message);
+    $(".popup-alert").show();
+}
+
+function fnMessagePopupClose() {
+    $(".popup-alert").hide();
+    $(".popup-alert p").empty();
+}
+
+</script>
 
 <div class="container-body">
 <div class="contents_wrap">
@@ -497,8 +562,8 @@ li {
                     <dt class="address">주소</dt>
                     <dd>
                         <span id="copy-address">강원 춘천시 뱀내길 6</span>&nbsp;
-                        <a href="javascript:;" class="btn-copy-address">
-                            <img src="/page/portal/images/sub/icon8.png" title="주소 복사하기" style="width: 18px; vertical-align: middle;">
+                        <a href="#;" class="btn-copy-address">
+                            <img src="${pageContext.request.contextPath}/resources/images/icon8.png" title="주소 복사하기" style="width: 18px; vertical-align: middle;">
                         </a>
                     </dd>
                 </dl>
@@ -723,5 +788,38 @@ li {
 	</div>
 
 </div>
+</div>
 
+<script>
+$(document).ready(function () {
+	
+	 // address copy
+    $(".btn-copy-address").click(function (event) {
+        // div 내부 텍스트 취득
+        var content = document.getElementById("copy-address").innerText;
+        // textarea 생성
+        var textArea = document.createElement('textarea');
+        // textarea 추가
+        document.body.appendChild(textArea);
+        // textara의 value값으로 div내부 텍스트값 설정
+        textArea.value = content;
+        // textarea 선택 및 복사
+        textArea.select();
+        document.execCommand('copy');
+        // textarea 제거
+        document.body.removeChild(textArea);
+
+        fnMessagePopup("주소를 복사하였습니다.<br />Ctrl + V로 붙혀넣기 하십시오.");
+    });
+});
+</script>
+
+
+<div class="pop type2 popup-alert">
+		<div class="pop_text">
+			<p>주소를 복사하였습니다.<br>Ctrl + V로 붙혀넣기 하십시오.</p>
+		</div>
+		<!-- //pop_text -->
+
+		<button class="pop_btn2" onclick="fnMessagePopupClose();">확인</button>
 </div>
