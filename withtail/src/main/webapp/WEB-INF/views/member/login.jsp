@@ -34,7 +34,7 @@
 	border: 1px solid #ccc;
 }
 
-.login-container button[type="submit"] {
+.login-container button {
 	width: 100%;
 	padding: 15px;
 	border-radius: 5px;
@@ -44,13 +44,13 @@
 	margin-top: 10px;
 }
 
-.login-container button[type="submit"]:hover {
+.login-container button:hover {
 	color: black;
 	background-color: #fff;
 	border: 1px solid #82ae46;
 }
 
-.login-container button[type="submit"]:focus {
+.login-container button:focus {
 	color: black;
 	background-color: #fff;
 	border: 1px solid #82ae46;

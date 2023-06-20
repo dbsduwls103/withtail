@@ -16,12 +16,16 @@ public class LoginController {
 	@Autowired
 	private LoginService service;
 	
+	@RequestMapping("join")
+	public String joinForm() {
+		return ".member.join";
+	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String loginForm() {
 		return ".member.login";
 	}
-
+	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String loginSubmit(@RequestParam String userId,
 			@RequestParam String userPwd,
