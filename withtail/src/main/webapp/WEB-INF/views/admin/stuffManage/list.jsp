@@ -176,7 +176,7 @@ function searchList() {
                         <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png); background-size:cover;"></div></td>
 						<td class="left">
 						    <!-- 제품 상세 페이지로 이동 -->
-							<a href="#">포포 닭가슴살</a>
+							<a href="${pageContext.request.contextPath}/shop/info">포포 닭가슴살</a>
 						</td>
 						<td>10,000</td>
 						<td>5%</td>
