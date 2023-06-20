@@ -167,7 +167,7 @@ input {
 				           		<input type="text" name="addr1" id="addr1" class="form-control" placeholder="기본 주소" value="${dto.addr1}" readonly="readonly" >
 				           	</div>
 				       		<div style="margin-top: 5px;">
-				       			<input type="text" name="addr2" id="addr2" class="form-control" placeholder="상세 주소" value="${dto.addr2}" maxlength="20" onkeyup="updateCharacterCount2(this);">
+				       			<input type="text" name="addr2" id="addr2" class="form-control" placeholder="상세 주소" value="${dto.addr2}" maxlength="80" onkeyup="updateCharacterCount2(this);">
 								<div id="characterCount2" class="charCount">0/80</div>
 							</div>
 						</div>

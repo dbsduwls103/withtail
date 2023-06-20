@@ -297,7 +297,7 @@
 	  		<div class="pets-layout">
 	  			<div class="title-layout">
 	  				<p class="title-two">사랑하는 우리 아이</p>
-	  				<p class="title-three"><a class="title-three" href="#">+ 다른 아이가 더 있나요?</a></p>
+	  				<p class="title-three"><a class="title-three" href="${pageContext.request.contextPath}/pets/new">+ 다른 아이가 더 있나요?</a></p>
 	  			</div>
 	  		</div>
 	  		<div class="pets-profile d-none d-md-flex">
