@@ -396,108 +396,76 @@ function block() {
 	        <button type="button" class="tab-button" id="btn_2" >정지 회원</button>
    		</div>
     </div>
+    
     <div style="clear:both;"></div>
+    
     <div >
         <div id="table1" width="100%" style="padding: 0px;">
            <table class="table table-border table-list" style="margin-top: 10px;">
-	  		<thead>
-				<tr>
-					<th class="wx-50"><input type="checkbox"></th>
-					<th class="wx-80">회원 코드</th>
-					<th class="wx-100">회원 아이디</th>
-					<th class="wx-100">회원 이름</th>
-					<th class="wx-80">상태</th>
-					<th class="wx-130">가입 날짜</th>
-					<th class="wx-200">마지막 로그인</th>
-					<th class="wx-200">관리</th>
-				</tr>
-			</thead>
-			
-		 	<tbody>
+		  		<thead>
 					<tr>
-						<td class="product-remove"><input type="checkbox"></td>
-						<td>1</td>
-						<td class="left">
-							<a href="javascript:infoOn();">popo1111</a>
-						</td>
-						<td>최포포</td>
-						<td>정상</td>
-						<td>2023-03-15</td>
-						<td>2023-06-18 17:23:34</td>
-						<td>
-							<button class="btn" onclick="modalOn();">정지</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
-						</td>
+						<th class="wx-50"><input type="checkbox"></th>
+						<th class="wx-80">회원 코드</th>
+						<th class="wx-100">회원 아이디</th>
+						<th class="wx-100">회원 이름</th>
+						<th class="wx-80">상태</th>
+						<th class="wx-130">가입 날짜</th>
+						<th class="wx-200">마지막 로그인</th>
+						<th class="wx-200">관리</th>
 					</tr>
-		  	</tbody>
-		 	<tbody>
-					<tr>
-						<td class="product-remove"><input type="checkbox"></td>
-						<td>2</td>
-						<td class="left">
-							<a href="#">popo2222</a>
-						</td>
-						<td>강포포</td>
-						<td>정상</td>
-						<td>2023-02-14</td>
-						<td>2023-06-10 12:26:30</td>
-						<td>
-							<button class="btn" id="btn-modal" onclick="modalOn();" >정지</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}';">수정</button> 
-						</td>
-					</tr>
-		  	</tbody>
+				</thead>
+				<!-- foreach돌리기 -->
+				 	<tbody>
+							<tr>
+								<td class="product-remove"><input type="checkbox"></td>
+								<td>1</td>
+								<td class="left">
+									<a href="javascript:infoOn();">popo1111</a>
+								</td>
+								<td>최포포</td>
+								<td>정상</td>
+								<td>2023-03-15</td>
+								<td>2023-06-18 17:23:34</td>
+								<td>
+									<button class="btn" onclick="modalOn();" style="width: 45px;">정지</button> 
+								</td>
+							</tr>
+				  	</tbody>
             </table>
 
         </div>
 
         <div id="table2" width="100%">
             <table class="table table-border table-list" style="margin-top: 10px;">
-	  		<thead>
-				<tr>
-					<th class="wx-50"><input type="checkbox"></th>
-					<th class="wx-80">회원 코드</th>
-					<th class="wx-100">회원 아이디</th>
-					<th class="wx-100">회원 이름</th>
-					<th class="wx-80">상태</th>
-					<th class="wx-130">가입 날짜</th>
-					<th class="wx-200">정지 날짜</th>
-					<th class="wx-200">관리</th>
-				</tr>
-			</thead>
-			
-		 	<tbody>
+		  		<thead>
 					<tr>
-						<td class="product-remove"><input type="checkbox"></td>
-						<td>1</td>
-						<td class="left">
-							<a href="#">shsh0000</a>
-						</td>
-						<td>김성훈</td>
-						<td>정지</td>
-						<td>2023-01-23</td>
-						<td>2023-06-15</td>
-						<td>
-							<button class="btn" onclick="block();">정지 해제</button> 
-						</td>
+						<th class="wx-50"><input type="checkbox"></th>
+						<th class="wx-80">회원 코드</th>
+						<th class="wx-100">회원 아이디</th>
+						<th class="wx-100">회원 이름</th>
+						<th class="wx-80">상태</th>
+						<th class="wx-130">가입 날짜</th>
+						<th class="wx-200">정지 날짜</th>
+						<th class="wx-200">관리</th>
 					</tr>
-		  	</tbody>
-		 	<tbody>
-					<tr>
-						<td class="product-remove"><input type="checkbox"></td>
-						<td>1</td>
-						<td class="left">
-							<a href="#">msms1111</a>
-						</td>
-						<td>이민석</td>
-						<td>정지</td>
-						<td>2023-02-14</td>
-						<td>2023-03-24</td>
-						<td>
-							<button class="btn" onclick="block();">정지 해제</button> 
-						</td>
-					</tr>
-		  	</tbody>
+				</thead>
+					<!-- foreach돌리기 -->
+			 	<tbody>
+						<tr>
+							<td class="product-remove"><input type="checkbox"></td>
+							<td>1</td>
+							<td class="left">
+								<a href="#">shsh0000</a>
+							</td>
+							<td>김성훈</td>
+							<td>정지</td>
+							<td>2023-01-23</td>
+							<td>2023-06-15</td>
+							<td>
+								<button class="btn" onclick="block();">정지 해제</button> 
+							</td>
+						</tr>
+			  	</tbody>
             </table>
         </div>
 
@@ -507,34 +475,7 @@ function block() {
 			1 2 3 
 		</div>
 		
-		<table class="table">
-			<tr>
-				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-				</td>
-				<td align="center">
-					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
-						<select name="condition" class="form-select">
-							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
-							<option value="userName" ${condition=="userName"?"selected='selected'":""}>이름</option>
-							<option value="regDate" ${condition=="regDate"?"selected='selected'":""}>가입날짜</option>
-						</select>
-						<input type="text" name="keyword" value="${keyword}" class="form-control">
-						<button type="button" class="btn" onclick="searchList()">검색</button>
-					</form>
-				</td>
-				<td align="right" width="150">
-					<div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/stuffManage/write';">글올리기</button>
-				    </div>
-				    
-				    <div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="">삭제</button>
-				    </div>
-				</td>
-			</tr>
-		</table>
-		
+	<!-- 정지모달시작 -->		
    <div id="modal" class="modal-overlay">
         <div class="modal-window">
             <div class="title">
@@ -550,23 +491,24 @@ function block() {
             </div>
             <div class="content">정지 사유 : 
                         <select  class="modalinput">
-                           <option value="">패스워드 5회이상 실패</option>
-                           <option value="">불법적인 방법으로 로그임</option>
-                           <option value="">불건전 게시물 등록</option>
-                           <option value="">다른 유저 비방</option>
-                           <option value="">타계정 도용</option>
-                           <option value="">기타 약관 위반</option>
-                           <option value="">1년 이상 로그인하지 않음</option>
-                           <option value="">퇴사</option>
+                           <option value="1">패스워드 5회이상 실패</option>
+                           <option value="2">불법적인 방법으로 로그임</option>
+                           <option value="3">불건전 게시물 등록</option>
+                           <option value="4">다른 유저 비방</option>
+                           <option value="5">타계정 도용</option>
+                           <option value="6">기타 약관 위반</option>
+                           <option value="7">1년 이상 로그인하지 않음</option>
                         </select>
             </div>
             <div class="modalbtnbox">
-            <button type="button" class="btn modalbtn">확인</button>
+            <button type="button" class="btn modalbtn ">확인</button>
             </div>
             </form>
         </div>
     </div>
-
+    <!-- 정지모달 끝 -->
+    
+	<!-- infomodal시작 -->
    <div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
         <div class="modal-window" style="overflow-y: scroll;">
             <div class="title">
@@ -670,10 +612,10 @@ function block() {
 		  	</table>
 		  	</div>
 	            <div class="modalbtnbox">
-	            <button type="button" class="btn modalbtn">확인</button>
+	            <button type="button" class="btn modalbtn ">확인</button>
 	            </div>
         </div>
-    </div>
+    </div><!-- info모달끝 -->
 		
       </div>
 	</div>
