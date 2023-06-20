@@ -97,7 +97,9 @@ function sendLogin() {
 				class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호">
 		</div>
 		<button type="button" class="btn" onclick="sendLogin();">로그인하기</button>
-
+		<div>
+			<p class="form-control-plaintext text-center text-primary">${message}</p>
+        </div>
 	</form>
 	<div class="text-center mt-3">
 		<p>
