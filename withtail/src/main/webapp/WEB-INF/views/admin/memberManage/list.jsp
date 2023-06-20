@@ -283,6 +283,36 @@ function block() {
 </script>
 
 <script type="text/javascript">
+
+
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패 했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+
+
         window.onload = function() {
 
             $("#table1").show();
@@ -303,10 +333,33 @@ function block() {
                 $("#table2").show();
                 $("#btn_1").removeClass("active");
                 $("#btn_2").addClass("active");
+                
+                
+                
             })
             
         })
     </script>
+    
+<script type="text/javascript">
+$(function(){
+	$("#btn_2").click(function() {
+		let page = "${page}";
+		let condition1 = "${condition1}";
+		let keyword = "${keyword}";
+		
+		let url = "${pageContext.request.contextPath}/admin/memberManage/stoplist";
+		let query = "page=" + page + "&condition=" + condition + "&keyword=" + keyword;
+		
+		const fn = function(data){
+			$(#table2).html(data);
+		};
+		ajaxFun(url, "get", query, "json", fn);
+
+	});
+});
+
+</script>
     
   
 
@@ -325,56 +378,57 @@ function block() {
 	    
 	    <div class="body-main">
 	    	
-	    	<form name="memberForm1" method="post">
-			<table class="table table-border border-top2 table-form">
-				<tr> 
-					<td>검색어</td>
-					<td> 
-						<div style="display: inline-block;">
-							<select name="condition" class="category">
-							    <option value="">  :: 선택 :: </option>
-							    <option value=""> 아이디 </option>
-							    <option value=""> 이름 </option>
-							</select>
-						</div>
-						<div style="display: inline-block; width: 200px;" >
-					    	<input type="text" name="key" maxlength="100" class="form-control" value="검색값">
-						</div>
-		            </td>
-				</tr>
+	    	<form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
+				<table class="table table-border border-top2 table-form">
+					<tr> 
+						<td>검색어</td>
+						<td> 
+							<div style="display: inline-block;">
+								<select name="condition1" class="category">
+								    <option value="">  :: 선택 :: </option>
+								    <option value="userId"> 아이디 </option>
+								    <option value="userName"> 이름 </option>
+								</select>
+							</div>
+							<div style="display: inline-block; width: 200px;" >
+						    	<input type="text" name="keyword" maxlength="100" class="form-control" value="검색값">
+							</div>
+			            </td>
+					</tr>
+					
 				
-			
-				<tr> 
-					<td>기간 </td>
-					<td> 
-					   <div style="display: inline-block;">
-							<select name="condition" class="category">
-							    <option value="">  :: 선택 :: </option>
-							    <option value=""> 가입기간 </option>
-							    <option value=""> 정지기간 </option>
-							</select>
-						</div>
-						<div style="display: inline-block; text-align: center; width: 20%">
-					    	<input type="date" name="start" maxlength="100" class="form-control" value="시작날짜">
-						</div>
-						<span>~</span>
-						<div style="display: inline-block; text-align: center; width: 20%">
-					    	<input type="date" name="end" maxlength="100" class="form-control" value="끝날짜">
-						</div>
-						<div style="display: inline-block;">
-						<button class="btn">어제</button>
-						<button class="btn">오늘</button>
-						<button class="btn">일주일</button>
-						<button class="btn">지난달</button>
-						<button class="btn">3개월</button>
-						<button class="btn">전체</button>
-						</div>
-						<div style="display: inline-block; margin-left: 10px;">
-							 <button type="button" class="btn">검색</button> 						
-					     </div>
-				    </td>
-				</tr>
-			</table>
+					<tr> 
+						<td>기간 </td>
+						<td> 
+						   <div style="display: inline-block;">
+								<select name="condition2" class="category">
+								    <option value="">  :: 선택 :: </option>
+								    <option value="regDate"> 가입기간 </option>
+								    <option value="stRegDate"> 정지기간 </option>
+								</select>
+							</div>
+							<div style="display: inline-block; text-align: center; width: 20%">
+						    	<input type="date" name="startKeyword" maxlength="100" class="form-control" value="시작날짜">
+							</div>
+							<span>~</span>
+							<div style="display: inline-block; text-align: center; width: 20%">
+						    	<input type="date" name="endKeyword" maxlength="100" class="form-control" value="끝날짜">
+							</div>
+							<div style="display: inline-block;">
+							<button class="btn">어제</button>
+							<button class="btn">오늘</button>
+							<button class="btn">일주일</button>
+							<button class="btn">지난달</button>
+							<button class="btn">3개월</button>
+							<button class="btn">전체</button>
+							</div>
+							<div style="display: inline-block; margin-left: 10px;">
+								 <button type="submit" class="btn">검색</button> 						
+						     </div>
+					    </td>
+					</tr>
+				</table>
+			</form>
 	   
       <table class="table" style="margin-top: 50px;">
 			<tr>
@@ -388,7 +442,6 @@ function block() {
 			  </td>
 			</tr>
 		</table>
-		</form>
 		
     <div class="tab-menu" style="border: none;">
     	 <div class="tab">
@@ -414,65 +467,34 @@ function block() {
 						<th class="wx-200">관리</th>
 					</tr>
 				</thead>
-				<!-- foreach돌리기 -->
+				<c:forEach var="dto" items="${list }">
 				 	<tbody>
 							<tr>
 								<td class="product-remove"><input type="checkbox"></td>
-								<td>1</td>
+								<td>${dto.num }</td>
 								<td class="left">
-									<a href="javascript:infoOn();">popo1111</a>
+									<a href="javascript:infoOn();">${dto.userId }</a>
 								</td>
-								<td>최포포</td>
-								<td>정상</td>
-								<td>2023-03-15</td>
-								<td>2023-06-18 17:23:34</td>
+								<td>${dto.userName }</td>
+								<td>${dto.enabled==1? "정상":"정지" }</td>
+								<td>${dto.regDate}</td>
+								<td>${empty dto.lastLogin ? "--":dto.lastLogin }</td>
 								<td>
 									<button class="btn" onclick="modalOn();" style="width: 45px;">정지</button> 
 								</td>
 							</tr>
 				  	</tbody>
+				  </c:forEach>
             </table>
-
+		<div class="page-navigation">
+			${paging }
+		</div>
         </div>
 
         <div id="table2" width="100%">
-            <table class="table table-border table-list" style="margin-top: 10px;">
-		  		<thead>
-					<tr>
-						<th class="wx-50"><input type="checkbox"></th>
-						<th class="wx-80">회원 코드</th>
-						<th class="wx-100">회원 아이디</th>
-						<th class="wx-100">회원 이름</th>
-						<th class="wx-80">상태</th>
-						<th class="wx-130">가입 날짜</th>
-						<th class="wx-200">정지 날짜</th>
-						<th class="wx-200">관리</th>
-					</tr>
-				</thead>
-					<!-- foreach돌리기 -->
-			 	<tbody>
-						<tr>
-							<td class="product-remove"><input type="checkbox"></td>
-							<td>1</td>
-							<td class="left">
-								<a href="#">shsh0000</a>
-							</td>
-							<td>김성훈</td>
-							<td>정지</td>
-							<td>2023-01-23</td>
-							<td>2023-06-15</td>
-							<td>
-								<button class="btn" onclick="block();">정지 해제</button> 
-							</td>
-						</tr>
-			  	</tbody>
-            </table>
+
         </div>
 
-		</div>
-		 
-		<div class="page-navigation">
-			1 2 3 
 		</div>
 		
 	<!-- 정지모달시작 -->		
@@ -520,6 +542,12 @@ function block() {
 					<td>아이디</td>
 					<td> 
 						popo1111
+		            </td>
+				</tr>
+				<tr> 
+					<td>이메일</td>
+					<td> 
+						popo1111@naver.com
 		            </td>
 				</tr>
 				<tr> 

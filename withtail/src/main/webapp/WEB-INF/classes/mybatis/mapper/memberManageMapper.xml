@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberManage">
+
+	<sql id="where-list">
+		<choose>
+			<when test="condition1=='userId'">
+				INSTR(m1.userId, #{keyword}) &gt;= 1
+			</when>
+			<otherwise>
+				INSTR(${condition1}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!--정상회원 총 개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND enabled = 1
+			AND membership &lt;= 1
+		</where> 
+    </select>
+    
+    <!--정지회원 총 개수 -->
+	<select id="stopdataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND enabled = 0
+			AND membership &lt;= 1
+		</where> 
+    </select>
+
+	<!--정상 회원리스트 -->
+	<select id="listMember" parameterType="map" resultType="com.sp.withtail.admin.memberManage.MemberManage">
+		select m.num, userId,userName, nickName, userPwd, enabled, 
+			TO_CHAR(regDate,'YYYY-MM-DD')regDate, 
+			TO_CHAR(modifyDate,'YYYY-MM-DD')modifyDate,
+			lastLogin,
+			failureCnt,point,email
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND enabled = 1
+			AND membership &lt;= 1
+		</where> 
+		ORDER BY regDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<!--정지 회원리스트 -->
+	<select id="stoplistMember" parameterType="map" resultType="com.sp.withtail.admin.memberManage.MemberManage">
+		select m.num, m1.userId,userName, nickName, userPwd, enabled, 
+			TO_CHAR(regDate,'YYYY-MM-DD')regDate, 
+			TO_CHAR(modifyDate,'YYYY-MM-DD')modifyDate,
+			lastLogin,
+			failureCnt,point,email,stRegDate
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		JOIN memberState ms ON m1.userId = ms.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND enabled = 1
+			AND membership &lt;= 1
+		</where> 
+		ORDER BY regDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
