@@ -227,7 +227,8 @@ vertical-align: baseline;
             -webkit-backdrop-filter: blur( 13.5px );
             border-radius: 10px;
             border: 1px solid gray;
-            width: 600px;
+            width: 800px;
+            height: 600px;
             position: relative;
             left: 10px;
             padding: 10px;
@@ -567,7 +568,7 @@ function block() {
     </div>
 
    <div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
-        <div class="modal-window">
+        <div class="modal-window" style="overflow-y: scroll;">
             <div class="title">
                 <h2>회원 상세</h2>
             </div>
@@ -605,7 +606,8 @@ function block() {
 				</tr>
 			</table>
 			
-            <div class="title" style="margin-top: 20px;">
+			<div style="margin-top: 30px;">
+            <div class="title">
                 <h4>회원 상태 변경</h4>
             </div>
           <table class="table table-border table-list" style="margin-top: 10px;">
@@ -631,9 +633,45 @@ function block() {
 					</tr>
 		  	</tbody>
 		  	</table>
-            <div class="modalbtnbox">
-            <button type="button" class="btn modalbtn">확인</button>
+		  	</div>
+		  	
+		  	
+            <div style="margin-top: 30px;">
+            <div class="title" style="margin-top:30px;">
+                <h4>포인트 사용 내역</h4>
             </div>
+          <table class="table table-border table-list" style="margin-top: 10px;">
+	  		<thead>
+				<tr>
+					<th class="wx-100">판매 코드</th>
+					<th class="wx-150">상품 내용</th>
+					<th class="wx-80">상태</th>
+					<th class="wx-80">금액</th>
+					<th class="wx-150">사용 날짜</th>
+				</tr>
+			</thead>
+			
+		 	<tbody>
+					<tr>
+						<td>11234</td>
+						<td>수수펫스튜디오 수수까까 30g</td>
+						<td>사용</td>
+						<td>3,000</td>
+						<td>2023-06-15</td>
+					</tr>
+					<tr>
+						<td>21344</td>
+						<td>부드러운 고구마</td>
+						<td>적립</td>
+						<td>1,380</td>
+						<td>2023-06-11</td>
+					</tr>
+		  	</tbody>
+		  	</table>
+		  	</div>
+	            <div class="modalbtnbox">
+	            <button type="button" class="btn modalbtn">확인</button>
+	            </div>
         </div>
     </div>
 		
