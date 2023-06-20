@@ -406,6 +406,46 @@ li {
     background: url(${pageContext.request.contextPath}/resources/images/tit.png)no-repeat;
 }
 
+.contents_wrap .contents .detail_box .detail_text .list_slick .control {
+    position: absolute;
+    top: 94px;
+    right: 8px;
+    font-size: 0;
+}
+
+.contents_wrap .contents .detail_box .detail_text .list_slick {
+    position: relative;
+}
+
+.clearfix {
+    display: block;
+}
+
+.contents_wrap .contents .detail_box .detail_text .list_slick .control button.prev {
+    width: 5px;
+    height: 10px;
+    border: none;
+    background: url(${pageContext.request.contextPath}/resources/images/prev.png)no-repeat;
+}
+
+.contents_wrap .contents .detail_box .detail_text .list_slick .control button.pause {
+    margin: 0 11px;
+    width: 5px;
+    height: 8px;
+    border: none;
+    background: url(${pageContext.request.contextPath}/resources/images/pause.png)no-repeat;
+    background-position: center;
+}
+
+
+.contents_wrap .contents .detail_box .detail_text .list_slick .control button.next {
+    width: 5px;
+    height: 10px;
+    border: none;
+    background: url(${pageContext.request.contextPath}/resources/images/prev.png)no-repeat;
+    transform: rotate(180deg);
+}
+
 .pop {
     z-index: 10000;
     display: none;
@@ -594,7 +634,6 @@ function fnMessagePopupClose() {
                 <div class="control">
                     <button class="prev slick-arrow slick-hidden" aria-disabled="true" tabindex="-1"><span class="blind">이전버튼</span></button>
                     <button class="pause"><span class="blind">일시정지</span></button>
-                    <button class="play"><span class="blind">재생</span></button>
                     <button class="next slick-arrow slick-hidden" aria-disabled="true" tabindex="-1"><span class="blind">다음버튼</span></button>
                 </div>
                 <!-- //control -->
@@ -735,23 +774,9 @@ function fnMessagePopupClose() {
             </ul>
     </div>
 
-    <div class="text_box comment-cont clearfix">
-        <div class="comment-box">
-            <h4 class="title">의견을 남겨주세요.
-                <a href="/pet/service/login" onclick="alert('댓글을 등록하시려면 로그인이 필요합니다.');" class="skinBtnBo skinBtnBo-data-neg btn-login">댓글 쓰기</a>
-            </h4>
-                <div style="text-align: center; margin: 10px 0;">등록된 댓글이 없습니다.</div>
-        </div>
-    </div>
-
     </div>
     <!-- //text_box -->
-    
-    <div class="button_box">
-        <div class="skinTxa-right">
-            <a href="/pet/tour/drink" onclick="goPage(this.href); return false;" class="skinBtnBo skinBtnBo-data-pos">목록</a>
-        </div>
-    </div>
+
 
 </div>
 

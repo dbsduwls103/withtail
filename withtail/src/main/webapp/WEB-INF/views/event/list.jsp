@@ -162,9 +162,9 @@
 		
 		<!-- 탭 -->
 		<ul class="tab-ul col-md-12 d-flex text-center mb-3">
-			<li class="col-md-4"><a href="#" class="active">전체 이벤트</a></li>
-			<li class="col-md-4"><a href="#">진행중 이벤트</a></li>
+			<li class="col-md-4"><a href="#" class="active">진행중 이벤트</a></li>
 			<li class="col-md-4"><a href="#">종료된 이벤트</a></li>
+			<li class="col-md-4"><a href="#">당첨자 발표</a></li>
 		</ul>
 		<!-- //탭 -->
 		
@@ -192,7 +192,7 @@
 				</li>
 				<li class="col-md-8">
 					<div class="ev-content">
-						<span class="exit-span mb-2">마감</span>
+						<span class="exit-span mb-2">종료</span>
 						<h3><a href="${pageContext.request.contextPath}/event/article">구매후기 이벤트</a></h3>
 						<p class="text-truncate" style="max-width: 550px;"><a href="#">구매후기를 올리시면 5명을 추첨하여 30% 할인 쿠폰을 드립니다.</a></p>
 						<p class="ev-date">2023-06-19 ~ 2023-06-26</p>
@@ -227,9 +227,9 @@
 				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center">
 					<select name="condition" class="form-select" style="width: auto !important;">
 						<option value="all">제목+내용</option>
-						<option value="reg_date">등록일</option>
-						<option value="subject">제목</option>
-						<option value="content">내용</option>
+						<option value="startDate">시작일</option>
+						<option value="endDate">종료일</option>
+						<option value="winningDate">발표일</option>
 					</select>
 					<input type="text" name="keyword" class="form-control" style="border-radius: 0.375rem; width: 200px;">
 					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;">검색</button>
@@ -237,7 +237,7 @@
 			</div>
 			<div class="col col-md-2 text-right">
 				&nbsp;
-				<!--<button type="button" class="btn btn-outline-secondary" style="display: inline-block;" onclick="location.href='${pageContext.request.contextPath}/inquiry/write';">공지등록</button>-->
+				<!--<button type="button" class="btn btn-outline-secondary" style="display: inline-block;" onclick="location.href='${pageContext.request.contextPath}/inquiry/write';">등록하기</button>-->
 			</div>
 		</div>
 		
