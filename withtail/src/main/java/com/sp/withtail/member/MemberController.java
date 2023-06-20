@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("member.memberController")
 @RequestMapping("/member/*")
 public class MemberController {
-
+ 
 }

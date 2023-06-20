@@ -57,7 +57,7 @@ public class LoginController {
 
 		return uri;
 	}
-
+    
 	@RequestMapping(value = "logout")
 	public String logout(HttpSession session) {
 		// 세션에 저장된 정보 지우기
