@@ -2,5 +2,10 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-	
+	<select id="loginMember" parameterType="String" resultType="com.sp.withtail.member.Member">
+		SELECT m.num, membership, userId, userName, nickName, userPwd, regDate, modifyDate, lastLogin, email
+		FROM member m
+		JOIN member1 m1 ON m1.num = m.num
+		WHERE userId = #{userId} AND enabled != 0
+	</select>
 </mapper>

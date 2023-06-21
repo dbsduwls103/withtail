@@ -1,7 +1,7 @@
 package com.sp.withtail.member;
 
 public class Member {
-	private long memberIdx;
+	private long num;
 	private int membership;
 	private String userId;
 	private String userName;
@@ -23,11 +23,11 @@ public class Member {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public long getMemberIdx() {
-		return memberIdx;
+	public long getNum() {
+		return num;
 	}
-	public void setMemberIdx(long memberIdx) {
-		this.memberIdx = memberIdx;
+	public void setNum(long num) {
+		this.num = num;
 	}
 	public int getMembership() {
 		return membership;
