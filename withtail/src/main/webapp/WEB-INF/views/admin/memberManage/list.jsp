@@ -283,86 +283,17 @@ function block() {
 </script>
 
 <script type="text/javascript">
-
-
-function ajaxFun(url, method, query, dataType, fn) {
-	$.ajax({
-		type:method,
-		url:url,
-		data:query,
-		dataType:dataType,
-		success:function(data) {
-			fn(data);
-		},
-		beforeSend:function(jqXHR) {
-			jqXHR.setRequestHeader("AJAX", true);
-		},
-		error:function(jqXHR) {
-			if(jqXHR.status === 403) {
-				login();
-				return false;
-			} else if(jqXHR.status === 400) {
-				alert("요청 처리가 실패 했습니다.");
-				return false;
-			}
-	    	
-			console.log(jqXHR.responseText);
-		}
+	$(document).ready(function() {
+          $("#btn_1").click(function() {
+        	  location.href="${pageContext.request.contextPath}/admin/memberManage/list/general"
+          });
+          
+          $("#btn_2").click(function() {
+        	  location.href="${pageContext.request.contextPath}/admin/memberManage/list/stop"
+          });
 	});
-}
-
-
-
-        window.onload = function() {
-
-            $("#table1").show();
-            $("#table2").hide();
-        }
-        $(document).ready(function() {
-            $("#btn_1").click(function() {
-
-                $("#table1").show();
-                $("#table2").hide();
-                $("#btn_1").addClass("active");
-                $("#btn_2").removeClass("active");
-                
-            })
-            $("#btn_2").click(function() {
-
-                $("#table1").hide();
-                $("#table2").show();
-                $("#btn_1").removeClass("active");
-                $("#btn_2").addClass("active");
-                
-                
-                
-            })
-            
-        })
-    </script>
-    
-<script type="text/javascript">
-$(function(){
-	$("#btn_2").click(function() {
-		let page = "${page}";
-		let condition1 = "${condition1}";
-		let keyword = "${keyword}";
-		
-		let url = "${pageContext.request.contextPath}/admin/memberManage/stoplist";
-		let query = "page=" + page + "&condition=" + condition + "&keyword=" + keyword;
-		
-		const fn = function(data){
-			$(#table2).html(data);
-		};
-		ajaxFun(url, "get", query, "json", fn);
-
-	});
-});
-
 </script>
-    
-  
-
+ 
 <div class="body-container">
 
 
@@ -378,7 +309,7 @@ $(function(){
 	    
 	    <div class="body-main">
 	    	
-	    	<form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
+	    	<form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list/${state}" method="post">
 				<table class="table table-border border-top2 table-form">
 					<tr> 
 						<td>검색어</td>
@@ -386,33 +317,32 @@ $(function(){
 							<div style="display: inline-block;">
 								<select name="condition1" class="category">
 								    <option value="">  :: 선택 :: </option>
-								    <option value="userId"> 아이디 </option>
-								    <option value="userName"> 이름 </option>
+								    <option value="userId" ${condition1=="userId"?"selected='selected'":""}> 아이디 </option>
+								    <option value="userName" ${condition1=="userName"?"selected='selected'":""}> 이름 </option>
 								</select>
 							</div>
 							<div style="display: inline-block; width: 200px;" >
-						    	<input type="text" name="keyword" maxlength="100" class="form-control" value="검색값">
+						    	<input type="text" name="keyword" maxlength="100" class="form-control" placeholder="검색값" value="${keyword }">
 							</div>
 			            </td>
 					</tr>
 					
-				
 					<tr> 
 						<td>기간 </td>
 						<td> 
 						   <div style="display: inline-block;">
 								<select name="condition2" class="category">
 								    <option value="">  :: 선택 :: </option>
-								    <option value="regDate"> 가입기간 </option>
-								    <option value="stRegDate"> 정지기간 </option>
+								    <option value="regDate" ${condition2=="regDate"?"selected='selected'":""}> 가입기간 </option>
+								    <option value="stRegDate" ${condition2=="regDate"?"selected='selected'":""}> 정지기간 </option>
 								</select>
 							</div>
 							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" name="startKeyword" maxlength="100" class="form-control" value="시작날짜">
+						    	<input type="date" name="startKeyword" maxlength="100" class="form-control" value="${startKeyword}">
 							</div>
 							<span>~</span>
 							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" name="endKeyword" maxlength="100" class="form-control" value="끝날짜">
+						    	<input type="date" name="endKeyword" maxlength="100" class="form-control" value="${endKeyword}" >
 							</div>
 							<div style="display: inline-block;">
 							<button class="btn">어제</button>
@@ -445,32 +375,30 @@ $(function(){
 		
     <div class="tab-menu" style="border: none;">
     	 <div class="tab">
-	        <button type="button" class="tab-button active" id="btn_1" >정상 회원</button>
-	        <button type="button" class="tab-button" id="btn_2" >정지 회원</button>
+	        <button type="button" class="tab-button ${state=='general'?'active':'' }" id="btn_1" >정상 회원</button>
+	        <button type="button" class="tab-button ${state=='stop'?'active':'' }" id="btn_2" >정지 회원</button>
    		</div>
     </div>
     
     <div style="clear:both;"></div>
     
-    <div >
-        <div id="table1" width="100%" style="padding: 0px;">
+    <div>
+        <div id="table1" style="padding: 0px;">
            <table class="table table-border table-list" style="margin-top: 10px;">
 		  		<thead>
 					<tr>
-						<th class="wx-50"><input type="checkbox"></th>
 						<th class="wx-80">회원 코드</th>
 						<th class="wx-100">회원 아이디</th>
 						<th class="wx-100">회원 이름</th>
 						<th class="wx-80">상태</th>
-						<th class="wx-130">가입 날짜</th>
+						<th class="wx-130">${state=="general"?"가입일자":"정지일자" }</th>
 						<th class="wx-200">마지막 로그인</th>
 						<th class="wx-200">관리</th>
 					</tr>
 				</thead>
-				<c:forEach var="dto" items="${list }">
-				 	<tbody>
+				<tbody>
+				<c:forEach var="dto" items="${list}">
 							<tr>
-								<td class="product-remove"><input type="checkbox"></td>
 								<td>${dto.num }</td>
 								<td class="left">
 									<a href="javascript:infoOn();">${dto.userId }</a>
@@ -480,23 +408,23 @@ $(function(){
 								<td>${dto.regDate}</td>
 								<td>${empty dto.lastLogin ? "--":dto.lastLogin }</td>
 								<td>
-									<button class="btn" onclick="modalOn();" style="width: 45px;">정지</button> 
+									<c:if test="${state=='general'}">
+										<button class="btn" onclick="modalOn();" style="width: 45px;">정지</button> 
+									</c:if>
+									<c:if test="${state=='stop'}">
+										<button class="btn" onclick="block();">정지 해제</button> 
+									</c:if>
 								</td>
 							</tr>
-				  	</tbody>
 				  </c:forEach>
+				  	</tbody>
             </table>
-		<div class="page-navigation">
-			${paging }
-		</div>
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 회원이 없습니다." : paging}
+			</div>
         </div>
+</div>
 
-        <div id="table2" width="100%">
-
-        </div>
-
-		</div>
-		
 	<!-- 정지모달시작 -->		
    <div id="modal" class="modal-overlay">
         <div class="modal-window">

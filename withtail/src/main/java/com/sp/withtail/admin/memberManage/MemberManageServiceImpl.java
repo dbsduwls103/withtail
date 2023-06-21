@@ -29,7 +29,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("memberManage.dataCount");
+			result = dao.selectOne("memberManage.stopdataCount");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 		List<MemberManage> list = null;
 		
 		try {
-			list = dao.selectList("memberManage.listMember", map);
+			list = dao.selectList("memberManage.stoplistMember", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
