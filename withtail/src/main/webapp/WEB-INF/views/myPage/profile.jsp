@@ -188,7 +188,7 @@ hr {
 					</div>
 					<div class="profile-edit-value ">
 						<div class="profile-edit-value-text valign-text-middle">
-							김성훈
+					${sessionScope.member.userName}
 						</div>
 					</div>
 				</div>
@@ -203,7 +203,7 @@ hr {
 					</div>
 					<div class="profile-edit-value ">
 						<div class="profile-edit-value-text valign-text-middle">
-							shshshsh@naver.com
+							${sessionScope.member.email}
 						</div>
 					</div>
 				</div>
