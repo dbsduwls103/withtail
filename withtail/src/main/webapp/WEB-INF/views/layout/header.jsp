@@ -235,29 +235,29 @@
 			<ul class="main1">
 				<li><a href="#" class="nav-bold"><i class="fa-solid fa-bars" style="margin-right: 20px;"></i>쇼핑</a>
 					<ul class="main2">
-						<li><a href="#">강아지</a>
+						<li><a href="${pageContext.request.contextPath}/shop/1">강아지</a>
 							<ul class="main3">
-								<li><a href="${pageContext.request.contextPath}/shop/list">주식</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">간식</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">패션</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">산책·외출</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">건강보조제</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">홈·리빙</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">장난감</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">목욕·위생</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/3">주식</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/4">간식</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/5">패션</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/6">산책·외출</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/7">건강보조제</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/8">홈·리빙</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/9">장난감</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/10">목욕·위생</a></li>
 							</ul>
 						</li>
 		
-						<li><a href="#">고양이</a>
+						<li><a href="${pageContext.request.contextPath}/shop/2">고양이</a>
 							<ul class="main3">
-								<li><a href="${pageContext.request.contextPath}/shop/list">주식</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">간식</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">패션</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">장난감</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">홈·리빙</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">목욕·위생</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">산책·외출</a></li>
-								<li><a href="${pageContext.request.contextPath}/shop/list">건강보조제</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/11">주식</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/12">간식</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/13">패션</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/14">장난감</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/15">홈·리빙</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/16">목욕·위생</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/17">산책·외출</a></li>
+								<li><a href="${pageContext.request.contextPath}/shop/18">건강보조제</a></li>
 							</ul>
 						</li>
 					</ul>
