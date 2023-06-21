@@ -1,13 +1,10 @@
 package com.sp.withtail.shop;
 
-public class Shop {
-	private String ctNum;
-	private String ctName;
-	
-	private long prodNum;
-	private String prodName;
+public class Product {
+	private long itemNum;
+	private String itemName;
 	private int discount;
-	private String prodContent;
+	private String itemContent;
 	private String regDate;
 	private String updDate;
 	private String madeby;
@@ -19,10 +16,10 @@ public class Shop {
 	private String expriy;
 	private String country;
 	
-	private long opNum1;
-	private String opName;
-	private long opNum2;
-	private String opContent;
+	private long optionNum1;
+	private String option1Name;
+	private long optionNum2;
+	private String option2Content;
 	private int stock;
 	private int extraPrice;
 	private int coupon;
@@ -30,32 +27,17 @@ public class Shop {
 	private long photoNum;
 	private long photoName;
 	
-	private String userId;
-	private String userName;
-	
-	public String getCtNum() {
-		return ctNum;
+	public long getItemNum() {
+		return itemNum;
 	}
-	public void setCtNum(String ctNum) {
-		this.ctNum = ctNum;
+	public void setItemNum(long itemNum) {
+		this.itemNum = itemNum;
 	}
-	public String getCtName() {
-		return ctName;
+	public String getItemName() {
+		return itemName;
 	}
-	public void setCtName(String ctName) {
-		this.ctName = ctName;
-	}
-	public long getProdNum() {
-		return prodNum;
-	}
-	public void setProdNum(long prodNum) {
-		this.prodNum = prodNum;
-	}
-	public String getProdName() {
-		return prodName;
-	}
-	public void setProdName(String prodName) {
-		this.prodName = prodName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 	public int getDiscount() {
 		return discount;
@@ -63,11 +45,11 @@ public class Shop {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public String getProdContent() {
-		return prodContent;
+	public String getItemContent() {
+		return itemContent;
 	}
-	public void setProdContent(String prodContent) {
-		this.prodContent = prodContent;
+	public void setItemContent(String itemContent) {
+		this.itemContent = itemContent;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -123,29 +105,29 @@ public class Shop {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public long getOpNum1() {
-		return opNum1;
+	public long getOptionNum1() {
+		return optionNum1;
 	}
-	public void setOpNum1(long opNum1) {
-		this.opNum1 = opNum1;
+	public void setOptionNum1(long optionNum1) {
+		this.optionNum1 = optionNum1;
 	}
-	public String getOpName() {
-		return opName;
+	public String getOption1Name() {
+		return option1Name;
 	}
-	public void setOpName(String opName) {
-		this.opName = opName;
+	public void setOption1Name(String option1Name) {
+		this.option1Name = option1Name;
 	}
-	public long getOpNum2() {
-		return opNum2;
+	public long getOptionNum2() {
+		return optionNum2;
 	}
-	public void setOpNum2(long opNum2) {
-		this.opNum2 = opNum2;
+	public void setOptionNum2(long optionNum2) {
+		this.optionNum2 = optionNum2;
 	}
-	public String getOpContent() {
-		return opContent;
+	public String getOption2Content() {
+		return option2Content;
 	}
-	public void setOpContent(String opContent) {
-		this.opContent = opContent;
+	public void setOption2Content(String option2Content) {
+		this.option2Content = option2Content;
 	}
 	public int getStock() {
 		return stock;
@@ -177,18 +159,8 @@ public class Shop {
 	public void setPhotoName(long photoName) {
 		this.photoName = photoName;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
+	
 	
 	
 }

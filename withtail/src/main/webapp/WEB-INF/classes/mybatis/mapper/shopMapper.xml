@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shop">
+	<!-- 카테고리 -->
+	<select id="listCategory" resultType="com.sp.withtail.shop.Category">
+		SELECT level, ctNum, ctName, parentCt
+		FROM category
+    	START WITH parentCt is null
+    	CONNECT BY PRIOR ctNum = parentCt
+    	ORDER SIBLINS BY ctNum
+	</select>
+	
+	<select id="readCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
+		SELECT ctNum, ctName FROM category
+		WHERE ctNum = #{ctNum}
+	</select>
+	
+	<select id="listSubCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
+		SELECT level, ctNum, ctName, parentCt
+		FROM category
+    	START WITH parentCt = 1
+    	CONNECT BY PRIOR ctNum = parentCt
+    	ORDER SIBLINS BY ctNum
+	</select>
+	
+	<select id="readSubCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
+		SELECT ctNum, ctName, parentCt FROM category
+		WHERE ctNum = #{ctNum}
+	</select>
+	
+	<!-- 상품 개수 -->
+	<!--
+	<select id="dataCount" parameterType="map" resultType="Integer">  
+		SELECT NVL(COUNT(*), 0)
+		FROM item i
+		JOIN category c ON i.categoryNum = c.num
+		WHERE c.num = #{ctNum}
+	</select>
+	-->
+	
+	<!-- 상품 리스트 -->
+	<!--  
+	<select id="listProd" parameterType="map" resultType="com.sp.withtail.shop.Product">
+		SELECT i.num, i.categoryNum, i.name, i.discount, i.content, i.madeby
+		FROM item i
+		JOIN itemPhoto ip ON
+		JOIN category c ON
+	</select>
+	-->
+	
+	<!-- 글 보기 -->
+	<!--
+	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Shop">
+		SELECT i.num, i.categoryNum, i.name, i.discount, i.content, i.madeby
+		FROM item i
+		JOIN itemPhoto ip ON
+		JOIN food f ON
+		JOIN option1 op1 ON
+		JOIN option2 op2 ON
+		JOIN category c ON
+	</select>
+	-->
+
+</mapper>
