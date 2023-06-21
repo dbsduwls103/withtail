@@ -5,7 +5,7 @@
 
           <div class="row">
           	<!-- 아이템1 -->
-             <div class="col-md-6 col-lg-3"> <!-- ftco-animate 왜 작동안함? -->
+             <div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp"> <!-- ftco-animate 왜 작동안함? -->
                 <div class="product">
                    <a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/shop/product_sample.jpg" alt="Colorlib Template">
                       <span class="status">30%</span>
