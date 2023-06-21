@@ -304,7 +304,7 @@ function block() {
     <div class="body-main">
     
         <div style="margin-bottom: 10px">
-		<h4 ><i class="fa-solid fa-magnifying-glass"></i> 회원 검색 </h4>
+		<h4 ><i class="fa-solid fa-magnifying-glass"></i> 회원 검색 ${dataCount }</h4>
 	    </div>
 	    
 	    <div class="body-main">

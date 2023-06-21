@@ -35,7 +35,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				<include refid="where-list2"/>
+				and<include refid="where-list2"/>
 			</if>
 			AND enabled = 1
 			AND membership &lt;= 1
@@ -53,7 +53,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				<include refid="where-list2"/>
+				and<include refid="where-list2"/>
 			</if>
 			AND enabled = 0
 			AND membership &lt;= 1
@@ -75,7 +75,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				<include refid="where-list2"/>
+				and<include refid="where-list2"/>
 			</if>
 			AND enabled = 1
 			AND membership &lt;= 1
@@ -99,7 +99,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				<include refid="where-list2"/>
+				and<include refid="where-list2"/>
 			</if>
 			AND enabled = 0
 			AND membership &lt;= 1
