@@ -2,16 +2,18 @@ package com.sp.withtail.member;
 
 // 세션에 저장할 정보(아이디, 이름, 권한 등)
 public class SessionInfo {
-	private long memberIdx;
+	private long num;
 	private String userId;
 	private String userName;
+	private String nickName;
 	private int membership;
+	private String email;
 	
-	public long getMemberIdx() {
-		return memberIdx;
+	public long getNum() {
+		return num;
 	}
-	public void setMemberIdx(long memberIdx) {
-		this.memberIdx = memberIdx;
+	public void setNum(long num) {
+		this.num = num;
 	}
 	public String getUserId() {
 		return userId;
@@ -25,10 +27,22 @@ public class SessionInfo {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public int getMembership() {
 		return membership;
 	}
 	public void setMembership(int membership) {
 		this.membership = membership;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
