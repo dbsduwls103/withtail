@@ -45,7 +45,8 @@ public class LoginController {
 		info.setUserName(dto.getUserName());
 		info.setNickName(dto.getNickName());
 		info.setMembership(dto.getMembership());
-
+		info.setEmail(dto.getEmail());
+		
 		session.setMaxInactiveInterval(60 * 60); // 세션유지시간 60분, 기본:30분
 
 		session.setAttribute("member", info);

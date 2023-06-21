@@ -37,8 +37,8 @@ public class MyPageController {
 	}
     
     @GetMapping("profile")
-	public String execute4() throws Exception {
-	
+	public String profileList() throws Exception {
+    	
 		return ".myPage.profile";
 	}
     
