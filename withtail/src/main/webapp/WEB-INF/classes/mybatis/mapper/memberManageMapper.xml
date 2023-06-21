@@ -13,14 +13,14 @@
 		</if>
 	</sql>
 	
-	<sql id="where-list2">
+	<sql id="where-condition2">
 		<if test="condition2=='regDate' ">
-			( TO_CHAR(regDate, 'YYYYMMDD'))  &gt;= #{startKeyword}
-           		 AND  ( TO_CHAR(regDate, 'YYYYMMDD'))  &lt;= #{endKeyword}
+			( TO_CHAR(regDate, 'YYYYMMDD')  &gt;= #{startKeyword}
+           		 AND   TO_CHAR(regDate, 'YYYYMMDD')  &lt;= #{endKeyword})
 		</if>
 		<if test="condition2=='stRegDate' ">
-			( TO_CHAR(stRegDate, 'YYYYMMDD'))  &gt;= #{startKeyword}
-	            AND  ( TO_CHAR(stRegDate, 'YYYYMMDD'))  &lt;= #{endKeyword}
+			( TO_CHAR(stRegDate, 'YYYYMMDD')  &gt;= #{startKeyword}
+	            AND   TO_CHAR(stRegDate, 'YYYYMMDD')  &lt;= #{endKeyword})
 		</if>
 	</sql>
 	
@@ -35,7 +35,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				and<include refid="where-list2"/>
+				and<include refid="where-condition2"/>
 			</if>
 			AND enabled = 1
 			AND membership &lt;= 1
@@ -53,7 +53,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				and<include refid="where-list2"/>
+				and<include refid="where-condition2"/>
 			</if>
 			AND enabled = 0
 			AND membership &lt;= 1
@@ -75,7 +75,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				and<include refid="where-list2"/>
+				and<include refid="where-condition2"/>
 			</if>
 			AND enabled = 1
 			AND membership &lt;= 1
@@ -99,7 +99,7 @@
 				<include refid="where-list"/>
 			</if>
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
-				and<include refid="where-list2"/>
+				and<include refid="where-condition2"/>
 			</if>
 			AND enabled = 0
 			AND membership &lt;= 1

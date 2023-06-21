@@ -268,6 +268,142 @@ vertical-align: baseline;
 
 </style>
 
+<script type='text/javascript'>
+function settingsInput(option, value) {
+	const startDateObj = document.getElementById("startDate");
+	const endDateObj = document.getElementById("endDate");
+	
+	let date = new Date();
+	let y = date.getFullYear();
+	let m = date.getMonth()+1;
+	let d = date.getDate();
+	
+	endDateObj.value = dateToString(date);
+	
+	if(option === "day") {
+		startDateObj.value = dateToString(date);
+	} else if(option === "week") {
+		startDateObj.value = dateToString(new Date(y, m-1, d-7));
+	} else if(option === "month") {
+		let last = (new Date(y, m-value, 0)).getDate();
+		if(d > last) {
+			d = last;
+		}
+		startDateObj.value = dateToString(new Date(y, m-1-value, d+1));
+	} else if(option === "year") {
+		startDateObj.value = dateToString(new Date(y-value, m-1, d+1));
+	}
+}
+
+function searchList() {
+	const f = document.searchForm;
+	
+	if(! isValidDateFormat(f.startDate.value)) {
+		f.startDate.focus();
+		return;
+	}
+	
+	if(! isValidDateFormat(f.endDate.value)) {
+		f.endDate.focus();
+		return;
+	}
+	
+	if(diffDays(f.startDate.value, f.endDate.value) < 0) {
+		alert("시작일은 종료일보다 클수 없습니다.");
+		f.startDate.focus();
+		return;
+	}
+
+	if(diffDays(f.endDate.value, dateToString(new Date())) < 0) {
+		alert("종료일은 오늘보다 클수 없습니다.");
+		f.endDate.focus();
+		return;
+	}
+	
+	alert("성공...");
+	
+}
+
+// 날짜를 문자열로
+function dateToString(date) {
+	let y = date.getFullYear();
+	let m = date.getMonth() + 1;
+    if(m < 10) m='0'+m;
+    let d = date.getDate();
+    if(d < 10) d='0'+d;
+    
+    return y + '-' + m + '-' + d;
+}
+
+// 문자열을 날짜로
+function stringToDate(data) {
+	if(! isValidDateFormat(data)) {
+		throw "날짜 형식이 올바르지 않습니다.";
+	}
+
+	let format = /(\.)|(\-)|(\/)/g;
+	data = data.replace(format, "");
+    
+	let y = parseInt(data.substring(0, 4));
+	let m = parseInt(data.substring(4, 6));
+	let d = parseInt(data.substring(6));
+    
+    return new Date(y, m-1, d);
+}
+
+function isValidDateFormat(data){
+	if(data.length !== 8 && data.length !== 10) return false;
+		
+	let p = /(\.)|(\-)|(\/)/g;
+	data = data.replace(p, "");
+	if(data.length !== 8) return false;
+	
+	// let format = /^[12][0-9]{3}[0-9]{2}[0-9]{2}$/;
+	let format = /^[12][0-9]{7}$/;
+	if(! format.test(data)) return false;
+    
+	let y = parseInt(data.substring(0, 4));
+	let m = parseInt(data.substring(4, 6));
+	let d = parseInt(data.substring(6));
+
+	if(m<1 || m>12) return false;
+	let lastDay = (new Date(y, m, 0)).getDate();
+	if(d<1 || d>lastDay) return false;
+	
+	return true;
+}
+
+// 두 날짜 사이의 일자 구하기
+function diffDays(startDate, endDate) {
+	if(! isValidDateFormat(startDate) || ! isValidDateFormat(endDate)) {
+		throw "날짜 형식이 올바르지 않습니다.";
+	}
+
+	let format = /(\.)|(\-)|(\/)/g;
+    startDate = startDate.replace(format, "");
+    endDate = endDate.replace(format, "");
+   
+    let sy = parseInt(startDate.substring(0, 4));
+    let sm = parseInt(startDate.substring(4, 6));
+    let sd = parseInt(startDate.substring(6));
+    
+    let ey = parseInt(endDate.substring(0, 4));
+    let em = parseInt(endDate.substring(4, 6));
+    let ed = parseInt(endDate.substring(6));
+
+    let fromDate = new Date(sy, sm-1, sd);
+    let toDate = new Date(ey, em-1, ed);
+    
+    let sn = fromDate.getTime();
+    let en = toDate.getTime();
+    
+    let diff = en-sn;
+    let day = Math.floor(diff/(24*3600*1000));
+    
+    return day;
+}
+</script>
+
 <script type="text/javascript">
 function searchList() {
 	const f = document.searchForm;
@@ -334,23 +470,23 @@ function block() {
 								<select name="condition2" class="category">
 								    <option value="">  :: 선택 :: </option>
 								    <option value="regDate" ${condition2=="regDate"?"selected='selected'":""}> 가입기간 </option>
-								    <option value="stRegDate" ${condition2=="regDate"?"selected='selected'":""}> 정지기간 </option>
+								    <option value="stRegDate" ${condition2=="stRegDate"?"selected='selected'":""}> 정지기간 </option>
 								</select>
 							</div>
 							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" name="startKeyword" maxlength="100" class="form-control" value="${startKeyword}">
+						    	<input type="date" id="startDate" name="startKeyword" maxlength="100" class="form-control" value="${startKeyword}">
 							</div>
 							<span>~</span>
 							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" name="endKeyword" maxlength="100" class="form-control" value="${endKeyword}" >
+						    	<input type="date" id="endDate" name="endKeyword" maxlength="100" class="form-control" value="${endKeyword}" >
 							</div>
 							<div style="display: inline-block;">
-							<button class="btn">어제</button>
-							<button class="btn">오늘</button>
-							<button class="btn">일주일</button>
-							<button class="btn">지난달</button>
-							<button class="btn">3개월</button>
-							<button class="btn">전체</button>
+							<button type="button" class="btn" onclick="settingsInput('day', 0);">오늘</button>
+       						<button type="button" class="btn" onclick="settingsInput('week', 1);">1주일</button>
+					        <button type="button" class="btn" onclick="settingsInput('month', 1);">1개월</button>
+					        <button type="button" class="btn" onclick="settingsInput('month', 3);">3개월</button>
+					        <button type="button" class="btn" onclick="settingsInput('month', 6);">6개월</button>
+					        <button type="button" class="btn" onclick="settingsInput('year', 1);">1년</button>
 							</div>
 							<div style="display: inline-block; margin-left: 10px;">
 								 <button type="submit" class="btn">검색</button> 						
@@ -367,9 +503,7 @@ function block() {
 				   <h4><i class="fa-solid fa-user-check"></i> 회원 목록 </h4>
 		        </div>
               </td>
-		      <td align="right" width="50%">
-					1개(1/1 페이지)
-			  </td>
+
 			</tr>
 		</table>
 		
@@ -384,6 +518,9 @@ function block() {
     
     <div>
         <div id="table1" style="padding: 0px;">
+        	<div style="text-align: right; margin-top: 15px;">
+        		${dataCount }개(${page}/${total_page}페이지)
+        	</div>
            <table class="table table-border table-list" style="margin-top: 10px;">
 		  		<thead>
 					<tr>
@@ -398,10 +535,10 @@ function block() {
 				</thead>
 				<tbody>
 				<c:forEach var="dto" items="${list}">
-							<tr>
+							<tr class="hover" onclick="profile('${dto.userId}');">
 								<td>${dto.num }</td>
-								<td class="left">
-									<a href="javascript:infoOn();">${dto.userId }</a>
+								<td>
+									<a href="javascript:infoOn('${dto.userId }');">${dto.userId }</a>
 								</td>
 								<td>${dto.userName }</td>
 								<td>${dto.enabled==1? "정상":"정지" }</td>
@@ -466,42 +603,42 @@ function block() {
             </div>
             <div class="close-area">X</div>
            <table class="table table-border border-top2 table-form">
-				<tr> 
-					<td>아이디</td>
-					<td> 
-						popo1111
-		            </td>
-				</tr>
-				<tr> 
-					<td>이메일</td>
-					<td> 
-						popo1111@naver.com
-		            </td>
-				</tr>
-				<tr> 
-					<td>이름</td>
-					<td> 
-						최포포
-		            </td>
-				</tr>
-				<tr> 
-					<td>닉네임</td>
-					<td> 
-						포포짱
-		            </td>
-				</tr>
-				<tr> 
-					<td>가입 날짜</td>
-					<td> 
-						2023-06-18
-		            </td>
-				</tr>
-				<tr> 
-					<td>적립금</td>
-					<td> 
-						10,000
-		            </td>
-				</tr>
+					<tr> 
+						<td>아이디</td>
+						<td> 
+							popo1111
+			            </td>
+					</tr>
+					<tr> 
+						<td>이메일</td>
+						<td> 
+							popo1111@naver.com
+			            </td>
+					</tr>
+					<tr> 
+						<td>이름</td>
+						<td> 
+							최포포
+			            </td>
+					</tr>
+					<tr> 
+						<td>닉네임</td>
+						<td> 
+							포포짱
+			            </td>
+					</tr>
+					<tr> 
+						<td>가입 날짜</td>
+						<td> 
+							2023-06-18
+			            </td>
+					</tr>
+					<tr> 
+						<td>적립금</td>
+						<td> 
+							10,000
+			            </td>
+					</tr>
 			</table>
 			
 			<div style="margin-top: 30px;">
@@ -511,9 +648,9 @@ function block() {
           <table class="table table-border table-list" style="margin-top: 10px;">
 	  		<thead>
 				<tr>
+					<th class="wx-80">상태</th>
 					<th class="wx-80">회원 코드</th>
 					<th class="wx-100">회원 아이디</th>
-					<th class="wx-80">상태</th>
 					<th class="wx-150">변경 날짜</th>
 					<th class="wx-150">사유</th>
 				</tr>
@@ -568,7 +705,7 @@ function block() {
 		  	</table>
 		  	</div>
 	            <div class="modalbtnbox">
-	            <button type="button" class="btn modalbtn ">확인</button>
+	            <button type="button" class="btn modalbtn close-area2 ">확인</button>
 	            </div>
         </div>
     </div><!-- info모달끝 -->
@@ -576,6 +713,8 @@ function block() {
       </div>
 	</div>
 </div>
+
+<div id="member-dialog" style="display: none;"></div>
 
 <script>
 const modal = document.getElementById("modal")
@@ -595,11 +734,83 @@ closeBtn.addEventListener("click", e => {
 
 </script>  
 
-<script>
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data){
+			fn(data);
+		},
+		beforeSend : function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error : function(jqXHR) {
+			if (jqXHR.status === 403) {
+				location.href="${pageContext.request.contextPath}/member/login";
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+//모달창 새로 만드는중
+function profile(userId) {
+	let dlg = $("#member-dialog").dialog({
+	dlg.dialog("open");
+		  autoOpen: false,
+		  modal: true,
+		  buttons: {
+		       " 수정 " : function() {
+		    	   updateOk(); 
+		       },
+		       " 삭제 " : function() {
+		    	   deleteOk(userId);
+			   },
+		       " 닫기 " : function() {
+		    	   $(this).dialog("close");
+		       }
+		  },
+		  height: 550,
+		  width: 800,
+		  title: "회원상세정보",
+		  close: function(event, ui) {
+		  }
+	});
+
+	let url = "${pageContext.request.contextPath}/admin/memberManage/profile";
+	let query = "userId="+userId;
+	
+	const fn = function(data){
+		$('#member-dialog').html(data);
+		dlg.dialog("open");
+	};
+	ajaxFun(url, "post", query, "html", fn);
+}
+
+
 const infomodal = document.getElementById("infomodal")
         
-function infoOn() {
-	infomodal.style.display = "flex"
+function infoOn(userId) {
+		infomodal.style.display = "flex"
+/*	
+	let url = "${pageContext.request.contextPath}/admin/memberManage/infoOn";
+	let query = "userId="+userId;
+	
+	const fn = function(data){
+		$('#infomodal').html(data);
+	};
+	ajaxFun(url, "post", query, "html", fn);
+*/	
+
+
+//ajax? 아니면 그냥받아오기? 그냥받아오면 list메소드 내용을 똑같이코딩하고 값을 넘겨줘야하는지? 
 }
         
 function infoOff() {
@@ -610,5 +821,6 @@ const infocloseBtn = infomodal.querySelector(".close-area")
 infocloseBtn.addEventListener("click", e => {
 	infoOff();
 });
+
 
 </script>  

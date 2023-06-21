@@ -117,7 +117,27 @@ public class MemberManageController {
 		model.addAttribute("startKeyword", startKeyword);
 		model.addAttribute("endKeyword", endKeyword);
 		
+		System.out.println("------------------------------------");
+		System.out.println("condition1="+condition1);
+		System.out.println("keyword="+keyword);
+		System.out.println("condition2="+condition2);
+		System.out.println("startKeyword="+startKeyword);
+		System.out.println("startKeyword="+startKeyword);
+		
 		return ".admin.memberManage.list";
 	}
 	
+	@RequestMapping(value = "infoOn")
+	public String detaileMember(@RequestParam String userId, Model model) throws Exception {
+		MemberManage dto = service.readMember(userId);
+		
+		
+		
+		
+		
+		
+		
+		
+		return "admin/memberManage/list";
+	}
 }
