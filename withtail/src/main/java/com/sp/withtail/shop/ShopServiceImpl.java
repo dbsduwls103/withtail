@@ -44,7 +44,7 @@ public class ShopServiceImpl implements ShopService {
 		List<Category> list = null;
 		
 		try {
-			list = dao.selectList("shop.listSubCategory");
+			list = dao.selectList("shop.listSubCategory", ctNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

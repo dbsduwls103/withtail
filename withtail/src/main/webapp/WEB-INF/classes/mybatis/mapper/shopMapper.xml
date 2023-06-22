@@ -4,28 +4,27 @@
 <mapper namespace="shop">
 	<!-- 카테고리 -->
 	<select id="listCategory" resultType="com.sp.withtail.shop.Category">
-		SELECT level, ctNum, ctName, parentCt
+		SELECT dept, ctNum, ctName, parentCt
 		FROM category
-    	START WITH parentCt is null
-    	CONNECT BY PRIOR ctNum = parentCt
-    	ORDER SIBLINS BY ctNum
+		WHERE parentCt IS NULL
 	</select>
 	
 	<select id="readCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
-		SELECT ctNum, ctName FROM category
+		SELECT dept, ctNum, ctName
+		FROM category
 		WHERE ctNum = #{ctNum}
 	</select>
 	
 	<select id="listSubCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
-		SELECT level, ctNum, ctName, parentCt
+		SELECT dept, ctNum, ctName, parentCt
 		FROM category
-    	START WITH parentCt = 1
-    	CONNECT BY PRIOR ctNum = parentCt
-    	ORDER SIBLINS BY ctNum
+    	WHERE parentCt = #{ctNum}
+    	ORDER BY ctNum
 	</select>
 	
 	<select id="readSubCategory" resultType="com.sp.withtail.shop.Category" parameterType="String">
-		SELECT ctNum, ctName, parentCt FROM category
+		SELECT ctNum, ctName, parentCt
+		FROM category
 		WHERE ctNum = #{ctNum}
 	</select>
 	
@@ -51,7 +50,7 @@
 	
 	<!-- 글 보기 -->
 	<!--
-	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Shop">
+	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Product">
 		SELECT i.num, i.categoryNum, i.name, i.discount, i.content, i.madeby
 		FROM item i
 		JOIN itemPhoto ip ON
