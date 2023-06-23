@@ -371,7 +371,21 @@
 					  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/female.png">
 					  						</c:otherwise>
 					  					</c:choose>
-					  					<img src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+					  					<c:choose>
+					  						<c:when test="${!empty dto.petsImageFilename}">
+					  							<img src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+				  							</c:when>
+				  							<c:otherwise>
+				  								<c:choose>
+					  								<c:when test="${dto.whichPet == '강아지'}">
+					  									<img src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
+					  								</c:when>
+					  								<c:otherwise>
+					  									<img src="${pageContext.request.contextPath}/resources/images/icon/cat2.png">
+					  								</c:otherwise>
+					  							</c:choose>	
+				  							</c:otherwise>
+				  						</c:choose>
 				  					</div>
 				  				</div>
 				  				<div class="my-pet">
