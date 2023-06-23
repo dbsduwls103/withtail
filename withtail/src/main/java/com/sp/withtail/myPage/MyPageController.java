@@ -1,14 +1,40 @@
 package com.sp.withtail.myPage;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.sp.withtail.member.SessionInfo;
 
 @Controller
 @RequestMapping("/myPage/*")
 public class MyPageController { 
-    @GetMapping("myPage")
-    public String main() {  
+	@Autowired
+	private MyPageService service;
+	
+    @RequestMapping(value = "myPage")
+    public String list(MyPage dto, HttpSession session, 
+    					Model model) throws Exception {  
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+  	
+
+		dto.setUserId(info.getUserId());
+		List<MyPage> list = service.listMyPages(dto);
+    		
+
+    	model.addAttribute("list", list);
+    	
+    	
         return ".myPage.myPage";
     }
     
@@ -19,7 +45,7 @@ public class MyPageController {
 	}
     
     @GetMapping("orders")
-	public String execute1() throws Exception {
+	public String orders() throws Exception {
 	
 		return ".myPage.orders";
 	}
@@ -31,10 +57,36 @@ public class MyPageController {
 	}
     
     @GetMapping("pet")
-	public String execute3() throws Exception {
-	
-		return ".myPage.pet";
+	public String pet(@RequestParam long num, 
+			Model model) throws Exception {
+    	    	 	
+    	MyPage dto = service.readPet(num);
+    	/*
+    	LocalDate today = LocalDate.now();
+        LocalDate birth = LocalDate.parse(dto.getBirth());
+
+        Period period = Period.between(birth, today);
+        
+        int age = period.getYears();
+        */
+    	model.addAttribute("dto", dto);
+    	// model.addAttribute("age", age);
+    	
+    	return ".myPage.pet";
 	}
+    
+    @GetMapping(value = "delete")
+    public String delete(@RequestParam long num, HttpSession session) throws Exception {
+    	String root = session.getServletContext().getRealPath("/");
+    	String pathname = root + "uploads" + File.separator + "pets";
+    	
+    	try {
+    		service.deletePet(num ,pathname);    
+    	} catch (Exception e) {
+		}
+    	
+    	return "redirect:/myPage/myPage";
+    }
     
     @GetMapping("profile")
 	public String profileList() throws Exception {

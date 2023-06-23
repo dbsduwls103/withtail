@@ -1,0 +1,62 @@
+package com.sp.withtail.myPage;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sp.withtail.common.FileManager;
+import com.sp.withtail.common.dao.CommonDAO;
+
+@Service("myPage.myPageService")
+public class MyPageServiceImpl implements MyPageService {
+	@Autowired
+	private CommonDAO dao;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+	@Override
+	public List<MyPage> listMyPages(MyPage dto) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listMyPages", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public MyPage readPet(long num) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readPet", num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void deletePet(long num, String pathname) throws Exception {
+		try {
+			if(pathname != null) {
+				fileManager.doFileDelete(pathname);
+			}
+			
+			dao.deleteData("myPage.deletePet", num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+
+}

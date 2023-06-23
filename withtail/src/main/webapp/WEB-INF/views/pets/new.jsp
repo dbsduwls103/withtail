@@ -332,8 +332,131 @@ align-items: flex-start;
 
 </style>
 
+<script>
+function selectPet(pet) {
+	var selectedPetInput = document.getElementById("selectedPet");
+	selectedPetInput.value = pet;
+}
+
+function selectGender(gender) {
+	  const maleImage = `${pageContext.request.contextPath}/resources/images/icon/male.png`;
+	  const femaleImage = `${pageContext.request.contextPath}/resources/images/icon/female.png`;
+	  const petGenderImage = document.querySelector('.pet-gender');
+	  var selectedPetInput = document.getElementById("selectedPet");
+		
+	  if (gender === '남') {
+	    petGenderImage.src = maleImage;
+	  } else if (gender === '여') {
+	    petGenderImage.src = femaleImage;
+	  }
+
+	  // 선택한 성별 값을 hidden input에 할당
+	  
+	  const selectedGenderInput = document.getElementById('selectedGender');
+	  selectedGenderInput.value = gender;
+	}
+
+
+function petOk() {
+	const f = document.petsForm;
+	f.action = "${pageContext.request.contextPath}/pets/new";
+    f.submit();
+}
+
+$(function() {
+	let img = "${dto.petsimageFilename}";
+	if( img ) { // 수정인 경우
+		img = "${pageContext.request.contextPath}/uploads/pets/" + img;
+		$(".step8 .img-viewer").empty();
+		$(".step8-form .img-viewer").css("background-image", "url("+img+")");
+	}
+	
+	$(".step8 .img-viewer").click(function(){
+		$("form[name=petsForm] input[name=selectFile]").trigger("click"); 
+	});
+	
+	$("form[name=petsForm] input[name=selectFile]").change(function(){
+		let file = this.files[0];
+		if(! file) {
+			$(".step8 .img-viewer").empty();
+			if( img ) {
+				img = "${pageContext.request.contextPath}/uploads/pets/" + img;
+			} else {
+				img = "${pageContext.request.contextPath}/resources/images/icon/camera.png";
+			}
+			$(".step8 .img-viewer").css("background-image", "url("+img+")");
+			
+			return false;
+		}
+		
+		if(! file.type.match("image.*")) {
+			this.focus();
+			return false;
+		}
+		
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			$(".step8 .img-viewer").empty();
+			$(".step8 .img-viewer").css("background-image", "url("+e.target.result+")");
+		}
+		reader.readAsDataURL(file);
+	});
+});
+
+function printName() {
+	  const name = document.getElementById('petName').value;
+	  const petNameResults = document.querySelectorAll('.petNameResult');
+	  petNameResults.forEach((result) => {
+	    result.innerText = name;
+	  });
+	}
+	
+function printBirth()  {
+	  const birthDate = new Date(document.getElementById('petBirth').value);
+	  const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+	  const formattedBirthDate = birthDate.toLocaleDateString('ko-KR', options);
+	  document.getElementById("petBirthResult").innerText = '생일 : ' + formattedBirthDate;
+	}
+
+function printWeight()  {
+	  const name = document.getElementById('petWeight').value;
+	  document.getElementById("petWeightResult").innerText = '무게 : ' + name + 'kg' ;
+	}
+	
+function printBreed() {
+    const name = document.getElementById('tags').value;
+    const name1 = document.getElementById('tags1').value;
+    
+    if (name) {
+      document.getElementById("petBreedResult").innerText = '품종 : ' + name;
+    } else if (name1) {
+      document.getElementById("petBreedResult").innerText = '품종 : ' + name1;
+    }
+  }
+  
+function displayImage(event) {
+	  const input = event.target;
+	  const image = document.getElementById('petImage');
+
+	  if (input.files && input.files[0]) {
+	    const reader = new FileReader();
+
+	    reader.onload = function (e) {
+	      image.src = e.target.result;
+	    };
+
+	    reader.readAsDataURL(input.files[0]);
+	  }
+	}
+	
+	
+
+
+	
+</script>
+
 <div class="container -min">
-	<form id="form">
+	<form id="form" name="petsForm" method="post" enctype="multipart/form-data">
 		<!-- 나의반려동물은? -->
 		<div class="step1">
 			<div class="add-content-container">			
@@ -350,14 +473,15 @@ align-items: flex-start;
 					</div>
 					<div class="add-content">
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" id="dogPhoto" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png" style="cursor: pointer;">
+							<img class="add-pet-image" id="dogPhoto" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png" onclick="selectPet('강아지');" style="cursor: pointer;">
 							<div class="add-text">강아지</div>							
 						</div>
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" id="catPhoto" src="${pageContext.request.contextPath}/resources/images/icon/cat2.png" style="cursor: pointer;">
+							<img class="add-pet-image" id="catPhoto" src="${pageContext.request.contextPath}/resources/images/icon/cat2.png" onclick="selectPet('고양이');" style="cursor: pointer;">
 							<div class="add-text">고양이</div>							
 						</div>
-					</div>				
+					</div>	
+					<input type="hidden" id="selectedPet" name="whichpet" readonly="readonly">			
 				</div>
 			</div>	
 		</div>
@@ -379,7 +503,7 @@ align-items: flex-start;
 						</div>
 					</div>
 					<div class="input-content">
-						<input type="text" class="inp" placeholder="텍스트를 입력하세요.">
+						<input type="text" name="petName" class="inp" placeholder="텍스트를 입력하세요." id="petName" onchange="printName()">
 						<div class="error-text"></div>
 					</div>				
 					<div>
@@ -402,18 +526,19 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 성별은요?
+							<p><span class="petNameResult"></span>의 성별은요?</p>
 						</div>
 					</div>
 					<div class="add-content">
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" id="" onclick="" src="${pageContext.request.contextPath}/resources/images/icon/male2.png" style="cursor: pointer;">
+							<img class="add-pet-image" id="" onclick="selectGender('남');" src="${pageContext.request.contextPath}/resources/images/icon/male2.png" style="cursor: pointer;">
 							<div class="add-text">남</div>							
 						</div>
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" id="" onclick="" src="${pageContext.request.contextPath}/resources/images/icon/female.png" style="cursor: pointer;">
+							<img class="add-pet-image" id="" onclick="selectGender('여');" src="${pageContext.request.contextPath}/resources/images/icon/female.png" style="cursor: pointer;">
 							<div class="add-text">여</div>							
 						</div>
+						<input type="hidden" id="selectedGender" name="gender" readonly="readonly">
 					</div>
 				</div>
 			</div>
@@ -432,11 +557,11 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 몸무게는요?
+							<p><span class="petNameResult"></span>의 몸무게는요?</p>
 						</div>
 					</div>
 					<div class="input-content">
-						<input type="text" class="inp" placeholder="텍스트를 입력하세요.">
+						<input type="text" name="weight" class="inp" placeholder="텍스트를 입력하세요." id="petWeight" onchange="printWeight()">
 						<div class="error-text"></div>
 					</div>				
 					<div>
@@ -459,12 +584,12 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 생일은 언제인가요?
+							<p><span class="petNameResult"></span>의 생일은 언제인가요?</p>
 						</div>
 						<div class="error-text"></div>
 					</div>
 					<div class="input-content">
-						<input type="date" class="inp" >
+						<input type="date" class="inp" name="birth" id="petBirth" onchange="printBirth()" >
 					</div>				
 					<div>
 						<button type="button" class="btn-2" disabled>다음</button>
@@ -486,11 +611,11 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 견종은요?
+							<p><span class="petNameResult"></span>의 견종은요?</p>
 						</div>
 					</div>
 					<div class="input-content">
-						<input type="text" class="inp" id="tags" placeholder="견종을 검색해주세요.">
+						<input type="text" name="breed_dog" class="inp" id="tags" placeholder="견종을 검색해주세요." onchange="printBreed()">
 					</div>				
 					<div>
 						<button type="button" class="btn-2" disabled>다음</button>
@@ -512,11 +637,11 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 묘종은요?
+							<p><span class="petNameResult"></span>의 묘종은요?</p>
 						</div>
 					</div>
 					<div class="input-content">
-						<input type="text" class="inp" id="tags1" placeholder="묘종을 검색해주세요.">
+						<input type="text" name="breed_cat" class="inp" id="tags1" placeholder="묘종을 검색해주세요." onchange="printBreed()">
 					</div>				
 					<div>
 						<button type="button" class="btn-2" disabled>다음</button>
@@ -538,12 +663,13 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 사진을 골라주세요.
+							<p><span class="petNameResult"></span>의 사진을 골라주세요.</p>
 						</div>
 					</div>
 					<div class="input-content" style="align-items: center;">
 						<div class="img-viewer"></div>
-						<input type="file" name="selectFile" accept="image/*" style="display: none;" class="form-control">	
+						<input type="file" name="selectFile" accept="image/*" onchange="displayImage(event)" class="form-control" style="display: none; ">	
+	
 						<p>사진은 1장 업로드 가능합니다.</p>					
 					</div>				
 					<div>
@@ -566,33 +692,25 @@ align-items: flex-start;
 				<div class="add-content-layout">
 					<div class="add-step-title">
 						<div class="add-title valign-text-middle">
-							아지의 프로필이 완료되었습니다.
+							<p><span class="petNameResult"></span>의 프로필이 완료되었습니다.</p>
 						</div>
 					</div>
 					<div class="input-content">
 						<div class="add-profile-layout">
 							<div class="imgbox">
-								<img class="add-pet-image" alt="" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
+								<img class="add-pet-image" alt="" id="petImage" src="">
 								<img class="pet-gender" alt="" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
 							</div>
-							<div class="add-pets-name valign-text-middle">
-								아지
-							</div>
+							<div class="add-pets-name valign-text-middle petNameResult" id="petNameResult"></div>
 							<div class="add-pets-text-layout">
-								<div class="add-pets-text-2 valign-text-middle">
-									생일 : 2023년 06월 20일 화요일(0년 0일)
-								</div>
-								<div class="add-pets-text-2 valign-text-middle">
-									무게 : 24kg
-								</div>
-								<div class="add-pets-text-2 valign-text-middle">
-									품종 : 말티즈
-								</div>
+								<div class="add-pets-text-2 valign-text-middle" id="petBirthResult"></div>
+								<div class="add-pets-text-2 valign-text-middle" id="petWeightResult"></div>
+								<div class="add-pets-text-2 valign-text-middle" id="petBreedResult"></div>
 							</div>
 						</div>				
 					</div>				
 					<div>
-						<button type="button" class="btn-2" onclick="location.href='${pageContext.request.contextPath}/'" style="background-color: #82ae46;">쇼핑하러 가기</button>
+						<button type="button" class="btn-2" onclick="petOk();" style="background-color: #82ae46;">쇼핑하러 가기</button>
 					</div>
 				</div>
 			</div>
@@ -600,6 +718,7 @@ align-items: flex-start;
 		
 	</form>
 </div>
+
 
 
 

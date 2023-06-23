@@ -204,6 +204,19 @@ img {
 }
 </style>
 
+<script type="text/javascript">
+function deleteOk() {
+	let query = "num=${dto.num}&${query}&petsImageFilename=${dto.petsImageFilename}";
+    let url = "${pageContext.request.contextPath}/myPage/delete?" + query;
+
+    if(confirm("위 자료를 삭제 하시 겠습니까 ? ")) {
+  	  location.href = url;
+    }
+}
+
+</script>
+
+
 <div class="container -min">
 	<div class="submenu-layout">
 	  <ul>
@@ -219,7 +232,7 @@ img {
 			<div class="add-content-layout">
 				<div class="petprofile-edit-btn">
 					<div class="minimal-text-btn">
-						<a class="text valign-text-middle" href="#">
+						<a class="text valign-text-middle" href="#" onclick="deleteOk();">
 							삭제
 						</a>
 					</div>
@@ -233,27 +246,28 @@ img {
 				<div class="input-content">
 					<div class="add-profile-layout">
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" alt="" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
-							<img class="pet-gender" width="25" height="25" alt="" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
+							<img class="add-pet-image" alt="" src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+							<c:choose>
+								<c:when test="${dto.gender == '남'}">
+									<img class="pet-gender" width="25" height="25" alt="" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
+								</c:when>
+								<c:otherwise>
+									<img class="pet-gender" width="25" height="25" alt="" src="${pageContext.request.contextPath}/resources/images/icon/female.png">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="add-pets-name valign-text-middle">
-							아지
+							${dto.petName}
 						</div>
 						<div class="add-pets-text-layout">
-							<div class="add-pets-text-2 valign-text-middle">
-								생일 : 2010년 3월 5일 금요일 (13년 180일)
+							<div class="add-pets-text-2 valign-text-middle"> 
+								생일 : ${dto.birth}(${age}년 180일)
 							</div>
 							<div class="add-pets-text-2 valign-text-middle">
-								무게 : 32.00kg
+								무게 : ${dto.weight}kg
 							</div>
 							<div class="add-pets-text-2 valign-text-middle">
-								품종 : 고든 세터
-							</div>
-							<div class="add-pets-text-2 valign-text-middle">
-								관심 : 호흡기
-							</div>
-							<div class="add-pets-text-2 valign-text-middle">
-								알러지 : 콩
+								품종 : ${dto.breed}
 							</div>
 						</div>
 					</div>
