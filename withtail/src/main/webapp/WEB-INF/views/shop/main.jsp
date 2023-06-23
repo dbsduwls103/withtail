@@ -63,6 +63,26 @@
 	color: #000;
 }
 
+/*검색창*/
+.form-select:focus {
+		outline: none;
+		box-shadow: none;
+		border: 1px solid #82ae46;
+	}
+	
+	.form-control {
+    	height: calc(2.25rem + 2px) !important;
+	}
+	
+	.form-control:focus {
+		border: 1px solid #82ae46;
+	}
+	
+	.btn:focus {
+		border: 1px solid #82ae46 !important;
+		box-shadow: none;
+	}
+
 </style>
 
 	 <div class="hero-wrap hero-bread" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg');">
@@ -88,15 +108,6 @@
                 	<c:forEach var="vo" items="${listSubCategory}" varStatus="status">
                 		<li class="li-sub" data-num="${vo.ctNum}">${vo.ctName}</li>
                 	</c:forEach>
-                	<!--  
-                   <li class="li-sub">주식</li>
-                   <li class="li-sub">간식</li>
-                   <li class="li-sub">패션</li>
-                   <li class="li-sub">산책·외출</li>
-                   <li class="li-sub">홈·리빙</li>
-                   <li class="li-sub">장난감</li>
-                   <li class="li-sub">목욕·위생</li>   
-                   -->
                 </ul>
              </div>
           </div>

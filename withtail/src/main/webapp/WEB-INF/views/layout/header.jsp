@@ -213,12 +213,21 @@
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/orders">주문 조회</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a>
-					<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/login">
-						<span class="login_btn_span">로그인</span>
-					</a>
-					<a class="dropdown-item a-user" href="#" style="display: none;">
-						김자바님 환영합니다.
-					</a>
+					<c:choose>
+						<c:when test="${empty sessionScope.member}">
+							<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/login">
+								<span class="login_btn_span">로그인</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/logout">
+								<span class="login_btn_span">로그아웃</span>
+							</a>
+							<a class="dropdown-item a-user" href="#" style="">
+								${sessionScope.member.userName}님 환영합니다.
+							</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
               </li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart/cart" class="nav-link"><span class="icon-shopping_cart"></span><span class="cart-count">0</span> <span class="">장바구니</span></a></li>
