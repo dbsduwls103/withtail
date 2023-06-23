@@ -36,6 +36,11 @@
 	position: absolute; 
 	z-index: 10; 
 	top: 300px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.course_all.hidden {
+    transform: translateX(-100%);
 }
 
 .course_all_top{
@@ -44,12 +49,12 @@
 	 padding: 15px;
 }
 
-
 .pad{
 	padding: 10px;
 	font-weight: bold;
 	padding-left: 15px;
 }
+
 a{
 	color: white;
 }
@@ -64,9 +69,15 @@ a{
     box-shadow: 2px 1px 4px rgb(0 0 0 / 40%);
     border: none;
     font-size: 8px;
-    color: #0e77e0;
+    color: #82ae46;
     left:300px; bottom: 200px;
+    transition: transform 0.3s ease-in-out;
    }
+   
+.btn_close.flipped {
+    transform: rotate(180deg);
+}
+
 .searchbtn{
 	border: none;
 	background: #fcfcfc;
@@ -79,7 +90,6 @@ a{
 	height: 250px; 
 	position: relative;
 }
-
 
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
@@ -358,7 +368,21 @@ function printJSON(data) {
 
 }
 
+//버튼 클릭 이벤트 핸들러 등록
+var closeButton = document.querySelector('.btn_close');
+var courseAll = document.querySelector('.course_all');
 
+closeButton.addEventListener('click', function() {
+    if (courseAll.classList.contains('hidden')) {
+        // 숨겨져 있는 경우
+        courseAll.classList.remove('hidden');
+        closeButton.classList.remove('flipped');
+    } else {
+        // 나타나있는 경우
+        courseAll.classList.add('hidden');
+        closeButton.classList.add('flipped');
+    }
+});
 
 </script>
 
