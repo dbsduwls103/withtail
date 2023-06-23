@@ -62,6 +62,14 @@
 	}
 </style>
 
+<script type="text/javascript">
+function searchList() {
+	const f = document.searchForm;
+	f.submit();
+}
+</script>
+
+
 <section class="ftco-section" style="min-height: 550px;">
 	<div class="container">
 		<h3 class="text-center notice-h3">공지사항</h3>
@@ -78,33 +86,44 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><span class="notice-span">공지</span></td>
-					<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
-						<a href="${pageContext.request.contextPath}/inquiry/article">위드테일 공지사항</a>
-					</td>
-					<td>관리자</td>
-					<td>2023-06-19</td>
-					<td>0</td>
-					<td>
-						<a href="#"><i class="fa-solid fa-download"></i></a>
-					</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
-						<a href="${pageContext.request.contextPath}/notice/article">홈페이지 점검 안내</a>
-					</td>
-					<td>관리자</td>
-					<td>2023-06-19</td>
-					<td>0</td>
-					<td>&nbsp;</td>
-				</tr>
+				<c:forEach var="dto" items="${noticeList}">
+					<tr>
+						<td><span class="notice-span">공지</span></td>
+						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
+							<a href="${pageContext.request.contextPath}/notice/article&num=${dto.num}">${dto.subject}</a>
+						</td>
+						<td>관리자</td>
+						<td>${dto.regDate}</td>
+						<td>${dto.hitCount}</td>		
+						<td>
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="fa-solid fa-download"><i class="bi bi-file-arrow-down"></i></a>
+							</c:if>
+						</td>
+						
+					</tr>
+				</c:forEach>
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<tr>
+						<td>${dataCount - (page-1) * size - status.index}</td>
+						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
+							<a href="${pageContext.request.contextPath}/notice/article">홈페이지 점검 안내</a>
+						</td>
+						<td>관리자</td>
+						<td>${dto.regDate}</td>
+						<td>${dto.hitCount}</td>
+						<td>
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="fa-solid fa-download"><i class="bi bi-file-arrow-down"></i></a>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 
 		<!-- 페이징 -->
-		<div class="row my-5">
+		<!-- <div class="row my-5">
 			<div class="col text-center">
 				<div class="block-27">
 					<ul>
@@ -118,6 +137,13 @@
 					</ul>
 				</div>
 			</div>
+		</div>-->
+		<div class="row my-5">
+			<div class="col text-center">
+				<div class="block-27">
+					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+				</div>
+			</div>
 		</div>
 		<!-- //페이징 -->
 
@@ -126,15 +152,15 @@
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
 			</div>
 			<div class="col col-md-8 text-center">
-				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center">
+				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center" action="${pageContext.request.contextPath}/notice/list" method="post">
 					<select name="condition" class="form-select" style="width: auto !important;">
 						<option value="all">제목+내용</option>
 						<option value="reg_date">등록일</option>
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 					</select>
-					<input type="text" name="keyword" class="form-control" style="border-radius: 0.375rem; width: 200px;">
-					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;">검색</button>
+					<input type="text" name="keyword" value="${keyword}" class="form-control" style="border-radius: 0.375rem; width: 200px;">
+					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;" onclick="searchList()">검색</button>
 				</form>
 			</div>
 			<div class="col col-md-2 text-right">

@@ -3,9 +3,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ranking">
 	<select id="rankList" parameterType="map" resultType="com.sp.withtail.ranking.Ranking">
-		SELECT o.itemNum
-		FROM orderList o
-		GROUP BY o.itemNum
-		ORDER BY COUNT(*) DESC;
+
+	SELECT o.itemNum, i.itemName, sum(count), a.price, i.categoryNum, i.discount
+	FROM orderDetail o
+	JOIN item i ON i.itemNum = o.itemNum
+	JOIN (
+	SELECT price * (100-NVL(discount,0)) * 0.01 price, itemNum
+	FROM item) a ON o.itemNum = a.itemNum
+    JOIN (
+        SELECT ctName, ctNum
+        FROM category
+        WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
+        START WITH parentCT IS NULL
+        CONNECT BY PRIOR ctNum = parentCT
+    ) c ON c.ctNum =  i.categoryNum
+	GROUP BY o.itemNum, i.itemName, a.price, i.categoryNum, i.discount
+	ORDER BY sum(count) DESC
+ 
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+
+	SELECT Count(Count(o.itemNum))
+	FROM orderDetail o
+	JOIN item i ON i.itemNum = o.itemNum
+    JOIN (
+        SELECT ctNum
+        FROM category
+        WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
+        START WITH parentCT IS NULL
+        CONNECT BY PRIOR ctNum = parentCT
+    ) c ON c.ctNum =  i.categoryNum
+	GROUP BY o.itemNum
 	</select>
 </mapper>
