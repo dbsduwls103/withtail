@@ -85,10 +85,15 @@
 				<div class="col-md-6 col-lg-3 ftco-animate">
 
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid"
-							src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
-							alt="Colorlib Template"> <span class="status">${dto.discount}</span>
-						</a>
+			
+							<a href="#" class="img-prod"><img class="img-fluid"
+								src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
+								alt="Colorlib Template"> 
+							<c:if test="${dto.discount != 0}">
+								<span class="status">${dto.discount}%</span>
+							</c:if>
+							</a>
+
 						<div class="text py-3 pb-4 px-3 text-center">
 							<h3>
 								<a href="#">${dto.itemName}</a>
