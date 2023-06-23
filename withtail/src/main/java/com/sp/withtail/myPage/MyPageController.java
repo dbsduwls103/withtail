@@ -1,8 +1,6 @@
 package com.sp.withtail.myPage;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -26,14 +24,15 @@ public class MyPageController {
     public String list(MyPage dto, HttpSession session, 
     					Model model) throws Exception {  
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
-  	
-
+    	int dataCount;
+    	
 		dto.setUserId(info.getUserId());
+		dataCount = service.dataCount(info.getUserId());
 		List<MyPage> list = service.listMyPages(dto);
     		
 
     	model.addAttribute("list", list);
-    	
+    	model.addAttribute("dataCount", dataCount);
     	
         return ".myPage.myPage";
     }
@@ -61,16 +60,16 @@ public class MyPageController {
 			Model model) throws Exception {
     	    	 	
     	MyPage dto = service.readPet(num);
-    	/*
-    	LocalDate today = LocalDate.now();
-        LocalDate birth = LocalDate.parse(dto.getBirth());
+ 
+    	// LocalDate today = LocalDate.now();
+        // LocalDate birth = LocalDate.parse(dto.getBirth2());
 
-        Period period = Period.between(birth, today);
+       // Period period = Period.between(birth, today);
         
-        int age = period.getYears();
-        */
+        // int age = period.getYears();
+     
     	model.addAttribute("dto", dto);
-    	// model.addAttribute("age", age);
+    //	model.addAttribute("age", age);
     	
     	return ".myPage.pet";
 	}

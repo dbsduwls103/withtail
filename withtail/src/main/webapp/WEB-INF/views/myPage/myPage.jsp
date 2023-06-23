@@ -343,42 +343,47 @@
 	  			</div>
 	  		</div>
 	  		<div class="pets-profile d-none d-md-flex">
-	  			<a class="add-pets" href="${pageContext.request.contextPath}/pets/new">
-	  				<div class="add-image-layout">
-		  					<img alt="" src="${pageContext.request.contextPath}/resources/svg/icon-add-blue.svg">			
-		  			</div>
-		  			<div class="my-pet1">
-		  				<p class="pets-name1" style="margin-bottom : 0px">우리 아이 등록하기</p>
-		  				<p class="pets-text1" style="margin-bottom : 0px" >맞춤 정보를 받아보세요.</p>
-		  			</div>
-	  			</a>
-	  				
-		  			<c:forEach var="dto" items="${list}" varStatus="status">
-		  				<c:url var="url" value="/myPage/pet">
-		  					<c:param name="num" value="${dto.num}"/>
-		  				</c:url>
-			  			<a class="pets" href="${url}">			  			
-			  				<div class="image-layout">
-			  					<div class="image">
-									<c:choose>
-										<c:when test="${dto.gender == '남'}">	  					
-				  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-				  						</c:when>
-				  						<c:otherwise>
-				  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/female.png">
-				  						</c:otherwise>
-				  					</c:choose>
-				  					<img src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
-			  					</div>
-			  				</div>
-			  				<div class="my-pet">
-			  					<p class="pets-name" style="margin-bottom: 0px;">${dto.petName}</p>
-			  					<div class="pets-text-layout">
-			  						<p class="pets-text" style="margin-bottom: 0px;">${dto.breed}</p>	  						
-			  					</div>
-			  				</div>
+	  			<c:choose>
+	  				<c:when test="${dataCount eq 0}">
+			  			<a class="add-pets" href="${pageContext.request.contextPath}/pets/new">
+			  				<div class="add-image-layout">
+				  					<img alt="" src="${pageContext.request.contextPath}/resources/svg/icon-add-blue.svg">			
+				  			</div>
+				  			<div class="my-pet1">
+				  				<p class="pets-name1" style="margin-bottom : 0px">우리 아이 등록하기</p>
+				  				<p class="pets-text1" style="margin-bottom : 0px" >맞춤 정보를 받아보세요.</p>
+				  			</div>
 			  			</a>
-		  			</c:forEach>	  					
+	  				</c:when>
+	  				<c:otherwise>
+			  			<c:forEach var="dto" items="${list}" varStatus="status">
+			  				<c:url var="url" value="/myPage/pet">
+			  					<c:param name="num" value="${dto.num}"/>
+			  				</c:url>
+				  			<a class="pets" href="${url}">			  			
+				  				<div class="image-layout">
+				  					<div class="image">
+										<c:choose>
+											<c:when test="${dto.gender == '남'}">	  					
+					  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
+					  						</c:when>
+					  						<c:otherwise>
+					  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/female.png">
+					  						</c:otherwise>
+					  					</c:choose>
+					  					<img src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+				  					</div>
+				  				</div>
+				  				<div class="my-pet">
+				  					<p class="pets-name" style="margin-bottom: 0px;">${dto.petName}</p>
+				  					<div class="pets-text-layout">
+				  						<p class="pets-text" style="margin-bottom: 0px;">${dto.breed}</p>	  						
+				  					</div>
+				  				</div>
+				  			</a>
+			  			</c:forEach>	
+		  			</c:otherwise>
+		  		</c:choose>  					
 	  		</div> 		  			
 	  	</div> 
 	  	

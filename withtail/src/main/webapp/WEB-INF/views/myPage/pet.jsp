@@ -261,7 +261,7 @@ function deleteOk() {
 						</div>
 						<div class="add-pets-text-layout">
 							<div class="add-pets-text-2 valign-text-middle"> 
-								생일 : ${dto.birth}(${age}년 180일)
+								생일 : ${dto.birth}
 							</div>
 							<div class="add-pets-text-2 valign-text-middle">
 								무게 : ${dto.weight}kg

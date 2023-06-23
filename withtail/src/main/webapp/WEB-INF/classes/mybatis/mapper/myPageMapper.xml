@@ -9,13 +9,20 @@
 	</select>
 	
 	<select id="readPet" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT num, petName, breed, gender, whichPet, petsImageFilename, weight, TO_CHAR(birth, 'YY"년"MM"월"DD"일" DY"요일"') AS birth,
+		SELECT num, petName, breed, gender, whichPet, petsImageFilename, weight, TO_CHAR(birth, 'YYYY"년"MM"월"DD"일" DY"요일"') AS birth,
 		        TO_CHAR(birth, 'YYYY-MM-DD') AS birth2
 		FROM animal
 		WHERE num = ${num}
 	</select>
+	
 	<delete id="deletePet" parameterType="Long"> 
 		DELETE FROM animal WHERE num = #{num}
 	</delete>
+	
+	<select id="dataCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM animal
+		WHERE userId = #{userId}
+	</select>
 </mapper>
 

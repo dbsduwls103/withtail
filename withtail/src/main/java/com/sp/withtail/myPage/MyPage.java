@@ -10,7 +10,14 @@ public class MyPage {
 	private String weight;
 	private String birth;
 	private long num;
+	private String birth2;
 	
+	public String getBirth2() {
+		return birth2;
+	}
+	public void setBirth2(String birth2) {
+		this.birth2 = birth2;
+	}
 	public long getNum() {
 		return num;
 	}
