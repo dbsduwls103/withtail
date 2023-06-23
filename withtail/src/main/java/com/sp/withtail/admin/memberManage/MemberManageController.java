@@ -2,6 +2,8 @@ package com.sp.withtail.admin.memberManage;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -57,7 +61,7 @@ public class MemberManageController {
 		map.put("keyword", keyword);
 		map.put("condition2", condition2);
 		map.put("startKeyword", startKeyword);
-		map.put("endkeyword", endKeyword);
+		map.put("endKeyword", endKeyword);
 
 		if(state.equals("general")) {
 			dataCount = service.dataCount(map);
@@ -122,22 +126,73 @@ public class MemberManageController {
 		System.out.println("keyword="+keyword);
 		System.out.println("condition2="+condition2);
 		System.out.println("startKeyword="+startKeyword);
-		System.out.println("startKeyword="+startKeyword);
+		System.out.println("endKeyword="+endKeyword);
 		
 		return ".admin.memberManage.list";
 	}
 	
-	@RequestMapping(value = "infoOn")
-	public String detaileMember(@RequestParam String userId, Model model) throws Exception {
+	
+	@RequestMapping(value = "profile")
+	public String profile(@RequestParam String userId, Model model) throws Exception {
+		
 		MemberManage dto = service.readMember(userId);
+		List<MemberManage> list = service.readMemberState(userId);
+		List<MemberManage> pointList = service.readPoint(userId);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
+		model.addAttribute("pointList", pointList);
 		
 		
-		
-		
-		
-		
-		
-		
-		return "admin/memberManage/list";
+		return "admin/memberManage/profile";
 	}
+	
+	@RequestMapping(value = "profile2")
+	public String profile2(@RequestParam String userId, Model model) throws Exception {
+		MemberManage dto = service.readMember(userId);
+		model.addAttribute("dto", dto);
+		
+		return "admin/memberManage/profile2";
+	}
+	
+	
+	
+	@PostMapping(value = "insertMemberState")
+	public String insertMemberState(@RequestParam String userId,
+			MemberManage dto) {
+		
+		try {
+			dto.setUserId(userId);
+			dto.setEnabled(0);
+			service.insertMemberState(dto);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/memberManage/list/general";
+	}
+	
+	@GetMapping(value = "stopCancleMember")
+	public String stopCancleMember(@RequestParam String userId) {
+			MemberManage dto = new MemberManage();
+		
+		try {
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String sysdate = sdf.format(now);
+			dto.setUserId(userId);
+			dto.setStateCode(0);
+			dto.setMemo("--");
+			dto.setStRegDate(sysdate);
+			dto.setEnabled(1);
+			service.insertMemberState(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/memberManage/list/general";
+	}
+	
 }

@@ -24,6 +24,14 @@ public class MemberManage {
 	private String memo;
 	private String stRegDate;
 	
+	private long pointNum;
+	private int pointChk;
+	private int amount;
+	private String pointRegDate;
+	private int balance;
+	
+	
+	
 	
 	public long getNum() {
 		return num;
@@ -139,7 +147,36 @@ public class MemberManage {
 	public void setStRegDate(String stRegDate) {
 		this.stRegDate = stRegDate;
 	}
-	
+	public long getPointNum() {
+		return pointNum;
+	}
+	public void setPointNum(long pointNum) {
+		this.pointNum = pointNum;
+	}
+	public int getPointChk() {
+		return pointChk;
+	}
+	public void setPointChk(int pointChk) {
+		this.pointChk = pointChk;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	public String getPointRegDate() {
+		return pointRegDate;
+	}
+	public void setPointRegDate(String pointRegDate) {
+		this.pointRegDate = pointRegDate;
+	}
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
 	
 	
 	

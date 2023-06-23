@@ -3,47 +3,45 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-           <div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
-        <div class="modal-window" style="overflow-y: scroll;">
-            <div class="title">
+	 <div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
+        	<div class="title">
                 <h2>회원 상세</h2>
             </div>
-            <div class="close-area">X</div>
            <table class="table table-border border-top2 table-form">
 					<tr> 
 						<td>아이디</td>
 						<td> 
-							popo1111
+							${dto.userId }
 			            </td>
 					</tr>
 					<tr> 
 						<td>이메일</td>
 						<td> 
-							popo1111@naver.com
+							${dto.email }
 			            </td>
 					</tr>
 					<tr> 
 						<td>이름</td>
 						<td> 
-							최포포
+							${dto.userName }
 			            </td>
 					</tr>
 					<tr> 
 						<td>닉네임</td>
 						<td> 
-							포포짱
+							${dto.nickName }
 			            </td>
 					</tr>
 					<tr> 
 						<td>가입 날짜</td>
 						<td> 
-							2023-06-18
+							${dto.regDate }
 			            </td>
 					</tr>
 					<tr> 
 						<td>적립금</td>
 						<td> 
-							10,000
+							 <fmt:formatNumber value="${dto.point }" pattern="#,##0원" />
 			            </td>
 					</tr>
 			</table>
@@ -55,24 +53,30 @@
           <table class="table table-border table-list" style="margin-top: 10px;">
 	  		<thead>
 				<tr>
-					<th class="wx-80">상태</th>
-					<th class="wx-80">회원 코드</th>
-					<th class="wx-100">회원 아이디</th>
-					<th class="wx-150">변경 날짜</th>
-					<th class="wx-150">사유</th>
+					<th width="40%">사유</th>
+					<th width="40%">메모</th>
+					<th width="20%">변경 날짜</th>
 				</tr>
 			</thead>
 			
 		 	<tbody>
+			<c:if test="${empty list }"><tr><td colspan="3">내역이 없습니다.</td></tr></c:if>
+		 		<c:forEach var="state" items="${list }">
 					<tr>
-						<td>1</td>
 						<td>
-							popo1111
+							<c:if test="${state.stateCode == 0 }">정지 해제</c:if>
+							<c:if test="${state.stateCode == 1 }">패스워드 5회이상 실패</c:if>
+							<c:if test="${state.stateCode == 2 }">불법적인 방법으로 로그인</c:if>
+							<c:if test="${state.stateCode == 3 }">불건전 게시물 등록</c:if>
+							<c:if test="${state.stateCode == 4 }">다른 유저 비방</c:if>
+							<c:if test="${state.stateCode == 5 }">타계정 도용</c:if>
+							<c:if test="${state.stateCode == 6 }">기타 약관 위반</c:if>
+							<c:if test="${state.stateCode == 7 }">1년 이상 로그인하지 않음</c:if>
 						</td>
-						<td>정지</td>
-						<td>2023-06-15</td>
-						<td>다른 유저 비방</td>
+						<td>${state.memo }</td>
+						<td>${state.stRegDate }</td>
 					</tr>
+				</c:forEach>
 		  	</tbody>
 		  	</table>
 		  	</div>
@@ -85,34 +89,24 @@
           <table class="table table-border table-list" style="margin-top: 10px;">
 	  		<thead>
 				<tr>
-					<th class="wx-100">판매 코드</th>
-					<th class="wx-150">상품 내용</th>
 					<th class="wx-80">상태</th>
 					<th class="wx-80">금액</th>
-					<th class="wx-150">사용 날짜</th>
+					<th class="wx-80">잔액</th>
+					<th class="wx-80">사용 날짜</th>
 				</tr>
 			</thead>
 			
 		 	<tbody>
+	  				<c:if test="${empty pointList }"><tr><td colspan="4">포인트 사용 내역이 없습니다.</td></tr></c:if>
+				<c:forEach var="point" items="${pointList }">
 					<tr>
-						<td>11234</td>
-						<td>수수펫스튜디오 수수까까 30g</td>
-						<td>사용</td>
-						<td>3,000</td>
-						<td>2023-06-15</td>
+						<td class="wx-80">${point.pointChk==0? '적립':'사용' }</td>
+						<td class="wx-80"><fmt:formatNumber value="${point.amount }" pattern="#,##0원" /></td>
+						<td class="wx-80"><fmt:formatNumber value="${point.balance }" pattern="#,##0원" /></td>
+						<td class="wx-80">${point.pointRegDate }</td>
 					</tr>
-					<tr>
-						<td>21344</td>
-						<td>부드러운 고구마</td>
-						<td>적립</td>
-						<td>1,380</td>
-						<td>2023-06-11</td>
-					</tr>
+				</c:forEach>
 		  	</tbody>
 		  	</table>
 		  	</div>
-	            <div class="modalbtnbox">
-	            <button type="button" class="btn modalbtn close-area2 ">확인</button>
-	            </div>
         </div>
-    </div><!-- info모달끝 -->

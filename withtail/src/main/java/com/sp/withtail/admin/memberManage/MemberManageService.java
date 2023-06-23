@@ -10,11 +10,12 @@ public interface MemberManageService {
 	public List<MemberManage> stoplistMember(Map<String, Object> map);
 	
 	public MemberManage readMember(String userId);
+	public void insertMemberState(MemberManage dto) throws Exception;
+	public List<MemberManage> readMemberState(String userId);
+	public List<MemberManage> readPoint (String userId);
 	
 	
 	public void updateFailureCountReset(String userId) throws Exception;
 	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
-	public void insertMemberState(MemberManage dto) throws Exception;
 	public List<MemberManage> listMemberState(String userId);
-	public MemberManage readMemberState(String userId);
 }

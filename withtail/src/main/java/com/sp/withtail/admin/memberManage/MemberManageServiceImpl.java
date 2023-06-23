@@ -87,6 +87,53 @@ public class MemberManageServiceImpl implements MemberManageService {
 
 
 	@Override
+	public void insertMemberState(MemberManage dto) throws Exception {
+		try {
+			dao.updateData("memberManage.insertMemberState",dto);
+			dao.updateData("memberManage.updateEnabled",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<MemberManage> readMemberState(String userId) {
+		List<MemberManage> list = null;
+
+		try {
+			list = dao.selectList("memberManage.readMemberState", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	public List<MemberManage> readPoint (String userId) {
+		List<MemberManage> list = null;
+		
+		
+		try {
+			list = dao.selectList("memberManage.readPoint",userId);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+	@Override
 	public void updateFailureCountReset(String userId) throws Exception {
 		try {
 			dao.updateData("memberManage.updateFailureCountReset", userId);
@@ -106,15 +153,6 @@ public class MemberManageServiceImpl implements MemberManageService {
 		}
 	}
 
-	@Override
-	public void insertMemberState(MemberManage dto) throws Exception {
-		try {
-			dao.updateData("memberManage.insertMemberState", dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
 
 	@Override
 	public List<MemberManage> listMemberState(String userId) {
@@ -129,17 +167,5 @@ public class MemberManageServiceImpl implements MemberManageService {
 		return list;
 	}
 
-	@Override
-	public MemberManage readMemberState(String userId) {
-		MemberManage dto = null;
-
-		try {
-			dto = dao.selectOne("memberManage.readMemberState", userId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return dto;
-	}
 
 }
