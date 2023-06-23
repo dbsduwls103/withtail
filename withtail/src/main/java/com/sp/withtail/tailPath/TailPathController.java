@@ -19,6 +19,12 @@ public class TailPathController {
 		return ".tailPath.article";
 	}
 	
+	@RequestMapping(value = "boardList")
+	public String boardList() throws Exception{
+		
+		return ".tailPath.boardList";
+	}
+	
 	
 
 }

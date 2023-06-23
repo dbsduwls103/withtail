@@ -166,19 +166,15 @@ $('.box button.close').click(function() {
             <ul>
                 <li>
                     <input type="checkbox" id="tourist_destination" name="partCode" value="반려동반여행" checked>
-                    <label for="tourist_destination">관광지</label>
+                    <label for="tourist_destination">관광,체험</label>
                 </li>
                 <li>
                     <input type="checkbox" id="beverage" name="partCode" value="반려동물식당카페" checked>
                     <label for="beverage">식음료</label>
                 </li>
                 <li>
-                    <input type="checkbox" id="experience" name="partCode" value="반료동물 서비스" checked>
-                    <label for="experience">체험</label>
-                </li>
-                <li>
                     <input type="checkbox" id="animal_hospital" name="partCode" value="반려의료" checked>
-                    <label for="animal_hospital">동물병원</label>
+                    <label for="animal_hospital">의료</label>
                 </li>
             </ul>
         </div>
@@ -220,8 +216,8 @@ $(function(){
 	let serviceKey = "tIqAqGnvJfyhmAOeOn5P5PzGHZEX4zjxHFZnCnlJ0%2FwiFcQitsZJo42OBNt64sELkY5wCVBvWPDBx7%2BaY2eW0A%3D%3D";
 	let query = "serviceKey="+serviceKey;
 	
-	query += "&perPage=" + 2000;
-	query += "&page=" + 1;
+	query += "&perPage=" + 1000;
+	query += "&page=" + 2;
 	const fn = function(data) {
 		printJSON(data);
 	};
@@ -253,6 +249,14 @@ var clusterer = new kakao.maps.MarkerClusterer({
     minLevel: 8 // 클러스터 할 최소 지도 레벨 
 });
 
+//프로토콜을 추가하는 함수
+function addProtocol(url) {
+    if (!/^https?:\/\//i.test(url)) {
+        url = "http://" + url;
+    }
+    return url;
+}
+
 function printJSON(data) {
 	 var positions = []
 	 console.log(data);
@@ -260,8 +264,9 @@ function printJSON(data) {
 	 for (var i = 0; i < data.data.length; i++) {
 		 var item = data.data[i];
 		 if(item["시도 명칭"] === "경기도" || item["시도 명칭"] === "서울특별시"){
-			 var homepage = item.홈페이지 !== "정보없음" ? '<a href="' + item.홈페이지 + '" target="_blank" class="link">홈페이지</a>' : '홈페이지 정보없음';
-			 let obj = {lat:item.위도, lng: item.경도, 
+			 var homepage = item.홈페이지 !== "정보없음" ? '<a href="' + addProtocol(item.홈페이지) + '" target="_blank" class="link">홈페이지</a>' : '홈페이지 정보없음';
+
+			 let obj = {lat:item.위도, lng: item.경도,  category: item.카테고리2, category2: item.카테고리3,
 			 content: '<div class="wrap">' + 
 	            '    <div class="info">' + 
 	            '        <div class="title">' + 
@@ -325,26 +330,6 @@ function printJSON(data) {
        }
    }
 	
-	/*
-	// 체크박스 변경 이벤트 감지
-   $('input[name="partCode"]').on('change', function() {
-       // 선택된 체크박스 값 가져오기
-       var selectedValues = $('input[name="partCode"]:checked').map(function() {
-           return $(this).val();
-       }).get();
-
-       // 필터링된 데이터를 클러스터 형태로 지도에 표시
-       if (selectedValues.length > 0) {
-           // 필터링된 데이터가 있는 경우 클러스터 표시
-           printJSON(filteredData);
-       } else {
-           // 선택된 체크박스가 없는 경우 클러스터 숨김
-           clusterer.clear();
-       }
-   });
-*/
-	
-	
    function updateCluster() {
        var selectedCodes = [];
 
@@ -354,9 +339,8 @@ function printJSON(data) {
        });
 
        var filteredMarkers = markers.filter(function(index, marker) {
-           var item = data.data[index];
            // 선택된 체크박스와 일치하는 값을 가지는 마커만 필터링합니다
-           return selectedCodes.includes(item.카테고리2);
+           return selectedCodes.includes(positions[index].category);
        });
 
        // 클러스터러의 마커를 설정합니다
