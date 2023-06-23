@@ -29,13 +29,13 @@
 
 .img-box {
 	max-width: 600px;
-
 	box-sizing: border-box;
 	display: flex; /* 자손요소를 flexbox로 변경 */
 	flex-direction: row; /* 정방향 수평나열 */
 	flex-wrap: nowrap;
 	overflow-x: auto;
 }
+
 .img-box img {
 	width: 50px; height: 50px;
 	margin-right: 5px;
@@ -64,6 +64,14 @@
     padding: 3px;
     border-radius: 3px;
 }
+
+p {
+    display: inline-flex;
+    width: 500px;
+    height: 30px;
+    gap: 5px;
+    margin-bottom: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -82,27 +90,137 @@
 </script>
 
 <script type="text/javascript">
-    function check() {
-        const f = document.noticeForm;
-
-    	let str = f.subject.value;
-        if(!str) {
-            alert("제목을 입력하세요. ");
-            f.subject.focus();
-            return false;
+$(function(){
+    $(".option1RemoveBtn").hide();
+    $(".option2RemoveBtn").hide();
+    
+    $(".option1AddBtn").click(function(){
+        $(".option1RemoveBtn").show();
+	
+        
+        const p = $(this).closest("td").find("p:first").clone();
+        
+        $(p).find("input").each(function(){
+        	$(this).val("");
+        });
+         $(this).closest("td").find(".short").append(p);
+         
+    });
+    
+    $("body").on("click", ".option1RemoveBtn", function(){
+        if($(this).closest("div").find("p").length<=1) { // closest("태그") : 가장가까운 부모태그
+            return;
         }
-
-    	str = f.content.value;
-    	if( !str || str === "<p><br></p>" ) {
-            alert("내용을 입력하세요. ");
-            f.content.focus();
-            return false;
+        
+        $(this).closest("p").remove();
+        
+        if($(".option1RemoveBtn").closest("div").find("p").length<=1) {
+            $(".option1RemoveBtn").hide();
         }
+        
+    });
+});
 
-    	//f.action="${pageContext.request.contextPath}/admin/noticeManage/${mode}";
+$(function(){
+    $(".option2AddBtn").click(function(){
+        $(".option2RemoveBtn").show();
+	
+        
+        const p = $(this).closest("td").find("p:first").clone();
+        
+        $(p).find("input").each(function(){
+        	$(this).val("");
+        });
+         $(this).closest("td").find(".short").append(p);
+         
+    });
+    
+    $("body").on("click", ".option2RemoveBtn", function(){
+        if($(this).closest("div").find("p").length<=1) { // closest("태그") : 가장가까운 부모태그
+            return;
+        }
+        
+        $(this).closest("p").remove();
+        
+        if($(".option2RemoveBtn").closest("div").find("p").length<=1) {
+            $(".option2RemoveBtn").hide();
+        }
+        
+    });
+});
 
-        return true;
+
+</script>
+
+<script>
+/*
+$(document).ready(function() { 
+
+    $("#getAllCategories").on("change",function(){
+        var sel_one = $("#getAllCategories option:selected").val();
+        if(sel_one === "1"){
+            $("#getSubCategories option").remove();
+	        
+	        $.ajax({
+	            type: 'get',
+	            url:'${pageContext.request.contextPath}/admin/stuffManage/categories',
+	            data: {getAllCategories:$(this)[0].value},
+	            success: function (data) {
+	                selectTerm = "<option value='0'>템플릿코드</option>"; 
+	                $("#getSubCategories option").remove(); 
+	                $.each(JSON.parse(data) , function (key, value) {
+	                    selectTerm += "<option value=" + value.ctNum + ">" + value.ctName + "</option>";
+	                }); 
+	                $("#getSubCategories").append(selectTerm);
+	            },
+	            error: function () {
+	                console.log('error');
+	            }
+            
+       		 }
+        }); 
+    });
+});
+*/
+
+
+function setSubCategory(first) {
+	let firstvalue = first.value;
+	
+	let upper = $(first).parent().parent();
+	
+	let cnt = $('select', upper).index(first);
+	let depth = cnt + 1;
+	
+	var selectBox =  $('select', upper).eq(depth);
+	var text = "<option value = ''>전체</option>";
+	
+	
+	$.ajax ({
+		type:"get",
+		url : "${pageContext.request.contextPath}/admin.stuffManege/subcategories",
+		data: '$(subcategorylist)'
+		dataType: 'json'
+        success: function (data) {
+        $.each(JSON.parse(data) , function (index, category) {
+            selectTerm += "<option value=" + category.ctNum + ">" + category.ctName + "</option>";
+        }); 
+        $("#getSubCategories").append(selectTerm);
+    },
+    error: function () {
+        console.log('error');
     }
+
+	 }			   
+	})
+			
+	
+	
+	)
+	
+	
+	
+}
 </script>
 
 <div class="body-container">
@@ -116,16 +234,16 @@
 			<table class="table table-border border-top2 table-form">
 				<tr> 
 					<td>카테고리</td>
-					
 					<td> 
-					<select name="대분류카테고리" class="category">
+					<select id="getAllCategories" name="category1" class="category" onchange="setSubCategory(this);">
 					    <option value="">  :: 대분류 :: </option>
-					    <option > 강아지 </option>
-					    <option> 고양이 </option>
+					    <c:forEach items="${categorylist}" var="vo" varStatus="status">
+					        <option value="${vo.ctNum}"> ${vo.ctName} </option>
+					    </c:forEach>
 					</select>
 					
 					<!-- 위에서 상위 카테고리에 따라 내용이 달라져야해요! 예시는 강아지를 선택했을 때 -->
-					<select name="중분류 카테고리" class="category" >
+					<select  id="getSubCategories" name="category2" class="category">
 					    <option value="">  :: 중분류 :: </option>
 					</select>
 					</td>
@@ -154,11 +272,25 @@
                        <input type="text" name="price" maxlength="100" class="form-control" value="가격">					
                     </td>
 				</tr>
+	
+				<tr> 
+					<td>제조 날짜</td>
+					<td> 
+                       <input type="date" name="madeDate" maxlength="100" class="form-control" value="제조날짜">					
+                    </td>
+				</tr>
+
+				<tr> 
+					<td>유통 기한</td>
+					<td> 
+                       <input type="date" name="expriy" maxlength="100" class="form-control" value="유통기한">					
+                    </td>
+				</tr>
 				
 				<tr> 
-					<td>할인율</td>
+					<td>원산지</td>
 					<td> 
-						<input type="text" name="discount" maxlength="100" class="form-control" value="할인율">
+						<input type="text" name="countrys" maxlength="100" class="form-control" value="원산지">
 					</td>
 				</tr>
 				<tr> 
@@ -181,11 +313,17 @@
 						<div class="long">
 	                        <input type="text" name="firstOption" maxlength="100" class="form-control" value="옵션명">
 						</div>
-						<div class="short">
-						    <input type="text" name="firstOptionName" maxlength="100" class="form-control" value="옵션 값">
+						<div class="space" style="display: inline-block;">
+							<div class="short">
+							   <p>
+							    <input type="text" name="firstOptionValue" maxlength="100" style="width: 100px;" class="form-control" value="옵션값" placeholder="옵션값">
+						        <button type="button" class="btn option1RemoveBtn" style="display: inline-block;">삭제</button>	
+							   </p>
+							</div>
 						</div>
-					    <button>추가</button>	
-					    <!-- 추가 버튼을 누르면 위에 input div가 늘어나야 합니다! -->
+						<div style="text-align: center; margin-top: 10px">
+					    <button type="button" class="btn option1AddBtn">추가</button>
+					    </div>
 					</td>
 				</tr>
 				
@@ -196,11 +334,18 @@
 						<div class="long">
 	                        <input type="text" name="secondOption" maxlength="100" class="form-control" value="옵션명">
 						</div>
-						<div class="short">
-						    <input type="text" name="secondOptionName" maxlength="100" class="form-control" value="옵션 값">
+						<div class="space" style="display: inline-block;">
+							<div class="short">
+							   <p>
+							    <input type="text" name="secondOptionValue" maxlength="100" style="width: 100px;" class="form-control" value="옵션값" placeholder="옵션값">
+							    <input type="text" name="extraFee" maxlength="100" style="width: 100px;" class="form-control" value="추가금" placeholder="추가금">
+						        <button type="button" class="btn option2RemoveBtn" style="display: inline-block;">삭제</button>	
+							   </p>
+							</div>
 						</div>
-					    <button>추가</button>	
-					    <!-- 추가 버튼을 누르면 위에 input div가 늘어나야 합니다! -->
+						<div style="text-align: center; margin-top: 10px">
+					    <button type="button" class="btn option2AddBtn">추가</button>
+					    </div>
 					</td>
 				</tr>
 				
