@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeManage">
+	
+	<select id="seq" resultType="Long">
+		SELECT notice_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertNotice" parameterType="com.sp.withtail.admin.noticeManage.NoticeManage">
+		INSERT INTO notice(num,userId,regDate,hitCount,subject,content,alarm,enabled)
+		VALUES (#{num},#{userId},SYSDATE,0,#{subject},#{content},#{alarm},#{enabled})
+	</insert>
+	
+	
+
+</mapper>
