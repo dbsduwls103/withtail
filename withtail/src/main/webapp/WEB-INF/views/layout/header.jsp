@@ -153,6 +153,33 @@
 		border-radius: 5px;
 	}
 	
+	/*로그아웃*/
+	.a-logout {
+		background: #eee;
+		text-align: center;
+		border-top: 1px solid #dad7d7;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.a-logout:hover {
+		background: #eee !important;
+	}
+	
+	.logout_btn_span {
+		background: #82ae46;
+		padding: 5px 30px;
+		color: #fff;
+		display: inline-block;
+		border-radius: 5px;
+		margin-top: 5px;
+	}
+	
+	.a-logout:hover .name-span {
+		font-weight: normal;
+		cursor: default;
+	}
+	
 	/* 환영합니다. */
 	.a-user {
 		border-top: 1px solid #dad7d7;
@@ -163,6 +190,10 @@
 		font-weight: normal;
 		cursor: auto;
 		background: #eee !important;
+	}
+	.user-name {
+		color: #000;
+		font-weight: 600;
 	}
 	
 	@media (max-width: 1200px) {
@@ -220,18 +251,18 @@
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a class="dropdown-item a-login" href="${pageContext.request.contextPath}/member/logout">
-								<span class="login_btn_span">로그아웃</span>
-							</a>
-							<a class="dropdown-item a-user" href="#" style="">
-								${sessionScope.member.userName}님 환영합니다.
+							<a class="dropdown-item a-logout" href="${pageContext.request.contextPath}/member/logout">
+								<span class="name-span" style="display: block; font-size: 16px;">
+									<span class="user-name">${sessionScope.member.userName}</span>님
+								</span>
+								<span class="logout_btn_span">로그아웃</span>
 							</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
               </li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart/cart" class="nav-link"><span class="icon-shopping_cart"></span><span class="cart-count">0</span> <span class="">장바구니</span></a></li>
-			  <li class="nav-item"><a href="${pageContext.request.contextPath}/admin" class="nav-link"><i class="fa-solid fa-gear"></i></a></li>
+			  <li class="nav-item"><a href="${pageContext.request.contextPath}/admin" class="nav-link" title="관리자"><i class="fa-solid fa-gear"></i></a></li>
 	        </ul>
 	      </div>
 	    </div>
