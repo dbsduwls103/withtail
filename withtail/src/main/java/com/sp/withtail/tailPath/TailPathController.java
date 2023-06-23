@@ -19,23 +19,6 @@ public class TailPathController {
 		return ".tailPath.article";
 	}
 	
-	@RequestMapping(value = "boardList")
-	public String boardList() throws Exception{
-		
-		return ".tailPath.boardList";
-	}
-	
-	@RequestMapping(value = "boardArticle")
-	public String boardArticle() throws Exception{
-		
-		return ".tailPath.boardArticle";
-	}
-	
-	@RequestMapping(value = "boardWrite")
-	public String boardWriteForm() throws Exception{
-		
-		return ".tailPath.boardWrite";
-	}
 	
 
 }

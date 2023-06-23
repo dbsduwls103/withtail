@@ -267,8 +267,50 @@
 	min-height: 550px;
 }
 
+.add-pets {
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #4494f1;
+    width: 220px;
+    height: 80px;
+}
 
+.add-image-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    width: 85px;
+}
 
+.my-pet1 {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pets-name1 {
+    align-self: stretch;
+    margin-top: -1px;
+    color: #121212;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.pets-text1 {
+    color: #8b8b8b;
+    align-self: stretch;
+    font-size: 12px;
+    font-weight: 400;
+}
 
   </style>
 
@@ -286,7 +328,7 @@
 	  <div class="mypage">
 	  	<div class="profile-section">
 	  		<div class="upper-layout">
-	  			<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: -10px;">김성훈 집사님, 안녕하세요!</p>
+	  			<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: -10px;">${sessionScope.member.userName} 집사님, 안녕하세요!</p>
 	  			<p>
 	  				이 곳에서는 계정 정보를 설정할 수 있어요.
 	  			<br>
@@ -301,84 +343,43 @@
 	  			</div>
 	  		</div>
 	  		<div class="pets-profile d-none d-md-flex">
-	  			
-	  			<!-- 반복임 foreach사용 바람 -->
-	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
-	  				<div class="image-layout">
-	  					<div class="image">
-		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-		  					<img src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
-	  					</div>
-	  				</div>
-	  				<div class="my-pet">
-	  					<p class="pets-name" style="margin-bottom: 0px;">아지</p>
-	  					<div class="pets-text-layout">
-	  						<p class="pets-text" style="margin-bottom: 0px;">말티즈</p>	  						
-	  					</div>
-	  				</div>
+	  			<a class="add-pets" href="${pageContext.request.contextPath}/pets/new">
+	  				<div class="add-image-layout">
+		  					<img alt="" src="${pageContext.request.contextPath}/resources/svg/icon-add-blue.svg">			
+		  			</div>
+		  			<div class="my-pet1">
+		  				<p class="pets-name1" style="margin-bottom : 0px">우리 아이 등록하기</p>
+		  				<p class="pets-text1" style="margin-bottom : 0px" >맞춤 정보를 받아보세요.</p>
+		  			</div>
 	  			</a>
-	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
-	  				<div class="image-layout">
-	  					<div class="image">
-		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-		  					<img src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
-	  					</div>
-	  				</div>
-	  				<div class="my-pet">
-	  					<p class="pets-name" style="margin-bottom: 0px;">아지</p>
-	  					<div class="pets-text-layout">
-	  						<p class="pets-text" style="margin-bottom: 0px;">말티즈</p>	  						
-	  					</div>
-	  				</div>
-	  			</a>
-	  			
-	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
-	  				<div class="image-layout">
-	  					<div class="image">
-		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-		  					<img src="${pageContext.request.contextPath}/resources/images/icon/cat2.png">
-	  					</div>
-	  				</div>	
-	  				<div class="my-pet">
-	  					<p class="pets-name" style="margin-bottom: 0px;">아지</p>
-	  					<div class="pets-text-layout">
-	  						<p class="pets-text" style="margin-bottom: 0px;">말티즈</p>	  						
-	  					</div>
-	  				</div>
-	  			</a>
-	  			
-	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
-	  				<div class="image-layout">
-	  					<div class="image">
-		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-		  					<img src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
-	  					</div>
-	  				</div>
-	  				<div class="my-pet">
-	  					<p class="pets-name" style="margin-bottom: 0px;">아지</p>
-	  					<div class="pets-text-layout">
-	  						<p class="pets-text" style="margin-bottom: 0px;">말티즈</p>	  						
-	  					</div>
-	  				</div>
-	  			</a>
-	  		
-	  			<a class="pets" href="${pageContext.request.contextPath}/myPage/pet">
-	  				<div class="image-layout">
-	  					<div class="image">
-		  					<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
-		  					<img src="${pageContext.request.contextPath}/resources/images/icon/cat2.png">
-	  					</div>
-	  				</div>
-	  				<div class="my-pet">
-	  					<p class="pets-name" style="margin-bottom: 0px;">아지</p>
-	  					<div class="pets-text-layout">
-	  						<p class="pets-text" style="margin-bottom: 0px;">말티즈</p>	  						
-	  					</div>
-	  				</div>
-	  			</a>
-	  			
-	  		</div> 	
-	  			
+	  				
+		  			<c:forEach var="dto" items="${list}" varStatus="status">
+		  				<c:url var="url" value="/myPage/pet">
+		  					<c:param name="num" value="${dto.num}"/>
+		  				</c:url>
+			  			<a class="pets" href="${url}">			  			
+			  				<div class="image-layout">
+			  					<div class="image">
+									<c:choose>
+										<c:when test="${dto.gender == '남'}">	  					
+				  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
+				  						</c:when>
+				  						<c:otherwise>
+				  							<img alt="gender" class="gender" src="${pageContext.request.contextPath}/resources/images/icon/female.png">
+				  						</c:otherwise>
+				  					</c:choose>
+				  					<img src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+			  					</div>
+			  				</div>
+			  				<div class="my-pet">
+			  					<p class="pets-name" style="margin-bottom: 0px;">${dto.petName}</p>
+			  					<div class="pets-text-layout">
+			  						<p class="pets-text" style="margin-bottom: 0px;">${dto.breed}</p>	  						
+			  					</div>
+			  				</div>
+			  			</a>
+		  			</c:forEach>	  					
+	  		</div> 		  			
 	  	</div> 
 	  	
 	  	<div class="setting">
@@ -387,8 +388,8 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 13px;">김성훈</p>
-							<p style="margin-bottom: 0px; font-size: 13px;">jy98220@naver.com</p>
+							<p style="margin-bottom: 0px; font-size: 13px;">${sessionScope.member.userName}</p>
+							<p style="margin-bottom: 0px; font-size: 13px;">${sessionScope.member.email}</p>
 							<p style="margin-bottom: 0px; font-size: 13px;">비밀번호 : ********</p>						
 						</div>
 					</div>

@@ -188,7 +188,7 @@ hr {
 					</div>
 					<div class="profile-edit-value ">
 						<div class="profile-edit-value-text valign-text-middle">
-					${sessionScope.member.userName}
+							${sessionScope.member.userName}
 						</div>
 					</div>
 				</div>
