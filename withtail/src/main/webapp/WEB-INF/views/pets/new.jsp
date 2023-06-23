@@ -437,15 +437,6 @@ function printBreed() {
 function displayImage(event) {
 	  const input = event.target;
 	  const image = document.getElementById('petImage');
-	  const selectedPets = document.getElementById('selectedPet');
-	  const dogImage = `${pageContext.request.contextPath}/resources/images/icon/dog1.png`;
-	  const catImage = `${pageContext.request.contextPath}/resources/images/icon/cat2.png`;
-	  
-	  if(selectedPets === '강아지') {
-		image.src =  dogImage
-	  } else {
-		  
-	  }
 
 	  if (input.files && input.files[0]) {
 	    const reader = new FileReader();
@@ -707,7 +698,7 @@ function displayImage(event) {
 					<div class="input-content">
 						<div class="add-profile-layout">
 							<div class="imgbox">
-								<img class="add-pet-image" alt="" id="petImage" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
+								<img class="add-pet-image" alt="" id="petImage" src="">
 								<img class="pet-gender" alt="" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
 							</div>
 							<div class="add-pets-name valign-text-middle petNameResult" id="petNameResult"></div>

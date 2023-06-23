@@ -209,9 +209,8 @@ function deleteOk() {
 	let query = "num=${dto.num}&${query}&petsImageFilename=${dto.petsImageFilename}";
     let url = "${pageContext.request.contextPath}/myPage/delete?" + query;
 
-    if(confirm("위 자료를 삭제 하시 겠습니까 ? ")) {
-  	  location.href = url;
-    }
+  	location.href = url;
+  
 }
 
 </script>
@@ -232,10 +231,29 @@ function deleteOk() {
 			<div class="add-content-layout">
 				<div class="petprofile-edit-btn">
 					<div class="minimal-text-btn">
-						<a class="text valign-text-middle" href="#" onclick="deleteOk();">
-							삭제
-						</a>
+					<!-- Button trigger modal -->
+					<a class="text valign-text-middle" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
+					  삭제
+					</a>
 					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" style="width: 355px;">
+					    <div class="modal-content">
+					      <div class="modal-header" style="border-bottom: none;">
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body" style="text-align: center; padding-bottom: 0px; font-size: 17px;">
+					        정말로 삭제하시나요?
+					      </div>
+					      <div class="modal-footer" style="justify-content: center; border-top: none;">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 150px; height: 62px; border-radius: 5px; background-color: white; color: gray;">아니요</button>
+					        <button type="button" class="btn btn-primary" style="width: 150px; height: 62px; border-radius: 5px;" onclick="deleteOk();">예</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					
 					<div class="separator"> |</div>
 					<div class="minimal-text-btn">
 						<a class="text valign-text-middle" href="#">
@@ -246,7 +264,21 @@ function deleteOk() {
 				<div class="input-content">
 					<div class="add-profile-layout">
 						<div class="add-pet-image-layout">
-							<img class="add-pet-image" alt="" src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+							<c:choose>
+		  						<c:when test="${!empty dto.petsImageFilename}">
+		  							<img class="add-pet-image" src="${pageContext.request.contextPath}/uploads/pets/${dto.petsImageFilename}">
+	  							</c:when>
+	  							<c:otherwise>
+	  								<c:choose>
+		  								<c:when test="${dto.whichPet == '강아지'}">
+		  									<img class="add-pet-image" src="${pageContext.request.contextPath}/resources/images/icon/dog1.png">
+		  								</c:when>
+		  								<c:otherwise>
+		  									<img class="add-pet-image" src="${pageContext.request.contextPath}/resources/images/icon/cat2.png">
+		  								</c:otherwise>
+		  							</c:choose>	
+	  							</c:otherwise>
+	  						</c:choose>
 							<c:choose>
 								<c:when test="${dto.gender == '남'}">
 									<img class="pet-gender" width="25" height="25" alt="" src="${pageContext.request.contextPath}/resources/images/icon/male.png">
