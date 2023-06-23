@@ -79,27 +79,58 @@
 	          </div>
         	</div>   		
     	</div>
-    	
-    	
-    			
-    		<table class="table table-hover board-list">
-				<tbody>
-					<c:forEach var="dto" items="${list}" varStatus="status">
-						<tr>
-							<td>${dataCount - (page-1) * size - status.index}</td>
-							<td>${dto.itemName}</td>
-							<td>${dto.price}</td>
-							<td>${dto.discount}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			
-    			
-		<div class="page-navigation">
-			${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+	<div class="container">
+		<div class="row">
+			<c:forEach var="dto" items="${list}" varStatus="status">
+				<div class="col-md-6 col-lg-3 ftco-animate">
+
+					<div class="product">
+						<a href="#" class="img-prod"><img class="img-fluid"
+							src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
+							alt="Colorlib Template"> <span class="status">${dto.discount}</span>
+						</a>
+						<div class="text py-3 pb-4 px-3 text-center">
+							<h3>
+								<a href="#">${dto.itemName}</a>
+							</h3>
+							<div class="d-flex">
+								<div class="pricing">
+									<p class="price">
+										<span>${dto.price}</span>
+									</p>
+								</div>
+							</div>
+							<div class="bottom-area d-flex px-3">
+								<div class="m-auto d-flex">
+									<a href="#"
+										class="add-to-cart d-flex justify-content-center align-items-center text-center">
+										<span><i class="ion-ios-menu"></i></span>
+									</a> <a href="#"
+										class="buy-now d-flex justify-content-center align-items-center mx-1">
+										<span><i class="ion-ios-cart"></i></span>
+									</a> <a href="#"
+										class="heart d-flex justify-content-center align-items-center ">
+										<span><i class="ion-ios-heart"></i></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</c:forEach>
+
+			<div class="row mt-5">
+				<div class="col text-center">
+					<div class="block-27">
+						${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+					</div>
+				</div>
+			</div>
 		</div>
-    			<!-- //상품 목록(foreach) 쓸 것 -->
+	</div>
+
+	<!-- //상품 목록(foreach) 쓸 것 -->
     </section>
 
 
