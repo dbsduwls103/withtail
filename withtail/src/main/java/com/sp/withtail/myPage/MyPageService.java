@@ -7,4 +7,5 @@ public interface MyPageService {
 	public MyPage readPet(long num);
 	public void deletePet(long num, String pathname) throws Exception;
 	public int dataCount(String userId);
+	public void updatePet(MyPage dto, String pathname) throws Exception;
 }

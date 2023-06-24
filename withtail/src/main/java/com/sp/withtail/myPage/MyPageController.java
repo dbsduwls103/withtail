@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,6 +86,31 @@ public class MyPageController {
 		}
     	
     	return "redirect:/myPage/myPage";
+    }
+    
+    @GetMapping(value = "petEdit")
+    public String petEditForm(@RequestParam long num,
+    		Model model) throws Exception {
+    	
+    	MyPage dto = service.readPet(num);
+    	
+    	model.addAttribute("dto", dto);
+    	
+    	return ".myPage.petEdit";
+    }
+    
+    @PostMapping(value = "petEdit")
+    public String petEditSubmit(MyPage dto,
+    		HttpSession session) throws Exception {
+    	String root = session.getServletContext().getRealPath("/");
+    	String pathname = root + "uploads" + File.separator + "pets";
+    	
+    	try {
+    		service.updatePet(dto, pathname);
+		} catch (Exception e) {
+		}
+    	
+    	return "redirect:/myPage/pet?num=" + dto.getNum();
     }
     
     @GetMapping("profile")

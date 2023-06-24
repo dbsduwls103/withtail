@@ -256,7 +256,7 @@ function deleteOk() {
 					
 					<div class="separator"> |</div>
 					<div class="minimal-text-btn">
-						<a class="text valign-text-middle" href="#">
+						<a class="text valign-text-middle" href="${pageContext.request.contextPath}/myPage/petEdit?num=${dto.num}">
 							수정
 						</a>
 					</div>

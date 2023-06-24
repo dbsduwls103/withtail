@@ -24,5 +24,10 @@
 		FROM animal
 		WHERE userId = #{userId}
 	</select>
+	
+	<update id="petEdit" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE animal SET petName=#{petName} , breed=#{breed}, gender=#{gender}, petsImageFilename= #{petsImageFilename, jdbcType=VARCHAR}, birth=#{birth}, weight=#{weight}
+		WHERE num =#{num}
+	</update>
 </mapper>
 

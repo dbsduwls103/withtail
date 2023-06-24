@@ -71,5 +71,27 @@ public class MyPageServiceImpl implements MyPageService {
 		return result;
 	}
 
+	@Override
+	public void updatePet(MyPage dto, String pathname) throws Exception {
+		try {
+			String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), pathname);
+			
+			if(saveFilename != null) {
+				if(dto.getPetsImageFilename().length() != 0) {
+					fileManager.doFileDelete(dto.getPetsImageFilename(), pathname);
+				}
+				
+				dto.setPetsImageFilename(saveFilename);
+			}
+			
+			dao.updateData("myPage.petEdit", dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 
 }

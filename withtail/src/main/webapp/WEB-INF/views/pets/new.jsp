@@ -330,6 +330,18 @@ align-items: flex-start;
     position: relative;
 }
 
+.input-content {
+  position: relative;
+}
+
+.input1-unit {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #82ae46;
+}
+
 </style>
 
 <script>
@@ -368,7 +380,7 @@ $(function() {
 	if( img ) { // 수정인 경우
 		img = "${pageContext.request.contextPath}/uploads/pets/" + img;
 		$(".step8 .img-viewer").empty();
-		$(".step8-form .img-viewer").css("background-image", "url("+img+")");
+		$(".step8 .img-viewer").css("background-image", "url("+img+")");
 	}
 	
 	$(".step8 .img-viewer").click(function(){
@@ -562,6 +574,7 @@ function displayImage(event) {
 					</div>
 					<div class="input-content">
 						<input type="text" name="weight" class="inp" placeholder="텍스트를 입력하세요." id="petWeight" onchange="printWeight()">
+						<span class="input1-unit">kg</span>
 						<div class="error-text"></div>
 					</div>				
 					<div>

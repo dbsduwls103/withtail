@@ -1,5 +1,7 @@
 package com.sp.withtail.myPage;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MyPage {
 	private String gender;
 	private String breed;
@@ -11,7 +13,14 @@ public class MyPage {
 	private String birth;
 	private long num;
 	private String birth2;
+	private MultipartFile selectFile;
 	
+	public MultipartFile getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(MultipartFile selectFile) {
+		this.selectFile = selectFile;
+	}
 	public String getBirth2() {
 		return birth2;
 	}
