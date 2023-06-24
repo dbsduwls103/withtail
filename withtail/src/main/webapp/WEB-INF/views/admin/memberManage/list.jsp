@@ -434,7 +434,7 @@ function insertOk(userId) {
 								</select>
 							</div>
 							<div style="display: inline-block; width: 200px;" >
-						    	<input type="text" name="keyword" maxlength="100" class="form-control" placeholder="검색값" value="${keyword }">
+						    	<input style="margin-left: 20px;" type="text" name="keyword" maxlength="100" class="form-control" placeholder="검색값" value="${keyword }">
 							</div>
 			            </td>
 					</tr>

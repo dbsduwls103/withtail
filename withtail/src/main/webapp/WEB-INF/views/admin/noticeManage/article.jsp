@@ -34,7 +34,7 @@
 			<thead>
 				<tr>
 					<td colspan="2" align="center">
-						제목
+						${dto.subject}${dto.alarm == 1 ? "" : " [숨김]" }
 					</td>
 				</tr>
 			</thead>
@@ -42,16 +42,16 @@
 			<tbody>
 				<tr>
 					<td width="50%" align="left">
-						이름 : 김땡땡
+						이름 : ${dto.userName}
 					</td>
 					<td width="50%" align="right">
-						0000.00.00 | 조회 1
+						${dto.regDate} | 조회 ${dto.hitCount}
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" valign="top" height="200">
-						내용입니다.
+						${dto.content}
 					</td>
 				</tr>
 				
@@ -59,7 +59,7 @@
 					<tr>
 						<td colspan="2">
 							파&nbsp;&nbsp;일 :
-							<a href="${pageContext.request.contextPath}/admin/noticeManage/download?fileNum=${vo.fileNum}"><i class="icofont-file-alt"></i> ${vo.originalFilename}</a>
+							<a href="${pageContext.request.contextPath}/admin/noticeManage/download?fileNum=${vo.fileNum}"><i class="icofont-file-alt"></i> ${vo.originalName}</a>
 							(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> KByte)
 						</td>
 					</tr>

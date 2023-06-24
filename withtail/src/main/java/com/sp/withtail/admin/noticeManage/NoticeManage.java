@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class NoticeManage {
 	private long num;
 	private String userId;
+	private String userName;
 	private String regDate;
 	private int hitCount;
 	private String subject;
@@ -35,6 +36,12 @@ public class NoticeManage {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getRegDate() {
 		return regDate;

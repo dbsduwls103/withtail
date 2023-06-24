@@ -12,7 +12,7 @@
 </style>
 
 <script type="text/javascript">
-/*
+
 <c:if test="${mode=='update'}">
   function deleteFile(fileNum) {
 		let url = "${pageContext.request.contextPath}/admin/noticeManage/deleteFile";
@@ -22,7 +22,7 @@
   } 
 </c:if>
 
- */
+ 
 </script>
 
 <script type="text/javascript">
@@ -43,7 +43,7 @@
             return false;
         }
 
-    	//f.action="${pageContext.request.contextPath}/admin/noticeManage/${mode}";
+    	f.action="${pageContext.request.contextPath}/admin/noticeManage/${mode}";
 
         return true;
     }
@@ -61,14 +61,14 @@
 				<tr> 
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td> 
-						<input type="text" name="subject" maxlength="100" class="form-control" value="제목">
+						<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject }">
 					</td>
 				</tr>
 			
 				<tr> 
 					<td>공지여부</td>
 					<td> 
-						<input type="checkbox" name="notice" id="notice" class="form-check-input" value="1" ${dto.notice==1 ? "checked='checked' ":"" }>
+						<input type="checkbox" name="alarm" id="notice" class="form-check-input" value="1" ${dto.alarm==1 ? "checked='checked' ":"" }>
 						<label for="notice" class="form-check-label">공지</label>
 					</td>
 				</tr>
@@ -76,7 +76,7 @@
 				<tr> 
 					<td>출력여부</td>
 					<td> 
-						<input type="checkbox" name="showNotice" id="showNotice" class="form-check-input" value="1" ${mode=="write" || dto.showNotice==1 ? "checked='checked' ":"" }>
+						<input type="checkbox" name="enabled" id="showNotice" class="form-check-input" value="1" ${mode=="write" || dto.enabled==1 ? "checked='checked' ":"" }>
 						<label for="showNotice" class="form-check-label">표시</label>
 					</td>
 				</tr>
@@ -84,14 +84,14 @@
 				<tr> 
 					<td>작성자</td>
 					<td> 
-						<p class="form-control-plaintext">관리자</p>
+						<p class="form-control-plaintext">${sessionScope.member.userName}</p>
 					</td>
 				</tr>
 			
 				<tr> 
 					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td valign="top"> 
-						<textarea name="content" id="ir1" class="form-control">내용입니다</textarea>
+						<textarea name="content" id="ir1" class="form-control">${dto.content}</textarea>
 					</td>
 				</tr>
 			  
@@ -102,16 +102,16 @@
 					</td>
 				</tr>
 	              
-				<c:if test="">
-					<!-- foreach자리 -->
-						<tr id="f1"> 
+				<c:if test="${mode=='update'}">
+					<c:forEach var="vo" items="${listFile}">
+						<tr id="f${vo.fileNum}"> 
 							<td>첨부된파일</td>
 							<td> 
-								<a href="javascript:deleteFile('파일번호');"><i class="fa-solid fa-trash-can"></i></a> 
-								파일이름
+								<a href="javascript:deleteFile('${vo.fileNum}');"><i class="fa-solid fa-trash-can"></i></a> 
+								${vo.originalName}
 							</td>
 						  </tr>
-					
+					</c:forEach>
 				</c:if>
 			</table>
 				

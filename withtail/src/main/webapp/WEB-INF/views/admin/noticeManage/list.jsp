@@ -32,7 +32,7 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">
-					1개(1/1 페이지)
+					${dataCount}개(${page}/${total_page} 페이지)
 				</td>
 				<td align="right">
 					&nbsp;
@@ -54,48 +54,50 @@ function searchList() {
 			</thead>
 		 
 		 	<tbody>
-		 		<!-- 공지일때 -->
+		 		<c:forEach var="dto" items="${noticeList}">
 					<tr> 
 						<td><span class="badge">공지</span></td>
 						<td >
-							<a href="#">제목입니다</a>
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
 						<td>관리자</td>
-						<td>0000.00.00</td>
-						<td>1</td>
+						<td>${dto.regDate}</td>
+						<td>${dto.hitCount}</td>
 						<td>
-							<c:if test="">
-								<a href="#"><i class="fa-solid fa-file-zipper"></i></a>
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
 							</c:if>
 						</td>
 						<td>&nbsp;</td>
 					</tr>
+				</c:forEach>
 				
 				<!--일반게시물  -->
+				<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr> 
-						<td>1</td>
-						<td >
-							<a href="#">제목입니다</a>
-							<c:if test="">
-								<img src='#'>
+						<td>${dataCount - (page-1) * size - status.index}</td>
+						<td>
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+							<c:if test="${dto.gap < 1}">
+								<img src='${pageContext.request.contextPath}/resources/images/new.gif'>
 							</c:if>
 						</td>
 						<td>관리자</td>
-						<td>0000.00.00</td>
-						<td>1</td>
+						<td>${dto.regDate}</td>
+						<td>${dto.hitCount}</td>
 						<td>
-							<c:if test="">
-								<a href="#"><i class="fa-solid fa-file-zipper"></i></a>
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
 							</c:if>		      
 						</td>
-						<td>표시</td>
+						<td>${dto.enabled == 1 ? "표시" : "숨김" }</td>
 					</tr>
-					
+				</c:forEach>
 			</tbody>
 		</table>
 		 
 		<div class="page-navigation">
-			123
+			${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 		</div>
 		
 		<table class="table">
