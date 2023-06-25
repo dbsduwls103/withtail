@@ -138,12 +138,73 @@ public class MyPageController {
    	}
     
     @GetMapping("delivery")
-   	public String execute8() throws Exception {
-   	
+   	public String deliveryList(MyPage dto, HttpSession session, 
+			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		dto.setUserId(info.getUserId());
+		List<MyPage> list = service.listDelivery(dto);
+    		
+
+    	model.addAttribute("list", list);
+    	
    		return ".myPage.delivery";
    	}
     
- 
+    
+    @GetMapping("writeDelivery")
+   	public String deliveryForm(Model model) throws Exception {
+    	  	
+    	model.addAttribute("mode", "writeDelivery");
+    	
+   		return ".myPage.writeDelivery";
+   	}
+    
+    @PostMapping("writeDelivery")
+   	public String deliverySubmit(MyPage dto, HttpSession session) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
+    	try {
+			dto.setUserId(info.getUserId());
+			service.insertAdd(dto);
+			
+		} catch (Exception e) {
+		}
+   		return "redirect:/myPage/delivery";
+   	}
+    
+    @GetMapping("update")
+    public String updateAddform(@RequestParam long num, Model model) throws Exception {
+    	MyPage dto = service.readAdd(num);
+    	
+    	model.addAttribute("dto",dto);
+    	model.addAttribute("mode", "update");
+    	
+    	return ".myPage.writeDelivery";
+    }
+    
+    @PostMapping("update")
+    public String updateAddSubmit(MyPage dto) throws Exception {
+    	try {
+			service.updateAdd(dto);
+		} catch (Exception e) {
+		}
+    	
+    	return "redirect:/myPage/delivery";
+    }
+
+    @GetMapping(value = "deleteAdd")
+    public String deleteAdd(@RequestParam long num,
+    		Model model) throws Exception {
+    
+   	
+    	try {
+    		service.deleteAdd(num);    
+    	} catch (Exception e) {
+		}
+    	
+    	return "redirect:/myPage/delivery";
+    }
     
     
   
