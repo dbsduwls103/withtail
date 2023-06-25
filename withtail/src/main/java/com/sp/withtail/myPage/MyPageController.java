@@ -26,14 +26,22 @@ public class MyPageController {
     					Model model) throws Exception {  
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	int dataCount;
+    	int addDataCount;
     	
-		dto.setUserId(info.getUserId());
+    	dto.setUserId(info.getUserId());
 		dataCount = service.dataCount(info.getUserId());
+		addDataCount = service.addDataCount(info.getUserId());
+		
 		List<MyPage> list = service.listMyPages(dto);
+		List<MyPage> list1 = service.listDelivery(dto);
     		
-
+		MyPage dto1 = list1.get(0);
+		
+		model.addAttribute("list1", list1);
     	model.addAttribute("list", list);
+    	model.addAttribute("addDataCount", addDataCount);
     	model.addAttribute("dataCount", dataCount);
+    	model.addAttribute("dto1", dto1);
     	
         return ".myPage.myPage";
     }
@@ -144,9 +152,13 @@ public class MyPageController {
 
 		dto.setUserId(info.getUserId());
 		List<MyPage> list = service.listDelivery(dto);
-    		
-
+		
+		int dataCount = 0;
+    	
+		dataCount = service.dataCount(info.getUserId());
+		
     	model.addAttribute("list", list);
+    	model.addAttribute("dataCount", dataCount);
     	
    		return ".myPage.delivery";
    	}

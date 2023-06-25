@@ -312,6 +312,25 @@
     font-weight: 400;
 }
 
+.address-text-wrap {
+	align-items: flex-end;
+	align-self: stretch;
+	border: 1px none;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.address-text-layout-1 {
+	align-items: flex-start;
+	align-self: stretch;
+	border: 1px none;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
   </style>
 
   <div class="container -min">
@@ -415,18 +434,43 @@
 				</div>  
 			</a>
 			<hr style="width: 100%; margin-top: 0px; margin-bottom: 0px;">
-		
-			<a href="${pageContext.request.contextPath}/myPage/delivery" class="detailed-information">	
-				<div>
-					<div class="information-layout">
-						<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
-						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 13px;">없음</p>					
-						</div>
-					</div>
-				</div> 	
-			</a>
-				<hr style="width: 100%; margin-top: 0px; margin-bottom: 0px;">
+			
+			
+			<c:choose>
+				<c:when test="${addDataCount eq 0}">
+					<a href="${pageContext.request.contextPath}/myPage/delivery" class="detailed-information">	
+						<div>
+							<div class="information-layout">
+								<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
+								<div class="text-layout">
+									<p style="margin-bottom: 0px; font-size: 13px;">없음</p>					
+								</div>
+							</div>
+						</div> 	
+					</a>
+				</c:when>
+				<c:otherwise>
+						<a href="${pageContext.request.contextPath}/myPage/delivery" class="detailed-information">	
+							<div>
+								<div class="information-layout">
+									<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
+									<div class="address-text-wrap">
+										<div class="text-layout">
+											<p class="registered-address-name-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">${dto1.addName}</p>
+											<p class="registered-address-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">
+												${dto1.addr1} ${dto1.addr2} ${dto1.zip}</p>
+											<p class="phone-number-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;" >${dto1.tel}</p>
+											<p class="message-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">${dto1.memo}</p>
+										</div>
+									</div>
+								</div>
+							</div> 	
+						</a>
+				</c:otherwise>
+			</c:choose>
+			
+			
+			<hr style="width: 100%; margin-top: 0px; margin-bottom: 0px;">
 			
 			<a href="${pageContext.request.contextPath}/myPage/storecredit" class="detailed-information">		
 				<div>
@@ -438,6 +482,8 @@
 					</div>
 				</div> 	
 			</a>
+			
+			
 			<hr style="width: 100%; margin-top: 0px; margin-bottom: 0px;">
 		
 			<a href="${pageContext.request.contextPath}/myPage/coupon" class="detailed-information">

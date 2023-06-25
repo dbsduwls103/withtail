@@ -34,6 +34,7 @@
 		SELECT addNum, userId, addr1, addr2, zip, tel, memo, addDef, addName
 		FROM address
 		WHERE userId = #{userId}
+		ORDER BY addDef DESC
 	</select>
 	
 	<insert id="insertAdd" parameterType="com.sp.withtail.myPage.MyPage">
@@ -59,5 +60,11 @@
 	<delete id="deleteAdd" parameterType="Long">
 		DELETE FROM address WHERE addNum = #{addNum}
 	</delete>
+	
+	<select id="addDataCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM address
+		WHERE userId = #{userId}
+	</select>
 </mapper>
 

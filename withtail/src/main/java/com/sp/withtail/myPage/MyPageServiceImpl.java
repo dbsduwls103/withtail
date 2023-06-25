@@ -155,5 +155,18 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 	}
 
+	@Override
+	public int addDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.addDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 
 }
