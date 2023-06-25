@@ -10,6 +10,19 @@
 .body-main {
 	max-width: 900px;
 }
+
+.img-viewer {
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 45px;
+	height: 45px;
+	border-radius: 45px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
+}
 </style>
 
 <script type="text/javascript">
@@ -48,92 +61,138 @@
         const f = document.eventForm;
         let mode = "${mode}";
 
-    	let str = f.title.value;
+    	let str = f.subject.value;
         if(!str) {
             alert("제목을 입력하세요. ");
-            f.title.focus();
+            f.subject.focus();
             return false;
         }
 
-    	if(! isValidDateFormat(f.sday.value)) {
+    	if(! isValidDateFormat(f.startDay.value)) {
     		alert("날짜를 입력하세요.");
-    		f.sday.focus();
+    		f.startDay.focus();
     		return false;
     	}
     	
-    	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.stime.value)) {
+    	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.startTime.value)) {
     		alert("시간을 입력하세요.");
-    		f.stime.focus();
+    		f.startTime.focus();
     		return false;
     	}
 
 
-    	if(! isValidDateFormat(f.eday.value)) {
+    	if(! isValidDateFormat(f.endDay.value)) {
     		alert("날짜를 입력하세요.");
-    		f.eday.focus();
+    		f.endDay.focus();
     		return false;
     	}
     	
-    	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.etime.value)) {
+    	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.endTime.value)) {
     		alert("시간을 입력하세요.");
-    		f.etime.focus();
+    		f.endTime.focus();
     		return false;
     	}
     	
-    	let sd = new Date(f.sday.value + " " + f.stime.value);
-    	let ed = new Date(f.eday.value + " " + f.etime.value);
+    	let sd = new Date(f.startDay.value + " " + f.startTime.value);
+    	let ed = new Date(f.endDay.value + " " + f.endTime.value);
     	
     	if( sd.getTime() >= ed.getTime() ) {
     		alert("시작날짜는 종료날짜보다 크거나 같을 수 없습니다.");
-    		f.sday.focus();
+    		f.startDay.focus();
     		return false;
     	}
 
     	if( mode === "write" && new Date().getTime() > ed.getTime() ) {
     		alert("종료날짜는 현재 시간보다 작을수 없습니다.");
-    		f.eday.focus();
+    		f.endDay.focus();
     		return false;
     	}
     	
-    	if(!/^(\d)+$/.test(f.winnerNumber.value)) {
+    	if(!/^(\d)+$/.test(f.maxCount.value)) {
     		alert("당첨인원을 입력 하세요.");
-    		f.winnerNumber.focus();
+    		f.maxCount.focus();
     		return false;
     	}
     	
-    	if(f.winnerNumber.value !== "0") {
-        	if(! isValidDateFormat(f.wday.value)) {
+    	if(f.maxCount.value !== "0") {
+        	if(! isValidDateFormat(f.winningDay.value)) {
         		alert("날짜를 입력하세요.");
-        		f.wday.focus();
+        		f.winningDay.focus();
         		return false;
         	}
         	
-        	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.wtime.value)) {
+        	if(! /^[0-2][0-9]:[0-5][0-9]$/.test(f.winningTime.value)) {
         		alert("시간을 입력하세요.");
-        		f.wtime.focus();
+        		f.winningTime.focus();
         		return false;
         	}
         	
-    		let wd = new Date(f.wday.value + " " + f.wtime.value);
+    		let wd = new Date(f.winningDay.value + " " + f.winningTime.value);
     		
         	if( wd.getTime() < ed.getTime() ) {
         		alert("당첨일자는 종료날짜보다 작을수 없습니다.");
-        		f.wday.focus();
+        		f.winningDay.focus();
         		return false;
         	}    		
     	}
         
     	str = f.content.value;
     	if( !str || str === "<p><br></p>" ) {
-            alert("내용을 입력하세요. ");
+            alert("내용을 입력하세요.");
             f.content.focus();
             return false;
         }
 
-    	f.action = "${pageContext.request.contextPath}/admin/eventManage/${category}/${mode}";
+    	if( (mode === "write") && (!f.selectFile.value) ) {
+    	        alert("이미지 파일을 추가 하세요. ");
+    	        f.selectFile.focus();
+    	        return;
+         }    
 
+        f.action = "${pageContext.request.contextPath}/admin/eventManage/${category}/${mode}";
         return true;
+
     }
+    
+$(function() {
+    	let img = "${dto.imageFilename}";
+    	if( img ) { // 수정인 경우
+    		img = "${pageContext.request.contextPath}/uploads/photo/" + img;
+    		$(".img-viewer").empty();
+    		$(".img-viewer").css("background-image", "url("+img+")");
+    	}
+    	
+    	$(".img-viewer").click(function(){
+    		$("form[name=eventForm] input[name=selectFile]").trigger("click"); 
+    	});
+    	
+    	$("form[name=eventForm] input[name=selectFile]").change(function(){
+    		let file = this.files[0];
+    		if(! file) {
+    			$(".img-viewer").empty();
+    			if( img ) {
+    				img = "${pageContext.request.contextPath}/uploads/photo/" + img;
+    			} else {
+    				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+    			}
+    			$(".img-viewer").css("background-image", "url("+img+")");
+    			
+    			return false;
+    		}
+    		
+    		if(! file.type.match("image.*")) {
+    			this.focus();
+    			return false;
+    		}
+    		
+    		let reader = new FileReader();
+    		reader.onload = function(e) {
+    			$(".img-viewer").empty();
+    			$(".img-viewer").css("background-image", "url("+e.target.result+")");
+    		}
+    		reader.readAsDataURL(file);
+    	});
+});
 </script>
 
 <div class="body-container">
@@ -152,35 +211,35 @@
 			</ul>
 		</div>
 		<div id="tab-content" style="padding: 15px 10px 5px; clear: both;">
-			<form name="eventForm" method="post">
+			<form name="eventForm" method="post" enctype="multipart/form-data">
 				<table class="table table-border border-top2 table-form">
 					<tr> 
 						<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 						<td> 
-							<input type="text" name="title" maxlength="100" class="form-control" value="${dto.title}">
+							<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
 						</td>
 					</tr>
 	
 					<tr>
 						<td>시작일자</td>
 						<td> 
-							<input type="date" name="sday" class="form-control" value="${dto.sday}">
-							<input type="time" name="stime" class="form-control" value="${dto.stime}">
+							<input type="date" name="startDay" class="form-control" value="${dto.startDay}">
+							<input type="time" name="startTime" class="form-control" value="${dto.startTime}">
 						</td>
 					</tr>
 	
 					<tr>
 						<td>종료일자</td>
 						<td> 
-							<input type="date" name="eday" class="form-control" value="${dto.eday}">
-							<input type="time" name="etime" class="form-control" value="${dto.etime}">
+							<input type="date" name="endDay" class="form-control" value="${dto.endDay}">
+							<input type="time" name="endTime" class="form-control" value="${dto.endTime}">
 						</td>
 					</tr>
 	
 					<tr>
 						<td>당첨인원</td>
 						<td> 
-							<p> <input type="text" name="winnerNumber" class="form-control" value="${dto.winnerNumber}"> </p>
+							<p> <input type="number" name="maxCount" class="form-control" value="${dto.maxCount}"> </p>
 							<p class="help-block">당첨 인원이 0이면 당첨자가 없습니다.</p>
 						</td>
 					</tr>
@@ -188,8 +247,8 @@
 						<td>발표일자</td>
 						<td>
 							<p> 
-								<input type="date" name="wday" class="form-control" value="${dto.wday}">
-								<input type="time" name="wtime" class="form-control" value="${dto.wtime}">
+								<input type="date" name="winningDay" class="form-control" value="${dto.winningDay}">
+								<input type="time" name="winningTime" class="form-control" value="${dto.winningTime}">
 							</p>
 							<p class="help-block">당첨 인원이 0이면 발표일자는 저장되지 않습니다.</p>
 						</td>
@@ -198,8 +257,8 @@
 					<tr> 
 						<td>출력여부</td>
 						<td> 
-							<input type="checkbox" name="showEvent" id="showEvent" class="form-check-input" value="1" ${mode=="write" || dto.showEvent==1 ? "checked='checked' ":"" }>
-							<label for="showEvent" class="form-check-label">표시</label>
+							<input type="checkbox" name="enabled" id="enabled" class="form-check-input" value="0" ${mode=="write" || dto.enabled==0 ? "checked='checked' ":"" }>
+							<label for="enable" class="form-check-label">표시</label>
 						</td>
 					</tr>
 				
@@ -207,6 +266,14 @@
 						<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 						<td valign="top"> 
 							<textarea name="content" id="ir1" class="form-control">${dto.content}</textarea>
+						</td>
+					</tr>
+					
+				   <tr>
+						<td class="table-light col-sm-2" scope="row">이미지</td>
+						<td>
+							<div class="img-viewer"></div>
+							<input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 						</td>
 					</tr>
 				  
@@ -220,6 +287,7 @@
 							<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/${category}/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 							<c:if test="${mode=='update'}">
 								<input type="hidden" name="num" value="${dto.num}">
+								<input type="hidden" name="imageFilename" value="${dto.imageFilename}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
 						</td>

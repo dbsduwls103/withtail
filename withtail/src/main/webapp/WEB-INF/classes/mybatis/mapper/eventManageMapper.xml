@@ -4,14 +4,14 @@
 <mapper namespace="eventManage">
 
 	<insert id="insertEvent" parameterType="com.sp.withtail.admin.eventManage.EventManage">
-		INSERT INTO event(num, userId, subject, content, 
+		INSERT INTO event(num, subject, content, 
 			startDate, endDate, winningDate, regDate,
-			maxCount, enable, hitCount)
-		VALUES (event_seq.NEXTVAL, #{userId}, #{subject}, #{content},
+			maxCount, enabled, hitCount, imageFilename)
+		VALUES (event_seq.NEXTVAL, #{subject}, #{content},
 			TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'), 
 			TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'),
 			TO_DATE(#{winningDate, jdbcType=VARCHAR}, 'YYYY-MM-DD HH24:MI:SS'),
-			SYSDATE, #{winnerNumber}, #{showEvent}, 0)
+			SYSDATE, #{maxCount}, #{enabled}, 0, #{imageFilename})
 	</insert>
 
 	<sql id="where-list">
@@ -49,8 +49,8 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM event
 		<where>
-			<if test="enable != null and enable == 0">
-				enable = 0
+			<if test="enabled != null and enabled == 0">
+				enabled = 0
 			</if>
 			<if test="category != 'all' ">
 				AND <include refid="period-list"/>
@@ -63,11 +63,11 @@
 
 	<!-- 글리스트 -->
 	<select id="listEvent" parameterType="map" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT e.num, subject, hitCount, enable,
+		SELECT e.num, subject, hitCount, enabled,
 			   TO_CHAR(startDate,'YYYY-MM-DD HH24:MI') startDate,
 			   TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate, 
 			   TO_CHAR(winningDate, 'YYYY-MM-DD HH24:MI') winningDate,
-			   TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI') regDate, maxCount
+			   TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI') regDate, maxCount, imageFilename
 			   <if test="category != 'winner'">
 			   		, NVL(applyCount, 0) applyCount
 			   </if>
@@ -86,12 +86,12 @@
 			LEFT OUTER JOIN (
 				SELECT winnernum, COUNT(*) winnerCount
 				FROM eventWinner
-				GROUP BY num
+				GROUP BY winnernum
 			) w ON e.num = w.winnernum
 		</if>
 		<where>
-			<if test="enable != null and enable == 0">
-				enable = 0
+			<if test="enabled != null and enabled == 0">
+				enabled = 0
 			</if>
 			<if test="category != 'all' ">
 				AND <include refid="period-list"/>
@@ -106,15 +106,14 @@
 
 	<!-- 글보기 -->
 	<select id="readEvent" parameterType="Long" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT e.num, e.userId, userName, subject, content, 
+		SELECT num, subject, content, 
 			TO_CHAR(startDate,'YYYY-MM-DD HH24:MI') startDate,
 			TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate, 
 			TO_CHAR(winningDate, 'YYYY-MM-DD HH24:MI') winningDate, 
 			TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI') regDate, 
-			maxCount, enable, hitCount
-		FROM event e
-		JOIN member1 m ON e.userId = m.userId
-		WHERE e.num = #{num}
+			maxCount, enabled, hitCount,imageFilename
+		FROM event
+		WHERE num = #{num}
 	</select>
 	
 	<!-- 조회수 증가 -->
@@ -128,8 +127,8 @@
 		SELECT num, subject
 		FROM event
 		<where>
-			<if test="enable != null and enable == 0">
-				enable = 0
+			<if test="enabled != null and enabled == 0">
+				enabled = 0
 			</if>
 			<if test="category != 'all' ">
 				AND <include refid="period-list"/>
@@ -148,8 +147,8 @@
 		SELECT num, subject
 		FROM event
 		<where>
-			<if test="enable != null and enable == 0">
-				enable = 0
+			<if test="enabled != null and enabled == 0">
+				enabled = 0
 			</if>
 			<if test="category != 'all' ">
 				AND <include refid="period-list"/>
@@ -170,7 +169,8 @@
 				endDate=TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'),
 				winningDate=TO_DATE(#{winningDate, jdbcType=VARCHAR}, 'YYYY-MM-DD HH24:MI:SS'),
 				maxCount=#{maxCount},
-				enable=#{enable}
+				enabled=#{enabled},
+				imageFilename=#{imageFilename}
 		WHERE num = #{num}
 	</update>
  
@@ -182,17 +182,18 @@
 
 	<!-- 이벤트 응모자 리스트 -->
 	<select id="listEventApply" parameterType="Long" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT num, e.userId, userName, e.regDate applyDate
+		SELECT e.num, e.userId, nickName, e.regDate, eventnum
 		FROM eventapply e
 		JOIN member1 m ON e.userId = m.userId
-		WHERE num = #{num}
+		JOIN event v ON e.num = v.num
+		WHERE eventnum = #{eventnum}
 		ORDER BY regDate ASC
 	</select>
 	
 	<!-- 이벤트 당첨자 등록 1 -->
 	<update id="insertEventWinner1" parameterType="com.sp.withtail.admin.eventManage.EventManage">
-		INSERT INTO eventWinner(winnerNum) 
-			SELECT num FROM (
+		INSERT INTO eventWinner(winnerNum, rank, regDate) 
+			SELECT num, 0, SYSDATE FROM (
 				SELECT * FROM eventapply
 				WHERE num = #{num}
 				ORDER BY DBMS_RANDOM.VALUE
@@ -201,22 +202,25 @@
 
 	<!-- 이벤트 당첨자 등록 2 -->
 	<insert id="insertEventWinner2" parameterType="com.sp.withtail.admin.eventManage.EventManage">
-		INSERT INTO eventWinner(winnernum) 
-			VALUES (#{winnernum})
+		INSERT INTO eventWinner(winnernum, rank, regDate) 
+			VALUES (#{winnernum}, #{rank}, SYSDATE)
 	</insert>
+	
 
 	<!-- 이벤트 당첨 여부 -->
 	<select id="readEventWinner" parameterType="map" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT winnerNum FROM eventWinner w
+		SELECT winnerNum 
+		FROM eventWinner w
 		JOIN eventapply p ON p.num = w.winnerNum
 		WHERE winnerNum = #{winnerNum}
 	</select>
 	
 	<!-- 이벤트 당첨자 리스트 -->
 	<select id="listEventWinner" parameterType="Long" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT winnernum, p.userId, userName, p.regDate applyNum
+		SELECT winnerNum, p.userId, nickName, p.regDate
 		FROM eventWinner w
 		JOIN eventapply p ON p.num = w.winnerNum
+		JOIN member1 m ON m.userId = p.userId
 		WHERE winnernum = #{winnernum}
 		ORDER BY rank ASC
 	</select>

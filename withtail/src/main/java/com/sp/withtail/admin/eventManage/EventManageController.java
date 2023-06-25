@@ -1,5 +1,6 @@
 package com.sp.withtail.admin.eventManage;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.withtail.common.MyUtil;
-import com.sp.withtail.member.SessionInfo;
 
 @Controller("admin.eventManageController")
 @RequestMapping("/admin/eventManage/*")
@@ -113,11 +113,12 @@ public class EventManageController {
 	public String writeSubmit(
 			@PathVariable String category,
 			EventManage dto, HttpSession session) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "event";
+		
 		try {
-			dto.setUserId(info.getUserId());
-			service.insertEvent(dto);
+			service.insertEvent(dto, path);
 		} catch (Exception e) {
 		}
 
@@ -143,7 +144,7 @@ public class EventManageController {
 
 		EventManage dto = service.readEvent(num);
 		if (dto == null) {
-			return "redirect:/event/" + category + "/list?" + query;
+			return "redirect:/admin/eventManage/" + category + "/list?" + query;
 		}
 		
 		// 이전 글, 다음 글
@@ -157,7 +158,7 @@ public class EventManageController {
 		EventManage nextReadDto = service.nextReadEvent(map);
 		
 		// 이벤트 참여자
-		List<EventManage> listEventTakers = service.listEventApply(num);
+		List<EventManage> listEventApply = service.listEventApply(num);
 		// 이벤트 당첨자
 		List<EventManage> listEventWinner = service.listEventWinner(num);
 
@@ -166,7 +167,7 @@ public class EventManageController {
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
 
-		model.addAttribute("listEventTakers", listEventTakers);
+		model.addAttribute("listEventApply", listEventApply);
 		model.addAttribute("listEventWinner", listEventWinner);
 		
 		model.addAttribute("page", page);
@@ -186,7 +187,7 @@ public class EventManageController {
 		EventManage dto = service.readEvent(num);
 		
 		if (dto == null) {
-			return "redirect:/event/" + category + "/list?page=" + page;
+			return "redirect:/admin/eventManage/" + category + "/list?page=" + page;
 		}
 
 		model.addAttribute("dto", dto);
@@ -201,9 +202,12 @@ public class EventManageController {
 			@PathVariable String category,
 			@RequestParam String page,
 			HttpSession session) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "event";
 
 		try {
-			service.updateEvent(dto);
+			service.updateEvent(dto, pathname);
 		} catch (Exception e) {
 		}
 		
@@ -215,6 +219,7 @@ public class EventManageController {
 			@PathVariable String category,
 			@RequestParam long num,
 			@RequestParam String page,
+			@RequestParam String imageFilename,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
@@ -225,8 +230,11 @@ public class EventManageController {
 			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
 		}
 		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "event" + File.separator + imageFilename;
+		
 		try {
-			service.deleteEvent(num);
+			service.deleteEvent(num, pathname);
 		} catch (Exception e) {
 			
 		}

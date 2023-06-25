@@ -43,7 +43,7 @@
 
 <script type="text/javascript">
 function deleteOk() {
-	let query = 'num=${dto.num}&${query}';
+	let query = 'num=${dto.num}&${query}&imageFilename=${dto.imageFilename}';
 	let url = '${pageContext.request.contextPath}/admin/eventManage/${category}/delete?' + query;
 
 	if(confirm('위 자료를 삭제 하시 겠습니까 ? ')) {
@@ -82,7 +82,7 @@ $(function(){
 				<thead>
 					<tr>
 						<td colspan="2" align="center">
-							${dto.title}
+							${dto.subject}
 						</td>
 					</tr>
 				</thead>
@@ -90,10 +90,10 @@ $(function(){
 				<tbody>
 					<tr>
 						<td width="50%" align="left">
-							작성자 : ${dto.userName}
+							작성자 : 관리자
 						</td>
 						<td width="50%" align="right">
-							조회 / 출력여부 : ${dto.hitCount} / ${dto.showEvent == 1 ? "표시" : "숨김" }
+							조회 / 출력여부 : ${dto.hitCount} / ${dto.enabled == 0 ? "표시" : "숨김" }
 						</td>
 					</tr>
 	
@@ -102,11 +102,11 @@ $(function(){
 							이벤트 기간 : ${dto.startDate} ~ ${dto.endDate} 
 						</td>
 						<td width="50%" align="right">
-							응모한 인원 : ${dto.winnerNumber == 0 ? "-" : listEventTakers.size()}
+							응모한 인원 : ${dto.maxCount == 0 ? "-" : listEventApply.size()}
 						</td>
 					</tr>
 					
-					<c:if test="${dto.winnerNumber != 0}">
+					<c:if test="${dto.maxCount != 0}">
 						<tr>
 							<td width="50%" align="left">
 								발표일자 : ${dto.winningDate}
@@ -114,19 +114,29 @@ $(function(){
 							<td width="50%" align="right">
 								<c:choose>
 									<c:when test="${category == 'winner' || category == 'ended'}">
-										당첨할 인원 / 당첨 인원 : ${dto.winnerNumber} / ${listEventWinner.size()}명
+										당첨할 인원 / 당첨 인원 : ${dto.maxCount} / ${listEventWinner.size()}명
 									</c:when>
 									<c:otherwise>
-										당첨할 인원 : ${dto.winnerNumber}
+										당첨할 인원 : ${dto.maxCount}
 									</c:otherwise>
 								</c:choose>
 							</td>
 						</tr>
 					</c:if>
 					
-					<tr style="border-bottom: none;">
+					<tr>
 						<td colspan="2" valign="top" height="200">
 							${dto.content}
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="50%" align="left">
+								첨부파일 :
+						</td>
+						<td>	
+							<img src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}" 
+								class="img-fluid img-thumbnail w-100 h-auto">
 						</td>
 					</tr>
 					
@@ -145,7 +155,7 @@ $(function(){
 						<td colspan="2">
 							이전글 :
 							<c:if test="${not empty preReadDto}">
-								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${preReadDto.num}">${preReadDto.title}</a>
+								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -154,7 +164,7 @@ $(function(){
 						<td colspan="2">
 							다음글 :
 							<c:if test="${not empty nextReadDto}">
-								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${nextReadDto.num}">${nextReadDto.title}</a>
+								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -164,17 +174,9 @@ $(function(){
 			<table class="table">
 				<tr>
 					<td width="50%" align="left">
-						<c:choose>
-							<c:when test="${sessionScope.member.userId == dto.userId}">
 				    			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/eventManage/${category}/update?num=${dto.num}&page=${page}';">수정</button>
-				    		</c:when>
-				    		<c:otherwise>
-				    			<button type="button" class="btn" disabled="disabled">수정</button>
-				    		</c:otherwise>
-				    	</c:choose>
-				    	
 				    	<c:choose>
-				    		<c:when test="${listEventTakers.size() != 0}">
+				    		<c:when test="${listEventApply.size() != 0}">
 		    					<button type="button" class="btn" disabled="disabled">삭제</button>
 				    		</c:when>
 				    		<c:otherwise>
@@ -272,7 +274,7 @@ $(function(){
 		
 		let winEvent = $('form input[name=winEvent]:checked').val();
 		if(winEvent === '2') {
-			let winnerNumber = ${dto.winnerNumber};
+			let maxCount = ${dto.maxCount};
 			let tot = 0;
 			
 			let b = true;
@@ -333,7 +335,7 @@ $(function(){
 				<tbody>
 					<tr>
 						<td>당첨할 인원</td>
-						<td>${dto.winnerNumber}</td>
+						<td>${dto.maxCount}</td>
 					</tr>
 					<tr>
 						<td>당첨 방식</td>
@@ -349,7 +351,7 @@ $(function(){
 				<tr>
 					<td align="center">
 						<input type="hidden" name="num" value="${dto.num}">
-						<input type="hidden" name="winnerNumber" value="${dto.winnerNumber}">
+						<input type="hidden" name="maxCount" value="${dto.maxCount}">
 						<input type="hidden" name="page" value="${page}">
 						<button type="button" class="btn btnSendWinner">당첨자 발표</button>
 					</td>
@@ -371,7 +373,7 @@ $(function(){
 						</span>
 					</c:if>
 					<span style="font-weight: 500;">
-						${vo.userName}(${vo.userId})
+						${vo.nickName}(${vo.userId})
 					</span>
 				</div>
 			</c:forEach>

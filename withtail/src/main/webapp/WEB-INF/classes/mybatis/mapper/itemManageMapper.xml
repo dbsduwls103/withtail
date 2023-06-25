@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itemManage">
+
+   <select id="itemSeq" resultType="Long">
+       SELECT item_seq.NEXTVAL from dual
+   </select>
+   
+   <insert id="insertItem" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
+        INSERT INTO item(itemNum, itemName, categoryNum, price, disCount, point, deliveryFee,
+                         itemContent, showNotice, regDate, upddate, mainImage, madeby)  
+                  VALUES (#{itemNum}, #{itemName}, #{categoryNum}, #{price}, #{disCount}, #{point},
+                   #{deliveryFee}, #{itemContent}, #{showNotice}, #{regDate}, #{upddate}, #{mainImage}, #{madeby})
+   </insert>
+   
+   <insert id="insertItemPhoto" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
+       INSERT INTO itemPhoto(photoNum, itemNum, photoName) VALUES (itemphoto_seq.NEXTVAL, #{itemNum}, #{photoName})
+   </insert>
+   
+   <select id="option1Seq" resultType="Long">
+       SELECT option1_seq.NEXTVAL from dual
+   </select>
+   
+   <insert id="insertOption1" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
+       INSERT INTO option1 (option1Num, option1Name, itemNum, parent ) 
+       VALUES (#{option1Num}, #{option1Name}, #{itemNum}, #{parent, jdbcType=INTEGER})
+   </insert>
+   
+    <select id="option2Seq" resultType="Long">
+       SELECT option2_seq.NEXTVAL from dual
+   </select>
+   
+   <insert id="insertOption2" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
+       INSERT INTO option2 (option2Num, option2Name, option1Num, ) 
+       VALUES (#{option2Num}, #{option2Name}, #{option1Num})
+   </insert>
+   
+   <select id="readCategory" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+       SELECT ctNum, ctName, parentCt
+		FROM category
+		WHERE ctNum = #{ctNum} 
+   </select>
+   
+   <select id="listCategory" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+       SELECT ctNum, ctName, parentCt
+       FROM category
+       WHERE parentCt is null
+   </select>
+   
+   <select id="listSubCategory"  parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+       SELECT ctNum, ctName, parentCt
+       FROM category
+       WHERE parentCt = #{parentCt}
+   </select>
+   
+   	<!-- 상품 목록 -->
+	<sql id="where-list">
+		<if test="col=='all' ">
+			( INSTR(itemName, #{kwd}) &gt; 0
+				OR DBMS_LOB.INSTR(itemContent, #{kwd}) &gt; 0 )
+		</if>
+		<if test="col=='itemNum' ">
+			INSTR(itemNum, #{kwd}) = 1
+		</if>
+		<if test="col=='itemName' ">
+			INSTR(itemName, #{kwd}) &gt; 0
+		</if>
+		<if test="col=='itemcontent' ">
+			DBMS_LOB.INSTR(itemcontent, #{kwd}) &gt; 0
+		</if>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+	   SELECT NVL(COUNT(*), 0) FROM item
+	   <where>
+	      <if test="kwd != null and kw != '' ">
+	         AND <include refid="where-list"/>
+	      </if>
+	   </where>
+	</select>
+	
+	<select id="listItem"  parameterType="map" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+	    SELECT i.itemNum, ctNum, itemName, price, disCount, mainImage, showNotice, 
+	    TO_CHAR(regDate, 'YYYY-MM-DD') regDate, TO_CHAR(upddate, 'YYYY-MM-DD') upddate, NVL(totalStock, 0) totalStock
+	    FROM item i
+	    LEFT OUTER JOIN (
+	        SELECT itemNum, NVL(SUM(totalStock), 0) totalStock
+	        FROM itemStock
+	        GROUP BY itemNum
+	    ) s ON i.itemNum = s.itemNum
+	</select>
+	
+	<select id="readItem" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+	    SELECT itemNum, i.ctNum, c.ctNum, itemName, price, disCount, point, madeby, 
+	    deliveryFee, itemContent, mainImage, showNotice, 
+	    TO_CHAR(regDate, 'YYYY-MM-DD') regDate, TO_CHAR(upddate, 'YYYY-MM-DD') upddate
+	    FROM item i 
+	    JOIN category c ON c.ctNum = i.ctNum 
+	    WHERE itemNum = #{itemNum}
+	</select>
+	
+	<select id="listItemPhoto" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+	    SELECT fileNum, itemNum, fileName
+	    FROM itemPhoto
+	    WHERE itemNum = #{itemNum}
+	</select>
+	
+	<select id="listOption1" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+	   SELECT option1Num, option1Name, parent
+	   FROM option1
+	   WHERE itemNum = #{itemNum}
+	   ORDER BY parent NULLS FIRST, parent
+	</select>
+	
+	<select id="listOption2" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
+	   SELECT option2Num, option1Num, option2Name
+	   FROM option2
+	   WHERE option1Num = #{option1Num}
+	   ORDER BY option2Num
+	</select>
+	
+	<update id="updateItem"></update>
+	
+	<select id="listItemStock" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemStock">
+	   SELECT stockNum, option2Num, option2Num2, totalStock, i.itemNum, itemName
+	   FROM itemStock s
+	   JOIN item i ON s.itemNum = i.itemNum
+	   WHERE i.itemNum = #{itemNum}
+	   ORDER BY stockNum
+	</select>
+	
+	<insert id="insertItemStock" parameterType="com.sp.withtail.admin.itemManage.ItemStock">
+	   INSERT INTO itemStock(stockNum, option2Num. option2Num2, totalStock, itemNum) 
+	   VALUES (itemStock_seq.NEXTVAL, #{option2Num}, #{option2Num2}, #{totalStock}, #{itemNum})
+	</insert>
+	
+	<update id="updateItemStock" parameterType="com.sp.withtail.admin.itemManage.ItemStock">
+	   UPDATE itemStock SET totalStock = #{totalStock} 
+	   WHERE stockNum = #{stockNum}
+	</update>
+	
+</mapper>

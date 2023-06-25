@@ -76,20 +76,100 @@ p {
 
 <script type="text/javascript">
 
-/*
 <c:if test="${mode=='update'}">
   function deleteFile(fileNum) {
-		let url = "${pageContext.request.contextPath}/admin/noticeManage/deleteFile";
+		let url = "${pageContext.request.contextPath}/admin/itemManage/deleteFile";
 		$.post(url, {fileNum:fileNum}, function(data){
 			$("#f"+fileNum).remove();
 		}, "json");
-  } 
+} 
 </c:if>
- */
- 
+</script>
+
+<script>
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+
+$(function(){
+	$("form select[name=parentCt]").change(function(){
+		let parentCt = $(this).val();
+		
+		$("form select[name=ctNum]").find('option').remove().end()
+			.append("<option value=''>:: 카테고리 선택 ::</option>");	
+		
+		if(! parentNum) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/admin/itemManage/listSubCategory";
+		let query = "parentCt="+parentCt;
+		
+		const fn = function(data) {
+			$.each(data.listSubCategory, function(index, item){
+				let ctNum = item.ctNum;
+				let ctName = item.ctName;
+				let s = "<option value='"+ctNum+"'>"+ctName+"</option>";
+				$("form select[name=ctNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+		
+	});
+	
+	$("form select[name=ctNum]").change(function(){
+		let parentNum = $(this).val();
+		
+		$("form select[name=categoryNum2]").find('option').remove().end()
+			.append("<option value=''>:: 카테고리 선택 ::</option>");	
+		
+		if(! parentNum) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/admin/product/listSubCategory";
+		let query = "parentCt="+parentCt;
+		
+		const fn = function(data) {
+			$.each(data.listSubCategory, function(index, item){
+				let ctNum = item.ctNum;
+				let ctName = item.ctName;
+				let s = "<option value='"+ctNum+"'>"+ctName+"</option>";
+				$("form select[name=ctNum2]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+		
+	});
+});
+
 </script>
 
 <script type="text/javascript">
+/*
 $(function(){
     $(".option1RemoveBtn").hide();
     $(".option2RemoveBtn").hide();
@@ -148,80 +228,69 @@ $(function(){
         
     });
 });
-
-
-</script>
-
-<script>
-/*
-$(document).ready(function() { 
-
-    $("#getAllCategories").on("change",function(){
-        var sel_one = $("#getAllCategories option:selected").val();
-        if(sel_one === "1"){
-            $("#getSubCategories option").remove();
-	        
-	        $.ajax({
-	            type: 'get',
-	            url:'${pageContext.request.contextPath}/admin/stuffManage/categories',
-	            data: {getAllCategories:$(this)[0].value},
-	            success: function (data) {
-	                selectTerm = "<option value='0'>템플릿코드</option>"; 
-	                $("#getSubCategories option").remove(); 
-	                $.each(JSON.parse(data) , function (key, value) {
-	                    selectTerm += "<option value=" + value.ctNum + ">" + value.ctName + "</option>";
-	                }); 
-	                $("#getSubCategories").append(selectTerm);
-	            },
-	            error: function () {
-	                console.log('error');
-	            }
-            
-       		 }
-        }); 
-    });
-});
 */
 
 
-function setSubCategory(first) {
-	let firstvalue = first.value;
-	
-	let upper = $(first).parent().parent();
-	
-	let cnt = $('select', upper).index(first);
-	let depth = cnt + 1;
-	
-	var selectBox =  $('select', upper).eq(depth);
-	var text = "<option value = ''>전체</option>";
-	
-	
-	$.ajax ({
-		type:"get",
-		url : "${pageContext.request.contextPath}/admin.stuffManege/subcategories",
-		data: '$(subcategorylist)'
-		dataType: 'json'
-        success: function (data) {
-        $.each(JSON.parse(data) , function (index, category) {
-            selectTerm += "<option value=" + category.ctNum + ">" + category.ctName + "</option>";
-        }); 
-        $("#getSubCategories").append(selectTerm);
-    },
-    error: function () {
-        console.log('error');
-    }
-
-	 }			   
-	})
+$(function(){
+	$(".option-minus").hide();
+    $(".option-minus2").hide();
+    
+    $(".btnOptionAdd").click(function(){
+    	let $el = $(this).closest(".option-area").find(".optionValue-area");
+		if($el.find(".input-group").length >= 5) {
+			alert("옵션은 최대 5개까지 가능합니다.");
+			return false;
+		}
+		let $option = $(".option-area .optionValue-area p:first").clone();
+		console.log($option);
+		
+		$option.find("input[type=hidden]").remove();
+		$option.find("input[name=option1Name]").removeAttr("value");
+		$option.find("input[name=option1Name]").val("");
+		$el.append($option);
+	});
+    
+	$(".option-area").on("click", ".option-minus", function(){
+		let $minus = $(this);
+		let $el = $minus.closest(".option-area").find(".optionValue-area");
+		
+		// 수정에서 등록된 자료 삭제
+		let mode = "${mode}";
+		if(mode === "update" && $minus.parent(".input-group").find("input[name=option2Nums]").length === 1) {
+			// 저장된 옵션값중 최소 하나는 삭제되지 않도록 설정
+			if($el.find(".input-group input[name=option2Nums]").length <= 1) {
+				alert("옵션값은 최소 하나이상 필요합니다.");	
+				return false;
+			}
 			
-	
-	
-	)
-	
-	
-	
-}
+			if(! confirm("옵션값을 삭제 하시겠습니까 ? ")) {
+				return false;
+			}
+			
+			let option2Num = $minus.parent(".input-group").find("input[name=option2Nums]").val();
+			let url = "${pageContext.request.contextPath}/admin/product/deleteOption2";
+			$.post(url, {option2Nums:option2Nums}, function(data){
+				if(data.state === "true") {
+					$minus.closest(".input-group").remove();
+				} else {
+					alert("옵션값을 삭제할 수 없습니다.");
+				}
+			}, "json");
+			
+			return false;			
+		}
+		
+		if($el.find(".input-group").length <= 1) {
+			$el.find("input[name=option2Names]").val("");
+			return false;
+		}
+		
+		$minus.closest(".input-group").remove();
+	});    
+    	
+});
 </script>
+
 
 <div class="body-container">
     <div class="body-title">
@@ -235,17 +304,19 @@ function setSubCategory(first) {
 				<tr> 
 					<td>카테고리</td>
 					<td> 
-					<select id="getAllCategories" name="category1" class="category" onchange="setSubCategory(this);">
-					    <option value="">  :: 대분류 :: </option>
-					    <c:forEach items="${categorylist}" var="vo" varStatus="status">
-					        <option value="${vo.ctNum}"> ${vo.ctName} </option>
-					    </c:forEach>
-					</select>
+						<select name="parentNum" class="form-select">
+								<option value="">:: 메인 카테고리 선택 ::</option>
+								<c:forEach var="vo" items="${listCategory}">
+									<option value="${vo.ctNum}" ${parentCt==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+								</c:forEach>
+						</select>
 					
-					<!-- 위에서 상위 카테고리에 따라 내용이 달라져야해요! 예시는 강아지를 선택했을 때 -->
-					<select  id="getSubCategories" name="category2" class="category">
-					    <option value="">  :: 중분류 :: </option>
-					</select>
+						<select name="ctNum" class="form-select">
+							<option value="">:: 카테고리 선택 ::</option>
+							<c:forEach var="vo" items="${listSubCategory}">
+								<option value="${vo.ctNum}" ${dto.ctNum==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+							</c:forEach>
+						</select>
 					</td>
 				</tr>
 				
@@ -259,9 +330,11 @@ function setSubCategory(first) {
 				<tr> 
 					<td>상품구분</td>
 					<td> 
-	                    <!-- 위에서 상위 카테고리에 따라 내용이 달라져야해요! 예시는 주식을 선택했을 때 -->
-						<select name="소분류 카테고리" class="category" >
-						    <option value=""> :: 소분류 :: </option>
+						<select name="ctNum2" class="form-select">
+							<option value="">:: 카테고리 선택 ::</option>
+							<c:forEach var="vo" items="${listSubCategory}">
+								<option value="${vo.ctNum}" ${dto.ctNum==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+							</c:forEach>
 						</select>					
 					</td>
 				</tr>
@@ -302,7 +375,7 @@ function setSubCategory(first) {
 				<tr> 
 					<td>배송비</td>
 					<td> 
-						<input type="text" name="dp" maxlength="100" class="form-control" value="배송비">
+						<input type="text" name="deliveryFee" maxlength="100" class="form-control" value="배송비">
 					</td>
 				</tr>
 				
@@ -311,18 +384,28 @@ function setSubCategory(first) {
 					
 					<td> 
 						<div class="long">
-	                        <input type="text" name="firstOption" maxlength="100" class="form-control" value="옵션명">
+	                        <input type="text" name="option1Name" maxlength="100" class="form-control" value="${dto.option1Name}">
+						<c:if test="${mode=='update'}">
+							<input type="hidden" name="option1Num" value="${dto.option1Name}">
+						</c:if>	                        
 						</div>
-						<div class="space" style="display: inline-block;">
-							<div class="short">
-							   <p>
-							    <input type="text" name="firstOptionValue" maxlength="100" style="width: 100px;" class="form-control" value="옵션값" placeholder="옵션값">
-						        <button type="button" class="btn option1RemoveBtn" style="display: inline-block;">삭제</button>	
+						<div class="option-area" style="display: inline-block;">
+							<div class="short optionValue-area">
+							<c:forEach var="vo" items="${listOption2}">
+							   <p class="input-group">
+							    <input type="text" name="option2Names" maxlength="100" style="width: 100px;" class="form-control" value="${vo.option2Name}" placeholder="옵션값">
+						        <input type="hidden" name="option2Nums" value="${vo.option2Num}">
+						        <button type="button" class="btn option1RemoveBtn option-minus" style="display: inline-block;">삭제</button>	
 							   </p>
+							 </c:forEach> 
+							 <c:if test="${empty listOption2 || listOption2.size() < 1}"> 
+							 	<input type="text" name="option2Name" maxlength="100" style="width: 100px;" class="form-control" value="${vo.option2Name}" placeholder="옵션값">
+							    <button type="button" class="btn option1RemoveBtn option-minus" style="display: inline-block;">삭제</button>	
+							 </c:if>
 							</div>
 						</div>
 						<div style="text-align: center; margin-top: 10px">
-					    <button type="button" class="btn option1AddBtn">추가</button>
+					    <button type="button" class="btn option1AddBtn btnOptionAdd">추가</button>
 					    </div>
 					</td>
 				</tr>
@@ -332,19 +415,28 @@ function setSubCategory(first) {
 					
 					<td> 
 						<div class="long">
-	                        <input type="text" name="secondOption" maxlength="100" class="form-control" value="옵션명">
+	                        <input type="text" name="option1Num2" maxlength="100" class="form-control" value="옵션명">
+	                        <c:if test="${mode=='update'}">
+								<input type="hidden" name="option1Num2" value="${dto.option1Num2}">
+						    </c:if>
 						</div>
-						<div class="space" style="display: inline-block;">
-							<div class="short">
-							   <p>
-							    <input type="text" name="secondOptionValue" maxlength="100" style="width: 100px;" class="form-control" value="옵션값" placeholder="옵션값">
-							    <input type="text" name="extraFee" maxlength="100" style="width: 100px;" class="form-control" value="추가금" placeholder="추가금">
-						        <button type="button" class="btn option2RemoveBtn" style="display: inline-block;">삭제</button>	
-							   </p>
+						<div class="space option-area2" style="display: inline-block;">
+							<div class="short optionValue-area2">
+								<c:forEach var="vo" items="${listOption22}">
+								   <p class="input-group">
+								    <input type="text" name="option2Names2" maxlength="100" style="width: 100px;" class="form-control" value="${vo.option2Name2}" placeholder="옵션값">
+							        <input type="hidden" name="option2Nums2" value="${vo.option2Num2}">
+							        <button type="button" class="btn option1RemoveBtn option-minus" style="display: inline-block;">삭제</button>	
+								   </p>
+							 	</c:forEach> 
+								 <c:if test="${empty listOption22 || listOption22.size() < 1}"> 
+								 	<input type="text" name="option2Name2" maxlength="100" style="width: 100px;" class="form-control" value="${vo.option2Name2}" placeholder="옵션값">
+								    <button type="button" class="btn option1RemoveBtn option-minus2" style="display: inline-block;">삭제</button>	
+							 	</c:if>
 							</div>
 						</div>
 						<div style="text-align: center; margin-top: 10px">
-					    <button type="button" class="btn option2AddBtn">추가</button>
+					    <button type="button" class="btn option2AddBtn btnOptionAdd2">추가</button>
 					    </div>
 					</td>
 				</tr>

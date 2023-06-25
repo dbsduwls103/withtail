@@ -63,6 +63,7 @@ $(function(){
 						<th>제목</th>
 						<th class="wx-150">이벤트 시작일</th>
 						<th class="wx-150">이벤트 종료일</th>
+						<th class="wx-150">작성일</th>
 						<th class="wx-100">${category=="winner" ? "발표" : "응모자수"}</th>
 					</tr>
 				</thead>
@@ -76,6 +77,7 @@ $(function(){
 							</td>
 							<td>${dto.startDate}</td>
 							<td>${dto.endDate}</td>
+							<td>${dto.regDate}</td>
 							<td>${category=="winner" ? (dto.maxCount==0?"예정":"완료") : (dto.maxCount == 0 ? "-" : dto.applyCount) }</td>
 						</tr>
 					</c:forEach>
