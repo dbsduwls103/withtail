@@ -8,4 +8,9 @@ public interface MyPageService {
 	public void deletePet(long num, String pathname) throws Exception;
 	public int dataCount(String userId);
 	public void updatePet(MyPage dto, String pathname) throws Exception;
+	public void insertAdd(MyPage dto) throws Exception;
+	public List<MyPage> listDelivery(MyPage dto) throws Exception;
+	public void updateAdd(MyPage dto) throws Exception;
+	public MyPage readAdd(long num);
+	public void deleteAdd(long num) throws Exception;
 }

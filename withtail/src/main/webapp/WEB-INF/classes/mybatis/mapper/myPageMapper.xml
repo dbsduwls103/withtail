@@ -29,5 +29,35 @@
 		UPDATE animal SET petName=#{petName} , breed=#{breed}, gender=#{gender}, petsImageFilename= #{petsImageFilename, jdbcType=VARCHAR}, birth=#{birth}, weight=#{weight}
 		WHERE num =#{num}
 	</update>
+	
+	<select id="listDelivery" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT addNum, userId, addr1, addr2, zip, tel, memo, addDef, addName
+		FROM address
+		WHERE userId = #{userId}
+	</select>
+	
+	<insert id="insertAdd" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO address(addNum, userId, addr1, addr2, zip, tel, memo, addDef, addName)
+		VALUES (address_seq.NEXTVAL, #{userId}, #{addr1},#{addr2},#{zip},#{tel},#{memo},#{addDef},#{addName})
+	</insert>
+	
+	<select id="readAdd" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT addNum, userId, addr1, addr2, zip, tel, memo, addDef, addName
+		FROM address
+		WHERE addNum = #{addNum}
+	</select>
+	
+	<update id="updateAdd" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE address SET addr1=#{addr1}, addr2=#{addr2}, zip=#{zip}, tel=#{tel}, memo=#{memo}, addDef=#{addDef}, addName=#{addName}
+		WHERE addNum = #{addNum}
+	</update>
+	
+	<update id="basicAddressClear" parameterType="String">
+		UPDATE address SET addDef = 0 WHERE userId = #{userId}
+	</update>
+	
+	<delete id="deleteAdd" parameterType="Long">
+		DELETE FROM address WHERE addNum = #{addNum}
+	</delete>
 </mapper>
 

@@ -93,5 +93,67 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 
+	@Override
+	public void insertAdd(MyPage dto) throws Exception {
+		try {
+			if(dto.getAddDef() == 1) {
+				dao.updateData("myPage.basicAddressClear", dto.getUserId());
+			}
+			
+			dao.insertData("myPage.insertAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public List<MyPage> listDelivery(MyPage dto) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listDelivery", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void updateAdd(MyPage dto) throws Exception {
+		try {
+			dao.updateData("myPage.updateAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public MyPage readAdd(long num) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readAdd", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void deleteAdd(long num) throws Exception {
+		try {	
+			dao.deleteData("myPage.deleteAdd", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 
 }
