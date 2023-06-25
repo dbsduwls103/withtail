@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
 <style>
+.hidden {
+	display: none;
+}
+
 .-prodsort {
     border-top: 1px solid #f1f1f1;
     padding: 15px 0;
@@ -57,6 +61,12 @@
 	border-left: 1px solid #dadada;
 	line-height: 10px;
 	padding: 3px 12px 3px 12px;
+	transition: 0.0s all ease;
+}
+
+.sort-list > a:hover {
+	color: #000;
+	font-weight: 600 !important;
 }
 		
 .color-bk {
@@ -82,10 +92,20 @@
 		border: 1px solid #82ae46 !important;
 		box-shadow: none;
 	}
+	
+/*페이징*/
+.block-27 ul li a, .block-27 ul li span {
+    color: #666;
+    vertical-align: middle;
+}
+
+.block-27 ul li span.disabled {
+	color: #999;
+}
 
 </style>
 
-	 <div class="hero-wrap hero-bread" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg');">
+	 <div class="hero-wrap hero-bread" style="background: #82ae46">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -112,6 +132,7 @@
              </div>
           </div>
           
+          <!--  
           <div class="-prodsort mb-5">
             <ul class="d-flex">
 	            		<li class="col-lg-6 col-md-6">
@@ -127,6 +148,7 @@
 	            		</li>
 	         </ul>
           </div>
+          -->
           
     	  <div class="content-frame">
     	  	<!-- 여기에 list.jsp 추가 -->
@@ -134,6 +156,12 @@
          
        </div>
     </section>
+    
+    <!-- 검색 폼 -->
+	<form name="prodForm" method="post">
+		<input type="hidden" name="condition" value="itemName">
+		<input type="hidden" name="keyword" value="">
+	</form>
 
 
   <!-- loader -->
@@ -222,8 +250,8 @@ function listPage(page) {
 	
 	let url = "${pageContext.request.contextPath}/shop/"+ctNum+"/list";
 	let query = "pageNo="+page;
-	//let search = $('form[name=searchForm]').serialize();
-	//query = query+"&"+search;
+	let search = $('form[name=prodForm]').serialize();
+	query = query+"&"+search;
 	let selector = ".content-frame";
 	
 	const fn = function(data){

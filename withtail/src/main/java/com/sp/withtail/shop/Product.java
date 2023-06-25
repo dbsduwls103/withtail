@@ -1,6 +1,14 @@
 package com.sp.withtail.shop;
 
 public class Product {
+	/* 카테고리 */
+	private long ctNum;
+	private String ctName;
+	private Long parentCt;
+	private int dept;
+	private int level;
+	
+	/* 상품 */
 	private long itemNum;
 	private String itemName;
 	private int discount;
@@ -11,6 +19,11 @@ public class Product {
 	private int deliveryFee;
 	private int price;
 	private int showNotice;
+	private int point;
+	private String mainImage;
+	private int dcPrice;
+	
+	/*카운트*/
 	
 	private String manufactDate;
 	private String expriy;
@@ -159,8 +172,53 @@ public class Product {
 	public void setPhotoName(long photoName) {
 		this.photoName = photoName;
 	}
-	
-	
-	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+	public int getDcPrice() {
+		return dcPrice;
+	}
+	public void setDcPrice(int dcPrice) {
+		this.dcPrice = dcPrice;
+	}
+	public long getCtNum() {
+		return ctNum;
+	}
+	public void setCtNum(long ctNum) {
+		this.ctNum = ctNum;
+	}
+	public String getCtName() {
+		return ctName;
+	}
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+	public Long getParentCt() {
+		return parentCt;
+	}
+	public void setParentCt(Long parentCt) {
+		this.parentCt = parentCt;
+	}
+	public int getDept() {
+		return dept;
+	}
+	public void setDept(int dept) {
+		this.dept = dept;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	
 }

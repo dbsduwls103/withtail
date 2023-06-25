@@ -14,8 +14,8 @@ public class ShopServiceImpl implements ShopService {
 	private CommonDAO dao;
 
 	@Override
-	public List<Category> listCategory() {
-		List<Category> list = null;
+	public List<Product> listCategory() {
+		List<Product> list = null;
 		
 		try {
 			list = dao.selectList("shop.listCategory");
@@ -27,8 +27,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public Category readCategory(String ctNum) {
-		Category dto = null;
+	public Product readCategory(long ctNum) {
+		Product dto = null;
 		
 		try {
 			dto = dao.selectOne("shop.readCategory", ctNum);
@@ -40,8 +40,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public List<Category> listSubCategory(String ctNum) {
-		List<Category> list = null;
+	public List<Product> listSubCategory(long ctNum) {
+		List<Product> list = null;
 		
 		try {
 			list = dao.selectList("shop.listSubCategory", ctNum);
@@ -53,8 +53,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public Category readSubCategory(String ctNum) {
-		Category dto = null;
+	public Product readSubCategory(long ctNum) {
+		Product dto = null;
 		
 		try {
 			dto = dao.selectOne("shop.readSubCategory", ctNum);
@@ -67,14 +67,28 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("shop.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
 	public List<Product> listProd(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = null;
+		
+		try {
+			list = dao.selectList("shop.listProd", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	@Override
