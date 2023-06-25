@@ -242,10 +242,23 @@ hr.vertical-line {
     font-size: 13px;
 }
 
-  </style>
+</style>
+
+<script type="text/javascript">
+<c:if test="${sessionScope.member.userId==dto.userId||sessionScope.member.membership>50}">
+function deleteBoard() {
+    if(confirm("리뷰를 삭제 하시 겠습니까 ? ")) {
+	    let query = "num=${dto.num}&${query}";
+	    let url = "${pageContext.request.contextPath}/bbs/delete?" + query;
+    	//location.href = url;
+    }
+}
+</c:if>
+</script>  
+ 
 
  	 <div class="body-title">
-		<h2><i class="fa-solid fa-pen"></i></i> 리뷰 관리 </h2>
+		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
     </div>
  	
  	<div class="favorite-section">
@@ -292,68 +305,12 @@ hr.vertical-line {
 							</a> 						
  						</div>
 		 				<div class="f-button-layout">
-		 					<a href="#">삭제</a>
+		 					<a onclick="deleteBoard();">삭제</a>
 		 				</div>
  					</div>
  				</div>
  			</div>	
  		</div>	
- 		
- 		<!-- 위 내용 반복임 c:foreach 사용해서 구현할것. -->
- 		
-		<div class="favorite-list">
- 			<div class="f-product-info">
-			 	<div style="position: relative;">
- 					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
- 					</a>
- 				</div>	
- 				<div class="f-product-wrap">
- 					<div style="display: contents;"> 
- 						<div class="f-product-name">
-							<div class="f-product-text-layout">
-							<div>2023.06.15</div>
-								<!--상품 상세보기 페이지 연결  -->
-								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
-									<div class="rating">
-										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
-										<div class="stars">
-											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-										</div>
-									</div>
-							</div>
-							<!-- 리뷰글보기 링크연결 -->
-							<a class="f-price-layout" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/article';">
-								<div class="f-price-text valign-text-middle">
-									리뷰내용 입니다.
-								</div>
-							</a> 						
- 						</div>
-		 				<div class="f-button-layout">
-		 					<a href="#">삭제</a>
-		 				</div>
- 					</div>
- 				</div>
- 			</div>	
- 		</div>	
- 		
- 		
- 		
- 		
  		
  	</div>
  		
@@ -361,5 +318,26 @@ hr.vertical-line {
 		123
 	</div>
  		
-	
+		<table class="table">
+			<tr>
+				<td align="left" width="100">
+					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+				</td>
+				<td align="center">
+					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
+						<select name="condition" class="form-select">
+							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
+							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
+							<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
+							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+						</select>
+						<input type="text" name="keyword" value="${keyword}" class="form-control">
+						<button type="button" class="btn" onclick="searchList()">검색</button>
+					</form>
+				</td>
+				<td align="right" width="100">
+					&nbsp;
+				</td>
+			</tr>
+		</table>	
 

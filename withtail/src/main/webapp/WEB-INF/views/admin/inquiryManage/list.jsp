@@ -28,7 +28,7 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">
-					1개(1/1 페이지)
+					${dataCount}개(${page}/${total_page} 페이지)
 				</td>
 				<td align="right">&nbsp;</td>
 			</tr>
@@ -37,48 +37,33 @@ function searchList() {
 		<table class="table table-border table-list">
 			<thead>
 				<tr>
-					<th class="wx-100">분류</th>
-					<th>제목</th>
-					<th class="wx-100">작성자</th>
-					<th class="wx-80">문의일자</th>
-					<th class="wx-80">처리결과</th>
+					<th class="wx-30">분류</th>
+					<th class="wx-100">제목</th>
+					<th class="wx-20">작성자</th>
+					<th class="wx-20">문의일자</th>
+					<th class="wx-20">처리결과</th>
 
 				</tr>
 			</thead>
 			
 		 	<tbody>
-					<tr> 
-						<td>배송</td>
-						<td class="left">
-							<a href="${pageContext.request.contextPath}/admin/inquiryManage/article">닭가슴살 주세요</a>
-						</td>
-						<td>최포포</td>
-						<td>2023-06-15</td>
-						<td>답변대기</td>
-					</tr>
-		  	</tbody>
-		  	
-		  	
-		  				<!--  위에 지우고 사용해주세용
-		 	<tbody>
 				<c:forEach var="dto" items="${list}">
 					<tr> 
 						<td>${dto.category}</td>
-						<td class="left">
+						<td>
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
 						<td>${dto.userName}</td>
-						<td>${dto.reg_date}</td>
-						<td>${(empty dto.answer_date)?"답변대기":"답변완료"}</td>
+						<td>${dto.regDate}</td>
+						<td>${(empty dto.answerDate)?"답변대기":"답변완료"}</td>
 					</tr>
 				</c:forEach>
-		  	</tbody>			
-			-->
-			
+		  	</tbody>
+		  	
 		</table>
 		 
 		<div class="page-navigation">
-			1 2 3 
+			${dataCount == 0 ? "등록된 문의가 없습니다." : paging}
 		</div>
 		
 		<table class="table">

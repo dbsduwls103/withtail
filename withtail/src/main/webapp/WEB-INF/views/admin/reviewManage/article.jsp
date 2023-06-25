@@ -113,15 +113,23 @@ function imageViewer(img) {
 
 
 
-<c:if test="${sessionScope.member.userId==dto.userId||sessionScope.member.membership>50}">
-	function deleteBoard() {
-	    if(confirm("게시글을 삭제 하시 겠습니까 ? ")) {
+function deleteBoard() {
+	    if(confirm("리뷰를 삭제 하시 겠습니까 ? ")) {
 		    let query = "num=${dto.num}&${query}";
-		    let url = "${pageContext.request.contextPath}/bbs/delete?" + query;
+		    let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
 	    	//location.href = url;
 	    }
 	}
-</c:if>
+
+function deleteReply() {
+    if(confirm("답변을 삭제 하시 겠습니까 ? ")) {
+	    let query = "num=${dto.num}&${query}";
+	    let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
+    	//location.href = url;
+    }
+}
+
+
 </script>
 
 
@@ -217,7 +225,7 @@ function imageViewer(img) {
 				<thead>
 					<tr style=" border-bottom: 1px solid #eee;">
 						<td>관리자</td>
-						<td style="text-align: right;">2023.06.15 <a onclick="location.href=''"> | 삭제</a></td>
+						<td style="text-align: right;">2023.06.15 <a onclick="deleteReply();"> | 삭제</a></td>
 					</tr>
 
 				</thead>

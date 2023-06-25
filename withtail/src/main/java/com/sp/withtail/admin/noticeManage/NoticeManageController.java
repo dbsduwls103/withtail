@@ -59,6 +59,9 @@ public class NoticeManageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		
+		System.out.println("condition= "+ condition);
+		System.out.println("keyword= "+ keyword);
 
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
