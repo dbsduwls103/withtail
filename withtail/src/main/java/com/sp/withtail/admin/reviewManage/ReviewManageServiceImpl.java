@@ -41,4 +41,28 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 		return list;
 	}
 
+	@Override
+	public ReviewManage readReview(long num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void answerReview(ReviewManage dto) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAnswer(long num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteReview(long num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
