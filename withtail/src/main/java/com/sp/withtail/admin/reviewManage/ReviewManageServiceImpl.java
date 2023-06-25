@@ -25,7 +25,7 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 			e.printStackTrace();
 		}
 		
-		return result;
+		return result;//
 	}
 
 	@Override
