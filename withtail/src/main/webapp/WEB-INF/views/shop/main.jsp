@@ -266,4 +266,18 @@ $(".product-category").on("click", "li.li-sub:not(.active)", function(){
 	
 	location.href = '${pageContext.request.contextPath}/shop/'+num;
 });
+
+// 상품 보기
+function detailProd(itemNum, ctNum) {
+	let url = "${pageContext.request.contextPath}/shop/info/"+itemNum;
+	let query = "ctNum=${ctNum}";
+	//let search = $('form[name=searchForm]').serialize();
+	//query = query+"&pageNo="+page+"&"+search;
+	let selector = ".content-frame";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	ajaxFun2(url, "get", query, "html", fn);
+}
 </script>

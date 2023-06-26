@@ -5,6 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <style>
+    .hidden {
+		display: none;
+	}
+
     .review-button {
     	background-color: white;
     	border-radius: 5px;
@@ -130,28 +134,78 @@
 		margin-bottom: 0px;
 	}
 	
+	/*상품 토탈 테이블*/
+	.table {
+	    min-width: 400px !important;
+	    margin-bottom: 0 !important;
+	}
+	
+	.table th {
+		border-top: 1px solid #999;
+	}
+	
+	.table thead th {
+		border-bottom: 1px solid #eaeaea;
+	}
+	
+	.table tbody tr td {
+	    padding: 10px 10px;
+	    border: 1px solid transparent !important;
+	    border-bottom: 1px solid #eaeaea !important;
+	}
+	
+	.quantity {
+		display: inline-block;
+		width: 60px !important;
+	}
+	
+	.prod-tit {
+		color: #333;
+		margin-bottom: 0;
+	}
+	
+	.op-tit {
+		color: #888;
+	}
+	
+	.op-price {
+		font-weight: 600;
+	}
+	
+	.x-btn {
+		color: #999;
+	}
+	
+	/* 옵션 */
+	.option {
+		vertical-align: middle;
+		display: inline-block;
+	}
+	
   </style>
   </head>
 
 	<section class="ftco-section pb-0">
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row">
-				<div class="col-lg-6 mb-5 ftco-animate">
-					<a href="images/product-1.jpg" class="image-popup"><img
-						src="${pageContext.request.contextPath}/resources/images/product-1.jpg"
-						class="img-fluid" alt="Colorlib Template"></a>
+				<div class="col-lg-6 mb-5 animate__animated animate__fadeInUp" style="padding-left: 0 !important;">
+					<a href="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}" class="image-popup">
+						<img src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
+							class="img-fluid" alt="${dto.itemName}">
+					</a>
 				</div>
-				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-					<h4>프루티바스켓 해충방지 아웃도어 롤링오일</h4>
+				<div class="col-lg-6 product-details animate__animated animate__fadeInUp">
+					<h4>${dto.itemName}</h4>
 					<hr>
 	
 					<div class="rating d-flex"></div>
 					<div class="">
 						<p class="originalPrice text-right">
-							<span><del>20,000원</del></span>
+							<span><del><fmt:formatNumber value="${dto.price}" pattern="#,###" />원</del></span>
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
-							<span style="color: red; font-size: 25px;">40%</span><span class="ml-2"  style="font-size: 25px;">12,000원</span>
+							<span class="${dto.discount==0 ? 'hidden' : ''}" style="color: red; font-size: 25px;">${dto.discount}%</span>
+							<span class="ml-2"  style="font-size: 25px;"><fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />원</span>
 						</p>
 					</div>
 					<hr style="margin-bottom: 0">
@@ -161,7 +215,7 @@
 						</div>
 						
 						<span style="color: #82ae46; font-size: 20px">
-							500
+							<fmt:formatNumber value="${dto.point}" pattern="#,###" />
 						</span>
 						<span>원</span>
 					</div>
@@ -172,14 +226,15 @@
 						</div>
 						
 						<span style="color: #82ae46; font-size: 20px">
-							5,000
+							<fmt:formatNumber value="${dto.deliveryFee}" pattern="#,###" />
 						</span>
 						<span>원</span>
 					</div>
 					<hr style="margin-top: 3px">
-					<div class="my-3">
-						<div style="padding-left:339px">
-							<div class="form-group d-flex w-100">
+					<div class="mt-3">
+						<div class="mb-3">
+							<div class="form-group d-flex w-100 justify-content-end align-items-center">
+								<span class="option mr-3">색상</span>
 								<div class="select-wrap">
 									<div class="icon">
 										<span class="ion-ios-arrow-down"></span>
@@ -193,25 +248,53 @@
 								</div>
 							</div>
 						</div>
-						<div class="input-group d-flex my-3" style="padding-left:267px">
-							<span class="input-group-btn mr-2">
-								<button type="button" class="quantity-left-minus btn"
-									data-type="minus" data-field="" style="border-radius: 5px">
-									<i class="ion-ios-remove"></i>
-								</button>
-							</span> <input type="text" id="quantity" name="quantity"
-								class="form-control input-number" value="1" min="1" max="100" style="border-radius: 5px">
-							<span class="input-group-btn ml-2">
-								<button type="button" class="quantity-right-plus btn"
-									data-type="plus" data-field="" style="border-radius: 5px">
-									<i class="ion-ios-add"></i>
-								</button>
-							</span>
+						<!-- 상품 표 -->
+						<div class="totalProducts mb-3">
+							<table class="table bordered">
+								<thead>
+									<tr>
+										<th>이름</th>
+										<th>수량</th>
+										<th>가격</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<h6 class="prod-tit">${dto.itemName}</h6>
+											<p class="op-tit">- 옐로우 / M</p>
+										</td>
+										<td>
+											<div class="d-flex">
+												<span class="input-group-btn mr-2">
+													<button type="button" class="quantity-left-minus btn"
+														data-type="minus" data-field="" style="border-radius: 5px">
+														<i class="ion-ios-remove"></i>
+													</button>
+												</span>
+												<input type="text" name="quantity" class="form-control input-number quantity" value="1" min="1"
+													max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">
+												<span class="input-group-btn ml-2">
+													<button type="button" class="quantity-right-plus btn"
+														data-type="plus" data-field="" style="border-radius: 5px">
+														<i class="ion-ios-add"></i>
+													</button>
+												</span>
+											</div>
+										</td>
+										<td class="op-price">3,8000원</td>
+										<td>
+											<a href="#" class="x-btn">
+												<i class="fa-regular fa-rectangle-xmark"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="w-100"></div>
-						<div class="col-md-12"></div>
+						<!-- //상품 표 -->
 					</div>
-					<hr>
 	
 					<div class="rating d-flex"></div>
 					<div class="">
@@ -223,7 +306,7 @@
 						</p>
 					</div>
 					<hr>
-					<div class="d-flex" style="padding-left:242px;">
+					<div class="d-flex justify-content-end">
 						<p class="mr-2">
 							<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
 						</p>
@@ -237,7 +320,7 @@
 	</section>
 
 	<section class="ftco-section ftco-animate" id="detailSection">
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
 					<a href="#detailSection">Detail</a>
@@ -262,7 +345,7 @@
 	</section>
 
 	<section class="ftco-section ftco-animate" id="reviewSection">
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
 					<a href="#detailSection">Detail</a>
@@ -443,7 +526,7 @@
 
 
 	<section class="ftco-section ftco-animate" id="qnaSection">
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
 					<a href="#detailSection">Detail</a>
@@ -469,7 +552,7 @@
 		</section>
 	
 	<section class="ftco-section">
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row justify-content-center mb-3 pb-3">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Products</span>
@@ -479,7 +562,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row">
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
@@ -671,6 +754,7 @@
 </div>
 
 <script>
+	// 수량 증가
 	$(document).ready(function() {
 
 		var quantitiy = 0;
@@ -679,11 +763,11 @@
 			// Stop acting like a button
 			e.preventDefault();
 			// Get the field name
-			var quantity = parseInt($('#quantity').val());
+			var quantity = parseInt($('.quantity').val());
 
 			// If is not undefined
 
-			$('#quantity').val(quantity + 1);
+			$('.quantity').val(quantity + 1);
 
 			// Increment
 
@@ -693,13 +777,13 @@
 			// Stop acting like a button
 			e.preventDefault();
 			// Get the field name
-			var quantity = parseInt($('#quantity').val());
+			var quantity = parseInt($('.quantity').val());
 
 			// If is not undefined
 
 			// Increment
 			if (quantity > 0) {
-				$('#quantity').val(quantity - 1);
+				$('.quantity').val(quantity - 1);
 			}
 		});
 

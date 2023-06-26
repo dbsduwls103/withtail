@@ -25,15 +25,15 @@
 			<c:forEach var="dto" items="${list}" varStatus="status">
 				<div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp">
 					<div class="product">
-						<a href="${pageContext.request.contextPath}/shop/info" class="img-prod">
+						<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="img-prod">
 							<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
 								alt="${dto.itemName}">
 							<span class="status ${dto.discount==0 ? 'hidden' : ''}">${dto.discount}%</span>
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="${pageContext.request.contextPath}/shop/info">${dto.itemName}</a>
+							<h3 style="height: 42px;">
+								<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">${dto.itemName}</a>
 							</h3>
 							<div class="d-flex">
 								<div class="pricing">
@@ -45,13 +45,13 @@
 							</div>
 							<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
-									<a href="${pageContext.request.contextPath}/shop/info"
+									<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}"
 										class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
-									</a> <a href="${pageContext.request.contextPath}/shop/info"
+									</a> <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}"
 										class="buy-now d-flex justify-content-center align-items-center mx-1">
 										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="${pageContext.request.contextPath}/shop/info"
+									</a> <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}"
 										class="heart d-flex justify-content-center align-items-center ">
 										<span><i class="ion-ios-heart"></i></span>
 									</a>

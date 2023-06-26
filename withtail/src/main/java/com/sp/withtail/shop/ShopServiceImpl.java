@@ -92,9 +92,29 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public Product readProd(long prodNum) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product readProd(long itemNum) {
+		Product dto = null;
+		
+		try {
+			dto = dao.selectOne("shop.readProd", itemNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public List<Product> listProdImage(long itemNum) {
+		List<Product> list = null;
+		
+		try {
+			list = dao.selectList("shop.listProdImage", itemNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,8 +109,27 @@ public class ShopController {
 		return "shop/list";
 	}
 	
-	@GetMapping("info")
-	public String productInfo(Model model) {
+	@GetMapping(value = "info/{itemNum}")
+	public String productInfo(
+			@PathVariable long itemNum,
+			HttpServletResponse resp,
+			Model model) throws Exception {
+
+		// 상품
+		Product dto = service.readProd(itemNum);
+		if(dto == null) {
+			resp.sendError(410);
+			return null;
+		}
+		
+		// 추가 이미지
+		List<Product> listProdImage = service.listProdImage(itemNum);
+		
+		dto.setPhotoName(dto.getMainImage());
+		listProdImage.add(0, dto);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("listProdImage", listProdImage);
 		
 		return ".shop.info";
 	}

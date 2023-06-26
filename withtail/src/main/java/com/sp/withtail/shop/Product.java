@@ -24,22 +24,61 @@ public class Product {
 	private int dcPrice;
 	
 	/*카운트*/
+	private int orderCount;
+	private int rvCount;
 	
+	/*식품*/
 	private String manufactDate;
 	private String expriy;
 	private String country;
 	
+	/*옵션*/
 	private long optionNum1;
 	private String option1Name;
+	private Long parent;
+	
 	private long optionNum2;
-	private String option2Content;
-	private int stock;
+	private String option2Name;
 	private int extraPrice;
 	private int coupon;
 	
-	private long photoNum;
-	private long photoName;
+	/*재고*/
+	private long stockNum;
+	private int totalStock;
 	
+	private long photoNum;
+	private String photoName;
+	
+	public long getCtNum() {
+		return ctNum;
+	}
+	public void setCtNum(long ctNum) {
+		this.ctNum = ctNum;
+	}
+	public String getCtName() {
+		return ctName;
+	}
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+	public Long getParentCt() {
+		return parentCt;
+	}
+	public void setParentCt(Long parentCt) {
+		this.parentCt = parentCt;
+	}
+	public int getDept() {
+		return dept;
+	}
+	public void setDept(int dept) {
+		this.dept = dept;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public long getItemNum() {
 		return itemNum;
 	}
@@ -100,6 +139,36 @@ public class Product {
 	public void setShowNotice(int showNotice) {
 		this.showNotice = showNotice;
 	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+	public int getDcPrice() {
+		return dcPrice;
+	}
+	public void setDcPrice(int dcPrice) {
+		this.dcPrice = dcPrice;
+	}
+	public int getOrderCount() {
+		return orderCount;
+	}
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}
+	public int getRvCount() {
+		return rvCount;
+	}
+	public void setRvCount(int rvCount) {
+		this.rvCount = rvCount;
+	}
 	public String getManufactDate() {
 		return manufactDate;
 	}
@@ -130,23 +199,23 @@ public class Product {
 	public void setOption1Name(String option1Name) {
 		this.option1Name = option1Name;
 	}
+	public Long getParent() {
+		return parent;
+	}
+	public void setParent(Long parent) {
+		this.parent = parent;
+	}
 	public long getOptionNum2() {
 		return optionNum2;
 	}
 	public void setOptionNum2(long optionNum2) {
 		this.optionNum2 = optionNum2;
 	}
-	public String getOption2Content() {
-		return option2Content;
+	public String getOption2Name() {
+		return option2Name;
 	}
-	public void setOption2Content(String option2Content) {
-		this.option2Content = option2Content;
-	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setOption2Name(String option2Name) {
+		this.option2Name = option2Name;
 	}
 	public int getExtraPrice() {
 		return extraPrice;
@@ -160,65 +229,29 @@ public class Product {
 	public void setCoupon(int coupon) {
 		this.coupon = coupon;
 	}
+	public long getStockNum() {
+		return stockNum;
+	}
+	public void setStockNum(long stockNum) {
+		this.stockNum = stockNum;
+	}
+	public int getTotalStock() {
+		return totalStock;
+	}
+	public void setTotalStock(int totalStock) {
+		this.totalStock = totalStock;
+	}
 	public long getPhotoNum() {
 		return photoNum;
 	}
 	public void setPhotoNum(long photoNum) {
 		this.photoNum = photoNum;
 	}
-	public long getPhotoName() {
+	public String getPhotoName() {
 		return photoName;
 	}
-	public void setPhotoName(long photoName) {
+	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
-		this.point = point;
-	}
-	public String getMainImage() {
-		return mainImage;
-	}
-	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
-	}
-	public int getDcPrice() {
-		return dcPrice;
-	}
-	public void setDcPrice(int dcPrice) {
-		this.dcPrice = dcPrice;
-	}
-	public long getCtNum() {
-		return ctNum;
-	}
-	public void setCtNum(long ctNum) {
-		this.ctNum = ctNum;
-	}
-	public String getCtName() {
-		return ctName;
-	}
-	public void setCtName(String ctName) {
-		this.ctName = ctName;
-	}
-	public Long getParentCt() {
-		return parentCt;
-	}
-	public void setParentCt(Long parentCt) {
-		this.parentCt = parentCt;
-	}
-	public int getDept() {
-		return dept;
-	}
-	public void setDept(int dept) {
-		this.dept = dept;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	
+
 }

@@ -21,6 +21,9 @@ public interface ShopService {
 	// 상품 리스트
 	public List<Product> listProd(Map<String, Object> map);
 	
-	// 상품 상세보기
-	public Product readProd(long prodNum);
+	// 상품 보기
+	public Product readProd(long itemNum);
+	
+	// 상품 추가 이미지
+	public List<Product> listProdImage(long itemNum);
 }

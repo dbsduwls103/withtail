@@ -72,17 +72,28 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	 
-	<!-- 글 보기 -->
-	<!--
+	<!-- 상품 보기 -->
 	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Product">
-		SELECT i.num, i.categoryNum, i.name, i.discount, i.content, i.madeby
+		SELECT i.itemNum, i.itemName, i.discount, i.mainImage, i.price, 
+		    i.price - (i.price * (i.discount/100)) dcPrice,
+		    i.point, i.deliveryFee,
+		    NVL(rvCount, 0) rvCount
 		FROM item i
-		JOIN itemPhoto ip ON
-		JOIN food f ON
-		JOIN option1 op1 ON
-		JOIN option2 op2 ON
-		JOIN category c ON
+		LEFT OUTER JOIN food f ON i.itemNum = f.itemNum
+		LEFT OUTER JOIN itemJjim ij ON i.itemNum = ij.itemNum
+		LEFT OUTER JOIN (
+			SELECT itemNum, COUNT(*) rvCount
+			FROM review
+			GROUP BY itemNum
+		) rv ON i.itemNum = rv.itemNum
+		WHERE showNotice = 0 AND i.itemNum = #{itemNum}
 	</select>
-	-->
+	
+	<!-- 상품 추가 이미지 -->
+	<select id="listProdImage" parameterType="Long" resultType="com.sp.withtail.shop.Product">
+		SELECT photoNum, itemNum, photoName
+		FROM itemPhoto
+		WHERE itemNum = #{itemNum}
+	</select>
 
 </mapper>
