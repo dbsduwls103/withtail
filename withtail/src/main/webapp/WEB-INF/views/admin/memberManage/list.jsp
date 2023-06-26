@@ -7,7 +7,7 @@
 
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
 
 .tabmenu{ 
@@ -74,7 +74,8 @@
     width: 130px;
     padding: 3px;
     border-radius: 3px;
-    height: 25px;
+    height: 31px;
+    border-color: #999;
 }
 
 .btn {
@@ -82,13 +83,33 @@ color: #333;
 border: 1px solid #999;
 background-color: #fff;
 padding: 4px;
-border-radius: 4px;
+border-radius: 30px;
 font-weight: 500;
 font-size: 12px;
 cursor: pointer;
 font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
 vertical-align: baseline;
 }
+
+.btn1:hover{background: #6C757D; color: white}
+
+.btn1 {
+width : 50px;
+height : 30px;
+color: #333;
+border: 1px solid #999;
+background-color: #fff;
+padding: 4px;
+border-radius: 10px;
+font-weight: 500;
+font-size: 12px;
+cursor: pointer;
+font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+vertical-align: baseline;
+}
+
+.btn:hover{background: #6C757D; color: white}
+
 
 .imgbox {
      width: 90px;
@@ -130,11 +151,11 @@ vertical-align: baseline;
 }
 
 .pointhover:hover{
-  background-color: #f2f2f2;
+  background-color: #82ae4654;
 }
 
 .tab-button.active {
-  background-color: #ccc;
+  background-color: #82ae46;
 }
 
 .content{
@@ -409,12 +430,12 @@ function insertOk(userId) {
  
 <div class="body-container">
 
+    
+    <div class="body-main">
 
     <div class="body-title">
 		<h2><i class="fa-solid fa-user"></i> 회원 목록 </h2>
     </div>
-    
-    <div class="body-main">
     
         <div style="margin-bottom: 10px">
 		<h4 ><i class="fa-solid fa-magnifying-glass"></i> 회원 검색 </h4>
@@ -423,12 +444,12 @@ function insertOk(userId) {
 	    <div class="body-main">
 	    	
 	    	<form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list/${state}" method="post">
-				<table class="table table-border border-top2 table-form">
+				<table class="table table-border table-form">
 					<tr> 
-						<td>검색어</td>
-						<td> 
+						<td style="border-top: 1px solid #ced4da;">검색어</td>
+						<td style="border-top: 1px solid #ced4da;"> 
 							<div style="display: inline-block;">
-								<select name="condition1" class="category">
+								<select name="condition1" class="category" >
 								    <option value="userId" ${condition1=="userId"?"selected='selected'":""}> 아이디 </option>
 								    <option value="userName" ${condition1=="userName"?"selected='selected'":""}> 이름 </option>
 								</select>
@@ -448,23 +469,23 @@ function insertOk(userId) {
 								    <option value="stRegDate" ${condition2=="stRegDate"?"selected='selected'":""}> 상태처리일자 </option>
 								</select>
 							</div>
-							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" id="startDate" name="startKeyword" maxlength="100" class="form-control" value="${startKeyword}">
+							<div style="display: inline-block; text-align: right; width: 13.9%; ">
+						    	<input style="border-color: #999;" type="date" id="startDate" name="startKeyword" maxlength="100" class="form-control" value="${startKeyword}">
 							</div>
 							<span>~</span>
-							<div style="display: inline-block; text-align: center; width: 20%">
-						    	<input type="date" id="endDate" name="endKeyword" maxlength="100" class="form-control" value="${endKeyword}" >
+							<div style="display: inline-block; text-align: left; width: 13.9%">
+						    	<input  style="border-color: #999;" type="date" id="endDate" name="endKeyword" maxlength="100" class="form-control" value="${endKeyword}" >
 							</div>
 							<div style="display: inline-block;">
-							<button type="button" class="btn" onclick="settingsInput('day', 0);">오늘</button>
-       						<button type="button" class="btn" onclick="settingsInput('week', 1);">1주일</button>
-					        <button type="button" class="btn" onclick="settingsInput('month', 1);">1개월</button>
-					        <button type="button" class="btn" onclick="settingsInput('month', 3);">3개월</button>
-					        <button type="button" class="btn" onclick="settingsInput('month', 6);">6개월</button>
-					        <button type="button" class="btn" onclick="settingsInput('year', 1);">1년</button>
+							<button type="button" class="btn1" onclick="settingsInput('day', 0);">오늘</button>
+       						<button type="button" class="btn1" onclick="settingsInput('week', 1);">1주일</button>
+					        <button type="button" class="btn1" onclick="settingsInput('month', 1);">1개월</button>
+					        <button type="button" class="btn1" onclick="settingsInput('month', 3);">3개월</button>
+					        <button type="button" class="btn1" onclick="settingsInput('month', 6);">6개월</button>
+					        <button type="button" class="btn1" onclick="settingsInput('year', 1);">1년</button>
 							</div>
 							<div style="display: inline-block; margin-left: 10px;">
-								 <button type="submit" class="btn " onclick="searchList();">검색</button> 						
+								 <button type="submit" class="btn1 " onclick="searchList();">검색</button> 						
 						     </div>
 					    </td>
 					</tr>
@@ -497,8 +518,8 @@ function insertOk(userId) {
         		${dataCount }개(${page}/${total_page}페이지)
         	</div>
            <table class="table table-border table-list" style="margin-top: 10px;">
-		  		<thead>
-					<tr>
+		  		<thead style="background: #dee2e6; color: #333;">
+					<tr style="border-bottom: 1px solid #ced4da; border-top: 1px solid #ced4da">
 						<th class="wx-80">회원 코드</th>
 						<th class="wx-100">회원 아이디</th>
 						<th class="wx-100">회원 이름</th>
@@ -523,7 +544,7 @@ function insertOk(userId) {
 								<td style="cursor: pointer;" onclick="profile('${dto.userId}');">${empty dto.lastLogin ? "--":dto.lastLogin }</td>
 								<td>
 									<c:if test="${state=='general'}">
-										<button class="btn" onclick="profile2('${dto.userId}');" style="width: 45px;">정지</button> 
+										<button class="btn" onclick="profile2('${dto.userId}');" style="width: 50px; height: 35px;">정지</button> 
 									</c:if>
 									<c:if test="${state=='stop'}">
 										<button class="btn" onclick="block('${dto.userId}');">정지 해제</button> 

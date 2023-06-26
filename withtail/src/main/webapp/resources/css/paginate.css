@@ -12,24 +12,37 @@
 	font-size: 14px;	
 }
 .paginate a {
-	border: 1px solid #ccc;
-	color: #000;
 	font-weight: 600;
 	text-decoration: none;
-	padding: 3px 7px;
 	margin-left: 3px;
 	vertical-align: middle;
+	
+	color: #000000;
+    text-align: center;
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    border-radius: 50%;
+    border: 1px solid #e6e6e6;
+    background: #fff;
 }
 .paginate a:hover, .paginate a:active {
-	color: #6771ff;
+	color: #82ae46;
 }
 .paginate span {
-	border: 1px solid #e28d8d;
-	color: #cb3536;
+	display: inline-block;
+	text-align: center;
 	font-weight: 600;
-	padding: 3px 7px;
 	margin-left: 3px;
 	vertical-align: middle;
+	background: #82ae46;
+    color: #fff;
+    border: 1px solid transparent;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    border-radius: 50%;
 }
 .paginate :first-child {
 	margin-left: 0;

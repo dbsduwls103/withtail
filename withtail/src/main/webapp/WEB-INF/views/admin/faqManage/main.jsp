@@ -6,8 +6,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
+.btn{border-radius: 10px;}
+
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
 </style>
 
 <style type="text/css">
@@ -30,7 +37,7 @@
     margin: 3px 0 0;
 }
 .accordion h3.question:hover {
-	 background-color: #F8FFFF;
+	background-color: #82ae4654;
 }
 
 .accordion h3.question .q {
@@ -202,11 +209,11 @@ function deleteFaq(num, page) {
 </script>
 
 <div class="body-container">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<div>
 			<ul class="tabs">
@@ -221,21 +228,21 @@ function deleteFaq(num, page) {
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="reloadFaq();" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button  style="height: 35px;" type="button" class="btn" onclick="reloadFaq();" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
 					<form name="searchForm" method="post">
-						<select id="condition" name="condition" class="form-select">
+						<select  style="height: 35px;" id="condition" name="condition" class="form-select">
 							<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
 							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
-						<input type="text" id="keyword" name="keyword" class="form-control" value="${keyword}">
-						<button type="button" class="btn" onclick="searchList();">검색</button>
+						<input  style="height: 35px;" type="text" id="keyword" name="keyword" class="form-control" value="${keyword}">
+						<button  style="height: 35px;" type="button" class="btn" onclick="searchList();">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';">글올리기</button>
+					<button  style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';">글올리기</button>
 				</td>
 			</tr>
 		</table>

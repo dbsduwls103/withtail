@@ -7,16 +7,25 @@
 
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
+.btn{border-radius: 10px;}
 
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
+ }
 .row-flex { display: flex; justify-content: space-between; }
 .left-item {
-	width:30px; margin-right: 1px;    padding:10px 10px;
-    width:30px;
+	width:100px; margin-right: 1px;    padding:10px 10px;
+	height : 48px;
+	color : #fff;
     text-align: center;
-	font-weight: 600;
-	color: #fff;
+	font-weight: bold;
+	background: #999999;
+	
 }
 .right-item {
 	flex-grow: 1;
@@ -26,13 +35,35 @@
     box-sizing: border-box;
     padding: 10px 7px;
 	font-weight: 600;
-	color: #fff;
+	border-top: 1px solid #dee2e6;
+	border-right: 1px solid #dee2e6;
+	border-bottom: 2px solid #999999;
 }
-.left-question { background: #0d6efd; }
-.right-question { background: #0d6efd; }
+.left-item1 {
+	width:100px; margin-right: 1px;    padding:10px 10px;
+	height : 48px;
+	color : #fff;
+    text-align: center;
+	font-weight: bold;
+	background: #82ae46;
+	
+}
+.right-item1 {
+	flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-spacing: nowrap;
+    box-sizing: border-box;
+    padding: 10px 7px;
+	font-weight: 600;
+	border-top: 1px solid #dee2e6;
+	border-right: 1px solid #dee2e6;
+	border-bottom: 2px solid #82ae46;
+}
 
-.left-answer { background: #198754; }
-.right-answer { background: #198754; }
+.right-question {  text-align: center;}
+
+.right-answer {  text-align: center;}
 </style>
 
 <script type="text/javascript">
@@ -66,60 +97,55 @@ function sendAnswerOk() {
 </script>
 
 <div class="body-container">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-person-circle-question"></i> 1:1 문의 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<table class="table table-border table-article">
 			<tbody>
 				<tr style="border: none;">
 					<td colspan="2" style="padding: 10px 0 0 0;">
 						<div class="row-flex">
-							<div class="left-item left-question">Q</div>
+							<div class="left-item left-question"><span>Q</span></div>
 							<div class="right-item right-question">[${dto.category}] ${dto.subject}</div>
 						</div>
 					</td>
 				</tr>
 				<tr>
-					<td width="50%" align="left">
-						작성자 : ${dto.userName}(${dto.userId})
-					</td>
-					<td width="50%" align="right">
-						문의일자 : ${dto.regDate}
+					<td width="100%" align="right" style="font-weight: bold;">
+						작성자 : ${dto.userName}(${dto.userId}) | 문의일자 : ${dto.regDate}
 					</td>
 				</tr>
 				
 				<tr>
-					<td colspan="2" valign="top" height="150">
+					<td colspan="2" valign="top" height="120" style=" border-bottom: 1px solid #eee;font-weight: 600; padding: 20px;">
 						${dto.content}
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		<br><br><br>
 		<c:if test="${not empty dto.answer}">
 			<table class="table table-border table-article">
 				<tbody>
 					<tr style="border: none;">
 						<td colspan="2" style="padding: 0 0 0 0;">
 							<div class="row-flex">
-								<div class="left-item left-answer">A</div>
-								<div class="right-item right-answer">[답변] ${dto.subject}</div>
+								<div class="left-item1 left-answer1">A</div>
+								<div class="right-item1 right-answer">[답변] ${dto.subject}</div>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td width="50%" align="left">
-							담당자 : ${dto.answerName}
-						</td>
-						<td width="50%" align="right">
-							답변일자 :  ${dto.answerDate}
+						<td width="100%" align="right" style="font-weight: bold;">
+							담당자 : ${dto.answerName} | 답변일자 :  ${dto.answerDate}
 						</td>
 					</tr>
 					
 					<tr>
-						<td colspan="2" valign="top" height="150">
+						<td colspan="2" valign="top" height="120" style="font-weight: 600; padding: 20px;">
 							${dto.answer}
 						</td>
 					</tr>
@@ -130,14 +156,14 @@ function sendAnswerOk() {
 		<table class="table">
 			<tr>
 				<td width="50%" align="left">
-					<button type="button" class="btn" onclick="deleteInquiry('${dto.num}');">질문삭제</button>
+					<button style="height: 40px;" type="button" class="btn" onclick="deleteInquiry('${dto.num}');">질문삭제</button>
 					<c:if test="${not empty dto.answer}">
-						<button type="button" class="btn" onclick="deleteAnswer('${dto.num}');">답변삭제</button>
+						<button style="height: 40px;" type="button" class="btn" onclick="deleteAnswer('${dto.num}');">답변삭제</button>
 					</c:if>
 				</td>
 			
 				<td align="right">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/inquiryManage/list?${query}';">리스트</button>
+					<button style="height: 40px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/inquiryManage/list?${query}';">리스트</button>
 				</td>
 			</tr>
 		</table>

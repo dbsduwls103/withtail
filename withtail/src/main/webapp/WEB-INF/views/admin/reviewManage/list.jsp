@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style type="text/css">
-
+.body-main {
+	max-width: 1140px;
+}
 .favorite {
     align-items: flex-start;
     background-color: var(--aloy-white);
@@ -51,9 +53,11 @@
     border-color: #f1f1f1;
     display: flex;
     flex-direction: column;
+    border-bottom: solid 1px #ced4da; 
 }
 
 .favorite-list {
+
     align-items: center;
     align-self: stretch;
     background-color: var(--aloy-white);
@@ -61,11 +65,10 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px 16px;
-    border-top: solid 2px #e9e9e9; 
 }
 
 .favorite-list:first-child{
-	border-top: none;
+	border-top: 1px solid #ced4da;
 }
 
 
@@ -222,24 +225,11 @@ hr.vertical-line {
     margin: 0;
   }
 
-.btn1 {
-	border-radius: 3px;
-   	background-color: #82ae46;
-   	border: none;
-   	height: 35px;
-    width: 140px;
-    color: #fff;
-    font-size: 13px;
-}
+.btn{border-radius: 10px;}
+.btn:hover{background: #6C757D; color: white}
 
-.btn1:hover {
-	border-radius: 3px;
-   	background-color: #3b6601;
-   	border: none;
-   	height: 35px;
-    width: 140px;
-    color: #fff;
-    font-size: 13px;
+.pointhover:hover{
+  background-color: #82ae4654;
 }
 
 </style>
@@ -256,13 +246,13 @@ function deleteBoard() {
 </c:if>
 </script>  
  
-
+<div class="body-main">
  	 <div class="body-title">
 		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
     </div>
  	
  	<div class="favorite-section">
- 		<div class="favorite-list">
+ 		<div class="favorite-list pointhover">
  			<div class="f-product-info">
 			 	<div style="position: relative;">
  					<a class="f-product-image-layout" href="#">
@@ -318,26 +308,27 @@ function deleteBoard() {
 		123
 	</div>
  		
-		<table class="table">
+		<table class="table" >
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
 					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
-						<select name="condition" class="form-select">
+						<select name="condition" class="form-select" style="height: 35px;">
 							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
 							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
 							<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
-						<input type="text" name="keyword" value="${keyword}" class="form-control">
-						<button type="button" class="btn" onclick="searchList()">검색</button>
+						<input style="height: 35px;" type="text" name="keyword" value="${keyword}" class="form-control">
+						<button style="height: 35px;" type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">
 					&nbsp;
 				</td>
 			</tr>
-		</table>	
+		</table>
+		</div>	
 

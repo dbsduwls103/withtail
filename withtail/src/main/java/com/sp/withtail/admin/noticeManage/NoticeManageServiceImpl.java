@@ -41,7 +41,7 @@ public class NoticeManageServiceImpl implements NoticeManageService {
 					long fileSize = mf.getSize();
 
 					dto.setOriginalName(originalFilename);
-					dto.setSaveName(originalFilename);
+					dto.setSaveName(saveFilename);
 					dto.setFileSize(fileSize);
 
 					// insertFile(dto);

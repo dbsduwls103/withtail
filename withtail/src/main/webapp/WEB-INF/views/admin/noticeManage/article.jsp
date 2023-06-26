@@ -6,8 +6,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
+.btn{border-radius: 10px;}
+
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
+  }
 </style>
 
 <script type="text/javascript">
@@ -24,11 +32,11 @@
 </script>
 
 <div class="body-container">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<table class="table table-border table-article">
 			<thead>

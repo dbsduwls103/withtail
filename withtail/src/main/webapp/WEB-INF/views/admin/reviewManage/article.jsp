@@ -92,6 +92,19 @@ img {
 }
 
 img {width: 50px;}
+
+.body-main {
+	max-width: 1140px;
+}
+.btn{border-radius: 10px;}
+
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
+}
+
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -135,13 +148,10 @@ function deleteReply() {
 
 
 
+		<div class="body-main">
 <div class="body-title">
 <h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
 </div>
-<div class="container">
-	<div class="body-container">	
-		
-		<div class="body-main">
 
 			<table class="table mb-0">
 				<thead>
@@ -265,8 +275,6 @@ function deleteReply() {
 			</div>
 
 		</div>
-	</div>
-</div>
 
 
 <div class="dialog-photo">

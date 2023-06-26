@@ -7,8 +7,15 @@
 
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
+.btn{border-radius: 10px;}
+
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
 </style>
 
 <script type="text/javascript">
@@ -19,11 +26,11 @@ function searchList() {
 </script>
 
 <div class="body-container">
+    
+<div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-person-circle-question"></i> 1:1 문의 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<table class="table">
 			<tr>
@@ -36,7 +43,7 @@ function searchList() {
 		
 		<table class="table table-border table-list">
 			<thead>
-				<tr>
+				<tr style="border-top: 1px solid #ced4da; border-bottom: solid 1px #ced4da; ">
 					<th class="wx-30">분류</th>
 					<th class="wx-100">제목</th>
 					<th class="wx-20">작성자</th>
@@ -48,7 +55,7 @@ function searchList() {
 			
 		 	<tbody>
 				<c:forEach var="dto" items="${list}">
-					<tr> 
+					<tr style="height: 56px;" class="pointhover"> 
 						<td>${dto.category}</td>
 						<td>
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
@@ -69,11 +76,11 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/inquiryManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button  style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/inquiryManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
 					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
-						<select name="condition" class="form-select">
+						<select  style="height: 35px;" name="condition" class="form-select">
 							<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
 							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
 							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
@@ -81,8 +88,8 @@ function searchList() {
 							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
-						<input type="text" name="keyword" value="${keyword}" class="form-control">
-						<button type="button" class="btn" onclick="searchList()">검색</button>
+						<input  style="height: 35px;" type="text" name="keyword" value="${keyword}" class="form-control">
+						<button  style="height: 35px;" type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">

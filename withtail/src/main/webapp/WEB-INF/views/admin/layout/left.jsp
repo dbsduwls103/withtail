@@ -61,13 +61,13 @@ $(function(){
 	
 	<div class="header-container">
 		<div class="header-left">
-			<h1>관리자 페이지</h1>
+			<h1 style="color: #82ae46; font-weight: bold;">관리자 페이지</h1>
 		</div>
 		<div class="header-right">
 			<span class="roll-user">
 				<label class="user">
-					<span class="name">메인으로 돌아가기</span>
-					<a href="${pageContext.request.contextPath}/"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+					<span class="name" style="color: #82ae46; font-weight: bold;">메인으로 돌아가기</span>
+					<a href="${pageContext.request.contextPath}/"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #82ae46;"></i></a>
 				</label>
 			</span>
 		</div>

@@ -6,13 +6,20 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
 .body-main {
-	max-width: 900px;
+	max-width: 1140px;
 }
 
 .badge {
 	display: inline-block; padding:2px 3px; background: #0d6efd; color: #fff; font-weight: 500;
 	font-size: 11px;
 }
+.btn{border-radius: 10px;}
+
+.btn:hover{background: #6C757D; color: white}
+
+
+.pointhover:hover{
+  background-color: #82ae4654;
 </style>
 
 <script type="text/javascript">
@@ -22,12 +29,11 @@ function searchList() {
 }
 </script> 
 
-<div class="body-container">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<table class="table">
 			<tr>
@@ -42,7 +48,7 @@ function searchList() {
 		
 		<table class="table table-border table-list">
 			<thead>
-				<tr>
+				<tr style="border-top: 1px solid #ced4da; border-bottom: solid 1px #ced4da; ">
 					<th class="wx-60">번호</th>
 					<th >제목</th>
 					<th class="wx-100">작성자</th>
@@ -55,7 +61,7 @@ function searchList() {
 		 
 		 	<tbody>
 		 		<c:forEach var="dto" items="${noticeList}">
-					<tr> 
+					<tr style="height: 56px;" class="pointhover"> 
 						<td><span class="badge">공지</span></td>
 						<td >
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
@@ -74,7 +80,7 @@ function searchList() {
 				
 				<!--일반게시물  -->
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr> 
+					<tr style="height: 56px;" class="pointhover"> 
 						<td>${dataCount - (page-1) * size - status.index}</td>
 						<td>
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
@@ -103,26 +109,25 @@ function searchList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button  style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
 					<form name="searchForm" action="${pageContext.request.contextPath}/admin/noticeManage/list" method="post">
-						<select name="condition" class="form-select">
+						<select  style="height: 35px;" name="condition" class="form-select">
 							<option value="all" ${condition=="all"?"selected='selected'":""}>모두</option>
 							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
 							<option value="regDate" ${condition=="regDate"?"selected='selected'":""}>등록일</option>
 							<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
-						<input type="text" name="keyword" value="${keyword}" class="form-control">
+						<input  style="height: 35px;" type="text" name="keyword" value="${keyword}" class="form-control">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
 				<td align="right" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/write';">글올리기</button>
+					<button  style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/write';">글올리기</button>
 				</td>
 			</tr>
 		</table>
 
 	</div>
-</div>
