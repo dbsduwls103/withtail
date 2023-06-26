@@ -251,6 +251,7 @@ function deleteBoard() {
 		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
     </div>
  	
+ 	<c:forEach var="dto" items="${list }">
  	<div class="favorite-section">
  		<div class="favorite-list pointhover">
  			<div class="f-product-info">
@@ -263,11 +264,11 @@ function deleteBoard() {
  					<div style="display: contents;"> 
  						<div class="f-product-name">
 							<div class="f-product-text-layout">
-							<div>2023.06.15</div>
+							<div>${dto.regDate }</div>
 								<!--상품 상세보기 페이지 연결  -->
-								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</a>
+								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
 									<div class="rating">
-										<div>김땡땡&nbsp;&nbsp;|&nbsp;&nbsp; </div>
+										<div>${dto.userName }&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 										<div class="stars">
 											<div class="star star-layout">
 												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
@@ -290,7 +291,7 @@ function deleteBoard() {
 							<!-- 리뷰글보기 링크연결 -->
 							<a class="f-price-layout" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/article';">
 								<div class="f-price-text valign-text-middle">
-									리뷰내용 입니다.
+									${dto.rvContent }
 								</div>
 							</a> 						
  						</div>
@@ -303,9 +304,10 @@ function deleteBoard() {
  		</div>	
  		
  	</div>
+ 	</c:forEach>
  		
 	<div class="page-navigation">
-		123
+		${dataCount == 0 ? "등록된 문의가 없습니다." : paging}
 	</div>
  		
 		<table class="table" >

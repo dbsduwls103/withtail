@@ -17,6 +17,10 @@ public class ReviewManage {
 	private long rvPhotoNum;
 	private String saveName;
 	
+	private String itemName;
+	private String mainImage;
+	private String madeby;
+	
 	
 	
 	public long getRvNum() {
@@ -97,6 +101,23 @@ public class ReviewManage {
 	public void setSaveName(String saveName) {
 		this.saveName = saveName;
 	}
-	
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+	public String getMadeby() {
+		return madeby;
+	}
+	public void setMadeby(String madeby) {
+		this.madeby = madeby;
+	}
 	
 }
