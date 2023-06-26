@@ -50,10 +50,9 @@
     align-items: flex-start;
     align-self: stretch;
     border-bottom: 1px solid;
-    border-color: #f1f1f1;
+    border-color: #ced4da;
     display: flex;
     flex-direction: column;
-    border-bottom: solid 1px #ced4da; 
 }
 
 .favorite-list {
@@ -67,8 +66,12 @@
     padding: 20px 16px;
 }
 
+.favorite-section:first-child{
+	border-bottom: none;
+}
 .favorite-list:first-child{
 	border-top: 1px solid #ced4da;
+	border-bottom: none;
 }
 
 
@@ -232,6 +235,14 @@ hr.vertical-line {
   background-color: #82ae4654;
 }
 
+.score-star { font-size: 0; letter-spacing: -4px; }
+.score-star .item {
+	font-size: 18px; letter-spacing: -2px; display: inline-block;
+	color: #ccc; text-decoration: none; vertical-align: middle;
+}
+.score-star .item:first-child{ margin-left: 0; }
+.score-star .on { color: #FFE400; font-weight: bold; }
+
 </style>
 
 <script type="text/javascript">
@@ -244,20 +255,25 @@ function deleteBoard() {
     }
 }
 </c:if>
-</script>  
+ 
+function searchList() {
+	const f = document.searchForm;
+	f.submit();
+}
+</script> 
  
 <div class="body-main">
  	 <div class="body-title">
 		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
     </div>
- 	
+ 	<br><br>
  	<c:forEach var="dto" items="${list }">
  	<div class="favorite-section">
  		<div class="favorite-list pointhover">
  			<div class="f-product-info">
 			 	<div style="position: relative;">
  					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
+ 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}">
  					</a>
  				</div>	
  				<div class="f-product-wrap">
@@ -266,26 +282,15 @@ function deleteBoard() {
 							<div class="f-product-text-layout">
 							<div>${dto.regDate }</div>
 								<!--상품 상세보기 페이지 연결  -->
-								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
+								<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
 									<div class="rating">
-										<div>${dto.userName }&nbsp;&nbsp;|&nbsp;&nbsp; </div>
-										<div class="stars">
-											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
+										<div>${dto.userName }&nbsp;(${dto.userId })&nbsp;&nbsp;|&nbsp;&nbsp; </div>
+											<div class="score-star review-score-star">
+												<c:forEach var="n" begin="1" end="5">
+													<c:set var="star" value="${dto.star + ((dto.star%1>=0.5) ? (1-dto.star%1)%1 : -(dto.star%1))}"/>
+													<span class="item fs-2 ${dto.star>=n?'on':''}">★</span>
+												</c:forEach>
 											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-										</div>
 									</div>
 							</div>
 							<!-- 리뷰글보기 링크연결 -->
@@ -305,9 +310,10 @@ function deleteBoard() {
  		
  	</div>
  	</c:forEach>
+
  		
 	<div class="page-navigation">
-		${dataCount == 0 ? "등록된 문의가 없습니다." : paging}
+		${dataCount == 0 ? "등록된 리뷰가 없습니다." : paging}
 	</div>
  		
 		<table class="table" >
@@ -316,11 +322,11 @@ function deleteBoard() {
 					<button style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
-					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
+					<form name="searchForm" action="${pageContext.request.contextPath}/admin/reviewManage/list" method="post">
 						<select name="condition" class="form-select" style="height: 35px;">
 							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
 							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>
-							<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
+							<option value="regDate" ${condition=="regDate"?"selected='selected'":""}>등록일</option>
 							<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
 						<input style="height: 35px;" type="text" name="keyword" value="${keyword}" class="form-control">

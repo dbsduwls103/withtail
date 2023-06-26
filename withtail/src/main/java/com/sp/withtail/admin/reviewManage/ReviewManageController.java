@@ -94,6 +94,8 @@ public class ReviewManageController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		
+		System.out.println("keyword=!!!"+keyword);
+		
 		return ".admin.reviewManage.list";
 	}
 	
