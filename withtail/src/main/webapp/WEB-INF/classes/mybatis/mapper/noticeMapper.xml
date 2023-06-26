@@ -14,8 +14,8 @@
 		<if test="condition=='content' ">
 			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
 		</if>
-		<if test="condition=='userName' ">
-			userName=#{keyword}
+		<if test="condition=='nickName' ">
+			nickName=#{keyword}
 		</if>
 		<if test="condition=='regDate' ">
 			( TO_CHAR(n.regDate, 'YYYY-MM-DD') = #{keyword}
@@ -25,7 +25,7 @@
 	
 	<!-- 공지 글  리스트 -->
 	<select id="listNoticeTop" resultType="com.sp.withtail.notice.Notice">
-		SELECT n.num, n.alarm, n.userId, m.userName,  n.subject, n.hitCount, 
+		SELECT n.num, n.alarm, n.userId, m.nickName,  n.subject, n.hitCount, 
 				TO_CHAR(n.regDate, 'YYYY-MM-DD') regDate,
 				NVL(fileCount, 0) fileCount
 		FROM notice n
@@ -35,7 +35,7 @@
 			GROUP BY num
 		) f ON n.num=f.num
 		WHERE alarm = 1 AND n.enabled = 1
-		ORDER BY n.num DESC;
+		ORDER BY n.num DESC
 	</select>
 	
 	<!-- 데이터개수  -->
@@ -44,7 +44,7 @@
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
 		<where>
-			enabled = 1
+			n.enabled = 1
 			<if test="keyword != null and keyword!=''  ">
 				AND <include refid="where-list"/>
 			</if>
@@ -53,30 +53,30 @@
 	
 	<!-- 리스트 -->
 	<select id="listNotice" parameterType="map" resultType="com.sp.withtail.notice.Notice">
-		SELECT n.num, notice, n.userId, userName, subject, hitCount, 
-			   regDate, NVL(fileCount, 0) fileCount
+		SELECT n.num, alarm, n.userId, nickName, subject, hitCount, 
+			   n.regDate, NVL(fileCount, 0) fileCount
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
 		LEFT OUTER JOIN (
-			SELECT num, COUNT(*) fileCount FROM noticeFile
-			GROUP BY num
-		) f ON n.num=f.num
+			SELECT fileNum, COUNT(*) fileCount FROM noticeFile
+			GROUP BY fileNum
+		) f ON n.num=f.fileNum
 		<where>
-			enabled = 1
+			n.enabled = 1
 			<if test="keyword != null and keyword != ''">
 				AND <include refid="where-list"/>
 			</if>
 		</where>
-		ORDER BY num DESC
+		ORDER BY n.num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
     <!-- 글보기 -->
     <select id="readNotice" parameterType="Long" resultType="com.sp.withtail.notice.Notice">
-		SELECT num, n.userId, userName, subject, content, reg_date, hitCount, notice, showNotice
+		SELECT n.num, n.userId, nickName, subject, content, n.regDate, hitCount, alarm, n.enabled
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId 
-		WHERE num = #{num}
+		WHERE n.num = #{num}
 	</select>
 
 	<!-- 조회수 증가 -->
@@ -86,44 +86,44 @@
 
 	<!-- 이전글 -->
 	<select id="preReadNotice" parameterType="map" resultType="com.sp.withtail.notice.Notice">
-		SELECT num, subject
+		SELECT n.num, subject
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
 		<where>
-			showNotice = 1
+			n.enabled = 1
 			<if test="keyword != null and keyword != '' ">
 				AND <include refid="where-list"/>
 			</if>
-			AND (num &gt; #{num})
+			AND (n.num &gt; #{num})
 		</where>
-		ORDER BY num ASC
+		ORDER BY n.num ASC
 		FETCH FIRST 1 ROWS ONLY
     </select>
 
     <!-- 다음글 -->
     <select id="nextReadNotice" parameterType="map" resultType="com.sp.withtail.notice.Notice">
-		SELECT num, subject
+		SELECT n.num, subject
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
 		<where>
-			showNotice = 1
+			n.enabled = 1
 			<if test="keyword != null and keyword != '' ">
 				AND <include refid="where-list"/>
 			</if>
-			AND (num &lt; #{num})
+			AND (n.num &lt; #{num})
 		</where>
-		ORDER BY num DESC
+		ORDER BY n.num DESC
 		FETCH FIRST 1 ROWS ONLY
     </select>
     
 	<select id="listFile" parameterType="Long" resultType="com.sp.withtail.notice.Notice">
-		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		SELECT fileNum, num, saveName, originalName, fileSize
 		FROM noticeFile
 		WHERE num=#{num}    
 	</select>
 	
 	<select id="readFile" parameterType="Long" resultType="com.sp.withtail.notice.Notice">
-		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		SELECT fileNum, num, saveName, originalName, fileSize
 		FROM noticeFile
 	    WHERE fileNum=#{fileNum}      
 	</select>

@@ -90,14 +90,14 @@ function searchList() {
 					<tr>
 						<td><span class="notice-span">공지</span></td>
 						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
-							<a href="${pageContext.request.contextPath}/notice/article&num=${dto.num}">${dto.subject}</a>
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
-						<td>관리자</td>
+						<td>${dto.nickName}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>		
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="fa-solid fa-download"><i class="bi bi-file-arrow-down"></i></a>
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>
 						</td>
 						
@@ -107,14 +107,14 @@ function searchList() {
 					<tr>
 						<td>${dataCount - (page-1) * size - status.index}</td>
 						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
-							<a href="${pageContext.request.contextPath}/notice/article">홈페이지 점검 안내</a>
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
 						<td>관리자</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="fa-solid fa-download"><i class="bi bi-file-arrow-down"></i></a>
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>
 						</td>
 					</tr>
@@ -122,7 +122,14 @@ function searchList() {
 			</tbody>
 		</table>
 
-		<!-- 페이징 -->
+		<div class="row mt-5">
+			<div class="col text-center">
+				<div class="block-27 page-nav">
+					${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+				</div>
+			</div>
+		</div>
+
 		<!-- <div class="row my-5">
 			<div class="col text-center">
 				<div class="block-27">
@@ -138,13 +145,7 @@ function searchList() {
 				</div>
 			</div>
 		</div>-->
-		<div class="row my-5">
-			<div class="col text-center">
-				<div class="block-27">
-					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-				</div>
-			</div>
-		</div>
+
 		<!-- //페이징 -->
 
 		<div class="col-md-12 d-flex" style="align-items: center; padding-left: 0; padding-right: 0;">
@@ -154,10 +155,10 @@ function searchList() {
 			<div class="col col-md-8 text-center">
 				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center" action="${pageContext.request.contextPath}/notice/list" method="post">
 					<select name="condition" class="form-select" style="width: auto !important;">
-						<option value="all">제목+내용</option>
-						<option value="reg_date">등록일</option>
-						<option value="subject">제목</option>
-						<option value="content">내용</option>
+						<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
+						<option value="reg_date" ${condition=="regDate"?"selected='selected'":""}>등록일</option>
+						<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+						<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 					</select>
 					<input type="text" name="keyword" value="${keyword}" class="form-control" style="border-radius: 0.375rem; width: 200px;">
 					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;" onclick="searchList()">검색</button>
@@ -170,4 +171,6 @@ function searchList() {
 		</div>
 		
 	</div>
+	
+
 </section>

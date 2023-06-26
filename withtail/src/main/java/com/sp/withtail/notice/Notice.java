@@ -7,16 +7,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class Notice {
 	private long num;
 	private String userId;
-	private String userName;
+	private String nickName;
 	private String regDate;
 	private String content;
 	private int hitCount;
 	private int alarm;
 	private int enabled;
+	private String subject;
 
 	private long fileNum;
 	private String originalName;
-	private String saveFileName;
+	private String saveName;
 	private long fileSize;
 	private int fileCount;
 	
@@ -24,6 +25,13 @@ public class Notice {
 	private List<MultipartFile> selectFile; // <input type="file" name="selectFile"
 	private long gap;
 	
+	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public long getNum() {
 		return num;
 	}
@@ -35,12 +43,6 @@ public class Notice {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -84,11 +86,11 @@ public class Notice {
 	public void setOriginalName(String originalName) {
 		this.originalName = originalName;
 	}
-	public String getSaveFileName() {
-		return saveFileName;
+	public String getSaveName() {
+		return saveName;
 	}
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
 	}
 	public long getFileSize() {
 		return fileSize;
@@ -114,4 +116,11 @@ public class Notice {
 	public void setGap(long gap) {
 		this.gap = gap;
 	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
 }

@@ -47,27 +47,47 @@
 			<tbody style="border-top: 2px solid #999;">
 				<tr>
 					<td colspan="2" style="border-bottom: 1px solid #999 !important;">
-						위드테일 공지사항
+						${dto.subject}
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						작성자 : 관리자
+						작성자 : ${dto.nickName}
 					</td>
 					<td style="text-align: right !important;">
-						작성일 : 2023-06-19 09:00<span class="bar-span">|</span>조회 : 0
+						작성일 : ${dto.regDate}<span class="bar-span">|</span>조회 : ${dto.hitCount}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: left !important; vertical-align: top;" height="200">
-						위드테일 공지사항입니다.
+						${dto.content}
+					</td>
+				</tr>
+				
+				<c:forEach var="vo" items="${listFile}">
+						<tr>
+							<td colspan="2" style="text-align: left !important;">
+								파&nbsp;&nbsp;일 :
+								<a href="${pageContext.request.contextPath}/notice/download?fileNum=${vo.fileNum}">${vo.originalName}</a>
+								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
+							</td>
+						</tr>
+				</c:forEach>
+				<tr>
+					<td colspan="2" style="text-align: left !important;">
+								이전글 :
+								<c:if test="${not empty preReadDto}">
+									<a href="${pageContext.request.contextPath}/notice/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
+								</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: left !important;">이전글 : </td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: left !important;">다음글 : </td>
+					<td colspan="2" style="text-align: left !important;">
+							다음글 :
+							<c:if test="${not empty nextReadDto}">
+								<a href="${pageContext.request.contextPath}/notice/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
+							</c:if>
+					</td>
 				</tr>
 			</tbody>
 		</table>

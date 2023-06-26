@@ -124,7 +124,15 @@
 
 				</div>
 			</c:forEach>
+			
+			
+			
 
+			
+			
+			<div class="container">
+    		<div class="row">
+			
 			<div class="row mt-5">
 				<div class="col text-center">
 					<div class="block-27">
@@ -132,9 +140,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			</div>
+			</div>
 
+	</div>
+	</div>
 	<!-- //상품 목록(foreach) 쓸 것 -->
     </section>
 
