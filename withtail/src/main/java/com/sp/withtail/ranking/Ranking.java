@@ -7,7 +7,7 @@ public class Ranking {
 
 	
 	private String itemNum;
-	private String categoryNum;
+	private String finalPrice;
 	private String itemName;
 	private String discount;
 	private String regDate;
@@ -50,15 +50,12 @@ public class Ranking {
 	public void setItemNum(String itemNum) {
 		this.itemNum = itemNum;
 	}
-
-	public String getCategoryNum() {
-		return categoryNum;
+	public String getFinalPrice() {
+		return finalPrice;
 	}
-
-	public void setCategoryNum(String categoryNum) {
-		this.categoryNum = categoryNum;
+	public void setFinalPrice(String finalPrice) {
+		this.finalPrice = finalPrice;
 	}
-
 	public String getItemName() {
 		return itemName;
 	}

@@ -58,6 +58,16 @@
 		
 		.color-bk {
 			color: #000;
+				
+/*페이징*/
+.block-27 ul li a, .block-27 ul li span {
+    color: #666;
+    vertical-align: middle;
+}
+
+.block-27 ul li span.disabled {
+	color: #999;
+}
 		}
 	</style>
 
@@ -101,7 +111,8 @@
 							<div class="d-flex">
 								<div class="pricing">
 									<p class="price">
-										<span>${dto.price}</span>
+										<span class="mr-2 price-dc ${dto.discount==0 ? 'hidden' : ''}"><fmt:formatNumber value="${dto.price}" type="currency"/></span>
+										<span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span>
 									</p>
 								</div>
 							</div>

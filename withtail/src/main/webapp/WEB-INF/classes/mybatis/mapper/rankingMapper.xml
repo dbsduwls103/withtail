@@ -4,11 +4,11 @@
 <mapper namespace="ranking">
 	<select id="rankList" parameterType="map" resultType="com.sp.withtail.ranking.Ranking">
 
-	SELECT o.itemNum, i.itemName, sum(count), a.price, i.categoryNum, i.discount
+	SELECT o.itemNum, i.itemName, sum(count), a.finalPrice, i.ctNum, i.discount, i.price
 	FROM orderDetail o
 	JOIN item i ON i.itemNum = o.itemNum
 	JOIN (
-	SELECT price * (100-NVL(discount,0)) * 0.01 price, itemNum
+	SELECT price * (100-NVL(discount,0)) * 0.01 finalPrice, itemNum
 	FROM item) a ON o.itemNum = a.itemNum
     JOIN (
         SELECT ctName, ctNum
@@ -16,8 +16,8 @@
         WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
         START WITH parentCT IS NULL
         CONNECT BY PRIOR ctNum = parentCT
-    ) c ON c.ctNum =  i.categoryNum
-	GROUP BY o.itemNum, i.itemName, a.price, i.categoryNum, i.discount
+    ) c ON c.ctNum =  i.ctNum
+	GROUP BY o.itemNum, i.itemName, a.finalPrice, i.ctNum, i.discount, i.price
 	ORDER BY sum(count) DESC
  
 	</select>
@@ -33,7 +33,7 @@
         WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
         START WITH parentCT IS NULL
         CONNECT BY PRIOR ctNum = parentCT
-    ) c ON c.ctNum =  i.categoryNum
+    ) c ON c.ctNum =  i.ctNum
 	GROUP BY o.itemNum
 	</select>
 </mapper>

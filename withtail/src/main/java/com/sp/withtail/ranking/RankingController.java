@@ -20,7 +20,7 @@ import com.sp.withtail.common.MyUtil;
 @RequestMapping("/ranking/*")
 public class RankingController {
 	@Autowired
-	private MyUtil myUtil;
+	private MyUtil myUtilCustom;
 	@Autowired
 	private RankingService service;
 	
@@ -29,7 +29,7 @@ public class RankingController {
 			@RequestParam(defaultValue = "강아지") String condition,
 			HttpServletRequest req,
 			Model model) throws Exception {
-
+		
 		int size = 12;
 		int total_page = 0;
 		int dataCount = 0;
@@ -62,7 +62,7 @@ public class RankingController {
 		// 글 리스트
 		List<Ranking> list = service.listRank(map);
 
-		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);

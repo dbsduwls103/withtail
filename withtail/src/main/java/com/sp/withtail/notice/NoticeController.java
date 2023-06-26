@@ -32,6 +32,8 @@ public class NoticeController {
 	@Autowired
 	private MyUtil myUtil;
 	@Autowired
+	private MyUtil myUtilCustom;
+	@Autowired
 	private FileManager fileManager;
 
 	@RequestMapping(value = "list")
@@ -110,8 +112,7 @@ public class NoticeController {
 			articleUrl = cp + "/notice/article?page=" + current_page + "&" + query;
 		}
 
-		String paging = myUtil.paging(current_page, total_page, listUrl);
-
+		String paging = myUtilCustom.pagingMethod(current_page, total_page, listUrl);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);

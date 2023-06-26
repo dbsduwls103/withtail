@@ -60,6 +60,16 @@
 		border-radius: 0.375rem;
 		font-size: 14px;
 	}
+	
+	/*페이징*/
+.block-27 ul li a, .block-27 ul li span {
+    color: #666;
+    vertical-align: middle;
+}
+
+.block-27 ul li span.disabled {
+	color: #999;
+}
 </style>
 
 <script type="text/javascript">
