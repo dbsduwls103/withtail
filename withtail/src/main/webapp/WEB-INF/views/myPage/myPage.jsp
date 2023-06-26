@@ -426,9 +426,9 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 13px;">${sessionScope.member.userName}</p>
-							<p style="margin-bottom: 0px; font-size: 13px;">${sessionScope.member.email}</p>
-							<p style="margin-bottom: 0px; font-size: 13px;">비밀번호 : ********</p>						
+							<p style="margin-bottom: -5px; font-size: 13px;">${sessionScope.member.userName}</p>
+							<p style="margin-bottom: -5px; font-size: 13px;">${sessionScope.member.email}</p>
+							<p style="margin-bottom: -5px; font-size: 13px;">비밀번호 : ********</p>						
 						</div>
 					</div>
 				</div>  
@@ -443,7 +443,7 @@
 							<div class="information-layout">
 								<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
 								<div class="text-layout">
-									<p style="margin-bottom: 0px; font-size: 13px;">없음</p>					
+									<p style="margin-bottom: -5px; font-size: 13px;">없음</p>					
 								</div>
 							</div>
 						</div> 	
@@ -456,11 +456,11 @@
 									<p class="title-two" style="margin-bottom: 0px" >자주 쓰는 배송지</p>
 									<div class="address-text-wrap">
 										<div class="text-layout">
-											<p class="registered-address-name-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">${dto1.addName}</p>
-											<p class="registered-address-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">
+											<p class="registered-address-name-1 valign-text-middle"  style="margin-bottom: -5px; font-size: 13px;">${dto1.addName}</p>
+											<p class="registered-address-1 valign-text-middle"  style="margin-bottom: -5px; font-size: 13px;">
 												${dto1.addr1} ${dto1.addr2} ${dto1.zip}</p>
-											<p class="phone-number-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;" >${dto1.tel}</p>
-											<p class="message-1 valign-text-middle"  style="margin-bottom: 0px; font-size: 13px;">${dto1.memo}</p>
+											<p class="phone-number-1 valign-text-middle"  style="margin-bottom: -5px; font-size: 13px;" >${dto1.tel}</p>
+											<p class="message-1 valign-text-middle"  style="margin-bottom: -5px; font-size: 13px;">${dto1.memo}</p>
 										</div>
 									</div>
 								</div>
@@ -491,7 +491,7 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >쿠폰</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 13px;">1장</p>					
+							<p style="margin-bottom: -5px; font-size: 13px;">1장</p>					
 						</div>
 					</div>
 				</div> 	

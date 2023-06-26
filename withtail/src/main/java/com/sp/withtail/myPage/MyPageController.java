@@ -196,8 +196,11 @@ public class MyPageController {
     }
     
     @PostMapping("update")
-    public String updateAddSubmit(MyPage dto) throws Exception {
+    public String updateAddSubmit(MyPage dto, HttpSession session) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
     	try {
+    		dto.setUserId(info.getUserId());
 			service.updateAdd(dto);
 		} catch (Exception e) {
 		}

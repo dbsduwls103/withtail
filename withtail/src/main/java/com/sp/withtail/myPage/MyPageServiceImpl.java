@@ -124,6 +124,11 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void updateAdd(MyPage dto) throws Exception {
 		try {
+			
+			if(dto.getAddDef() == 1) {
+				dao.updateData("myPage.basicAddressClear", dto.getUserId());
+			}
+			
 			dao.updateData("myPage.updateAdd", dto);
 		} catch (Exception e) {
 			e.printStackTrace();

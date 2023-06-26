@@ -147,6 +147,8 @@ function deliveryOk() {
 	f.action = "${pageContext.request.contextPath}/myPage/${mode}";
 	f.submit();
 } 
+
+
 </script>
 
 
@@ -226,7 +228,14 @@ function deliveryOk() {
 						</div>
 				    </div>	
 				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" style="padding-left: 0px;"><input type="checkbox" style="width: 23%" onchange="changeTextColor(this)" name="addDef">기본 배송지로 설정</label>
+				    	<c:choose>
+				    		<c:when test="${dto.addDef eq 1}">
+				        		<label class="col-sm-2 col-form-label" style="padding-left: 0px;"><input type="checkbox" style="width: 23%" onchange="changeTextColor(this)" name="addDef" checked="checked">기본 배송지로 설정</label>
+				 			</c:when>
+				 			<c:otherwise>
+				 				<label class="col-sm-2 col-form-label" style="padding-left: 0px;"><input type="checkbox" style="width: 23%" onchange="changeTextColor(this)" name="addDef">기본 배송지로 설정</label>
+				 			</c:otherwise>
+				 		</c:choose>
 				    </div>	
 				    <div style="text-align: center;">
 				    	<button type="button" class="btn-1" onclick="deliveryOk();">${mode=='update'?'수정':'등록'}</button>
@@ -363,6 +372,7 @@ function changeTextColor(checkbox) {
         checkbox.value = 0;
     }
 }
+
 
 
 </script>
