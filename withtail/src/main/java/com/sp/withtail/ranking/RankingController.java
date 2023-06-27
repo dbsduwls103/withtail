@@ -26,7 +26,7 @@ public class RankingController {
 	
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
-			@RequestParam(defaultValue = "강아지") String condition,
+			@RequestParam(defaultValue = "1") String condition,
 			HttpServletRequest req,
 			Model model) throws Exception {
 		

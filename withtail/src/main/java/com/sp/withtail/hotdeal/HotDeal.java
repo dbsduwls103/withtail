@@ -1,6 +1,6 @@
-package com.sp.withtail.ranking;
+package com.sp.withtail.hotdeal;
 
-public class Ranking {
+public class HotDeal {
 	private long ctNum;
 	private long parentCt;
 	private String ctName;

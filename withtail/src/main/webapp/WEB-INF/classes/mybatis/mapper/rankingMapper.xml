@@ -3,37 +3,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ranking">
 	<select id="rankList" parameterType="map" resultType="com.sp.withtail.ranking.Ranking">
-
-	SELECT o.itemNum, i.itemName, sum(count), a.finalPrice, i.ctNum, i.discount, i.price
-	FROM orderDetail o
-	JOIN item i ON i.itemNum = o.itemNum
-	JOIN (
-	SELECT price * (100-NVL(discount,0)) * 0.01 finalPrice, itemNum
-	FROM item) a ON o.itemNum = a.itemNum
+	
+    SELECT i.itemNum, i.ctNum, itemName, i.price,  i.price * (100-NVL(discount,0)) * 0.01 finalPrice,
+           discount, NVL(COUNT(o.itemNum),0) numCount
+    FROM item i
     JOIN (
-        SELECT ctName, ctNum
+        SELECT ctNum
         FROM category
-        WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
+        WHERE CONNECT_BY_ROOT ctNum = #{condition}
         START WITH parentCT IS NULL
         CONNECT BY PRIOR ctNum = parentCT
     ) c ON c.ctNum =  i.ctNum
-	GROUP BY o.itemNum, i.itemName, a.finalPrice, i.ctNum, i.discount, i.price
-	ORDER BY sum(count) DESC
+    JOIN orderDetail o ON o.itemNum = i.itemNum
+    WHERE showNotice = 0
+    GROUP BY i.itemNum, i.ctNum, itemName, i.price,  i.price * (100-NVL(discount,0)) * 0.01, discount
+    ORDER BY numCount DESC, i.itemNum DESC
  
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
-
-	SELECT Count(Count(o.itemNum))
-	FROM orderDetail o
-	JOIN item i ON i.itemNum = o.itemNum
-    JOIN (
-        SELECT ctNum
-        FROM category
-        WHERE CONNECT_BY_ROOT ctName = #{condition} <!-- '강아지 또는 고양이' -->
-        START WITH parentCT IS NULL
-        CONNECT BY PRIOR ctNum = parentCT
-    ) c ON c.ctNum =  i.ctNum
-	GROUP BY o.itemNum
+	    SELECT COUNT(itemNum)
+	    FROM item
+	    WHERE showNotice = 0
 	</select>
 </mapper>
