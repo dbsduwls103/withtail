@@ -196,6 +196,10 @@
 		min-width: 200px;
 	}
 	
+	.product-details .form-group .select-wrap select {
+		letter-spacing: 0;
+	}
+	
 	/* 추가 이미지 */
 	.sm-img li {
 		
@@ -306,8 +310,9 @@
 					let option2Num = item.option2Num;
 					let option2Name = item.option2Name;
 					let extraPrice = item.extraPrice;
+					let rExtraPrice = extraPrice.toLocaleString();
 					
-					$(".requiredOption2").append("<option value='"+option2Num+"' data-extra='"+extraPrice+"'>"+option2Name+"</option>");
+					$(".requiredOption2").append("<option value='"+option2Num+"' data-extra='"+extraPrice+"'>"+option2Name+" (+"+rExtraPrice+"원)</option>");
 				});
 			});
 		});
@@ -349,7 +354,7 @@
 			
 			let opPriceResult = optionPrice.toLocaleString();
 			
-			let s = "- " + optionValue + " / " + optionValue2;
+			let s = "- " + optionValue + "/" + optionValue2;
 			
 			let out = "";
 			out = '<tr class="order-group">';
@@ -460,7 +465,7 @@
 									<option value="">-- ${listOption[0].option1Name} --</option>
 									<c:forEach var="vo" items="${listOptionDetail}">
 										<option value="${vo.option2Num}">
-											${vo.option2Name}&nbsp;${vo.extraPrice==0 ? "" : "(+"+vo.extraPrice+"원)"}
+											${vo.option2Name} ${vo.extraPrice==0 ? "" : "(+"+vo.extraPrice+"원)"}
 										</option>
 									</c:forEach>
 								</select>
