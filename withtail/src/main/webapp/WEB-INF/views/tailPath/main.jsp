@@ -91,6 +91,20 @@ a{
 	position: relative;
 }
 
+.info-button{
+    height: 30px;
+    margin-right: 8px;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    background: #d3e7ff;
+    font-size: 14px;
+    color: #242424;
+    border-radius: 5px;
+    transition: all .3s;
+    border-style: none;
+}
+
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -226,8 +240,8 @@ $(function(){
 	let serviceKey = "tIqAqGnvJfyhmAOeOn5P5PzGHZEX4zjxHFZnCnlJ0%2FwiFcQitsZJo42OBNt64sELkY5wCVBvWPDBx7%2BaY2eW0A%3D%3D";
 	let query = "serviceKey="+serviceKey;
 	
-	query += "&perPage=" + 1000;
-	query += "&page=" + 2;
+	query += "&perPage=" + 2000;
+	query += "&page=" + 1;
 	const fn = function(data) {
 		printJSON(data);
 	};
@@ -273,9 +287,35 @@ function printJSON(data) {
 	 
 	 for (var i = 0; i < data.data.length; i++) {
 		 var item = data.data[i];
-		 if(item["시도 명칭"] === "경기도" || item["시도 명칭"] === "서울특별시"){
-			 var homepage = item.홈페이지 !== "정보없음" ? '<a href="' + addProtocol(item.홈페이지) + '" target="_blank" class="link">홈페이지</a>' : '홈페이지 정보없음';
+		 //let stringItem = JSON.stringify(item);
 
+		 
+		 if(item["시도 명칭"] === "경기도" || item["시도 명칭"] === "서울특별시"){
+			 let params = {};
+			 params.city = item["시도 명칭"];
+			 
+			 
+			 var homepage = item.홈페이지 !== "정보없음" ? '<a href="' + addProtocol(item.홈페이지) + '" target="_blank" class="link">홈페이지</a>' : '홈페이지 정보없음';
+			 
+			 var link = '<a href="#" class="button btnSendOk" ';
+			 link += ' data-address="' + item["도로명주소"] + '"';
+			 link += ' data-facilityName="' + item["시설명"] + '"';
+			 link += ' data-withPet="' + item["반려동물 동반 가능정보"] + '"';
+			 link += ' data-petInfo="' + item["반려동물 전용 정보"] + '"';
+			 link += ' data-petLimit="' + item["반려동물 제한사항"] + '"';
+			 link += ' data-petCharge="' + item["애견 동반 추가 요금"] + '"';
+			 link += ' data-operTime="' + item["운영시간"] + '"';
+			 link += ' data-petSize="' + item["입장 가능 동물 크기"] + '"';
+			 link += ' data-charge="' + item["입장(이용료)가격 정보"] + '"';
+			 link += ' data-tel="' + item["전화번호"] + '"';
+			 link += ' data-parking="' + item["주차 가능여부"] + '"';
+			 link += ' data-homepage="' + addProtocol(item["홈페이지"]) + '"';
+			 link += ' data-city1="' + item["시도 명칭"] + '"';
+			 link += ' data-city2="' + item["시군구 명칭"] + '"';
+			 link += ' data-city3="' + item["법정읍면동명칭"] + '"';
+			 link += ' data-category="' + item["카테고리3"] + '"';
+
+			 link += '>상세정보</a>';
 			 let obj = {lat:item.위도, lng: item.경도,  category: item.카테고리2, category2: item.카테고리3,
 			 content: '<div class="wrap">' + 
 	            '    <div class="info">' + 
@@ -286,7 +326,7 @@ function printJSON(data) {
 	            '            <div class="desc">' + 
 	            '                <div class="ellipsis">'+item.도로명주소+'</div>' + 
 	            '                <div class="jibun ellipsis">(우)'+ item.우편번호 + '(지번)' + item.지번주소 +'</div>' + 
-	            '                <div>' + homepage + '</div>' + 
+	            '                ' + link + ' ' +  		
 	            '            </div>' + 
 	            '        </div>' + 
 	            '    </div>' +    
@@ -294,6 +334,8 @@ function printJSON(data) {
 			 positions.push(obj);
 		 }
 	 }
+	 
+	 
 	 
 	 console.log(positions);
 	 
@@ -384,10 +426,50 @@ closeButton.addEventListener('click', function() {
     }
 });
 
+
+$(function(){
+	$("body").on("click", ".btnSendOk", function(){
+		const f = document.itemForm;
+		
+		f.address.value = $(this).attr("data-address");
+		f.facilityName.value = $(this).attr("data-facilityName");
+		f.withPet.value = $(this).attr("data-withPet");
+		f.petInfo.value = $(this).attr("data-petInfo");
+		f.petLimit.value = $(this).attr("data-petLimit");
+		f.petCharge.value = $(this).attr("data-petCharge");
+		f.operTime.value = $(this).attr("data-operTime");
+		f.petSize.value = $(this).attr("data-petSize");
+		f.charge.value = $(this).attr("data-charge");
+		f.tel.value = $(this).attr("data-tel");
+		f.parking.value = $(this).attr("data-parking");
+		f.homepage.value = $(this).attr("data-homepage");
+		f.city1.value = $(this).attr("data-city1");
+		f.city2.value = $(this).attr("data-city2");
+		f.city3.value = $(this).attr("data-city3");
+		f.category.value = $(this).attr("data-category");
+		
+		f.action = "${pageContext.request.contextPath}/tailPath/article";
+		f.submit();
+
+	});
+});
 </script>
 
-
-
-
-
-
+<form name="itemForm" method="post">
+	<input type="hidden" name="address">
+	<input type="hidden" name="facilityName">
+	<input type="hidden" name="withPet">
+	<input type="hidden" name="petInfo">
+	<input type="hidden" name="petLimit">
+	<input type="hidden" name="petCharge">
+	<input type="hidden" name="operTime">
+	<input type="hidden" name="petSize">
+	<input type="hidden" name="charge">
+	<input type="hidden" name="tel">
+	<input type="hidden" name="parking">
+	<input type="hidden" name="homepage">
+	<input type="hidden" name="city1">
+	<input type="hidden" name="city2">
+	<input type="hidden" name="city3">
+	<input type="hidden" name="category">	
+</form>

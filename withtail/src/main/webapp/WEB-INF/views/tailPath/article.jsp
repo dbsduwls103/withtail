@@ -583,24 +583,23 @@ function fnMessagePopupClose() {
         <div class="detail_text">
             <strong>연관키워드</strong>
             <div class="keyword">
-                        <span>#춘천</span>
-                        <span>#카페</span>
-                        <span>#레스토랑</span>
-                        <span>#로컬</span>
-                        <span>#디저트</span>
-                        <span>#파스타</span>
-                        <span>#피자</span>
+            
+                        <span>#${item.city1}</span>
+                        <span>#${item.city2}</span>
+                        <span>#${item.city3}</span>
+                        <span>#${item.category}</span>
+                        
             </div>
             <!-- //keyword -->
 
             <div class="info_text">
                 <dl>
-                    <dt class="tour-title" style="padding-left: 0px; font-size: 20px; width: 100%;">아울러</dt>
+                    <dt class="tour-title" style="padding-left: 0px; font-size: 20px; width: 100%;">${item.facilityName}</dt>
                 </dl>
                 <dl>
                     <dt class="address">주소</dt>
                     <dd>
-                        <span id="copy-address">강원 춘천시 뱀내길 6</span>&nbsp;
+                        <span id="copy-address">${item.address}</span>&nbsp;
                         <a href="#;" class="btn-copy-address">
                             <img src="${pageContext.request.contextPath}/resources/images/icon8.png" title="주소 복사하기" style="width: 18px; vertical-align: middle;">
                         </a>
@@ -608,16 +607,16 @@ function fnMessagePopupClose() {
                 </dl>
                 <dl>
                     <dt class="inquiries">문의처</dt>
-                    <dd>010-6377-0300</dd>
+                    <dd>${item.tel}</dd>
                 </dl>
                 <dl class="not-pc05">
                     <dt class="time">이용시간</dt>
-                    <dd>매일 11:00-22:00 (21시 라스트오더)</dd>
+                    <dd>${item.operTime}</dd>
                 </dl>
                 <dl>
                     <dt class="site">홈페이지</dt>
                     <dd>
-                        <a href="https://naver.me/FzHm83rm" target="_blank">https://naver.me/FzHm83rm</a>
+                        <a href="${item.homepage}" target="_blank">${item.homepage}</a>
                     </dd>
                 </dl>
                 <div class="bbs bbscontainer" style="font-size: 20px;">
@@ -640,7 +639,7 @@ function fnMessagePopupClose() {
                         <div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 15000px; transform: translate3d(0px, 0px, 0px);"><li class="petcompanion slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false">
                             <span>펫동반 식당</span>
                         </li><li class="parking slick-slide slick-active" data-slick-index="1" aria-hidden="false">
-                            <span>주차</span>
+                            <span>${item.parking}</span>
                         </li><li class="outdoor slick-slide slick-active" data-slick-index="2" aria-hidden="false">
                             <span>실외</span>
                         </li></div></div>
