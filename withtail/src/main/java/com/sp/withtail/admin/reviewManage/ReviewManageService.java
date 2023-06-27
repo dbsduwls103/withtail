@@ -10,12 +10,15 @@ public interface ReviewManageService {
 	public List<ReviewManage> listReview(Map<String, Object> map);
 	
 	//글보기(상품명,상품썸네일,별점 가져와야함)
-	public ReviewManage readReview(long num);
+	public ReviewManage readReview(long rvNum);
+	
+	//리뷰사진리스트
+	public List<ReviewManage> photolist(long rvNum);
 	
 	//답변등록
 	public void answerReview(ReviewManage dto)throws Exception;
 	//답변삭제
-	public void deleteAnswer(long num)throws Exception;
+	public void deleteAnswer(long rvNum)throws Exception;
 	//리뷰삭제
-	public void deleteReview(long num)throws Exception;
+	public void deleteReview(long rvNum)throws Exception;
 }

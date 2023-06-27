@@ -46,5 +46,31 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<!-- 글보기 -->
+	<select id="readReview" parameterType="Long" resultType="com.sp.withtail.admin.reviewManage.ReviewManage">
+		select r.rvNum,orderNum,rvContent,star,TO_CHAR(r.regDate,'YYYY-MM-DD')regDate,r.itemNum,r.userId,
+        replyContent,TO_CHAR(replyDate,'YYYY-MM-DD')replyDate,
+        itemName, mainImage, madeby,userName,
+        saveName,rvMainImage,replyId
+        from review r
+        join item i on r.itemNum=i.itemNum
+        join member1 m on r.userId=m.userId
+        left outer join reviewPhoto rp on r.rvNum=rp.rvNum
+        where r.rvNum= #{rvNum}
+        FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="photolist" parameterType="Long" resultType="com.sp.withtail.admin.reviewManage.ReviewManage">
+		select saveName, rvPhotoNum, rvNum
+		from reviewPhoto
+		where rvNum = #{rvNum}
+	</select>
+	
+	<update id="answerReview" parameterType="com.sp.withtail.admin.reviewManage.ReviewManage">
+		UPDATE review SET replyId = #{replyId}, replyContent = #{replyContent}, replyDate = SYSDATE
+		WHERE rvNum = #{rvNum}
+	</update>
+	
+	
 
 </mapper>

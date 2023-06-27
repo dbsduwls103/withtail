@@ -38,7 +38,7 @@
 	cursor: pointer;
 }
 
-.photo-layout img { width: 570px; height: 450px; }
+.photo-layout img { width: 515px; height: 450px; }
 
 .bold { font-weight: bold;}
 
@@ -103,7 +103,16 @@ img {width: 50px;}
 
 .pointhover:hover{
   background-color: #82ae4654;
+  
 }
+.score-star { font-size: 0; letter-spacing: -4px; text-align: left;}
+.score-star .item {
+	font-size: 18px; letter-spacing: -2px; display: inline-block;
+	color: #ccc; text-decoration: none; vertical-align: middle;
+}
+.score-star .item:first-child{ margin-left: 0; }
+.score-star .on { color: #FFE400; font-weight: bold; }
+
 
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -128,20 +137,29 @@ function imageViewer(img) {
 
 function deleteBoard() {
 	    if(confirm("리뷰를 삭제 하시 겠습니까 ? ")) {
-		    let query = "num=${dto.num}&${query}";
-		    let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
+		   // let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
 	    	//location.href = url;
 	    }
 	}
 
 function deleteReply() {
     if(confirm("답변을 삭제 하시 겠습니까 ? ")) {
-	    let query = "num=${dto.num}&${query}";
-	    let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
+	   // let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
     	//location.href = url;
     }
 }
 
+function sendAnswerOk() {
+	const f = document.replyForm;
+	if(!f.replyContent.value.trim()) {
+		alert("답변을 입력 하세요");
+		f.replyContent.focus();
+		return;
+	}
+	
+	f.action = "${pageContext.request.contextPath}/admin/reviewManage/reply";
+	f.submit();
+}
 
 </script>
 
@@ -153,38 +171,27 @@ function deleteReply() {
 <h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
 </div>
 
-			<table class="table mb-0">
+			<table class="table mb-0" style="font-weight: bold;">
 				<thead>
 					<!-- 상품상세페이지로 연결 -->
 					<tr class="">
-						<td style="width: 60px; padding-bottom: 0px;"><img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg"></td>
-						<td style="padding: 0px;">제조사<br>두바보 MDF 펜던트 (펜던트만) P13</td>
+						<td style="width: 60px; padding-bottom: 0px;"><img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"></td>
+						<td style="padding: 0px;">${dto.madeby }<br>${dto.itemName }</td>
 					</tr>
 					<tr >
 						<td style="width: 60px;"></td>
-						<td style="padding: 0px;">김땡땡</td>
-						<td style="padding: 0px; text-align: right;">2023.06.15</td>
+						<td style="padding: 0px;">${dto.userName }</td>
+						<td style="padding: 0px; text-align: right;">${dto.regDate }</td>
 					</tr>
 					<tr style="border-bottom: 1px solid #eee; ">
 						<td style="width: 60px;"></td>
-						<td align="center" style="padding-top: 5px;">
-							<div class="stars">
-								<div class="star star-layout">
-									<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
+						<td align="center" style="padding-top: 0;">
+								<div class="score-star review-score-star">
+									<c:forEach var="n" begin="1" end="5">
+										<c:set var="star" value="${dto.star + ((dto.star%1>=0.5) ? (1-dto.star%1)%1 : -(dto.star%1))}"/>
+										<span class="item fs-2 ${dto.star>=n?'on':''}">★</span>
+									</c:forEach>
 								</div>
-								<div class="star-layout-two">
-									<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">			
-								</div>
-								<div class="star-layout-two">
-									<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">			
-								</div>
-								<div class="star-layout-two">
-									<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-								</div>
-								<div class="star-layout-two">
-									<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-								</div>
-							</div>
 						</td>
 					</tr>
 					
@@ -193,18 +200,28 @@ function deleteReply() {
 				<tbody>
 					
 					<tr>
-						<td colspan="2" valign="top" height="150" style="border-bottom: none;">
-							리뷰 내용 입니다
+						<td colspan="2" valign="top" height="150" style="border-bottom: none; padding: 20px">
+							${dto.rvContent }
 						</td>
 					</tr>
 					<tr style="border-bottom: none;">
 						<td colspan="2" height="110">
 								<!-- foreach문으로 사진리스트 돌리기 -->
-							<div class="img-box">
-									
-									<img src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg"
-										onclick="imageViewer('${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg');">
 							
+							
+							<div style="display: flex">
+							<c:if test="${not empty dto.rvMainImage }">
+								<div class="img-box">
+									<img src="${pageContext.request.contextPath}/uploads/review/${dto.rvMainImage}"
+										onclick="imageViewer('${pageContext.request.contextPath}/uploads/review/${dto.rvMainImage}');">
+								</div>
+							</c:if>
+							<c:forEach var="p" items="${list }">
+								<div class="img-box">
+									<img src="${pageContext.request.contextPath}/uploads/review/${p.saveName}"
+										onclick="imageViewer('${pageContext.request.contextPath}/uploads/review/${p.saveName}');">
+								</div>
+							</c:forEach>
 							</div>
 						</td>	
 					</tr>
@@ -213,7 +230,7 @@ function deleteReply() {
 			</table>
 			
 			<table class="table table-borderless mb-2">
-				<tr style="border-bottom: 1px solid black; "  >
+				<tr   >
 					<td width="50%" style="padding-bottom: 30px;">
 				    	
 						<c:choose>
@@ -230,12 +247,14 @@ function deleteReply() {
 					</td>
 				</tr>
 			</table>
+			<c:if test="${not empty dto.replyContent}">
+			<hr>
 			<br>
 			<table class="table mb-0">
 				<thead>
 					<tr style=" border-bottom: 1px solid #eee;">
 						<td>관리자</td>
-						<td style="text-align: right;">2023.06.15 <a onclick="deleteReply();"> | 삭제</a></td>
+						<td style="text-align: right;">${dto.replyDate } <a onclick="deleteReply();"> | 삭제</a></td>
 					</tr>
 
 				</thead>
@@ -243,37 +262,41 @@ function deleteReply() {
 				<tbody>
 					<tr>
 						<td colspan="2" valign="top" height="150" style="border-bottom: none;">
-							답변 내용 입니다
+							${replyContent }
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			</c:if>
 			
 			
-			
-			
+			<c:if test="${empty dto.replyContent}">
 			<div class="reply">
 				<form name="replyForm" method="post">
 					<div class='form-header'>
-						<span class="bold">답변 내용</span>
+						<span class="bold">답변 달기</span><span> - 리뷰에 대한 답변을 입력 하세요</span>
 					</div>
 					
 					<table class="table table-borderless reply-form">
 						<tr>
 							<td>
-								<textarea class='form-control' name="content" style="height: 150px;"></textarea>
+								<textarea class='form-control' name="replyContent" style="height: 150px;"></textarea>
 							</td>
 						</tr>
 						<tr>
 						   <td align='right'>
-						        <button type='button' class='btn btn-light btnSendReply'>답변 등록</button>
+						        <button type='button' class='btn btn-light btnSendReply' onclick="sendAnswerOk()">답변 등록</button>
+						    	  <input type="hidden" name="num" value="${dto.rvNum}">
+						        <input type="hidden" name="page" value="${page}">
+						        <input type="hidden" name="condition" value="${condition}">
+						        <input type="hidden" name="keyword" value="${keyword}">
 						    </td>
 						 </tr>
 					</table>
 				</form>
 				
 			</div>
-
+			</c:if>
 		</div>
 
 

@@ -86,8 +86,7 @@
 .f-product-image-layout {
     align-items: flex-start;
     background-color: var(--aloy-white);
-    border: 1px solid;
-    border-color: var(--aloy-gray4-stroke);
+    border: 1px solid #9e9e9e59;
     border-radius: 5px;
     display: flex;
     gap: 10px;
@@ -96,8 +95,8 @@
 }
 
 .f-product-image {
-    height: 90px;
-    min-width: 90px;
+    height: 120px;
+    min-width: 120px;
     object-fit: cover;
     max-width: 100%;
 }
@@ -282,7 +281,7 @@ function searchList() {
 							<div class="f-product-text-layout">
 							<div>${dto.regDate }</div>
 								<!--상품 상세보기 페이지 연결  -->
-								<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
+								<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
 									<div class="rating">
 										<div>${dto.userName }&nbsp;(${dto.userId })&nbsp;&nbsp;|&nbsp;&nbsp; </div>
 											<div class="score-star review-score-star">
@@ -294,7 +293,7 @@ function searchList() {
 									</div>
 							</div>
 							<!-- 리뷰글보기 링크연결 -->
-							<a class="f-price-layout" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/article';">
+							<a class="f-price-layout" href='${articleUrl}&rvNum=${dto.rvNum}'><!-- &rvNum=${dto.rvNum}&itemNum=${dto.itemNum }&mainImage=${dto.mainImage} -->
 								<div class="f-price-text valign-text-middle">
 									${dto.rvContent }
 								</div>

@@ -14,9 +14,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sp.withtail.admin.inquiryManage.InquiryManage;
 import com.sp.withtail.common.MyUtil;
+import com.sp.withtail.member.SessionInfo;
 
 @Controller("admin.reviewManageController")
 @RequestMapping("/admin/reviewManage/*")
@@ -100,9 +103,67 @@ public class ReviewManageController {
 	}
 	
 	@RequestMapping(value = "article")
-	public String article() throws Exception{
+	public String article(
+			@RequestParam long rvNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session,
+			Model model) throws Exception{
+		
+		keyword = URLDecoder.decode(keyword, "utf-8");
+
+		String query = "page=" + page;
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		ReviewManage dto = service.readReview(rvNum);
+		List<ReviewManage> list = service.photolist(rvNum);
+		
+		if (dto == null) {
+			return "redirect:/admin/reviewManage/list?" + query;
+		}
+
+		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("query", query);
+
 		
 		return ".admin.reviewManage.article";
 	}
+	
+	
+	@RequestMapping(value = "reply", method = RequestMethod.POST)
+	public String answerSubmit(ReviewManage dto, 
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session) throws Exception {
+
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		String query = "page=" + page;
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		try {
+			dto.setReplyId(info.getUserId());
+			service.answerReview(dto);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/admin/reviewManage/list?" + query;
+	}
+	
+	
+	
+	
+	
+	
 }
  

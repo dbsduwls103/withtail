@@ -42,13 +42,40 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	}
 
 	@Override
-	public ReviewManage readReview(long num) {
-		return null;
+	public ReviewManage readReview(long rvNum) {
+		ReviewManage dto = null;
+		try {
+			dto = dao.selectOne("reviewManage.readReview", rvNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
 	}
+	
+	@Override
+	public List<ReviewManage> photolist(long rvNum) {
+		List<ReviewManage> list = null;
+		
+		try {
+			list = dao.selectList("reviewManage.photolist", rvNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 
 	@Override
 	public void answerReview(ReviewManage dto) throws Exception {
-		
+		try {
+			dao.updateData("reviewManage.answerReview", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
@@ -60,5 +87,6 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	public void deleteReview(long num) throws Exception {
 		
 	}
+
 
 }

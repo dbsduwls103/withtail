@@ -11,7 +11,10 @@ public class ReviewManage {
 	private long itemNum;
 	private String userId;
 	private String userName;
+	private String rvMainImage;
+	private String replyId;
 	
+
 	private long reviewNum;
 	
 	private long rvPhotoNum;
@@ -82,6 +85,18 @@ public class ReviewManage {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getRvMainImage() {
+		return rvMainImage;
+	}
+	public void setRvMainImage(String rvMainImage) {
+		this.rvMainImage = rvMainImage;
+	}
+	public String getReplyId() {
+		return replyId;
+	}
+	public void setReplyId(String replyId) {
+		this.replyId = replyId;
 	}
 	public long getReviewNum() {
 		return reviewNum;
