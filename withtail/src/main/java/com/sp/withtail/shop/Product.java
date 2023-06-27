@@ -33,11 +33,11 @@ public class Product {
 	private String country;
 	
 	/*옵션*/
-	private long optionNum1;
+	private long option1Num;
 	private String option1Name;
 	private Long parent;
 	
-	private long optionNum2;
+	private long option2Num;
 	private String option2Name;
 	private int extraPrice;
 	private int coupon;
@@ -187,11 +187,11 @@ public class Product {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public long getOptionNum1() {
-		return optionNum1;
+	public long getOption1Num() {
+		return option1Num;
 	}
-	public void setOptionNum1(long optionNum1) {
-		this.optionNum1 = optionNum1;
+	public void setOption1Num(long option1Num) {
+		this.option1Num = option1Num;
 	}
 	public String getOption1Name() {
 		return option1Name;
@@ -205,11 +205,11 @@ public class Product {
 	public void setParent(Long parent) {
 		this.parent = parent;
 	}
-	public long getOptionNum2() {
-		return optionNum2;
+	public long getOption2Num() {
+		return option2Num;
 	}
-	public void setOptionNum2(long optionNum2) {
-		this.optionNum2 = optionNum2;
+	public void setOption2Num(long option2Num) {
+		this.option2Num = option2Num;
 	}
 	public String getOption2Name() {
 		return option2Name;
@@ -253,5 +253,7 @@ public class Product {
 	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
+	
+	
 
 }

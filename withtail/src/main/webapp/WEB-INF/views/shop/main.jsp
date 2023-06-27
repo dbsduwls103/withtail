@@ -257,7 +257,7 @@ function listPage(page) {
 	const fn = function(data){
 		$(selector).html(data);
 	};
-	ajaxFun2(url, "get", query, "html", fn);
+	ajaxFun(url, "get", query, "html", fn);
 }
 
 // 탭 클릭시 주소 이동
@@ -278,6 +278,6 @@ function detailProd(itemNum, ctNum) {
 	const fn = function(data){
 		$(selector).html(data);
 	};
-	ajaxFun2(url, "get", query, "html", fn);
+	ajaxFun(url, "get", query, "html", fn);
 }
 </script>

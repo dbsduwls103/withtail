@@ -117,4 +117,30 @@ public class ShopServiceImpl implements ShopService {
 		return list;
 	}
 
+	@Override
+	public List<Product> listProdOption(long itemNum) {
+		List<Product> list = null;
+		
+		try {
+			list = dao.selectList("shop.listProdOption", itemNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Product> listOptionDetail(long option1Num) {
+		List<Product> list = null;
+		
+		try {
+			list = dao.selectList("shop.listOptionDetail", option1Num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }

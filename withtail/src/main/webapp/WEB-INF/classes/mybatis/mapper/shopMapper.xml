@@ -95,5 +95,20 @@
 		FROM itemPhoto
 		WHERE itemNum = #{itemNum}
 	</select>
-
+	
+	<!-- 옵션명 -->
+	<select id="listProdOption" parameterType="Long" resultType="com.sp.withtail.shop.Product">
+		SELECT option1Num, itemNum, option1Name, parent
+		FROM option1
+		WHERE itemNum = #{itemNum}
+		ORDER BY parent NULLS FIRST, parent
+	</select>
+	
+	<!-- 옵션 내용 -->
+	<select id="listOptionDetail" parameterType="Long" resultType="com.sp.withtail.shop.Product">
+		SELECT option2Num, option1Num, option2Name, extraPrice
+		FROM option2
+		WHERE option1Num = #{option1Num}
+		ORDER BY option2Num
+	</select>
 </mapper>

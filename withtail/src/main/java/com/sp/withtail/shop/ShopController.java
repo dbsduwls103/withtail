@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.FileManager;
 import com.sp.withtail.common.MyUtil;
@@ -34,6 +35,7 @@ public class ShopController {
 	@Autowired
 	private FileManager fileManager;
 	
+	// 카테고리 탭
 	@GetMapping("{ctNum}")
 	public String main(
 			@PathVariable long ctNum,
@@ -49,6 +51,7 @@ public class ShopController {
 		return ".shop.main";
 	}
 
+	// 상품 리스트(AJAX - html)
 	@RequestMapping(value = "{ctNum}/list")
 	public String list(@PathVariable long ctNum,
 			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
@@ -109,6 +112,7 @@ public class ShopController {
 		return "shop/list";
 	}
 	
+	// 상품 보기
 	@GetMapping(value = "info/{itemNum}")
 	public String productInfo(
 			@PathVariable long itemNum,
@@ -128,9 +132,30 @@ public class ShopController {
 		dto.setPhotoName(dto.getMainImage());
 		listProdImage.add(0, dto);
 		
+		// 옵션명
+		List<Product> listOption = service.listProdOption(itemNum);
+		
+		// 옵션 내용
+		List<Product> listOptionDetail = null;
+		if(listOption.size() > 0) {
+			listOptionDetail = service.listOptionDetail(listOption.get(0).getOption1Num());
+		}
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("listProdImage", listProdImage);
+		model.addAttribute("listOption", listOption);
+		model.addAttribute("listOptionDetail", listOptionDetail);
 		
 		return ".shop.info";
 	}
+	
+	// 상품 옵션(AJAX - JSON)
+	@GetMapping("info/listOptionDetail2")
+	@ResponseBody
+	public List<Product> listOptionDetail2(@RequestParam long option1Num,
+			@RequestParam long option1Sub, @RequestParam long option2Num) {
+		List<Product> list = service.listOptionDetail(option1Sub);
+		return list;
+	}
+
 }

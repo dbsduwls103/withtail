@@ -14,7 +14,6 @@
     	border-radius: 5px;
 		border-color: #82ae46;
 		color: #82ae46; 
-		
     }
     
     .review-button:hover {
@@ -48,7 +47,6 @@
 	.buttons {
 		display: flex;
 		gap: 10px;
-		
 	}
 	
 	.cart {
@@ -100,7 +98,6 @@
 	  
 	}
 	
-	
 	.navigator a {
 	  display: inline-block;
 	  padding: 5px 10px;
@@ -120,11 +117,9 @@
 	.review-header {
 		margin-top: 3px;
 		margin-bottom: 3px;
-		
 		border-top: 1px solid #ccc;
 		border-bottom: 1px solid #ccc;
 	}
-
 	
 	hr {
 		border-top: 1px solid #ccc;
@@ -146,6 +141,8 @@
 	
 	.table thead th {
 		border-bottom: 1px solid #eaeaea;
+		color: #444;
+		font-size: 15px;
 	}
 	
 	.table tbody tr td {
@@ -162,10 +159,12 @@
 	.prod-tit {
 		color: #333;
 		margin-bottom: 0;
+		font-size: 15px;
 	}
 	
 	.op-tit {
 		color: #888;
+		font-size: 13px;
 	}
 	
 	.op-price {
@@ -176,23 +175,237 @@
 		color: #999;
 	}
 	
+	.qt-btn {
+		border-radius: 5px !important;
+	}
+	
 	/* 옵션 */
 	.option {
 		vertical-align: middle;
 		display: inline-block;
 	}
 	
+	.op-div {
+		margin-bottom: 10px;
+	}
+	.op-div:last-of-type {
+		margin-bottom: 0;
+	}
+	
+	.op-div select {
+		min-width: 200px;
+	}
+	
+	/* 추가 이미지 */
+	.sm-img li {
+		
+	}
+	.sm-img li img:not(.img-active) {
+		cursor: pointer;
+		vertical-align: middle;
+		opacity: .3;
+		-ms-filter: alpha(opacity=30);
+    	filter: alpha(opacity=30);
+    	-moz-user-select: none;
+	    -webkit-transition: all 0.3s ease;
+	    -moz-transition: all 0.3s ease;
+	    -ms-transition: all 0.3s ease;
+	    -o-transition: all 0.3s ease;
+	    transition: all 0.3s ease;
+	    box-shadow: 0 3px 5px rgba(0,0,0,0);
+    	filter: url(data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'grayscale\'&gt;&lt;feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale);
+    	filter: gray;
+    	-webkit-filter: grayscale(100%);
+	}
+	
+	.sm-img li img.img-active {
+		opacity: 1;
+		filter: none;
+	}
+	
+	.sm-img li:hover img {
+		opacity: 1;
+		filter: none;
+	}
+	
   </style>
+  
+  <script type="text/javascript">
+  	// 상품 추가 이미지 처음 메인 이미지 필터 없앰
+  	$(function(){
+  		$(".sm-img li:nth-child(1) img").addClass("img-active");
+  	});
+  
+  	// 상품 추가 이미지 클릭시 이벤트
+  	$(function(){
+		$(".sm-img li img").click(function(){
+			$(".sm-img li img").removeClass("img-active");
+			let url = $(this).attr("src");
+			$(".lg-img").attr("href", url);
+			$(".lg-img img").attr("src", url);
+			$(this).addClass("img-active");
+		});
+	});
+  </script>
+  
+  <script type="text/javascript">
+  	function login() {
+		location.href="${pageContext.request.contextPath}/member/login";
+	}
+
+	function ajaxProd(url, method, query, dataType, fn) {
+		$.ajax({
+			type:method,
+			url:url,
+			data:query,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend:function(jqXHR) {
+				jqXHR.setRequestHeader("AJAX", true);
+			},
+			error:function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert("요청 처리가 실패 했습니다.");
+					return false;
+				}
+		    	
+				console.log(jqXHR.responseText);
+			}
+		});
+	}
+  </script>
+
+  <script type="text/javascript">
+  $(function(){
+		// 필수 옵션-1
+		$(".requiredOption").change(function(){
+			$(".requiredOption2 option").each(function(){
+				if($(this).is(":first-child")) {
+					return true; // continue
+				}
+				
+	        	$(this).remove();
+	        });
+			
+			let option2Num = $(this).val();
+			if(! option2Num) {
+				return false;
+			}
+			
+			let option1Num = $(".requiredOption").attr("data-optionNum");
+			let option1Sub = $(".requiredOption2").attr("data-optionNum2");
+			
+			let url = "${pageContext.request.contextPath}/shop/info/listOptionDetail2";
+			$.get(url, {option1Num:option1Num, option1Sub:option1Sub, option2Num:option2Num}, function(data){
+				$(data).each(function(index, item){
+					let option2Num = item.option2Num;
+					let option2Name = item.option2Name;
+					let extraPrice = item.extraPrice;
+					
+					$(".requiredOption2").append("<option value='"+option2Num+"' data-extra='"+extraPrice+"'>"+option2Name+"</option>");
+				});
+			});
+		});
+		
+		// 필수 옵션-2
+		$(".requiredOption2").change(function(){
+			if(! $(this).val()) {
+				return false;
+			}
+			let itemNum = "${dto.itemNum}";
+			if(! itemNum) {
+				return false;
+			}
+			
+			let subNum = $(".requiredOption").val();
+			let subNum2 = $(this).val();
+			
+			let b = true;
+			$(".order-area input[name=subNums2]").each(function(){
+				let snum = $(this).closest("tr.order-group").find("input[name=subNums]").val();
+				let snum2 = $(this).val();
+				if(subNum === snum && subNum2 === snum2) {
+					alert("선택된 옵션입니다.");
+					$(".requiredOption").val("");
+					$(".requiredOption").trigger("change");
+					b = false;
+					return false;
+				}
+			});
+			if(! b) {
+				return false;
+			}
+			
+			let optionValue = $(".requiredOption :selected").text();
+			let optionValue2 = $(".requiredOption2 :selected").text();
+			let extraPrice = $(".requiredOption2 :selected").attr("data-extra");
+			
+			let optionPrice = Number("${dto.price}") + Number(extraPrice);
+			
+			let opPriceResult = optionPrice.toLocaleString();
+			
+			let s = "- " + optionValue + " / " + optionValue2;
+			
+			let out = "";
+			out = '<tr class="order-group">';
+			out += '	<td>';		
+			out += '		<h6 class="prod-tit">${dto.itemName}</h6>';
+			out += '			<p class="op-tit">'+s+'</p>';
+			out += '	</td>';
+			out += '	<td>';
+			out += '		<div class="d-flex">';
+			out += '			<span class="input-group-btn mr-2">';
+			out += '					<button type="button" class="quantity-left-minus btn qt-btn" data-type="minus" data-field="">';
+			out += '						<i class="ion-ios-remove"></i>';
+			out += '					</button>';
+			out += '			</span>';
+			out += '			<input type="text" name="quantity" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
+			out += '			<input type="hidden" name="itemNums" value="+itemNum+">';
+			out += '			<input type="hidden" name="subNums" value="+subNum+">';
+			out += '			<input type="hidden" name="subNums2" value="+subNum2+">';
+			out += '			<span class="input-group-btn ml-2">';
+			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
+			out += '					<i class="ion-ios-add"></i>';
+			out += '				</button>';
+			out += '			</span>';
+			out += '		</div>';
+			out += '	</td>';
+			out += '	<td class="op-price" data-optionPrice="'+optionPrice+'">'+opPriceResult+'원</td>';
+			out += '	<td>';
+			out += '		<a href="#" class="x-btn">';
+			out += '			<i class="fa-regular fa-rectangle-xmark"></i>';
+			out += '		</a>';
+			out += '	</td>';
+			out += '</tr>';
+			
+			$("tbody.order-tbody").append(out);
+			
+		});
+  });
+  </script>
+  
   </head>
 
 	<section class="ftco-section pb-0">
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row">
 				<div class="col-lg-6 mb-5 animate__animated animate__fadeInUp" style="padding-left: 0 !important;">
-					<a href="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}" class="image-popup">
+					<a href="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}" class="image-popup lg-img">
 						<img src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
 							class="img-fluid" alt="${dto.itemName}">
 					</a>
+					<ul class="d-flex sm-img">
+						<c:forEach var="vo" items="${listProdImage}">
+							<li class="col col-lg-2 mt-2" style="padding-left: 0; padding-right: 0;">
+								<img class="img-fluid" alt="상품추가이미지" src="${pageContext.request.contextPath}/uploads/shop/${vo.photoName}">
+							</li>
+						</c:forEach>
+					</ul>
 				</div>
 				<div class="col-lg-6 product-details animate__animated animate__fadeInUp">
 					<h4>${dto.itemName}</h4>
@@ -205,7 +418,7 @@
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
 							<span class="${dto.discount==0 ? 'hidden' : ''}" style="color: red; font-size: 25px;">${dto.discount}%</span>
-							<span class="ml-2"  style="font-size: 25px;"><fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />원</span>
+							<span class="ml-2" style="font-size: 25px;"><fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />원</span>
 						</p>
 					</div>
 					<hr style="margin-bottom: 0">
@@ -231,90 +444,128 @@
 						<span>원</span>
 					</div>
 					<hr style="margin-top: 3px">
-					<div class="mt-3">
-						<div class="mb-3">
-							<div class="form-group d-flex w-100 justify-content-end align-items-center">
-								<span class="option mr-3">색상</span>
-								<div class="select-wrap">
-									<div class="icon">
-										<span class="ion-ios-arrow-down"></span>
-									</div>
-									<select name="" id="" class="form-control" style="border-radius: 5px">
-										<option value="">Small</option>
-										<option value="">Medium</option>
-										<option value="">Large</option>
-										<option value="">Extra Large</option>
-									</select>
+
+				<div class="my-3">
+					<c:if test="${not empty listOption[0]}">
+						<!-- 옵션1 -->
+						<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+							<span class="option mr-3">${listOption[0].option1Name}</span>
+							<div class="select-wrap">
+								<div class="icon">
+									<span class="ion-ios-arrow-down"></span>
 								</div>
+								<select name="" id="" class="form-control requiredOption"
+									data-optionNum="${listOption[0].option1Num}"
+									style="border-radius: 5px">
+									<option value="">-- ${listOption[0].option1Name} --</option>
+									<c:forEach var="vo" items="${listOptionDetail}">
+										<option value="${vo.option2Num}">
+											${vo.option2Name}&nbsp;${vo.extraPrice==0 ? "" : "(+"+vo.extraPrice+"원)"}
+										</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
-						<!-- 상품 표 -->
-						<div class="totalProducts mb-3">
-							<table class="table bordered">
-								<thead>
-									<tr>
-										<th>이름</th>
-										<th>수량</th>
-										<th>가격</th>
-										<th>&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
+						<!-- //옵션1 -->
+						<!-- 옵션2 -->
+						<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+							<span class="option mr-3">${listOption[1].option1Name}</span>
+							<div class="select-wrap">
+								<div class="icon">
+									<span class="ion-ios-arrow-down"></span>
+								</div>
+								<select name="" id="" class="form-control requiredOption2"
+									data-optionNum2="${listOption[1].option1Num}"
+									style="border-radius: 5px;">
+									<option value="">-- ${listOption[1].option1Name} --</option>
+								</select>
+							</div>
+						</div>
+						<!-- //옵션2 -->
+					</c:if>
+				</div>
+
+				<div class="order-area">
+					<div class="totalProducts mb-3">
+						<table class="table bordered">
+							<thead>
+								<tr>
+									<th>이름</th>
+									<th>수량</th>
+									<th>가격</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="order-tbody">
+								<c:if test="${empty listOption[0]}">
+									<tr class="order-group">
 										<td>
 											<h6 class="prod-tit">${dto.itemName}</h6>
-											<p class="op-tit">- 옐로우 / M</p>
+											<!--<p class="op-tit">- 옐로우 / M</p>-->
 										</td>
 										<td>
 											<div class="d-flex">
 												<span class="input-group-btn mr-2">
-													<button type="button" class="quantity-left-minus btn"
-														data-type="minus" data-field="" style="border-radius: 5px">
+													<button type="button" class="quantity-left-minus btn qt-btn"
+														data-type="minus" data-field="">
 														<i class="ion-ios-remove"></i>
 													</button>
 												</span>
-												<input type="text" name="quantity" class="form-control input-number quantity" value="1" min="1"
-													max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">
+												<input type="text" name="quantity"
+													class="form-control input-number quantity" value="1" min="1"
+													max="100"
+													style="border-radius: 5px; width: 60px !important; display: inline-block;">
+												<input type='hidden' name='itemNums' value="${itemNum}">
 												<span class="input-group-btn ml-2">
-													<button type="button" class="quantity-right-plus btn"
-														data-type="plus" data-field="" style="border-radius: 5px">
+													<button type="button" class="quantity-right-plus btn qt-btn"
+														data-type="plus" data-field="">
 														<i class="ion-ios-add"></i>
 													</button>
 												</span>
 											</div>
 										</td>
-										<td class="op-price">3,8000원</td>
-										<td>
-											<a href="#" class="x-btn">
-												<i class="fa-regular fa-rectangle-xmark"></i>
-											</a>
-										</td>
+										<td class="op-price" data-optionPrice="${dto.price}"><fmt:formatNumber value="${dto.price}" pattern="#,###" />원</td>
+										<td><a href="#" class="x-btn"> <i
+												class="fa-regular fa-rectangle-xmark"></i>
+										</a></td>
 									</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- //상품 표 -->
+								</c:if>
+							</tbody>
+						</table>
 					</div>
-	
-					<div class="rating d-flex"></div>
+					<!-- //상품 표 -->
+					
+					<!-- 총 결제금액 -->
 					<div class="">
 						<p class="originalPrice text-right">
 							<span style="color: #000">총 결제금액</span>
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
-							<span style="font-size: 25px;">17,000원</span>
+							<span style="font-size: 25px;">
+								<c:choose>
+									<c:when test="${empty listOption[0]}">
+										<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
+									</c:when>
+									<c:otherwise>
+										0원
+									</c:otherwise>
+								</c:choose>
+							</span>
 						</p>
 					</div>
-					<hr>
-					<div class="d-flex justify-content-end">
-						<p class="mr-2">
-							<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
-						</p>
-						
-							<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
-						
-					</div>
+					<!-- //총 결제금액 -->
 				</div>
+				
+				<hr>
+				
+				<div class="d-flex justify-content-end">
+					<p class="mr-2">
+						<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
+					</p>
+						
+					<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
+				</div>
+
 			</div>
 		</div>
 	</section>
@@ -724,15 +975,15 @@
 	<div class="cart">
 		<div class="product-thumbnail">
 			<img alt="product-image"
-				src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
+				src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
 				width="80" height="80">
 		</div>
 		<div class="product-name">
-			<a>수수펫스튜디오 수수까까 30g (3종)</a>
+			<a>${dto.itemName}</a>
 		</div>
 	</div>
 	<div class="cart-information px-4 my-3">
-		<span> <span> 배송비 </span> <span> 무료 </span> <span> 입니다.
+		<span> <span> 배송비 </span> <span> ${dto.deliveryFee}원 </span> <span> 입니다.
 		</span>
 		</span>
 		<div class="progress my-3" style="height: 5px;">
@@ -755,38 +1006,23 @@
 
 <script>
 	// 수량 증가
-	$(document).ready(function() {
-
-		var quantitiy = 0;
-		$('.quantity-right-plus').click(function(e) {
-
-			// Stop acting like a button
-			e.preventDefault();
-			// Get the field name
-			var quantity = parseInt($('.quantity').val());
-
-			// If is not undefined
-
-			$('.quantity').val(quantity + 1);
-
-			// Increment
-
-		});
-
-		$('.quantity-left-minus').click(function(e) {
-			// Stop acting like a button
-			e.preventDefault();
-			// Get the field name
-			var quantity = parseInt($('.quantity').val());
-
-			// If is not undefined
-
-			// Increment
-			if (quantity > 0) {
-				$('.quantity').val(quantity - 1);
-			}
-		});
-
+	var quantitiy = 0;
+	
+	$(".order-area").on("click", ".quantity-right-plus", function(e){
+		e.preventDefault();
+		
+		quantity = parseInt($('.quantity').val());
+		$('.quantity').val(quantity + 1);
+	});
+	
+	$(".order-area").on("click", ".quantity-left-minus", function(e){
+		e.preventDefault();
+		
+		quantity = parseInt($('.quantity').val());
+		
+		if (quantity > 0) {
+			$('.quantity').val(quantity - 1);
+		}
 	});
 
 	// 네비게이터 클릭 시 섹션으로 스크롤 이동

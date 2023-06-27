@@ -26,4 +26,10 @@ public interface ShopService {
 	
 	// 상품 추가 이미지
 	public List<Product> listProdImage(long itemNum);
+	
+	// 옵션명
+	public List<Product> listProdOption(long itemNum);
+	
+	// 옵션 내용
+	public List<Product> listOptionDetail(long option1Num);
 }
