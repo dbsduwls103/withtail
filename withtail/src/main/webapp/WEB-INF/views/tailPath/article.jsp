@@ -636,7 +636,8 @@ function fnMessagePopupClose() {
 
                 <ul class="list slick slick-initialized slick-slider">
                     
-                        <div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 15000px; transform: translate3d(0px, 0px, 0px);"><li class="petcompanion slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false">
+                        <div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 15000px; transform: translate3d(0px, 0px, 0px);">
+                        <li class="petcompanion slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false">
                             <span>펫동반 식당</span>
                         </li><li class="parking slick-slide slick-active" data-slick-index="1" aria-hidden="false">
                             <span>${item.parking}</span>
