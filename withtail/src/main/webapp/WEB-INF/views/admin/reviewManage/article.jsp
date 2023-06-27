@@ -135,17 +135,19 @@ function imageViewer(img) {
 
 
 
-function deleteBoard() {
-	    if(confirm("리뷰를 삭제 하시 겠습니까 ? ")) {
-		   // let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
-	    	//location.href = url;
+function deleteReivew(rvNum) {
+	    if(confirm("리뷰를 삭제 하시겠습니까 ? ")) {
+	    	let query = "rvNum="+rvNum+"&${query}";
+		    let url = "${pageContext.request.contextPath}/admin/reviewManage/deleteReview?" + query;
+	    	location.href = url;
 	    }
 	}
 
-function deleteReply() {
-    if(confirm("답변을 삭제 하시 겠습니까 ? ")) {
-	   // let url = "${pageContext.request.contextPath}/admin/reviewManage/delete?" + query;
-    	//location.href = url;
+function deleteReply(rvNum) {
+    if(confirm("답변을 삭제 하시겠습니까 ? ")) {
+    	let query = "rvNum="+rvNum+"&${query}";
+	    let url = "${pageContext.request.contextPath}/admin/reviewManage/deleteReply?" + query;
+    	location.href = url;
     }
 }
 
@@ -180,10 +182,10 @@ function sendAnswerOk() {
 					</tr>
 					<tr >
 						<td style="width: 60px;"></td>
-						<td style="padding: 0px;">${dto.userName }</td>
+						<td style="padding: 0px;">${dto.userName }(${dto.userId })</td>
 						<td style="padding: 0px; text-align: right;">${dto.regDate }</td>
 					</tr>
-					<tr style="border-bottom: 1px solid #eee; ">
+					<tr style="border-bottom: 1px solid #ced4da; ">
 						<td style="width: 60px;"></td>
 						<td align="center" style="padding-top: 0;">
 								<div class="score-star review-score-star">
@@ -210,12 +212,6 @@ function sendAnswerOk() {
 							
 							
 							<div style="display: flex">
-							<c:if test="${not empty dto.rvMainImage }">
-								<div class="img-box">
-									<img src="${pageContext.request.contextPath}/uploads/review/${dto.rvMainImage}"
-										onclick="imageViewer('${pageContext.request.contextPath}/uploads/review/${dto.rvMainImage}');">
-								</div>
-							</c:if>
 							<c:forEach var="p" items="${list }">
 								<div class="img-box">
 									<img src="${pageContext.request.contextPath}/uploads/review/${p.saveName}"
@@ -235,7 +231,7 @@ function sendAnswerOk() {
 				    	
 						<c:choose>
 				    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
-				    			<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
+				    			<button type="button" class="btn btn-light" onclick="deleteReivew(${dto.rvNum});">삭제</button>
 				    		</c:when>
 				    		<c:otherwise>
 				    			<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
@@ -250,23 +246,24 @@ function sendAnswerOk() {
 			<c:if test="${not empty dto.replyContent}">
 			<hr>
 			<br>
-			<table class="table mb-0">
+			<table class="table mb-0" style=" font-weight: bold;" >
 				<thead>
-					<tr style=" border-bottom: 1px solid #eee;">
-						<td>관리자</td>
-						<td style="text-align: right;">${dto.replyDate } <a onclick="deleteReply();"> | 삭제</a></td>
+					<tr >
+						<td style=" padding-left: 5px;">답변내용</td>
+						<td style="text-align: right; padding-right: 5px;">${dto.replyName}(${dto.replyId }) | ${dto.replyDate } <a onclick="deleteReply(${dto.rvNum});"> | 삭제</a></td>
 					</tr>
 
 				</thead>
 				
 				<tbody>
 					<tr>
-						<td colspan="2" valign="top" height="150" style="border-bottom: none;">
-							${replyContent }
+						<td colspan="2" valign="top" height="150" style="border: 1px solid #ced4da; padding-left: 7px;">
+							${dto.replyContent }
 						</td>
 					</tr>
 				</tbody>
 			</table>
+			<br><br><br><br>
 			</c:if>
 			
 			
@@ -286,7 +283,7 @@ function sendAnswerOk() {
 						<tr>
 						   <td align='right'>
 						        <button type='button' class='btn btn-light btnSendReply' onclick="sendAnswerOk()">답변 등록</button>
-						    	  <input type="hidden" name="num" value="${dto.rvNum}">
+						    	  <input type="hidden" name="rvNum" value="${dto.rvNum}">
 						        <input type="hidden" name="page" value="${page}">
 						        <input type="hidden" name="condition" value="${condition}">
 						        <input type="hidden" name="keyword" value="${keyword}">

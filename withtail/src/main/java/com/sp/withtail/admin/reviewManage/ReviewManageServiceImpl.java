@@ -79,13 +79,23 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	}
 
 	@Override
-	public void deleteAnswer(long num) throws Exception {
-		
+	public void deleteAnswer(long rvNum) throws Exception {
+		try {
+			dao.deleteData("reviewManage.deleteAnswer", rvNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
-	public void deleteReview(long num) throws Exception {
-		
+	public void deleteReview(long rvNum) throws Exception {
+		try {
+			dao.deleteData("reviewManage.deleteReview", rvNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 

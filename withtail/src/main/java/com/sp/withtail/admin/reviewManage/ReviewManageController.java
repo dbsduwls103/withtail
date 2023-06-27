@@ -121,6 +121,11 @@ public class ReviewManageController {
 		ReviewManage dto = service.readReview(rvNum);
 		List<ReviewManage> list = service.photolist(rvNum);
 		
+		if(dto != null) {
+			dto.setReplyContent(myUtil.htmlSymbols(dto.getReplyContent()));
+			dto.setRvContent(myUtil.htmlSymbols(dto.getRvContent()));
+		}
+		
 		if (dto == null) {
 			return "redirect:/admin/reviewManage/list?" + query;
 		}
@@ -161,9 +166,54 @@ public class ReviewManageController {
 	}
 	
 	
+	@RequestMapping(value = "deleteReply")
+	public String deleteAnswer(@RequestParam long rvNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session) throws Exception {
+
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		String query = "page=" + page;
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		ReviewManage dto = service.readReview(rvNum);
+		if (dto != null) {
+			try {
+				service.deleteAnswer(rvNum);
+			} catch (Exception e) {
+			}
+		}
+
+		return "redirect:/admin/reviewManage/list?" + query;
+	}
 	
 	
-	
+	@RequestMapping(value = "deleteReview")
+	public String delete(@RequestParam long rvNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session) throws Exception {
+
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		String query = "page=" + page;
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+		}
+
+		ReviewManage dto = service.readReview(rvNum);
+		if (dto != null) {
+			try {
+				service.deleteReview(rvNum);
+			} catch (Exception e) {
+			}
+		}
+
+		return "redirect:/admin/reviewManage/list?" + query;
+	}
 	
 }
  
