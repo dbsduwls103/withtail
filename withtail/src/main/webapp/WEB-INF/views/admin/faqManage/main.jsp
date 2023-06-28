@@ -44,13 +44,14 @@
 }
 .accordion h3.question:hover {
 	background-color: #82ae4654;
+		color: #666;
 }
 
 .accordion h3.question .q {
 	font-weight: 600;
 }
 .accordion h3.question .subject:hover {
-	color: #0d58ba;
+
 }
 
 .accordion div.answer {
