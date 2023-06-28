@@ -325,6 +325,16 @@ li {
     background-size: 34px 32px;
 }
 
+.contents_wrap .contents .detail_box .detail_text ul.list li.indoor {
+    background: url(${pageContext.request.contextPath}/resources/images/fixtures.png)no-repeat center 17px;
+    background-size: 34px 32px;
+}
+
+.contents_wrap .contents .detail_box .detail_text ul.list li.medical {
+    background: url(${pageContext.request.contextPath}/resources/images/firstaid.png)no-repeat center 17px;
+    background-size: 34px 32px;
+}
+
 .contents_wrap .contents .detail_box .detail_text ul.list li span {
     display: block;
     font-size: 14px;
@@ -539,21 +549,10 @@ function fnMessagePopupClose() {
 		<div class="contents_box">
 			<div class="tit_box">
 				<h2>
-					식음료
+					상세정보
 				</h2>
 			</div>
 
-			<!-- //tit_box -->
-			<a href="#A-Contents-focus" id="A-Contents-focus" class="blind">본문 시작</a>
-			<div class="contents_area">
-
-				<div class="tit">
-					<h3>
-						식음료
-					</h3>
-				</div>
-
-				
 				<div>
 					<!-- subForm contents starts -->
 
@@ -564,7 +563,7 @@ function fnMessagePopupClose() {
         <!-- file list -->
         <div class="detail_img">
             <div >
-                 <div class="imgbox" style="background:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png); background-size:cover;"></div>
+                 <div class="imgbox" style="background:url(${pageContext.request.contextPath}/resources/images/image-test.jpg); background-size:cover;"></div>
             </div>
             <!-- 
             <div class="control">
@@ -599,7 +598,7 @@ function fnMessagePopupClose() {
                 <dl>
                     <dt class="address">주소</dt>
                     <dd>
-                        <span id="copy-address">${item.address}</span>&nbsp;
+                        <span id="copy-address">${not empty item.address ? item.address2 : item.address}</span>&nbsp;
                         <a href="#;" class="btn-copy-address">
                             <img src="${pageContext.request.contextPath}/resources/images/icon8.png" title="주소 복사하기" style="width: 18px; vertical-align: middle;">
                         </a>
@@ -627,23 +626,30 @@ function fnMessagePopupClose() {
 
             <!-- icon list -->
             <div class="list_slick clearfix">
-                <div class="control">
-                    <button class="prev slick-arrow slick-hidden" aria-disabled="true" tabindex="-1"><span class="blind">이전버튼</span></button>
-                    <button class="pause"><span class="blind">일시정지</span></button>
-                    <button class="next slick-arrow slick-hidden" aria-disabled="true" tabindex="-1"><span class="blind">다음버튼</span></button>
-                </div>
-                <!-- //control -->
+
 
                 <ul class="list slick slick-initialized slick-slider">
                     
-                        <div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 15000px; transform: translate3d(0px, 0px, 0px);">
-                        <li class="petcompanion slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false">
-                            <span>펫동반 식당</span>
-                        </li><li class="parking slick-slide slick-active" data-slick-index="1" aria-hidden="false">
-                            <span>${item.parking}</span>
-                        </li><li class="outdoor slick-slide slick-active" data-slick-index="2" aria-hidden="false">
-                            <span>실외</span>
-                        </li></div></div>
+                        <div aria-live="polite" class="slick-list draggable">
+                        	<div class="slick-track" style="opacity: 1; width: 15000px; transform: translate3d(0px, 0px, 0px);">
+		                        <li class="petcompanion slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false">
+		                            <span>펫동반 식당</span>
+		                        </li>
+		                        <li class="parking slick-slide slick-active" data-slick-index="1" aria-hidden="false">
+		                            <span>${item.parking}</span>
+		                        </li>
+		                        <li class="outdoor slick-slide slick-active" data-slick-index="2" aria-hidden="false">
+		                            <span>${item.outdoor}</span>
+		                        </li>
+		                        <li class="indoor slick-slide slick-active" data-slick-index="3" aria-hidden="false">
+		                            <span>${item.indoor}</span>
+		                        </li>
+		                        <li class="medical slick-slide slick-active" data-slick-index="4" aria-hidden="false">
+		                            <span>의료시설</span>
+		                        </li>
+                        	</div>
+                        </div>
+
                 </ul>
                 <!-- //list -->
 
@@ -659,19 +665,7 @@ function fnMessagePopupClose() {
     <div class="text_box not-pc05">
         <h4 class="title">소개</h4>
         <p>
-            저희 아울러는 커피, 로컬음료, 디저트, 샐러드, 피자, 파스타 등의 상품을 만들어 판매하는 채널입니다.
-<br>춘천 농산물(로컬푸드)를 이용하여 더욱 신선하고, 지역 농가와 상생하는 기업입니다.
-        </p>
-    </div>
-    <!-- //text_box -->
 
-    <div class="text_box not-pc05">
-        <h4 class="title">주요시설</h4>
-        <p>
-            - 카페 전용 주차장
-<br>- 실내테이블
-<br>- 캠핑감성 야외테이블
-<br>- 야외 애견동반공간
         </p>
     </div>
     <!-- //text_box -->
@@ -679,12 +673,11 @@ function fnMessagePopupClose() {
     <div class="text_box not-pc05">
         <h4 class="title">이용요금</h4>
         <p>
-            &lt;대표메뉴&gt;
-<br>- 춘천쌀떡볶이
-<br>- 트러플오일파스타
-<br>- 감자마르게리타파스타
-<br>- 춘천방울토마토카프레제
-<br>- 353라거
+			-입장가격정보: ${item.charge}
+		<br>-반려동물 동반 추가 요금: ${item.petCharge}
+		<br>
+		<br>* 입장가격정보를 확인할 수 없으면 시설 홈페이지에서 직접 확인해주세요.
+		
         </p>
     </div>
     <!-- //text_box -->
@@ -692,12 +685,12 @@ function fnMessagePopupClose() {
     <div class="text_box not-pc05">
         <h4 class="title">애견 정책 및 주의사항</h4>
         <p>
-            - 견종 및 무게제한 없음
-<br>- 애견식당이 아닌 애견동반식당이므로 케어를 부탁드립니다
-<br>- 케이지나 유모차 지참 또는 안아서 이동하지 않도록 지도해주세요
+            - 반려동물 제한사항: ${item.petLimit}
+<br>- 크기제한: ${item.petSize}
+<br>- 전용여부: ${item.petInfo}
 <br>
 <br>- 3차 예방접종을 마친 반려견만 입장가능합니다.
-<br>- 마킹 또는 마운팅을 하는 반려견들에게는 매너벨트 또는 기저귀를 필수로 착용부탁드립니다.
+<br>- 마킹 또는 마운팅을 하는 반려견들에게는 매너벨트 또는 기저귀를 착용부탁드립니다.
 <br>- 반려견의 배변은 견주님이 직접 치워주세요.
 <br>- 반려견이 공격적인 성향이 강하거나 많이 예민한 경우 입장이 제한될 수 있습니다.
 <br>
@@ -709,10 +702,10 @@ function fnMessagePopupClose() {
     <div class="text_box map">
         <h4 class="title">지도보기</h4>
         <p>
-            주소 : 강원 춘천시 뱀내길 6
+            주소 : ${not empty item.address ? item.address2 : item.address}
         </p>
         <div class="map-box">
-            <div id="map" style="width: auto; height: 100%; position: relative; overflow: hidden; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/bg_tile.png&quot;);"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; touch-action: none; cursor: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/cursor/openhand.cur.ico&quot;) 7 5, url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/cursor/openhand.cur.ico&quot;), default;"><div style="position: absolute;"><div style="position: absolute; z-index: 0;"></div><div style="position: absolute; z-index: 1; left: 0px; top: 0px;"><img src="https://map3.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1139.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: -92px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map0.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1140.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 164px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map1.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1141.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 420px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map2.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1142.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 676px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map3.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1143.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 932px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map0.daumcdn.net/map_2d_hd/2306uwn/L3/2132/1144.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 1188px; top: 106px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map3.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1139.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: -92px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map0.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1140.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 164px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map1.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1141.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 420px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map2.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1142.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 676px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map3.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1143.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 932px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"><img src="https://map0.daumcdn.net/map_2d_hd/2306uwn/L3/2133/1144.png" alt="" role="presentation" draggable="false" style="position: absolute; user-select: none; -webkit-user-drag: none; min-width: 0px; min-height: 0px; max-width: none; max-height: none; left: 1188px; top: -150px; opacity: 1; transition-property: opacity; transition-duration: 0.2s; transition-timing-function: ease; width: 256px; height: 256px;"></div><div style="position: absolute; z-index: 1;"></div><div style="position: absolute; z-index: 1; width: 846px; height: 237px;"></div><div style="position: absolute; z-index: 1;"><svg version="1.1" style="stroke: none; stroke-dashoffset: 0.5; stroke-linejoin: round; fill: none; transform: translateZ(0px); position: absolute; left: -1692px; top: -474px; width: 4230px; height: 1185px;" viewBox="0 0 4230 1185"><defs></defs><ellipse id="daum-maps-shape-0" style="stroke:#75B8FA;stroke-opacity:1;stroke-width:5px;stroke-dasharray:0.5,9.5;color:#75B8FA;stroke-linecap:round;fill:#CFE7FF;fill-opacity:0.7;fill-rule:evenodd;" cx="2292" cy="593" rx="50" ry="50" gtype="oval"></ellipse></svg></div><div style="position: absolute; z-index: 1; width: 100%; height: 0px; transform: translateZ(0px);"><div style="position: absolute; z-index: 0; white-space: nowrap; margin: -67px 0px 0px -56px; left: 600px; top: 119px;"><div class="overlay_info">    <strong>아울러</strong></div></div></div></div></div><div style="position: absolute; cursor: default; z-index: 1; margin: 0px 6px; height: 19px; line-height: 14px; left: 0px; bottom: 0px; color: rgb(0, 0, 0);"><div style="color: rgb(0, 0, 0); text-align: center; font-size: 10px; float: left;"><div style="float: left; margin: 2px 3px 0px 4px; height: 6px; transition: width 0.1s ease 0s; border-top: none rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 2px solid rgb(0, 0, 0); border-image: initial; width: 46px;"></div><div style="float: left; margin: 0px 4px 0px 0px; font-family: AppleSDGothicNeo-Regular, 돋움, dotum, sans-serif; font-weight: bold; color: rgb(0, 0, 0);">50m</div></div><div style="margin: 0px 4px; float: left;"><a target="_blank" href="http://map.kakao.com/" title="Kakao 지도로 보시려면 클릭하세요." style="float: left; width: 32px; height: 10px;"><img src="https://t1.daumcdn.net/mapjsapi/images/2x/m_bi_b.png" alt="Kakao 지도로 이동" style="float: left; width: 32px; height: 10px; border: none;"></a><div style="font: 11px / 11px Arial, Tahoma, Dotum, sans-serif; float: left;"></div></div></div><div style="cursor: auto; position: absolute; z-index: 2; left: 0px; top: 0px;"><div style="width: 106px; height: 32px; box-sizing: content-box; background-color: rgb(255, 255, 255); padding: 2px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px; position: absolute; left: 733px; top: 3px;"><button draggable="false" title="지도" type="button" style="float: left; cursor: default; width: 43px; height: 32px; user-select: none; -webkit-user-drag: none; border: none; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -5px -183px / 116px 264px no-repeat; color: rgb(255, 255, 255); font-weight: bold;"></button><button draggable="false" title="스카이뷰" type="button" style="float: left; cursor: pointer; width: 63px; height: 32px; user-select: none; -webkit-user-drag: none; border: none; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -48px -183px / 116px 264px no-repeat; color: rgb(0, 0, 0); font-weight: normal;"></button></div><div style="width: 32px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px; position: absolute; left: 811px; top: 42px;"><button draggable="false" title="확대" type="button" style="float: left; cursor: pointer; width: 32px; height: 32px; user-select: none; -webkit-user-drag: none; border-top: none; border-right: none; border-bottom: 1px solid rgb(226, 226, 226); border-left: none; border-image: initial; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -40px 0px / 116px 264px no-repeat rgb(255, 255, 255); border-radius: 3px 3px 0px 0px;"></button><div style="float: left; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/bg_zoom_control.png&quot;) repeat; padding: 7px 0px; transition: height 0s ease 0s, margin 0.1s ease 0s;"><div style="cursor: pointer; position: relative; background-size: 116px 264px; transition: height 0.1s ease 0s; margin: 2px 0px; display: block; width: 32px; height: 104px;"><div style="position: absolute; width: 4px; height: 100%; background-color: rgb(51, 150, 255); left: 50%; margin: 0px 0px 0px -2px;"><div style="width: 4px; height: 2px; margin-bottom: -2px; bottom: 0px; position: absolute; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -50px -127px / 116px 264px;"></div><div style="width: 4px; height: 2px; margin-top: -2px; top: 0px; position: absolute; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -40px -100px / 116px 264px;"></div></div><div style="position: absolute; background-color: rgb(204, 204, 204); transition: height 0.1s ease 0s; left: 50%; margin: 0px 0px 0px -2px; width: 4px; height: 16px;"></div><div style="cursor: row-resize; position: absolute; width: 20px; height: 10px; margin: -4px 0px 0px -10px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -40px -80px / 116px 264px; left: 50%; transition: top 0.1s ease 0s; top: 16px;"></div></div></div><button draggable="false" title="축소" type="button" style="float: left; cursor: pointer; width: 32px; height: 32px; user-select: none; -webkit-user-drag: none; border-top: 1px solid rgb(226, 226, 226); border-right: none; border-bottom: none; border-left: none; border-image: initial; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) -40px -32px / 116px 264px no-repeat rgb(255, 255, 255); border-radius: 0px 0px 3px 3px; margin: 0px;"></button><div style="display: none; position: absolute; margin: 41px 0px 0px -30px; background-size: 116px 264px; width: 30px; height: 104px;"><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) 0px -80px / 116px 264px; left: 0px; top: 8px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) 0px -100px / 116px 264px; left: 0px; top: 32px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) 0px -120px / 116px 264px; left: 0px; top: 64px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) 0px -140px / 116px 264px; left: 0px; top: 80px;"></div><div style="position: absolute; width: 29px; height: 15px; margin: -6px 0px 0px; background: url(&quot;https://t1.daumcdn.net/mapjsapi/images/2x/control.png&quot;) 0px -160px / 116px 264px; left: 0px; top: 96px;"></div></div></div></div></div>
+            <div id="map" style="width:100%;height:350px;"></div>
         </div>
     </div>
     <!-- //text_box -->
@@ -754,6 +747,29 @@ function fnMessagePopupClose() {
 </div>
 </div>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5a6cbdb90b0a96211438a827b306cefa"></script>
+<script>
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(${item.lat}, ${item.lng}), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(${item.lat}, ${item.lng}); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+ 
+</script>
 <script>
 $(document).ready(function () {
 	
@@ -790,6 +806,29 @@ $(document).ready(function () {
 
 
 <script type="text/javascript">
+var category2Value = "${item.category2}";
+var listItem = document.querySelector('.petcompanion');
+var listItem2 = document.querySelector('.medical');
+if (category2Value === "반려동물식당카페") {
+  // Show the list item
+  listItem.style.display = 'block';
+  listItem.setAttribute('aria-hidden', 'false');
+} else {
+  // Hide the list item
+  listItem.style.display = 'none';
+  listItem.setAttribute('aria-hidden', 'true');
+}
+
+if (category2Value === "반려의료") {
+	  // Show the list item
+	  listItem2.style.display = 'block';
+	  listItem2.setAttribute('aria-hidden', 'false');
+	} else {
+	  // Hide the list item
+	  listItem2.style.display = 'none';
+	  listItem2.setAttribute('aria-hidden', 'true');
+	}
+
 $(function() {
             $(".jjimbtn").click(function() {
             	const state = $(this).attr("data-state");

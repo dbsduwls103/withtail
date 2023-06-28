@@ -105,11 +105,18 @@ a{
     border-style: none;
 }
 
+.btnSendOk{
+	color: #82ae46;
+}
+
+.btnSendOk:hover{
+	color: #ccc;
+}
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #82ae46;color: white;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
@@ -162,26 +169,7 @@ $('.box button.close').click(function() {
 	            <button type="submit" class="searchbtn" >검색</button>
             </form>
 				<div style="display: flex;">
-                    <div class="pad">
-	                    <a href="">
-	                        <span>관광</span>
-	                    </a>
-                    </div>
-                    <div class="pad">
-	                    <a href="">
-	                        <span>식음료</span>
-	                    </a>
-                    </div>
-                    <div class="pad">
-	                    <a href="">
-	                        <span>체험</span>
-	                    </a>
-                    </div>
-                    <div class="pad">
-	                    <a href="">
-	                        <span>동물병원</span>
-	                    </a>
-                    </div>
+                    
                   </div>
         </div>
 
@@ -291,14 +279,10 @@ function printJSON(data) {
 
 		 
 		 if(item["시도 명칭"] === "경기도" || item["시도 명칭"] === "서울특별시"){
-			 let params = {};
-			 params.city = item["시도 명칭"];
-			 
-			 
-			 var homepage = item.홈페이지 !== "정보없음" ? '<a href="' + addProtocol(item.홈페이지) + '" target="_blank" class="link">홈페이지</a>' : '홈페이지 정보없음';
 			 
 			 var link = '<a href="#" class="button btnSendOk" ';
 			 link += ' data-address="' + item["도로명주소"] + '"';
+			 link += ' data-address2="' + item["지번주소"] + '"';
 			 link += ' data-facilityName="' + item["시설명"] + '"';
 			 link += ' data-withPet="' + item["반려동물 동반 가능정보"] + '"';
 			 link += ' data-petInfo="' + item["반려동물 전용 정보"] + '"';
@@ -314,7 +298,11 @@ function printJSON(data) {
 			 link += ' data-city2="' + item["시군구 명칭"] + '"';
 			 link += ' data-city3="' + item["법정읍면동명칭"] + '"';
 			 link += ' data-category="' + item["카테고리3"] + '"';
-
+			 link += ' data-indoor="' + item["장소(실내) 여부"] + '"';
+			 link += ' data-outdoor="' + item["장소(실외)여부"] + '"';
+			 link += ' data-category2="' + item["카테고리2"] + '"';
+			 link += ' data-lat="' + item["위도"] + '"';
+			 link += ' data-lng="' + item["경도"] + '"';
 			 link += '>상세정보</a>';
 			 let obj = {lat:item.위도, lng: item.경도,  category: item.카테고리2, category2: item.카테고리3,
 			 content: '<div class="wrap">' + 
@@ -324,8 +312,7 @@ function printJSON(data) {
 	            '        </div>' + 
 	            '        <div class="body">' + 
 	            '            <div class="desc">' + 
-	            '                <div class="ellipsis">'+item.도로명주소+'</div>' + 
-	            '                <div class="jibun ellipsis">(우)'+ item.우편번호 + '(지번)' + item.지번주소 +'</div>' + 
+	            '                <div class="ellipsis mb-3">' + (item.도로명주소 || item.지번주소) + '</div>' + 
 	            '                ' + link + ' ' +  		
 	            '            </div>' + 
 	            '        </div>' + 
@@ -432,6 +419,7 @@ $(function(){
 		const f = document.itemForm;
 		
 		f.address.value = $(this).attr("data-address");
+		f.address2.value = $(this).attr("data-address2");
 		f.facilityName.value = $(this).attr("data-facilityName");
 		f.withPet.value = $(this).attr("data-withPet");
 		f.petInfo.value = $(this).attr("data-petInfo");
@@ -447,7 +435,11 @@ $(function(){
 		f.city2.value = $(this).attr("data-city2");
 		f.city3.value = $(this).attr("data-city3");
 		f.category.value = $(this).attr("data-category");
-		
+		f.indoor.value = $(this).attr("data-indoor");
+		f.outdoor.value = $(this).attr("data-outdoor");
+		f.category2.value = $(this).attr("data-category2");
+		f.lat.value = $(this).attr("data-lat");
+		f.lng.value = $(this).attr("data-lng");
 		f.action = "${pageContext.request.contextPath}/tailPath/article";
 		f.submit();
 
@@ -457,6 +449,7 @@ $(function(){
 
 <form name="itemForm" method="post">
 	<input type="hidden" name="address">
+	<input type="hidden" name="address2">
 	<input type="hidden" name="facilityName">
 	<input type="hidden" name="withPet">
 	<input type="hidden" name="petInfo">
@@ -471,5 +464,10 @@ $(function(){
 	<input type="hidden" name="city1">
 	<input type="hidden" name="city2">
 	<input type="hidden" name="city3">
-	<input type="hidden" name="category">	
+	<input type="hidden" name="category">
+	<input type="hidden" name="indoor">
+	<input type="hidden" name="outdoor">
+	<input type="hidden" name="category2">
+	<input type="hidden" name="lng">
+	<input type="hidden" name="lat">	
 </form>
