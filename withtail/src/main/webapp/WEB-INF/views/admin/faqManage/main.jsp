@@ -5,11 +5,17 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 <style type="text/css">
-.body-main {
-	max-width: 1140px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
-.btn{border-radius: 10px;}
 
+.body-main {
+	width: 960px;
+}
+.btn{
+	border-radius: 0.375rem;
+	height: 37px;
+}
 .btn:hover{background: #6C757D; color: white}
 
 
@@ -208,7 +214,7 @@ function deleteFaq(num, page) {
 }
 </script>
 
-<div class="body-container">
+<div class="out">
     
     <div class="body-main">
     <div class="body-title">

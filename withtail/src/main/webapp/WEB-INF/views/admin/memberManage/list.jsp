@@ -6,8 +6,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 1140px;
+	width: 960px;
 }
 
 .tabmenu{ 
@@ -324,6 +328,9 @@ function block(userId) {
           $("#btn_2").click(function() {
         	  location.href="${pageContext.request.contextPath}/admin/memberManage/list/stop"
           });
+          $("#btn_3").click(function() {
+        	  location.href="${pageContext.request.contextPath}/admin/memberManage/list/withdraw"
+          });
 	});
 </script>
 
@@ -428,7 +435,7 @@ function insertOk(userId) {
 
 </script>
  
-<div class="body-container">
+<div class="out">
 
     
     <div class="body-main">
@@ -466,7 +473,13 @@ function insertOk(userId) {
 						   <div style="display: inline-block;">
 								<select name="condition2" class="category">
 								    <option value="regDate" ${condition2=="regDate"?"selected='selected'":""}> 가입일자 </option>
-								    <option value="stRegDate" ${condition2=="stRegDate"?"selected='selected'":""}> 상태처리일자 </option>
+								    <c:if test="${state =='withdraw' }">
+									    <option value="stRegDate" ${condition2=="stRegDate"?"selected='selected'":""}> 탈퇴일자 </option>
+									</c:if>
+								    <c:if test="${state !='withdraw' }">
+									    <option value="stRegDate" ${condition2=="stRegDate"?"selected='selected'":""}> 상태처리일자 </option>
+									</c:if>
+									
 								</select>
 							</div>
 							<div style="display: inline-block; text-align: right; width: 13.9%; ">
@@ -507,6 +520,7 @@ function insertOk(userId) {
     	 <div class="tab">
 	        <button type="button" class="tab-button ${state=='general'?'active':'' }" id="btn_1" >정상 회원</button>
 	        <button type="button" class="tab-button ${state=='stop'?'active':'' }" id="btn_2" >정지 회원</button>
+	        <button type="button" class="tab-button ${state=='withdraw'?'active':'' }" id="btn_3" >탈퇴 회원</button>
    		</div>
     </div>
     
@@ -525,14 +539,21 @@ function insertOk(userId) {
 						<th class="wx-100">회원 이름</th>
 						<th class="wx-80">상태</th>
 						<th class="wx-130">가입일자</th>
-						<th class="wx-130">상태처리일자</th>
+						<c:if test="${state !='withdraw' }">
+							<th class="wx-130">상태처리일자</th>
+						</c:if>
+						<c:if test="${state =='withdraw' }">
+							<th class="wx-130">탈퇴일자</th>
+						</c:if>
 						<th class="wx-200">마지막 로그인</th>
-						<th class="wx-200">관리</th>
+						<c:if test="${state !='withdraw' }">
+							<th class="wx-200">관리</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach var="dto" items="${list}">
-							<tr class="pointhover" >
+							<tr class="pointhover" style="height: 55.8px;">
 								<td>${dto.num }</td>
 								<td   style="cursor: pointer;" onclick="profile('${dto.userId}');">
 									${dto.userId }
@@ -542,14 +563,16 @@ function insertOk(userId) {
 								<td style="cursor: pointer;" onclick="profile('${dto.userId}');">${not empty dto.regDate? dto.regDate:"--"}</td>
 								<td style="cursor: pointer;" onclick="profile('${dto.userId}');">${not empty dto.stRegDate? dto.stRegDate:"--"}</td>
 								<td style="cursor: pointer;" onclick="profile('${dto.userId}');">${empty dto.lastLogin ? "--":dto.lastLogin }</td>
-								<td>
+									<c:if test="${state !='withdraw' }">
+										<td>
 									<c:if test="${state=='general'}">
-										<button class="btn" onclick="profile2('${dto.userId}');" style="width: 50px; height: 35px;">정지</button> 
+											<button class="btn" onclick="profile2('${dto.userId}');" style="width: 50px; height: 35px;">정지</button> 
 									</c:if>
-									<c:if test="${state=='stop'}">
-										<button class="btn" onclick="block('${dto.userId}');">정지 해제</button> 
+										<c:if test="${state=='stop'}">
+											<button class="btn" onclick="block('${dto.userId}');" style="height: 35px;">정지 해제</button> 
+										</c:if>
+									</td>
 									</c:if>
-								</td>
 							</tr>
 				  </c:forEach>
 				  	</tbody>

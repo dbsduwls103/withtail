@@ -5,8 +5,13 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
+
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 1140px;
+	width: 960px;
 }
 
 .badge {
@@ -29,8 +34,8 @@ function searchList() {
 }
 </script> 
 
-    
-    <div class="body-main">
+    <div class="out" >
+    <div class="body-main" style="padding: 0 auto;">
     <div class="body-title">
 		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
@@ -131,3 +136,4 @@ function searchList() {
 		</table>
 
 	</div>
+</div>

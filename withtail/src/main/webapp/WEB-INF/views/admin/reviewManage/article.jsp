@@ -93,11 +93,17 @@ img {
 
 img {width: 50px;}
 
-.body-main {
-	max-width: 1140px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
-.btn{border-radius: 10px;}
 
+.body-main {
+	width: 960px;
+}
+.btn{
+	border-radius: 0.375rem;
+	height: 37px;
+}
 .btn:hover{background: #6C757D; color: white}
 
 
@@ -167,7 +173,7 @@ function sendAnswerOk() {
 
 
 
-
+<div class="out">
 		<div class="body-main">
 <div class="body-title">
 <h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
@@ -202,7 +208,7 @@ function sendAnswerOk() {
 				<tbody>
 					
 					<tr>
-						<td colspan="2" valign="top" height="150" style="border-bottom: none; padding: 20px">
+						<td colspan="2" valign="top" height="150" style="border-bottom: none; padding: 20px; font-weight: normal;" >
 							${dto.rvContent }
 						</td>
 					</tr>
@@ -250,14 +256,14 @@ function sendAnswerOk() {
 				<thead>
 					<tr >
 						<td style=" padding-left: 5px;">답변내용</td>
-						<td style="text-align: right; padding-right: 5px;">${dto.replyName}(${dto.replyId }) | ${dto.replyDate } <a onclick="deleteReply(${dto.rvNum});"> | 삭제</a></td>
+						<td style="text-align: right; padding-right: 5px; ">${dto.replyName}(${dto.replyId }) | ${dto.replyDate } <a onclick="deleteReply(${dto.rvNum});"> | 삭제</a></td>
 					</tr>
 
 				</thead>
 				
 				<tbody>
 					<tr>
-						<td colspan="2" valign="top" height="150" style="border: 1px solid #ced4da; padding-left: 7px;">
+						<td colspan="2" valign="top" height="150" style="border: 1px solid #ced4da; padding-left: 7px; font-weight: normal;">
 							${dto.replyContent }
 						</td>
 					</tr>
@@ -295,7 +301,7 @@ function sendAnswerOk() {
 			</div>
 			</c:if>
 		</div>
-
+</div>
 
 <div class="dialog-photo">
       <div class="photo-layout"></div>

@@ -72,6 +72,7 @@
 							<c:if test="${state.stateCode == 5 }">타계정 도용</c:if>
 							<c:if test="${state.stateCode == 6 }">기타 약관 위반</c:if>
 							<c:if test="${state.stateCode == 7 }">1년 이상 로그인하지 않음</c:if>
+							<c:if test="${state.stateCode == 8 }">회원탈퇴</c:if>
 						</td>
 						<td>${state.memo }</td>
 						<td>${state.stRegDate }</td>

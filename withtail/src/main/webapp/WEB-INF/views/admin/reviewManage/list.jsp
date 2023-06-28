@@ -4,8 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 1140px;
+	width: 960px;
 }
 .favorite {
     align-items: flex-start;
@@ -260,7 +264,7 @@ function searchList() {
 	f.submit();
 }
 </script> 
- 
+ <div class="out">
 <div class="body-main">
  	 <div class="body-title">
 		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
@@ -339,3 +343,4 @@ function searchList() {
 		</table>
 		</div>	
 
+</div>
