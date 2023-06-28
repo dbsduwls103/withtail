@@ -232,6 +232,13 @@
 		filter: none;
 	}
 	
+	/*상품 상세 아래*/
+	.bb-green {
+		border-bottom: 2px solid #82ae46;
+		padding-bottom: 2px !important;
+		color: #82ae46 !important;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -409,23 +416,13 @@
 		
 		let s = totalPrice.toLocaleString();
 		
-		//$(".product-totalQty").text(totalQty);
+		$(".total-qty").text("("+totalQty+"개)");
 		$(".total-price").text(s);
 	}
   	
-  	// 수량
   	$(function(){
   		// 수량 증가
-  		//var quantitiy = 0;
-  		
   		$(".order-area").on("click", ".quantity-right-plus", function(e){
-  			/*
-  			e.preventDefault();
-  			
-  			quantity = parseInt($('.quantity').val());
-  			$('.quantity').val(quantity + 1);
-  			*/
-  			
   			let $order = $(this).closest("tr.order-group");
   			let qty = parseInt($order.find("input[name=qtys]").val()) + 1;
   			$order.find("input[name=qtys]").val(qty);
@@ -442,16 +439,6 @@
   		
   		// 수량 빼기
   		$(".order-area").on("click", ".quantity-left-minus", function(e){
-  			/*
-  			e.preventDefault();
-  			
-  			quantity = parseInt($('.quantity').val());
-  			
-  			if (quantity > 0) {
-  				$('.quantity').val(quantity - 1);
-  			}
-  			*/
-  			
   			let $order = $(this).closest("tr.order-group");
   			let qty = parseInt($order.find("input[name=qtys]").val()) - 1;
   			
@@ -486,14 +473,14 @@
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row">
 				<div class="col-lg-6 mb-5 animate__animated animate__fadeInUp" style="padding-left: 0 !important;">
-					<a href="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}" class="image-popup lg-img">
-						<img src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
+					<a href="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}" class="image-popup lg-img">
+						<img src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"
 							class="img-fluid" alt="${dto.itemName}">
 					</a>
 					<ul class="d-flex sm-img">
 						<c:forEach var="vo" items="${listProdImage}">
 							<li class="col col-lg-2 mt-2" style="padding-left: 0; padding-right: 0;">
-								<img class="img-fluid" alt="상품추가이미지" src="${pageContext.request.contextPath}/uploads/shop/${vo.photoName}">
+								<img class="img-fluid" alt="상품추가이미지" src="${pageContext.request.contextPath}/uploads/item/${vo.photoName}">
 							</li>
 						</c:forEach>
 					</ul>
@@ -628,10 +615,20 @@
 					</div>
 					<!-- //상품 표 -->
 					
-					<!-- 총 결제금액 -->
+					<!-- 총 상품금액 -->
 					<div class="">
 						<p class="originalPrice text-right">
-							<span style="color: #000">총 결제금액</span>
+							<span style="color: #000">총 상품금액</span>
+							<span class="total-qty">
+								<c:choose>
+									<c:when test="${empty listOption[0]}">
+										(1개)
+									</c:when>
+									<c:otherwise>
+										(0개)
+									</c:otherwise>
+								</c:choose>
+							</span>
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
 							<span style="font-size: 25px;">
@@ -648,7 +645,7 @@
 							</span>
 						</p>
 					</div>
-					<!-- //총 결제금액 -->
+					<!-- //총 상품금액 -->
 				</div>
 				
 				<hr>
@@ -670,22 +667,22 @@
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
-					<a href="#detailSection">Detail</a>
+					<a href="#detailSection" class="bb-green">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection">Review</a>
+					<a href="#reviewSection">리뷰</a>
 				</div>
 				<div class="moveToQnA">
-					<a href="#qnaSection">Q&A</a>
+					<a href="#qnaSection">배송/교환/환불</a>
 				</div>
 			</div>
 			<div class="row justify-content-center mb-3 pb-3">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Detail</span>
-					<h2 class="mb-4">Products Detail</h2>
-					<img
-						src="${pageContext.request.contextPath}/resources/images/test-img.jpg"
-						class="img-fluid" alt="Colorlib Template">
+					<h2 class="mb-4">상품상세</h2>
+					<div>
+						${dto.itemContent}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -695,19 +692,19 @@
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
-					<a href="#detailSection">Detail</a>
+					<a href="#detailSection">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection">Review</a>
+					<a href="#reviewSection" class="bb-green">리뷰</a>
 				</div>
 				<div class="moveToQnA">
-					<a href="#qnaSection">Q&A</a>
+					<a href="#qnaSection">배송/교환/환불</a>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Review</span>
-					<h2 class="mb-4">Products Review</h2>
+					<h2 class="mb-4">상품리뷰</h2>
 					<div class="review-container">
 	
 						<div class="col-md-12 d-flex ftco-animate"
@@ -876,19 +873,19 @@
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="navigator">
 				<div class="moveToDetail">
-					<a href="#detailSection">Detail</a>
+					<a href="#detailSection">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection">Review</a>
+					<a href="#reviewSection">리뷰</a>
 				</div>
 				<div class="moveToQnA">
-					<a href="#qnaSection">Q&A</a>
+					<a href="#qnaSection" class="bb-green">배송/교환/환불</a>
 				</div>
 			</div>
 			<div class="row justify-content-center mb-3 pb-3">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Q&A</span>
-					<h2 class="mb-4">Question And Answer</h2>
+					<h2 class="mb-4">배송/교환/환불</h2>
 					<p>상품에 대해 궁금한점을 질문해주세요. 위드테일에서 답변해드립니다.</p>
 					<p>
 						<a href="#" class="btn btn-black py-3 px-5">Write a Question</a>
@@ -902,10 +899,8 @@
 		<div class="container" style="padding-left: 0; padding-right: 0;">
 			<div class="row justify-content-center mb-3 pb-3">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<span class="subheading">Products</span>
-					<h2 class="mb-4">Related Products</h2>
-					<p>Far far away, behind the word mountains, far from the
-						countries Vokalia and Consonantia</p>
+					<span class="subheading">Related Products</span>
+					<h2 class="mb-4">이 상품의 연관상품</h2>
 				</div>
 			</div>
 		</div>
@@ -1071,7 +1066,7 @@
 	<div class="cart">
 		<div class="product-thumbnail">
 			<img alt="product-image"
-				src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
+				src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"
 				width="80" height="80">
 		</div>
 		<div class="product-name">

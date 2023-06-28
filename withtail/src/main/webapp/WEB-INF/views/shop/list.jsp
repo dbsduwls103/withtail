@@ -26,7 +26,7 @@
 				<div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp">
 					<div class="product">
 						<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="img-prod">
-							<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
+							<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"
 								alt="${dto.itemName}" style="min-height: 250px;">
 							<span class="status ${dto.discount==0 ? 'hidden' : ''}">${dto.discount}%</span>
 							<div class="overlay"></div>
