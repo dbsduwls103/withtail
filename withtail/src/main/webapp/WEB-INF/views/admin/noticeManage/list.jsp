@@ -76,7 +76,7 @@ function searchList() {
 						<td>${dto.hitCount}</td>
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>
 						</td>
 						<td>&nbsp;</td>
@@ -98,7 +98,7 @@ function searchList() {
 						<td>${dto.hitCount}</td>
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>		      
 						</td>
 						<td>${dto.enabled == 1 ? "표시" : "숨김" }</td>

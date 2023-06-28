@@ -50,11 +50,11 @@ function searchList() {
 		<table class="table table-border table-list">
 			<thead>
 				<tr style="border-top: 1px solid #ced4da; border-bottom: solid 1px #ced4da; ">
-					<th class="wx-30">분류</th>
-					<th class="wx-100">제목</th>
-					<th class="wx-20">작성자</th>
-					<th class="wx-20">문의일자</th>
-					<th class="wx-20">처리결과</th>
+					<th width="10%">분류</th>
+					<th width="60%">제목</th>
+					<th width="10%">작성자</th>
+					<th width="10%">문의일자</th>
+					<th width="10%">처리결과</th>
 
 				</tr>
 			</thead>
