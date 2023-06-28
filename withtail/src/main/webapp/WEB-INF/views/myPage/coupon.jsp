@@ -185,33 +185,35 @@ a {
 	</div>
 	<div class="coupon-wrap">
 		<div class="coupon-layout">
+			<c:forEach var="dto" items="${list}" varStatus="status">
 			<c:choose>
 				<c:when test="${couponDataCount eq 0}">
 						<p class="empty-text">사용 가능한 쿠폰이 없어요.</p>
 				</c:when>
 				<c:otherwise>			
-					<c:forEach var="dto" items="${list}" varStatus="status">
-						<div class="coupon">
-							<div class="coupon-upper">
-								<div class="coupon-text-layout">
-									<div class="coupon-title valign-text-middle">${dto.couponName}</div>
-									<div class="coupon-text valign-text-middle">${dto.couponPrice}원</div>
+						<c:if test="${dto.used eq 0}">
+							<div class="coupon">
+								<div class="coupon-upper">
+									<div class="coupon-text-layout">
+										<div class="coupon-title valign-text-middle">${dto.couponName}</div>
+										<div class="coupon-text valign-text-middle">${dto.couponPrice}원</div>
+									</div>
+								</div>
+								<div class="coupon-lower">
+									<div class="restriction">
+										<p class="restriction-text valign-text-middle">
+											<span>- 사용기간 : ~</span> <span>${dto.endDate2}</span> <span>까지</span>
+										</p>
+										<p class="restriction-text valign-text-middle">
+											<span>- 최소주문금액</span> <span>${dto.couponMinPrice}</span><span>원</span>
+										</p>
+									</div>
 								</div>
 							</div>
-							<div class="coupon-lower">
-								<div class="restriction">
-									<p class="restriction-text valign-text-middle">
-										<span>- 사용기간 : ~</span> <span>${dto.endDate2}</span> <span>까지</span>
-									</p>
-									<p class="restriction-text valign-text-middle">
-										<span>- 최소주문금액</span> <span>${dto.couponMinPrice}</span><span>원</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
+						</c:if>
 				</c:otherwise>
 			</c:choose>
+			</c:forEach>
 		</div>
 	</div>
 	

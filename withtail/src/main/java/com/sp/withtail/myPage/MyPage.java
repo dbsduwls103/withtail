@@ -54,10 +54,17 @@ public class MyPage {
 	private int couponCategory;
 	private long couponMinPrice;
 	private String endDate2;
+	private int used;
 	
 	
 	
 	
+	public int getUsed() {
+		return used;
+	}
+	public void setUsed(int used) {
+		this.used = used;
+	}
 	public String getEndDate2() {
 		return endDate2;
 	}
