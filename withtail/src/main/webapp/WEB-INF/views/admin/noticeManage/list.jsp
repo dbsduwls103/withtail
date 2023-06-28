@@ -5,8 +5,13 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
+
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 1140px;
+	width: 960px;
 }
 
 .badge {
@@ -29,8 +34,8 @@ function searchList() {
 }
 </script> 
 
-    
-    <div class="body-main">
+    <div class="out" >
+    <div class="body-main" style="padding: 0 auto;">
     <div class="body-title">
 		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
@@ -71,7 +76,7 @@ function searchList() {
 						<td>${dto.hitCount}</td>
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>
 						</td>
 						<td>&nbsp;</td>
@@ -93,7 +98,7 @@ function searchList() {
 						<td>${dto.hitCount}</td>
 						<td>
 							<c:if test="${dto.fileCount != 0}">
-								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-file-zipper"></i></a>
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}"><i class="fa-solid fa-download"></i></a>
 							</c:if>		      
 						</td>
 						<td>${dto.enabled == 1 ? "표시" : "숨김" }</td>
@@ -131,3 +136,4 @@ function searchList() {
 		</table>
 
 	</div>
+</div>

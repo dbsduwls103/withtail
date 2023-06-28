@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,8 +66,10 @@ public class MemberManageController {
 
 		if(state.equals("general")) {
 			dataCount = service.dataCount(map);
-		} else {
+		} else if(state.equals("stop")) {
 			dataCount = service.stopdataCount(map);
+		}else {//////////
+			dataCount = service.withdrawdataCount(map);
 		}
 		
 		if (dataCount != 0) {
@@ -89,8 +92,10 @@ public class MemberManageController {
 		List<MemberManage> list = null;
 		if(state.equals("general")) {
 			list = service.listMember(map);
-		} else {
+		} else if(state.equals("stop")) {
 			list = service.stoplistMember(map);
+		} else {//////////////////
+			list = service.withdrawlistMember(map);
 		}
 	
 		String query = "";
@@ -138,7 +143,9 @@ public class MemberManageController {
 		MemberManage dto = service.readMember(userId);
 		List<MemberManage> list = service.readMemberState(userId);
 		List<MemberManage> pointList = service.readPoint(userId);
+		MemberManage sc = service.readStateCode(userId);
 		
+		model.addAttribute("sc", sc);
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("pointList", pointList);
@@ -187,7 +194,11 @@ public class MemberManageController {
 			dto.setMemo("--");
 			dto.setStRegDate(sysdate);
 			dto.setEnabled(1);
+			
 			service.insertMemberState(dto);
+			service.updateFailureCountReset(userId);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

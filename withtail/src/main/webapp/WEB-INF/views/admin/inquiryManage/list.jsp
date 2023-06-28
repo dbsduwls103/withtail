@@ -6,11 +6,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
-.body-main {
-	max-width: 1140px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
-.btn{border-radius: 10px;}
 
+.body-main {
+	width: 960px;
+}
+.btn{
+	border-radius: 0.375rem;
+	height: 37px;
+}
 .btn:hover{background: #6C757D; color: white}
 
 
@@ -24,7 +30,7 @@ function searchList() {
 	f.submit();
 }
 </script>
-
+<div class="out">
 <div class="body-container">
     
 <div class="body-main">
@@ -44,11 +50,11 @@ function searchList() {
 		<table class="table table-border table-list">
 			<thead>
 				<tr style="border-top: 1px solid #ced4da; border-bottom: solid 1px #ced4da; ">
-					<th class="wx-30">분류</th>
-					<th class="wx-100">제목</th>
-					<th class="wx-20">작성자</th>
-					<th class="wx-20">문의일자</th>
-					<th class="wx-20">처리결과</th>
+					<th width="10%">분류</th>
+					<th width="60%">제목</th>
+					<th width="10%">작성자</th>
+					<th width="10%">문의일자</th>
+					<th width="10%">처리결과</th>
 
 				</tr>
 			</thead>
@@ -99,4 +105,5 @@ function searchList() {
 		</table>
 
 	</div>
+</div>
 </div>

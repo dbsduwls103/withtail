@@ -5,9 +5,29 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
-.body-main {
-	max-width: 900px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
+
+.body-main {
+	width: 960px;
+}
+.btn{
+	border-radius: 0.375rem;
+	width: 80px;
+	height: 37px;
+}
+.table-form tr>td:first-child {
+    width: 110px;
+    text-align: center;
+    background: #eee;
+}
+
+.table-border tbody > tr {
+    border-bottom: 1px solid #dee2e6;
+}
+.btn:hover{background: #6C757D; color: white}
+
 </style>
 
 <style type="text/css">
@@ -292,31 +312,31 @@ $(function(){
 });
 </script>
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
     </div>
-    
-    <div class="body-main">
     
 		<form name="faqForm" method="post">
 			<table class="table table-border border-top2 table-form">
 				<tr> 
 					<td>카테고리</td>
 					<td > 
-						<select name="categoryNum" class="form-select">
+						<select name="categoryNum" class="form-select" style="height: 35px;">
 							<c:forEach var="vo" items="${listCategory}">
 								<option value="${vo.categoryNum}" ${dto.categoryNum==vo.categoryNum?"selected='selected'":""}>${vo.category}</option>
 							</c:forEach>
 						</select>
-						<button type="button" class="btn btnCategoryDialog"> 변경 </button>
+						<button type="button" class="btn btnCategoryDialog" style="height: 35px;"> 변경 </button>
 					</td>
 				</tr>
 			
 				<tr> 
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td> 
-						<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
+						<input style="border: 1px solid #ced4da; height: 35px;" type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
 					</td>
 				</tr>
 			
@@ -330,7 +350,7 @@ $(function(){
 				<tr> 
 					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td valign="top"> 
-						<textarea name="content" class="form-control">${dto.content}</textarea>
+						<textarea style="border: 1px solid #ced4da; " name="content" class="form-control">${dto.content}</textarea>
 					</td>
 				</tr>
 			</table>

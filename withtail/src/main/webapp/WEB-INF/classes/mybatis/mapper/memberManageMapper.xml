@@ -52,8 +52,31 @@
 		SELECT COUNT(*)
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
-		LEFT JOIN (select stRegDate,userId,rank from(
-            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            from member1 m1
+            left JOIN memberState ms ON m1.userId= ms.userId
+            )where rank=1
+            ) ms ON m1.userId = ms.userId
+		<where>
+			<if test="(keyword!=null and keyword!='')">
+				<include refid="where-list"/>
+			</if>
+			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
+				and <include refid="where-condition2"/>
+			</if>
+			AND enabled = 0 AND stateCode != 8
+			AND membership &lt;= 1
+		</where> 
+    </select>
+    
+    <!-- 탈퇴회원 총 개수 -->
+    <select id="withdrawdataCount" parameterType="map" resultType="Integer">
+        SELECT COUNT(*)
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		LEFT JOIN (select stRegDate,userId,statecode,rank from(
+            select stRegDate,m1.userId,statecode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -66,7 +89,8 @@
 				and <include refid="where-condition2"/>
 			</if>
 			AND enabled = 0
-			AND membership &lt;= 1
+			AND stateCode = 8
+			AND membership &lt;= 1 
 		</where> 
     </select>
 
@@ -110,8 +134,8 @@
 			failureCnt,point,email
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
-		LEFT JOIN (select stRegDate,userId,rank from(
-            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -123,12 +147,42 @@
 			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
 				and<include refid="where-condition2"/>
 			</if>
-			AND enabled = 0
+			AND enabled = 0 AND stateCode != 8
 			AND membership &lt;= 1
 		</where> 
 		ORDER BY regDate DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<!-- 탈퇴회원 리스트 -->
+	<select id="withdrawlistMember" parameterType="map" resultType="com.sp.withtail.admin.memberManage.MemberManage">
+		select distinct m.num, m1.userId,userName, nickName, userPwd, enabled, 
+			TO_CHAR(regDate,'YYYY-MM-DD')regDate, 
+			TO_CHAR(modifyDate,'YYYY-MM-DD')modifyDate,
+			TO_CHAR(stRegDate,'YYYY-MM-DD')stRegDate,
+			lastLogin,
+			failureCnt,point,email
+		FROM member m
+		JOIN member1 m1 ON m.num = m1.num
+		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            from member1 m1
+            left JOIN memberState ms ON m1.userId= ms.userId
+            )where rank=1
+            ) ms ON m1.userId = ms.userId
+		<where>
+			<if test="(keyword!=null and keyword!='')">
+				<include refid="where-list"/>
+			</if>
+			<if test="((startKeyword!=null and startKeyword!='') and (endKeyword!=null and endKeyword!='' )) ">
+				and<include refid="where-condition2"/>
+			</if>
+			AND enabled = 0 AND stateCode = 8
+			AND membership &lt;= 1
+		</where> 
+		ORDER BY regDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>	
 
 	<select id="readMember" parameterType="String" resultType="com.sp.withtail.admin.memberManage.MemberManage">
 		select enabled ,userId, email, userName, nickname, TO_CHAR(regDate,'YYYY-MM-DD')regDate,point,TO_CHAR(SYSDATE,'YYYY-MM-DD') stRegDate
@@ -163,7 +217,17 @@
 		order by pointNum desc
 	</select>
 	
-
+	<select id="readStateCode" parameterType="String" resultType="com.sp.withtail.admin.memberManage.MemberManage">
+			select stateCode 
+            from memberState
+            where userId= #{userId}
+            order by stateNum DESC
+            fetch first 1 rows only
+	</select>
+	
+	<update id="updateFailureCountReset" parameterType="String">
+		update member1 set failurecnt = 0 where userId =#{userId}
+	</update>
 
 
 

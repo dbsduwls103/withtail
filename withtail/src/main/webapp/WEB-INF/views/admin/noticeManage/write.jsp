@@ -6,9 +6,30 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
-.body-main {
-	max-width: 900px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
+
+.body-main {
+	width: 960px;
+}
+
+.table-form tr>td:first-child {
+    width: 110px;
+    text-align: center;
+    background: #eee;
+}
+
+.table-border tbody > tr {
+    border-bottom: 1px solid #dee2e6;
+}
+.btn{
+	border-radius: 0.375rem;
+	width: 80px;
+	height: 37px;
+}
+.btn:hover{background: #6C757D; color: white}
+
 </style>
 
 <script type="text/javascript">
@@ -49,19 +70,19 @@
     }
 </script>
 
-<div class="body-container">
+<div class="out">
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
     
-    <div class="body-main">
     	
 		<form name="noticeForm" method="post" enctype="multipart/form-data">
 			<table class="table table-border border-top2 table-form">
 				<tr> 
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td> 
-						<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject }">
+						<input style="border: 1px solid #ced4da;" type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject }">
 					</td>
 				</tr>
 			
@@ -89,16 +110,16 @@
 				</tr>
 			
 				<tr> 
-					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+					<td valign="top" >내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td valign="top"> 
-						<textarea name="content" id="ir1" class="form-control">${dto.content}</textarea>
+						<textarea style="border: 1px solid #ced4da;" name="content" id="ir1" class="form-control">${dto.content}</textarea>
 					</td>
 				</tr>
 			  
 				<tr>
 					<td>첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
 					<td> 
-						<input type="file" name="selectFile" class="form-control" multiple="multiple">
+						<input style="border: 1px solid #ced4da;" type="file" name="selectFile" class="form-control" multiple="multiple">
 					</td>
 				</tr>
 	              

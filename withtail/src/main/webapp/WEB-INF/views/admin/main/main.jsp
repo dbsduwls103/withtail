@@ -4,6 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
+.body-main {
+	width: 960px;
+}
 .title{
 	font-size: 28px; 
 	font-weight: bold; 
@@ -344,10 +351,8 @@ $(function(){
 </script>
 
 
-
+<div class="out">
 <div>
-
-
 
 <div style="margin-bottom: 10px">
 	<h3 ><i class="fa-solid fa-chart-simple"></i> 회원 통계 </h3>
@@ -478,8 +483,7 @@ $(function(){
 </div>
 
 
-
-
+</div>
 </div><!-- 전체 -->
 
 

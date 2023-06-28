@@ -36,6 +36,21 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		return result;
 	}
+	
+	
+	@Override
+	public int withdrawdataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("memberManage.withdrawdataCount",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 
 	@Override
 	public List<MemberManage> listMember(Map<String, Object> map) {
@@ -56,6 +71,19 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		try {
 			list = dao.selectList("memberManage.stoplistMember", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<MemberManage> withdrawlistMember(Map<String, Object> map) {
+		List<MemberManage> list = null;
+		
+		try {
+			list = dao.selectList("memberManage.withdrawlistMember", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,9 +156,18 @@ public class MemberManageServiceImpl implements MemberManageService {
 	
 	
 	
-	
-	
-	
+
+	@Override
+	public MemberManage readStateCode(String userId) {
+		MemberManage dto = null;
+		
+		try {
+			dto = dao.selectOne("memberManage.readStateCode", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
 
 	@Override
@@ -166,6 +203,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		return list;
 	}
+
+
 
 
 }

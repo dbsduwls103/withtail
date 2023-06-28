@@ -5,8 +5,12 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 1140px;
+	width: 960px;
 }
 .btn{border-radius: 10px;}
 
@@ -16,6 +20,15 @@
 .pointhover:hover{
   background-color: #82ae4654;
   }
+  
+ .table-border tbody > tr {
+   border-bottom: 1px solid #e9e9e9; 
+}
+.btn{
+	border-radius: 0.375rem;
+	width: 70px;
+	height: 37px;
+}
 </style>
 
 <script type="text/javascript">
@@ -31,7 +44,7 @@
 </c:if>
 </script>
 
-<div class="body-container">
+<div class="out">
     
     <div class="body-main">
     <div class="body-title">
@@ -41,7 +54,7 @@
 		<table class="table table-border table-article">
 			<thead>
 				<tr>
-					<td colspan="2" align="center">
+					<td colspan="2" align="center" style="border-bottom: 1px solid #999;  border-top: 2px solid #999; height: 47px;">
 						${dto.subject}${dto.alarm == 1 ? "" : " [숨김]" }
 					</td>
 				</tr>
