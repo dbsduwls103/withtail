@@ -285,7 +285,7 @@
   </script>
 
   <script type="text/javascript">
-  $(function(){
+  	$(function(){
 		// 필수 옵션-1
 		$(".requiredOption").change(function(){
 			$(".requiredOption2 option").each(function(){
@@ -351,8 +351,9 @@
 			let extraPrice = $(".requiredOption2 :selected").attr("data-extra");
 			
 			let optionPrice = Number("${dto.price}") + Number(extraPrice);
-			
 			let opPriceResult = optionPrice.toLocaleString();
+			
+			let oriPrice = Number("${dto.dcPrice}") + Number(extraPrice);
 			
 			let s = "- " + optionValue + "/" + optionValue2;
 			
@@ -365,11 +366,11 @@
 			out += '	<td>';
 			out += '		<div class="d-flex">';
 			out += '			<span class="input-group-btn mr-2">';
-			out += '					<button type="button" class="quantity-left-minus btn qt-btn" data-type="minus" data-field="">';
-			out += '						<i class="ion-ios-remove"></i>';
-			out += '					</button>';
+			out += '				<button type="button" class="quantity-left-minus btn qt-btn" data-type="minus" data-field="">';
+			out += '					<i class="ion-ios-remove"></i>';
+			out += '				</button>';
 			out += '			</span>';
-			out += '			<input type="text" name="quantity" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
+			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
 			out += '			<input type="hidden" name="itemNums" value="+itemNum+">';
 			out += '			<input type="hidden" name="subNums" value="+subNum+">';
 			out += '			<input type="hidden" name="subNums2" value="+subNum2+">';
@@ -380,7 +381,7 @@
 			out += '			</span>';
 			out += '		</div>';
 			out += '	</td>';
-			out += '	<td class="op-price" data-optionPrice="'+optionPrice+'">'+opPriceResult+'원</td>';
+			out += '	<td class="op-price" data-optionPrice="'+optionPrice+'" data-oriPrice="'+oriPrice+'">'+opPriceResult+'원</td>';
 			out += '	<td>';
 			out += '		<a href="#" class="x-btn">';
 			out += '			<i class="fa-regular fa-rectangle-xmark"></i>';
@@ -390,8 +391,93 @@
 			
 			$("tbody.order-tbody").append(out);
 			
+			totalProdPrice();
 		});
-  });
+  	});
+  
+  	function totalProdPrice() {
+		let totalQty = 0;
+		let totalPrice = 0;
+		$(".order-group").each(function(){
+			let qty = parseInt($(this).find("input[name=qtys]").val());
+			let opPrice = parseInt($(this).find(".op-price").attr("data-optionPrice"));
+			let oriPrice = parseInt($(this).find(".op-price").attr("data-oriPrice"));
+			
+			totalQty += qty;
+			totalPrice += (oriPrice * qty);
+		});
+		
+		let s = totalPrice.toLocaleString();
+		
+		//$(".product-totalQty").text(totalQty);
+		$(".total-price").text(s);
+	}
+  	
+  	// 수량
+  	$(function(){
+  		// 수량 증가
+  		//var quantitiy = 0;
+  		
+  		$(".order-area").on("click", ".quantity-right-plus", function(e){
+  			/*
+  			e.preventDefault();
+  			
+  			quantity = parseInt($('.quantity').val());
+  			$('.quantity').val(quantity + 1);
+  			*/
+  			
+  			let $order = $(this).closest("tr.order-group");
+  			let qty = parseInt($order.find("input[name=qtys]").val()) + 1;
+  			$order.find("input[name=qtys]").val(qty);
+  			let opPrice = $order.find(".op-price").attr("data-optionPrice");
+  			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
+  			let itemPrice = parseInt(oriPrice) * qty;
+  			let totalPrice = itemPrice.toLocaleString();
+  			
+  			//let $total = $(this).closest(".order-area");
+  			$order.find(".op-price").text(totalPrice+"원");
+  			
+  			totalProdPrice();
+  		});
+  		
+  		// 수량 빼기
+  		$(".order-area").on("click", ".quantity-left-minus", function(e){
+  			/*
+  			e.preventDefault();
+  			
+  			quantity = parseInt($('.quantity').val());
+  			
+  			if (quantity > 0) {
+  				$('.quantity').val(quantity - 1);
+  			}
+  			*/
+  			
+  			let $order = $(this).closest("tr.order-group");
+  			let qty = parseInt($order.find("input[name=qtys]").val()) - 1;
+  			
+  			if(qty <= 0) {
+  				alert("구매 수량은 한개 이상입니다.");
+  				$(".requiredOption").val("");
+  				$(".requiredOption").trigger("change");
+  				
+  				totalProductPrice();
+  				
+  				return false;
+  			}
+  			
+  			$order.find("input[name=qtys]").val(qty);
+  			let opPrice = $order.find(".op-price").attr("data-optionPrice");
+  			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
+  			let itemPrice = parseInt(oriPrice) * qty;
+  			let totalPrice = itemPrice.toLocaleString();
+  			
+  			//let $total = $(this).closest(".order-area");
+  			$order.find(".op-price").text(totalPrice+"원");
+  			
+  			totalProdPrice();
+  			
+  		});
+  	});
   </script>
   
   </head>
@@ -413,7 +499,7 @@
 					</ul>
 				</div>
 				<div class="col-lg-6 product-details animate__animated animate__fadeInUp">
-					<h4>${dto.itemName}</h4>
+					<h4 style="text-align: right;">${dto.itemName}</h4>
 					<hr>
 	
 					<div class="rating d-flex"></div>
@@ -516,7 +602,7 @@
 														<i class="ion-ios-remove"></i>
 													</button>
 												</span>
-												<input type="text" name="quantity"
+												<input type="text" name="qtys"
 													class="form-control input-number quantity" value="1" min="1"
 													max="100"
 													style="border-radius: 5px; width: 60px !important; display: inline-block;">
@@ -529,7 +615,9 @@
 												</span>
 											</div>
 										</td>
-										<td class="op-price" data-optionPrice="${dto.price}"><fmt:formatNumber value="${dto.price}" pattern="#,###" />원</td>
+										<td class="op-price" data-optionPrice="${dto.price}" data-oriPrice="${dto.dcPrice}">
+											<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
+										</td>
 										<td><a href="#" class="x-btn"> <i
 												class="fa-regular fa-rectangle-xmark"></i>
 										</a></td>
@@ -547,14 +635,16 @@
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
 							<span style="font-size: 25px;">
-								<c:choose>
-									<c:when test="${empty listOption[0]}">
-										<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
-									</c:when>
-									<c:otherwise>
-										0원
-									</c:otherwise>
-								</c:choose>
+								<span class="total-price">
+									<c:choose>
+										<c:when test="${empty listOption[0]}">
+											<fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />
+										</c:when>
+										<c:otherwise>
+											0
+										</c:otherwise>
+									</c:choose>
+								</span>원
 							</span>
 						</p>
 					</div>
@@ -572,6 +662,7 @@
 				</div>
 
 			</div>
+		</div>
 		</div>
 	</section>
 
@@ -1010,26 +1101,6 @@
 </div>
 
 <script>
-	// 수량 증가
-	var quantitiy = 0;
-	
-	$(".order-area").on("click", ".quantity-right-plus", function(e){
-		e.preventDefault();
-		
-		quantity = parseInt($('.quantity').val());
-		$('.quantity').val(quantity + 1);
-	});
-	
-	$(".order-area").on("click", ".quantity-left-minus", function(e){
-		e.preventDefault();
-		
-		quantity = parseInt($('.quantity').val());
-		
-		if (quantity > 0) {
-			$('.quantity').val(quantity - 1);
-		}
-	});
-
 	// 네비게이터 클릭 시 섹션으로 스크롤 이동
 	var qnaButton = document.querySelector('.moveToReview a');
 	qnaButton.addEventListener('click', function(event) {

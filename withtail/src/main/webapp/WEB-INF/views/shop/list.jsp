@@ -27,7 +27,7 @@
 					<div class="product">
 						<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="img-prod">
 							<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"
-								alt="${dto.itemName}">
+								alt="${dto.itemName}" style="min-height: 250px;">
 							<span class="status ${dto.discount==0 ? 'hidden' : ''}">${dto.discount}%</span>
 							<div class="overlay"></div>
 						</a>
