@@ -45,8 +45,8 @@
 	
 	<!-- 상품 리스트 -->
 	<select id="listProd" parameterType="map" resultType="com.sp.withtail.shop.Product">
-		SELECT DISTINCT i.itemNum, i.itemName, i.discount, i.mainImage, i.price, 
-			i.price - (i.price * (i.discount/100)) dcPrice,
+		SELECT DISTINCT i.itemNum, i.itemName, i.discount, i.mainImage, i.itemPrice, 
+			i.itemPrice - (i.itemPrice * (i.discount/100)) dcPrice,
             NVL(orderCount, 0) orderCount,
             NVL(rvCount, 0) rvCount
 	    FROM item i
@@ -74,9 +74,9 @@
 	 
 	<!-- 상품 보기 -->
 	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Product">
-		SELECT i.itemNum, i.itemName, i.discount, i.mainImage, i.price, 
-		    i.price - (i.price * (i.discount/100)) dcPrice,
-		    i.point, i.deliveryFee,
+		SELECT i.itemNum, i.itemName, i.discount, i.mainImage, i.itemPrice, i.itemContent,
+		    i.itemPrice - (i.itemPrice * (i.discount/100)) dcPrice,
+		    i.itemPoint, i.deliveryFee,
 		    NVL(rvCount, 0) rvCount
 		FROM item i
 		LEFT OUTER JOIN food f ON i.itemNum = f.itemNum

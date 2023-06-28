@@ -357,7 +357,7 @@
 			let optionValue2 = $(".requiredOption2 :selected").text();
 			let extraPrice = $(".requiredOption2 :selected").attr("data-extra");
 			
-			let optionPrice = Number("${dto.price}") + Number(extraPrice);
+			let optionPrice = Number("${dto.itemPrice}") + Number(extraPrice);
 			let opPriceResult = optionPrice.toLocaleString();
 			
 			let oriPrice = Number("${dto.dcPrice}") + Number(extraPrice);
@@ -492,7 +492,7 @@
 					<div class="rating d-flex"></div>
 					<div class="">
 						<p class="originalPrice text-right">
-							<span><del><fmt:formatNumber value="${dto.price}" pattern="#,###" />원</del></span>
+							<span><del><fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원</del></span>
 						</p>
 						<p class="price text-right" style="font-size: 25px;">
 							<span class="${dto.discount==0 ? 'hidden' : ''}" style="color: red; font-size: 25px;">${dto.discount}%</span>
@@ -506,7 +506,7 @@
 						</div>
 						
 						<span style="color: #82ae46; font-size: 20px">
-							<fmt:formatNumber value="${dto.point}" pattern="#,###" />
+							<fmt:formatNumber value="${dto.itemPoint}" pattern="#,###" />
 						</span>
 						<span>원</span>
 					</div>
@@ -602,8 +602,8 @@
 												</span>
 											</div>
 										</td>
-										<td class="op-price" data-optionPrice="${dto.price}" data-oriPrice="${dto.dcPrice}">
-											<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
+										<td class="op-price" data-optionPrice="${dto.itemPrice}" data-oriPrice="${dto.dcPrice}">
+											<fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원
 										</td>
 										<td><a href="#" class="x-btn"> <i
 												class="fa-regular fa-rectangle-xmark"></i>

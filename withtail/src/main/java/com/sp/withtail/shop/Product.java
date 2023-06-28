@@ -17,9 +17,9 @@ public class Product {
 	private String updDate;
 	private String madeby;
 	private int deliveryFee;
-	private int price;
+	private int itemPrice;
 	private int showNotice;
-	private int point;
+	private int itemPoint;
 	private String mainImage;
 	private int dcPrice;
 	
@@ -127,11 +127,11 @@ public class Product {
 	public void setDeliveryFee(int deliveryFee) {
 		this.deliveryFee = deliveryFee;
 	}
-	public int getPrice() {
-		return price;
+	public int getItemPrice() {
+		return itemPrice;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 	public int getShowNotice() {
 		return showNotice;
@@ -139,11 +139,11 @@ public class Product {
 	public void setShowNotice(int showNotice) {
 		this.showNotice = showNotice;
 	}
-	public int getPoint() {
-		return point;
+	public int getItemPoint() {
+		return itemPoint;
 	}
-	public void setPoint(int point) {
-		this.point = point;
+	public void setItemPoint(int itemPoint) {
+		this.itemPoint = itemPoint;
 	}
 	public String getMainImage() {
 		return mainImage;
@@ -253,6 +253,8 @@ public class Product {
 	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
+	
+	
 	
 	
 
