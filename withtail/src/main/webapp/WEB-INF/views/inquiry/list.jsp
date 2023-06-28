@@ -52,8 +52,23 @@
 		border: 1px solid #82ae46 !important;
 		box-shadow: none;
 	}
-</style>
+	
+	.block-27 ul li a, .block-27 ul li span {
+    color: #666;
+    vertical-align: middle;
+}
 
+.block-27 ul li span.disabled {
+	color: #999;
+}
+	
+</style>
+<script type="text/javascript">
+function searchList() {
+	const f = document.searchForm;
+	f.submit();
+}
+</script>
 <section class="ftco-section" style="min-height: 550px;">
 	<div class="container">
 		<h3 class="text-center inquiry-h3">1:1 문의</h3>
@@ -69,31 +84,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>상품</td>
-					<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
-						<a href="${pageContext.request.contextPath}/inquiry/article">상품 문의입니다.</a>
-					</td>
-					<td>김자바</td>
-					<td>2023-06-19</td>
-					<td>답변대기</td>
-				</tr>
+				<c:forEach var="dto" items="${list}">
+					<tr>
+						<td>${dto.category}</td>
+						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
+							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+						</td>
+						<td>${dto.nickName}</td>
+						<td>${dto.regDate}</td>
+						<td>${empty dto.answerDate ? "답변대기" : "답변완료"}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 
 		<!-- 페이징 -->
 		<div class="row my-5">
 			<div class="col text-center">
-				<div class="block-27">
-					<ul>
-						<li><a href="#">&lt;</a></li>
-						<li class="active"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">&gt;</a></li>
-					</ul>
+				<div class="block-27 page-nav">
+					${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 				</div>
 			</div>
 		</div>
@@ -106,10 +115,10 @@
 			<div class="col col-md-8 text-center">
 				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center">
 					<select name="condition" class="form-select" style="width: auto !important;">
-						<option value="all">제목+내용</option>
-						<option value="reg_date">등록일</option>
-						<option value="subject">제목</option>
-						<option value="content">내용</option>
+						<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
+						<option value="reg_date" ${condition=="regDate"?"selected='selected'":""}>등록일</option>
+						<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+						<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 					</select>
 					<input type="text" name="keyword" class="form-control" style="border-radius: 0.375rem; width: 200px;">
 					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;">검색</button>

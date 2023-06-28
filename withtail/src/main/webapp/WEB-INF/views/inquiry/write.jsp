@@ -37,9 +37,27 @@
 	}
 </style>
 
-<script>
+<script type="text/javascript">
 function sendOk() {
+    const f = document.inquiryForm;
+	let str;
 	
+    str = f.subject.value.trim();
+    if(!str) {
+        alert("제목을 입력하세요. ");
+        f.subject.focus();
+        return;
+    }
+
+    str = f.content.value.trim();
+    if(!str) {
+        alert("내용을 입력하세요. ");
+        f.content.focus();
+        return;
+    }
+
+    f.action = "${pageContext.request.contextPath}/inquiry/write";
+    f.submit();
 }
 </script>
 
@@ -54,23 +72,23 @@ function sendOk() {
 							<td class="td-tit">구 분</td>
 							<td>
 								<select name="category" class="form-select">
-									<option value="상품">상품</option>
-									<option value="배송">배송</option>
-									<option value="결제">결제</option>
-									<option value="기타">기타</option>
+									<option value="상품" ${dto.category=="상품"?"selected='selected'":"" }>상품</option>
+									<option value="배송" ${dto.category=="배송"?"selected='selected'":"" }>배송</option>
+									<option value="결제" ${dto.category=="결제"?"selected='selected'":"" }>결제</option>
+									<option value="기타" ${dto.category=="기타"?"selected='selected'":"" }>기타</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class="td-tit">제 목</td>
+							<td class="td-tit" id="suvje">제 목</td>
 							<td>
-								<input type="text" name="subject" class="form-control">
+								<input type="text" name="subject" class="form-control" value="${dto.subject}">
 							</td>
 						</tr>
 						<tr>
 							<td class="td-tit">작성자</td>
 							<td class="text-start" style="text-align: left !important;">
-								김자바
+								${sessionScope.member.nickName}
 							</td>
 						</tr>
 						<tr>
@@ -82,7 +100,7 @@ function sendOk() {
 					</tbody>
 				</table>
 				<div class="d-flex gap-2 justify-content-center">
-					<button type="button" class="btn btn-secondary" onclick="sendOk();">등록하기</button>
+					<button type="button" class="btn btn-secondary" onclick="sendOk();">등록완료</button>
 					<button type="reset" class="btn btn-outline-secondary">다시입력</button>
 					<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/inquiry/list';">등록취소</button>
 				</div>
