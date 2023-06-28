@@ -140,6 +140,49 @@ span {
 }
 </style>
 
+<script>
+
+$(function() {
+	$('#withdrawalButton').click(function(){
+		let enabled = $('#enabled').val();
+		
+		updateEnabled(enabled);
+	});
+	
+	function updateEnabled(enabled) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/myPage/updateUnregister',
+			type: 'POST',
+			data: {enabled: enabled},
+			dataType: "JSON",
+			success: function(data) {
+				logoutAndRedirect();
+			},
+			error: function(xhr, status, error) {
+				alert('실패');
+			}
+		});
+		
+	}
+	
+	function logoutAndRedirect() {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/myPage/logout', // 로그아웃 요청 경로
+			type: 'POST',
+			success: function() {
+				window.location.href = '${pageContext.request.contextPath}/'; // 메인 화면 경로
+			},
+			error: function(xhr, status, error) {
+				alert('로그아웃 실패');
+			}
+		});
+	}
+	
+	
+});
+
+</script>
+
 <div class="container -min">
 	<div class="submenu-layout">
 	  <ul>
@@ -175,10 +218,11 @@ span {
 		  <span id="agreementText" class="subtitle2">안내 사항을 모두 확인했으며 동의합니다.</span>
 		</div>
 		<div class="withdrawal-button-layout">
-		  <button id="withdrawalButton" type="button" class="btn11" disabled> 
+		  <input type="text" name="enabled" id="enabled" value="${dto1.enabled}">
+		  <button id="withdrawalButton" type="button"  class="btn11" disabled> 
 		  	<span class="subtitle3" id="withdrawalButtonText">회원탈퇴</span> 
 		  </button>
-		  <button type="button" class="btn12">취소하기</button>
+		  <button type="button" class="btn12" onclick="location.href='${pageContext.request.contextPath}/myPage/profile'">취소하기</button>
 		</div>
 	</div>
 </div>

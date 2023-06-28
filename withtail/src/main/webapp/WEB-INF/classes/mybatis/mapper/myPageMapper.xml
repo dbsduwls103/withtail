@@ -66,5 +66,26 @@
 		FROM address
 		WHERE userId = #{userId}
 	</select>
+	
+	<select id="readProfile" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT num, userId, userName, nickname, email, enabled
+		FROM member1
+		WHERE userId = #{userId}
+	</select>
+	
+	<update id="updateProfileName" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE member1 SET userName=#{userName}, nickName=#{nickName}
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="updateEnabled" parameterType="com.sp.withtail.myPage.MyPage">
+		update member1 set enabled=0 where userId=#{userId}
+	</update>
+		
+	<insert id="insertMemberState" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO memberState(stateNum, userId, stateCode, memo, stRegDate)
+		VALUES (memberState_seq.NEXTVAL, #{userId}, 8, '회원탈퇴', SYSDATE)
+	</insert>
+	
 </mapper>
 

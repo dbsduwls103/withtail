@@ -110,7 +110,7 @@ input {
 }
 
 .btn-1:hover {
-	background-color: #506632;
+	background-color: #629817;
 }
 
 .btn-2 {

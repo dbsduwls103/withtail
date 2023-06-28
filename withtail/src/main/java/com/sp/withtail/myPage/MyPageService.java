@@ -14,4 +14,9 @@ public interface MyPageService {
 	public MyPage readAdd(long num);
 	public void deleteAdd(long num) throws Exception;
 	public int addDataCount(String userId);
+	public void updateProfileName(MyPage dto) throws Exception;
+	public MyPage readProfile(String userId);
+	public void insertMemberState(MyPage dto) throws Exception;
+	public void updateEnabled(MyPage dto) throws Exception;
+	
 }

@@ -25,9 +25,125 @@ public class MyPage {
 	private int addDef;
 	private String addName; // 받으실분 이름
 	
+	//회원정보
+	private long userNum;
+	private int membership;
+	private String userName;
+	private String userPwd;
+	private String nickName;
+	private String regDate;
+	private String modifyDate;
+	private String lastLogin;
+	private String email;
+	private int failureCnt;
+	private long point;
+	private int enabled;
+	
+	//회원정보상태
+	private long stateNum;
+	private int stateCode;
+	private String stateMemo;
+	private String stRegDate;
 	
 	
 	
+	
+	public long getStateNum() {
+		return stateNum;
+	}
+	public void setStateNum(long stateNum) {
+		this.stateNum = stateNum;
+	}
+	public int getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+	public String getStateMemo() {
+		return stateMemo;
+	}
+	public void setStateMemo(String stateMemo) {
+		this.stateMemo = stateMemo;
+	}
+	public String getStRegDate() {
+		return stRegDate;
+	}
+	public void setStRegDate(String stRegDate) {
+		this.stRegDate = stRegDate;
+	}
+	public long getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(long userNum) {
+		this.userNum = userNum;
+	}
+	public int getMembership() {
+		return membership;
+	}
+	public void setMembership(int membership) {
+		this.membership = membership;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserPwd() {
+		return userPwd;
+	}
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public String getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public String getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public int getFailureCnt() {
+		return failureCnt;
+	}
+	public void setFailureCnt(int failureCnt) {
+		this.failureCnt = failureCnt;
+	}
+	public long getPoint() {
+		return point;
+	}
+	public void setPoint(long point) {
+		this.point = point;
+	}
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
 	public String getAddName() {
 		return addName;
 	}

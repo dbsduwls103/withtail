@@ -164,7 +164,202 @@ hr {
     color: rgb(139 139 139);
 }
 
+.icon1-edit-layout {
+    align-items: flex-end;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px 20px 20px 0px;
+    width: fit-content;
+}
+
+.minimal-text-btn {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    gap: 10px;
+    padding: 2px;
+    width: fit-content;
+}
+
+.text {
+    margin-top: -1px;
+    text-align: center;
+    width: fit-content;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.profile-edit-value.expanded {
+    flex-direction: column;
+    gap: 5px;
+}
+
+.text-input {
+    align-items: flex-end;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+    max-width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    margin-top: 0px !important;
+    margin-bottom: 4px;
+}
+
+.inp5 {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #e1e1e1;
+}
+
+.profile-edit-button-layout {
+    align-items: flex-start;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    gap: 10px;
+}
+
+.btn20 {
+    width: 188px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #82ae46;
+}
+
+.btn22 {
+    width: 188px;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #82ae46;
+    color: #82ae46;
+    background-color: white;
+}
+
+.charCount {
+	text-align: right;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.btn20:hover {
+	background-color: #629817;
+}
+
+.shcus {
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input:focus {
+	outline: solid 1px #82ae46;
+}
+
 </style>
+
+<script>
+$(function() {
+	var preUserName = '';
+	var preNickName = '';
+	
+	$('#edit').click(function(e) {
+		preUserName = $("#userName").val();
+		
+		$('#profile').hide();
+		$('#editbutton').hide();
+ 
+	    $('#profile-edit').show();
+	});
+	  
+	$('#btn22-1').click(function() {
+		// 프로필 값 표시(취소)
+		$("#userName").val(preUserName);
+		
+		$('#profile').show();
+		$('#editbutton').show();
+		
+		$('#profile-edit').hide();
+	});
+	
+	
+	
+	$('#edit1').click(function(e) {
+		preNickName = $("#nickName").val();
+		
+		$('#profile1').hide();
+		$('#editbutton1').hide();
+ 
+	    $('#profile-edit1').show();
+	});
+	  
+	$('#btn22-2').click(function() {
+		// 프로필 값 표시(취소)
+		$("#nickName").val(preNickName);
+		
+		$('#profile1').show();
+		$('#editbutton1').show();
+		
+		$('#profile-edit1').hide();
+	});
+	
+	
+	
+	
+	$('#btn20-1, #btn20-2').click(function() {
+		let userName = $('#userName').val();
+		let nickName = $('#nickName').val();
+	
+		updateName(userName, nickName);
+	});
+	
+	function updateName(userName, nickName) {
+		$.ajax({
+			url: '${pageContext.request.contextPath}/myPage/updateProfileName',
+	        type: 'POST',
+	        data: { userName: userName,  nickName: nickName}, 
+	        dataType: 'JSON',
+	        success: function(data) {
+	  		
+	        	$(".profile-userName").text(userName);
+	        	$(".profile-nickName").text(nickName);
+	        	
+	        	
+	    		$('#profile').show();
+	    		$('#editbutton').show();
+	    		$('#profile-edit').hide();	   
+	    		
+	    		$('#profile1').show();
+	    		$('#editbutton1').show();
+	    		$('#profile-edit1').hide();		    		
+        	
+	        },
+	        error: function(xhr, status, error) {
+	  
+	          alert('실패');
+	        }
+	      });
+	}
+});
+
+</script>
 
 <div class="container -min">
 	<div class="submenu-layout">
@@ -186,12 +381,77 @@ hr {
 							이름
 						</div>
 					</div>
-					<div class="profile-edit-value ">
-						<div class="profile-edit-value-text valign-text-middle">
-							${sessionScope.member.userName}
+					
+					<div class="profile-edit-value" id="profile">
+						<div class="profile-edit-value-text valign-text-middle profile-userName">
+							${dto1.userName}
 						</div>
 					</div>
+					
+				
+					<form name="nameForm" class="profile-edit-value expanded">
+						<div class="shcus" id="profile-edit" style="display: none;">
+							<div class="text-input">
+								<input type="text" class="inp5" id="userName"  onkeyup="checkUsernameValidity(); updateCharacterCount1(this);" maxlength="20" value="${dto1.userName}">
+								<div id="characterCount1" class="charCount">0/20</div>
+							</div>
+							 <div id="usernameError" style="color: #da1e28; margin-top: -18px;"></div>
+							<div class="profile-edit-button-layout">
+								<button type="button" class="btn20" id="btn20-1">수정</button>
+								<button type="button" class="btn22" id="btn22-1">취소</button>
+							</div>
+						</div>
+					</form>
+										
 				</div>
+		
+				
+				<div class="icon1-edit-layout" id="editbutton">
+					<div class="minimal-text-btn">
+						<a class="text valign-text-middle" id="edit" href="#">수정</a>
+					</div>
+				</div>
+				
+			</div>
+			<hr>
+			<div class="profile-edit-list" id="profile">
+				<div class="profile-edit-text-layout">
+					<div class="profile-edit-name">
+						<div class="profile-edit-name-text valign-text-middle">
+							닉네임
+						</div>
+					</div>
+					
+					
+					<div class="profile-edit-value" id="profile1">
+						<div class="profile-edit-value-text valign-text-middle profile-nickName">
+							${dto1.nickName}
+						</div>
+					</div>
+					
+					
+					<form name="nickNameForm" class="profile-edit-value expanded" >
+						<div class="shcus" style="display: none;" id="profile-edit1">
+							<div class="text-input">
+								<input type="text" class="inp5" id="nickName" name="nickName"  onkeyup="updateCharacterCount2(this);" maxlength="20" value="${dto1.nickName}">
+								<div id="characterCount2" class="charCount">0/20</div>
+							</div>
+							 <div id="phoneError" style="color: #da1e28; margin-top: -18px;"></div>
+							<div class="profile-edit-button-layout">
+								<button type="button" class="btn20" id="btn20-2">수정</button>
+								<button type="button" class="btn22" id="btn22-2">취소</button>
+							</div>
+						</div>
+					</form>	 
+					
+				</div>
+				
+				<div class="icon1-edit-layout" id="editbutton1">
+					<div class="minimal-text-btn">
+						<a class="text valign-text-middle" href="#" id="edit1">수정</a>
+					</div>
+				</div>
+				 
 			</div>
 			<hr>
 			<div class="profile-edit-list">
@@ -203,7 +463,7 @@ hr {
 					</div>
 					<div class="profile-edit-value ">
 						<div class="profile-edit-value-text valign-text-middle">
-							${sessionScope.member.email}
+							${dto1.email}
 						</div>
 					</div>
 				</div>
@@ -223,28 +483,46 @@ hr {
 					</div>
 				</div>
 			</div>
-			<hr>
-			<div class="profile-edit-list">
-				<div class="profile-edit-text-layout">
-					<div class="profile-edit-name">
-						<div class="profile-edit-name-text valign-text-middle">
-							휴대폰번호
-						</div>
-					</div>
-					<div class="profile-edit-value ">
-						<div class="profile-edit-value-text valign-text-middle">
-							010-1111-1111
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 		<div class="bottom-min-text">
 			<a class="text-logout" href="${pageContext.request.contextPath}/myPage/unregister">회원탈퇴</a>
 			<p class="text-logout"> | </p>
-			<a class="text-logout" href="#">로그아웃</a>
-			<p class="text-logout"> | </p>
-			<a class="text-logout" href="#">정보 수정</a>		
+			<a class="text-logout" href="#">로그아웃</a>	
 		</div>
 	</div>
 </div>
+
+<script>
+function updateCharacterCount1(input) {
+    var maxLength = input.getAttribute("maxlength");
+    var currentLength = input.value.length;
+    var characterCountElement = document.getElementById("characterCount1");
+
+    characterCountElement.textContent = currentLength + "/" + maxLength;
+}
+
+//이름 유효성 검사 및 이벤트 효과
+function checkUsernameValidity() {
+    var input = document.getElementById("userName");
+    var errorDiv = document.getElementById("usernameError");
+    var regex = /^[가-힣]+$/; // 정규식을 사용하여 한글 입력 패턴을 확인합니다.
+    
+    if (!regex.test(input.value)) { 
+        input.style.borderColor = "#da1e28"; 
+        errorDiv.textContent = "한글만 입력 가능합니다."; 
+    } else {
+        input.style.borderColor = ""; 
+        errorDiv.textContent = ""; 
+    }
+}
+
+function updateCharacterCount2(input) {
+    var maxLength = input.getAttribute("maxlength");
+    var currentLength = input.value.length;
+    var characterCountElement = document.getElementById("characterCount2");
+
+    characterCountElement.textContent = currentLength + "/" + maxLength;
+}
+
+</script>

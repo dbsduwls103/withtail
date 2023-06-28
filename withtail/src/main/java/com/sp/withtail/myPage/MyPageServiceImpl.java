@@ -173,5 +173,54 @@ public class MyPageServiceImpl implements MyPageService {
 		return result;
 	}
 
+	@Override
+	public void updateProfileName(MyPage dto) throws Exception {
+		try {
+			dao.updateData("myPage.updateProfileName", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public MyPage readProfile(String userId) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readProfile", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void updateEnabled(MyPage dto) throws Exception {
+		try {
+			dao.updateData("myPage.updateEnabled", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void insertMemberState(MyPage dto) throws Exception {
+		try {		
+			dao.insertData("myPage.insertMemberState", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	
+	
+
 
 }
