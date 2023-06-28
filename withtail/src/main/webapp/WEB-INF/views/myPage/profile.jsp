@@ -488,7 +488,7 @@ $(function() {
 		<div class="bottom-min-text">
 			<a class="text-logout" href="${pageContext.request.contextPath}/myPage/unregister">회원탈퇴</a>
 			<p class="text-logout"> | </p>
-			<a class="text-logout" href="#">로그아웃</a>	
+			<a class="text-logout" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>	
 		</div>
 	</div>
 </div>

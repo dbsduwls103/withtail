@@ -218,7 +218,7 @@ $(function() {
 		  <span id="agreementText" class="subtitle2">안내 사항을 모두 확인했으며 동의합니다.</span>
 		</div>
 		<div class="withdrawal-button-layout">
-		  <input type="text" name="enabled" id="enabled" value="${dto1.enabled}">
+		  <input type="hidden" name="enabled" id="enabled" value="${dto1.enabled}">
 		  <button id="withdrawalButton" type="button"  class="btn11" disabled> 
 		  	<span class="subtitle3" id="withdrawalButtonText">회원탈퇴</span> 
 		  </button>

@@ -219,7 +219,30 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 
-	
+	@Override
+	public List<MyPage> listCoupon(MyPage dto) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listCoupon", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int couponDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.couponDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 
 

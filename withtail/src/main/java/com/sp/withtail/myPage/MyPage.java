@@ -45,9 +45,67 @@ public class MyPage {
 	private String stateMemo;
 	private String stRegDate;
 	
+	//쿠폰
+	private long couponNum;
+	private String startDate;
+	private String endDate;
+	private String couponName;
+	private long couponPrice;
+	private int couponCategory;
+	private long couponMinPrice;
+	private String endDate2;
 	
 	
 	
+	
+	public String getEndDate2() {
+		return endDate2;
+	}
+	public void setEndDate2(String endDate2) {
+		this.endDate2 = endDate2;
+	}
+	public long getCouponMinPrice() {
+		return couponMinPrice;
+	}
+	public void setCouponMinPrice(long couponMinPrice) {
+		this.couponMinPrice = couponMinPrice;
+	}
+	public long getCouponNum() {
+		return couponNum;
+	}
+	public void setCouponNum(long couponNum) {
+		this.couponNum = couponNum;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getCouponName() {
+		return couponName;
+	}
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+	public long getCouponPrice() {
+		return couponPrice;
+	}
+	public void setCouponPrice(long couponPrice) {
+		this.couponPrice = couponPrice;
+	}
+	public int getCouponCategory() {
+		return couponCategory;
+	}
+	public void setCouponCategory(int couponCategory) {
+		this.couponCategory = couponCategory;
+	}
 	public long getStateNum() {
 		return stateNum;
 	}

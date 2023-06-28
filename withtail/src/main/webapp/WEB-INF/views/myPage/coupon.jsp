@@ -157,6 +157,17 @@ a {
 	display: flex;
 	gap: 5px;
 }
+
+.empty-text {
+    color: rgb(91 91 91);
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    padding: 200px 0;
+}
+
+
 </style>
 
 <div class="container -min">
@@ -174,86 +185,33 @@ a {
 	</div>
 	<div class="coupon-wrap">
 		<div class="coupon-layout">
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
+			<c:choose>
+				<c:when test="${couponDataCount eq 0}">
+						<p class="empty-text">사용 가능한 쿠폰이 없어요.</p>
+				</c:when>
+				<c:otherwise>			
+					<c:forEach var="dto" items="${list}" varStatus="status">
+						<div class="coupon">
+							<div class="coupon-upper">
+								<div class="coupon-text-layout">
+									<div class="coupon-title valign-text-middle">${dto.couponName}</div>
+									<div class="coupon-text valign-text-middle">${dto.couponPrice}원</div>
+								</div>
+							</div>
+							<div class="coupon-lower">
+								<div class="restriction">
+									<p class="restriction-text valign-text-middle">
+										<span>- 사용기간 : ~</span> <span>${dto.endDate2}</span> <span>까지</span>
+									</p>
+									<p class="restriction-text valign-text-middle">
+										<span>- 최소주문금액</span> <span>${dto.couponMinPrice}</span><span>원</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	

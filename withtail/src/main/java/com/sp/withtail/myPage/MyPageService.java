@@ -19,4 +19,7 @@ public interface MyPageService {
 	public void insertMemberState(MyPage dto) throws Exception;
 	public void updateEnabled(MyPage dto) throws Exception;
 	
+	public List<MyPage> listCoupon(MyPage dto) throws Exception;
+	public int couponDataCount(String userId);
+	
 }

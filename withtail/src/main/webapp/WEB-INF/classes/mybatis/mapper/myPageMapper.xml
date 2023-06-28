@@ -87,5 +87,20 @@
 		VALUES (memberState_seq.NEXTVAL, #{userId}, 8, '회원탈퇴', SYSDATE)
 	</insert>
 	
+	<select id="listCoupon" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT c.couponNum, userId, used, startDate, endDate, couponName, couponPrice, couponMinPrice , TO_CHAR(endDate, 'YYYY. MM. DD AM HH:MI:SS') AS endDate2
+		FROM coupon c
+		JOIN memberCoupon m ON c.couponNum = m.couponNum
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="couponDataCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM coupon c
+		JOIN memberCoupon m ON c.couponNum = m.couponNum
+		WHERE userId = #{userId}
+	</select>
+
+	
 </mapper>
 

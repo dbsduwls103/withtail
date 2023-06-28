@@ -30,10 +30,13 @@ public class MyPageController {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	int dataCount;
     	int addDataCount;
+    	int couponDataCount;
     	
     	dto.setUserId(info.getUserId());
 		dataCount = service.dataCount(info.getUserId());
 		addDataCount = service.addDataCount(info.getUserId());
+		couponDataCount = service.couponDataCount(info.getUserId());
+		
 		
 		List<MyPage> list = service.listMyPages(dto);
 		List<MyPage> list1 = service.listDelivery(dto);
@@ -50,7 +53,8 @@ public class MyPageController {
     	model.addAttribute("list", list);
     	model.addAttribute("addDataCount", addDataCount);
     	model.addAttribute("dataCount", dataCount);
-    	 model.addAttribute("dto1", dto1);
+    	model.addAttribute("dto1", dto1);
+    	model.addAttribute("couponDataCount", couponDataCount);
     	
         return ".myPage.myPage";
     }
@@ -134,12 +138,6 @@ public class MyPageController {
    	public String execute6() throws Exception {
    	
    		return ".myPage.storecredit";
-   	}
-    
-    @GetMapping("coupon")
-   	public String execute7() throws Exception {
-   	
-   		return ".myPage.coupon";
    	}
     
     @GetMapping("delivery")
@@ -297,5 +295,26 @@ public class MyPageController {
 
 		return "redirect:/";
 	}
+    
+    @GetMapping("coupon")
+   	public String couponList(MyPage dto, HttpSession session, 
+			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		dto.setUserId(info.getUserId());
+		List<MyPage> list = service.listCoupon(dto);
+		
+		int couponDataCount = 0;
+    	
+		couponDataCount = service.couponDataCount(info.getUserId());
+		
+    	model.addAttribute("list", list);
+    	model.addAttribute("couponDataCount", couponDataCount);
+    	
+   		return ".myPage.coupon";
+   	}
+    
+    
+   
       
 }

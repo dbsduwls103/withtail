@@ -491,7 +491,7 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >쿠폰</p>
 						<div class="text-layout">
-							<p style="margin-bottom: -5px; font-size: 13px;">1장</p>					
+							<p style="margin-bottom: -5px; font-size: 13px;">${couponDataCount}장</p>					
 						</div>
 					</div>
 				</div> 	
