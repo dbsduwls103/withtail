@@ -29,8 +29,7 @@ public class EventManageController {
 	private EventManageService service;
 	
 	@Autowired
-	@Qualifier("myUtilGeneral")
-	private MyUtil myUtil;
+	private MyUtil myUtilGeneral;
 
 	@RequestMapping("{category}/list")
 	public String list(@PathVariable String category,
@@ -55,7 +54,7 @@ public class EventManageController {
 
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
-			total_page = myUtil.pageCount(dataCount, size);
+			total_page = myUtilGeneral.pageCount(dataCount, size);
 		}
 		
 		if (total_page < current_page) {
@@ -82,7 +81,7 @@ public class EventManageController {
 		listUrl += "?" + query;
 		articleUrl += "&" + query;
 
-		String paging = myUtil.paging(current_page, total_page, listUrl);
+		String paging = myUtilGeneral.paging(current_page, total_page, listUrl);
 
 		model.addAttribute("list", list);
 		model.addAttribute("category", category);

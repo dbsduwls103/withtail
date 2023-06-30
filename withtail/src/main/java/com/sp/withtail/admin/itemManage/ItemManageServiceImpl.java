@@ -23,8 +23,8 @@ public class ItemManageServiceImpl implements ItemManageService {
 	@Override
 	public void insertItem(ItemManage dto, String pathname) throws Exception {
 		try {
-			String fileName = fileManager.doFileUpload(dto.getMainImageFile(), pathname);
-			dto.setMainImage(fileName);
+			String photoName = fileManager.doFileUpload(dto.getMainImageFile(), pathname);
+			dto.setMainImage(photoName);
 
 			long itemNum = dao.selectOne("itemManage.itemSeq");
 			dto.setItemNum(itemNum);
@@ -32,50 +32,55 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 			if(! dto.getAddFiles().isEmpty()) {
 				for(MultipartFile mf : dto.getAddFiles()) {
-					fileName = fileManager.doFileUpload(mf, pathname);
-					if(fileName == null) {
+					photoName = fileManager.doFileUpload(mf, pathname);
+					if(photoName == null) {
 						continue;
 					}
-					dto.setFilename(fileName);
+					dto.setPhotoName(photoName);
 					dao.insertData("itemManage.insertItemPhoto", dto);
 				}
 			}
 
 
-			long option1Num = dao.selectOne("itemManage.optionSeq");
-			dto.setOption1Num(option1Num);;
+			long option1Num = dao.selectOne("itemManage.option1Seq");
+			dto.setOption1Num(option1Num);
 			dto.setParent(null);
-			dao.insertData("itemManage.insertItemOption", dto);
+			dao.insertData("itemManage.insertOption1", dto);
 
 			long option2Num;
 			dto.setOption2Nums(new ArrayList<Long>());
-			for(String option2Name : dto.getOption2Names()) {
-				option2Num = dao.selectOne("itemManage.option2Num");
+			for(int i =0; i<dto.getOption2Names().size(); i++) {
+				option2Num = dao.selectOne("itemManage.option2Seq");
 				dto.setOption2Num(option2Num);
-				dto.setOption2Name(option2Name);
+				dto.setOption2Name(dto.getOption2Names().get(i));
+				dto.setExtraPrice(dto.getExtraPrices().get(i));
 				dao.insertData("itemManage.insertOption2",dto);
 
 				dto.getOption2Nums().add(option2Num);
 			}
-
-			long option1Num2 = dao.selectOne("itemManage.optionSeq");
+			
+			
+			long option1Num2 = dao.selectOne("itemManage.option1Seq");
 			dto.setOption1Num(option1Num2);
 			dto.setOption1Name(dto.getOption1Name2());
 			dto.setParent(option1Num);
-			dao.insertData("itemManage.insertItemOption", dto);
+			dao.insertData("itemManage.insertOption1", dto);
 
+			long option2Num2;
 			dto.setOption2Nums2(new ArrayList<Long>());
-			for(String option2Name2 : dto.getOption2Names2()) {
-				option2Num = dao.selectOne("itemManage.option2Seq");
-				dto.setOption2Num(option2Num);
-				dto.setOption2Name(option2Name2);
-				dao.insertData("itemManage.insertOption2", dto);
+			for(int i =0; i<dto.getOption2Names2().size(); i++) {
+				option2Num2= dao.selectOne("itemManage.option2Seq");
+				dto.setOption2Num(option2Num2);
+				dto.setOption2Name(dto.getOption2Names2().get(i));
+				dto.setExtraPrice(dto.getExtraPrices2().get(i));
+				dao.insertData("itemManage.insertOption2",dto);
 
-				dto.getOption2Nums2().add(option2Num);
+				dto.getOption2Nums2().add(option2Num2);
 			}
 
 			ItemStock stock = new ItemStock();
 			stock.setItemNum(itemNum);
+			
 			for(long op2Num : dto.getOption2Nums()) {
 				for(long op2Num2 : dto.getOption2Nums2()) {
 					stock.setOption2Num(op2Num);
@@ -94,25 +99,148 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 	@Override
 	public void updateItem(ItemManage dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			String photoName = fileManager.doFileUpload(dto.getMainImageFile(), pathname);
+			if(photoName != null) {
+				if(dto.getMainImage().length() != 0) {
+					fileManager.doFileDelete(dto.getMainImage(), pathname);
+				}
+				
+				dto.setMainImage(photoName);
+			}
+			dao.updateData("itemManage.updateItem", dto);
+			
+			if(! dto.getAddFiles().isEmpty()) {
+				for(MultipartFile mf : dto.getAddFiles()) {
+					photoName = fileManager.doFileUpload(mf, pathname);
+					if(photoName == null) {
+						continue;
+					}
+					dto.setPhotoName(photoName);
+					
+					dao.insertData("itemManage.insertItemPhoto",dto);
+				}
+			}
+			
+			dao.updateData("itemManage.updateOption1",dto);
+			
+			int size = dto.getOption2Nums().size();
+			for(int i = 0; i< size; i++) {
+				dto.setOption2Num(dto.getOption2Nums().get(i));
+				dto.setOption2Name(dto.getOption2Names().get(i));
+				dto.setExtraPrice(dto.getExtraPrices().get(i));
+				dao.updateData("itemManage.updateOption2", dto);
+			}
+			
+			long option2Num;
+			dto.setOption2Nums(new ArrayList<Long>());
+			for(int i = size; i < dto.getOption2Names().size(); i++) {
+				option2Num = dao.selectOne("itemManage.option2Seq");
+				dto.setOption2Num(Long.parseLong(dto.getOption2Names().get(i)));
+				dao.insertData("itemManage.insertOption2", dto);
+				
+				dto.getOption2Nums().add(option2Num);
+			}
+			
+			dto.setOption1Num(dto.getOption1Num2());
+			dto.setOption1Name(dto.getOption1Name2());
+			dao.updateData("itemManage.updateOption1",dto);
+			
+			int size2 = dto.getOption2Nums2().size();
+			for(int i = 0; i < size2; i++) {
+				dto.setOption2Num(dto.getOption2Nums2().get(i));
+				dto.setOption2Name(dto.getOption2Names2().get(i));
+				dto.setExtraPrice(dto.getExtraPrices2().get(i));
+				dao.updateData("itemManage.updateOption2",dto);
+			}
+			
+			dto.setOption2Nums2(new ArrayList<Long>());
+			for(int i = size2; i < dto.getOption2Names2().size(); i++) {
+				option2Num = dao.selectOne("itemManage.option2Seq");
+				dto.setOption2Num(option2Num);
+				dto.setOption2Name(dto.getOption2Names2().get(i));
+				dto.setExtraPrice(dto.getExtraPrices2().get(i));
+				dao.insertData("itemManage.insertOption2",dto);
+				
+				dto.getOption2Nums2().add(option2Num);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
 	@Override
 	public void deleteItem(long itemNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			if(pathname != null) {
+				fileManager.doFileDelete(pathname);
+			}
+			
+			List<ItemManage> listPhoto = listItemPhoto(itemNum);
+			if(listPhoto != null) {
+				for(ItemManage dto : listPhoto) {
+					fileManager.doFileDelete(dto.getPhotoName(), pathname);
+				}
+			}
+			
+			ItemManage dto = readItem(itemNum);
+			List<Long> listOption2 = dto.getOption2Nums();
+			if(listOption2 != null) {
+				for( long option2num : listOption2) {
+					dao.deleteData("itemManage.deleteOption2", option2num);
+				}
+			}
+			List<Long> listOption22 = dto.getOption2Nums2();
+			if(listOption22 != null) {
+				for( long option2num : listOption22) {
+					dao.deleteData("itemManage.deleteOption2", option2num);
+				}
+			}
+			
+			Long option1Num = dto.getOption1Num();
+			if(option1Num != null) {
+				dao.deleteData("itemManage.deleteOption1", option1Num);
+			}
+			Long option1Num2 = dto.getOption1Num2();
+			if(option1Num2 != null) {
+				dao.deleteData("itemManage.deleteOption1", option1Num2);
+			}
+					
+			dao.deleteData("itemManage.deleteItem", itemNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
 	@Override
-	public void deleteItemFile(long fileNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteItemPhoto(long photoNum, String pathname) throws Exception {
+		try {
+			if(pathname != null) {
+				fileManager.doFileDelete(pathname);
+			}
+			
+			dao.deleteData("itemManage.deleteItemPhoto", photoNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
 	@Override
 	public void deleteOption2(long option2Num) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.deleteData("itemManage.deleteOption2", option2Num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
@@ -155,7 +283,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 	}
 
 	@Override
-	public List<ItemManage> listItemFile(long itemNum) {
+	public List<ItemManage> listItemPhoto(long itemNum) {
 		List<ItemManage> list = null;
 
 		try {
@@ -231,18 +359,13 @@ public class ItemManageServiceImpl implements ItemManageService {
 		return list;
 	}
 
-	@Override
-	public List<ItemManage> listLastCategory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public List<ItemStock> listItemStock(long itemNum) {
+	public List<ItemStock> stocklist(long itemNum) {
 		List<ItemStock> list = null;
 
 		try {
-			list = dao.selectList("itemManage.listItemStock", itemNum);
+			list = dao.selectList("itemManage.stocklist", itemNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -251,9 +374,9 @@ public class ItemManageServiceImpl implements ItemManageService {
 	}
 
 	@Override
-	public void updateItemStock(ItemStock dto) throws Exception {
+	public void updateItemStock(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("itemManage.updateItemStock", dto);
+			dao.updateData("itemManage.updateItemStock", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -261,4 +384,17 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 	}
 
+	@Override
+	public int stockDataCount(Map<String, Object> map) {
+		int result = 0;
+
+		try {
+			result = dao.selectOne("itemManage.stockDataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
 }

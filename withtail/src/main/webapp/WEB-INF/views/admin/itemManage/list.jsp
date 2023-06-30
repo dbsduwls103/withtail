@@ -40,96 +40,152 @@ vertical-align: baseline;
 
 </style>
 
-	  <style>
-	         #modal.modal-overlay {
-	            width: 100%;
-	            height: 100%;
-	            position: absolute;
-	            left: 0;
-	            top: 0;
-	            display: flex;
-	            flex-direction: column;
-	            align-items: center;
-	            justify-content: center;
-	            background: rgba(255, 255, 255, 0.25);
-	            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-	            backdrop-filter: blur(1.5px);
-	            -webkit-backdrop-filter: blur(1.5px);
-	            border-radius: 10px;
-	            border: 1px solid rgba(255, 255, 255, 0.18);
-	        }
-	        #modal .modal-window {
-	            background: rgba( 69, 139, 197, 0.70 );
-	            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-	            backdrop-filter: blur( 13.5px );
-	            -webkit-backdrop-filter: blur( 13.5px );
-	            border-radius: 10px;
-	            border: 1px solid rgba( 255, 255, 255, 0.18 );
-	            width: 400px;
-	            height: 500px;
-	            position: relative;
-	            top: -100px;
-	            padding: 10px;
-	        }
-	        #modal .title {
-	            padding-left: 10px;
-	            display: inline;
-	            text-shadow: 1px 1px 2px gray;
-	            color: white;
-	            
-	        }
-	        #modal .title h2 {
-	            display: inline;
-	        }
-	        #modal .close-area {
-	            display: inline;
-	            float: right;
-	            padding-right: 10px;
-	            cursor: pointer;
-	            text-shadow: 1px 1px 2px gray;
-	            color: white;
-	        }
-	        
-	        #modal .content {
-	            margin-top: 20px;
-	            padding: 0px 10px;
-	            text-shadow: 1px 1px 2px gray;
-	            color: white;
-	        }
-	    </style>
 
-<script type="text/javascript">
+<script>
 function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
 
 function changeList() {
-	let parentCt = $("#changeCategory").val();
-	let showNotice = $("#changeShowProduct").val();
+	let parentCt = $("#main").val();
 	
 	const f = document.searchForm;
-	
 	f.parentCt.value = parentCt;
-	f.ctNum.value = 0;
-	f.showNotice.value = showNotice;
+	f.subCtNum.value = 0;
+	f.lastCtNum.value = 0;
 	searchList();
 }
 
 function changeSubList() {
-	let parentCt = $("#changeCategory").val();
-	let ctNum = $("#changeSubCategory").val();
-	let showNotice = $("#changeShowProduct").val();
+	let parentCt = $("#main").val();
+	let subCtNum = $("#sub").val();
 	
 	const f = document.searchForm;
 	f.parentCt.value = parentCt;
-	f.ctNum.value = ctNum;
-	f.showNotice.value = showNotice;
+	f.subCtNum.value = subCtNum;
+	f.lastCtNum.value = 0;
 	searchList();
 }
 
-</script>
+function changeLastList() {
+	let parentCt = $("#main").val();
+	let subCtNum = $("#sub").val();
+	let lastCtNum = $("#last").val();
+	
+	const f = document.searchForm;
+	f.parentCt.value = parentCt;
+	f.subCtNum.value = subCtNum;
+	f.lastCtNum.value = lastCtNum;
+	searchList();
+}
 
+function deleteItemSelect() {
+	// 선택된 항목 삭제
+	let cnt = $("form input[name=nums]:checked").length;
+    if (cnt === 0) {
+		alert("삭제할 상품을 선택해주세요");
+		return;
+    }
+
+    if(! confirm('선택한 상품을 지우시겠습니까 ? ')) {
+		return;
+	}
+	
+	const f = document.itemForm;
+	f.action = "${pageContext.request.contextPath}/admin/itemManage/deleteItemList";
+	f.submit();
+}
+
+$(function() {
+	 $(".chkAll").click(function() {
+		   if($(this).is(":checked")) {
+			   $("input[name=nums]").prop("checked", true);
+	        } else {
+			   $("input[name=nums]").prop("checked", false);
+	        }
+	   });
+})
+
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+
+$(function(){
+	$("select[name=parentCt]").change(function(){
+		let parentCt = $(this).val();
+		
+		$("select[name=ctNum]").find('option').remove().end()
+			.append("<option value=''>:: 카테고리 선택 ::</option>");	
+		
+		if(! parentCt) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/admin/itemManage/listSubCategory";
+		let query = "parentCt="+parentCt;
+		
+		const fn = function(data) {
+			$.each(data.listSubCategory, function(index, item){
+				let ctNum = item.ctNum;
+				let ctName = item.ctName;
+				let s = "<option value='"+ctNum+"'>"+ctName+"</option>";
+				$("select[name=ctNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+		
+	});
+	
+	$("select[name=ctNum]").change(function(){
+		let parentCt = $(this).val();
+		
+		$("select[name=ctNum2]").find('option').remove().end()
+			.append("<option value=''>:: 카테고리 선택 ::</option>");	
+		
+		if(! parentCt) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/admin/itemManage/listLastCategory";
+		let query = "parentCt="+parentCt;
+		
+		const fn = function(data) {
+			$.each(data.listLastCategory, function(index, item){
+				let ctNum = item.ctNum;
+				let ctName = item.ctName;
+				let s = "<option value='"+ctNum+"'>"+ctName+"</option>";
+				$("select[name=ctNum2]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+		
+	});
+});
+</script>
 
 
 <div class="body-container">
@@ -138,50 +194,42 @@ function changeSubList() {
     </div>
     
     <div class="body-main">
-       <form name="searchForm">
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">
-					<select id="changeCategory" class="form-select" onchange="changeList();">
-							<c:if test="${listCategory.size() == 0}">
-								<option value="0">:: 메인카테고리 ::</option>
-							</c:if>
-							<c:forEach var="vo" items="${listCategory}">
-								<option value="${vo.ctNum}" ${parentCt==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
-							</c:forEach>
+					<select name="parentCt" id="main" class="form-select" onchange="changeList();">
+					            <option value="0">:: 카테고리 ::</option>
+								<c:forEach var="vo" items="${listCategory}">
+									<option value="${vo.ctNum}" ${parentCt==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+								</c:forEach>
 					</select>
 					
 					<!-- 위에서 상위 카테고리에 따라 내용이 달라져야해요! 예시는 강아지를 선택했을 때 -->
-					<select id="changeSubCategory" class="form-select" onchange="changeSubList();">
-							<c:if test="${listSubCategory.size() == 0}">
-								<option value="0">:: 카테고리 ::</option>
-							</c:if>
+					<select name="ctNum" id="sub" class="form-select" onchange="changeSubList();">
+				          	 <option value="0">:: 카테고리 ::</option>
 							<c:forEach var="vo" items="${listSubCategory}">
-								<option value="${vo.ctNum}" ${ctNum==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+								<option value="${vo.ctNum}" ${subCtNum==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
 							</c:forEach>
 					</select>
 					
-					<!-- 위에서 상위 카테고리에 따라 내용이 달라져야해요! 예시는 주식을 선택했을 때 -->
-					<select id="changeLastCategory" class="form-select" onchange="changeLastList();" >
-					    <option> 키블사료 </option>
-					    <option> 습식사료 </option>
-					    <option> 동결건조 </option>
-					    <option> 화식 · 자연식 · 화식 </option>
-					</select>
-					
-					<button class="btn">검색</button>
+						<select name="ctNum2" id="last" class="form-select" onchange="changeLastList();">
+						     <option value="0">:: 카테고리 ::</option>
+							<c:forEach var="vo" items="${listLastCategory}">
+								<option value="${vo.ctNum}" ${lastCtNum==vo.ctNum?"selected='selected'":""}>${vo.ctName}</option>
+							</c:forEach>
+						</select>	
 				</td>
 				<td align="right" width="30%">
 					${dataCount}개(${page}/${total_page} 페이지)
 				</td>
 			</tr>
 		</table>
-		</form>
+		
 		
 		<table class="table table-border table-list">
 			<thead>
 				<tr>
-					<th class="wx-50"><input type="checkbox"></th>
+					<th class="wx-50"><input type="checkbox" class="chkAll"></th>
 					<th class="wx-80">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
@@ -196,27 +244,49 @@ function changeSubList() {
 			</thead>
 			
 		 	<tbody>
+		     	<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr> 
-						<td class="product-remove"><input type="checkbox"></td>
-						<td>3</td>
-                        <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/uploads/item/main/product_sample.png); background-size:cover;"></div></td>
+						<td class="item-remove"><input type="checkbox" name="nums"></td>
+						<td>${dataCount - (page-1) * size - status.index}</td>
+                        <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/uploads/item/${dto.mainImage}); background-size:cover;"></div></td>
 						<td class="left">
 						    <!-- 제품 상세 페이지로 이동 -->
-							<a href="${pageContext.request.contextPath}/shop/info">포포 닭가슴살</a>
+							<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">${dto.itemName }</a>
 						</td>
-						<td>${dto.price }</td>
-						<td>${dto.discount }</td>
+						<td>${dto.itemPrice }</td>
+						<td>${dto.discount } % </td>
 						<td>${dto.totalStock }</td>
 						<td>${dto.showNotice==0?"진열":"숨김"}</td>
 						<td>${dto.upddate }</td>
 						<td>
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/optionList';">재고</button> 
-							<button class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/write';">수정</button> 
+							<c:url var="updateUrl" value="/admin/itemManage/update">
+								<c:param name="itemNum" value="${dto.itemNum}"/>
+								<c:param name="parentCt" value="${parentCt}"/>
+								<c:param name="subCtNum" value="${subCtNum}"/>
+								<c:param name="lastCtNum" value="${lastCtNum}"/>
+								<c:param name="page" value="${page}"/>
+							</c:url>
+							<c:url var="stockUrl" value="/admin/itemManage/stockList">
+								<c:param name="itemNum" value="${dto.itemNum}"/>
+								<c:param name="parentCt" value="${parentCt}"/>
+								<c:param name="subCtNum" value="${subCtNum}"/>
+								<c:param name="lastCtNum" value="${lastCtNum}"/>
+								<c:param name="page" value="${page}"/>
+							</c:url>
+							<button class="btn" onclick="location.href='${stockUrl}';">재고</button> 
+							<button class="btn" onclick="location.href='${updateUrl}';">수정</button> 
 						</td>
 					</tr>
+			     </c:forEach>
 		  	</tbody>
+		  	<!-- 
+		  	<div style="text-align: right; margin: 3px 0;">
+				<button type="button" style="margin: 3px 0;" class="btn btn-light"
+					onclick="deleteItemSelect">삭제</button>
+			</div>
+		  	 -->
 		</table>
-		 
+			
 		<div class="page-navigation">
 			${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 		</div>
@@ -224,22 +294,22 @@ function changeSubList() {
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
-					<form name="searchForm" action="${pageContext.request.contextPath}/admin/inquiryManage/list" method="post">
+					<form name="searchForm" action="${pageContext.request.contextPath}/admin/itemManage/list" method="post">
 						<select name="condition" class="form-select">
 							<option value="all" ${col=="all"?"selected='selected'":""}>상품명+설명</option>
-							<option value="productNum" ${col=="itemNum"?"selected='selected'":""}>상품코드</option>
-							<option value="productName" ${col=="itemName"?"selected='selected'":""}>상품명</option>
-							<option value="itemcontent" ${col=="itemcontent"?"selected='selected'":""}>설명</option>
+							<option value="itemNum" ${col=="itemNum"?"selected='selected'":""}>상품코드</option>
+							<option value="itemName" ${col=="itemName"?"selected='selected'":""}>상품명</option>
+							<option value="itemContent" ${col=="itemContent"?"selected='selected'":""}>설명</option>
 						</select>
 						
 						<input type="text" name="kwd" value="${kwd}" class="form-control">
 						<input type="hidden" name="size" value="${size}">
 						<input type="hidden" name="parentCt" value="${parentCt}">
-						<input type="hidden" name="ctNum" value="${ctNum}">
-						<input type="hidden" name="showNotice" value="${showNotice}">
+						<input type="hidden" name="subCtNum" value="${subCtNum}">
+						<input type="hidden" name="lastCtNum" value="${lastCtNum}">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
@@ -247,12 +317,8 @@ function changeSubList() {
 					<div class="col text-end" style="display: inline-block;">
 					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/write';">글올리기</button>
 				    </div>
-				    
-				    <div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="">삭제</button>
-				    </div>
 				</td>
 			</tr>
-		</table>
+		 </table>
 	</div>
 </div>

@@ -8,11 +8,12 @@ public class ItemManage {
 
 	private long itemNum;
 	private String itemName;
-	private int price;
+	private int itemPrice;
 	private int discount;
-	private int point;
+	private int itemPoint;
 	private int salePrice;
 	private int deliveryFee;
+	private String madeby;
 	private int showNotice;
 	private String itemContent;
 	private String mainImage;
@@ -21,6 +22,7 @@ public class ItemManage {
 	private MultipartFile mainImageFile;
 	
 	private long ctNum;
+	private long subCtNum;
 	private Long parentCt;
 	private long dept;
 	private String ctName;
@@ -43,20 +45,32 @@ public class ItemManage {
 	private List<Long> option2Nums2;
 	private List<String> option2Names2;
 	
+	private List<Long> extraPrices;
+	private List<Long> extraPrices2;
+	
 	private int totalStock;
 	
 	private long extraPrice;
-	private int couponEnable;
+	private long extraPrice2;
+	private int coupon;
 
-	private long fileNum;
-	private String filename;
+	private long photoNum;
+	private String photoName;
 	private List<MultipartFile> addFiles;
 	
-	private String madeDate;
+	private String manufactDate;
 	private String expriy;
 	private String country;
 	
 	
+	
+	
+	public String getMadeby() {
+		return madeby;
+	}
+	public void setMadeby(String madeby) {
+		this.madeby = madeby;
+	}
 	public long getItemNum() {
 		return itemNum;
 	}
@@ -69,11 +83,18 @@ public class ItemManage {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public int getPrice() {
-		return price;
+	
+	public int getItemPrice() {
+		return itemPrice;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	public int getItemPoint() {
+		return itemPoint;
+	}
+	public void setItemPoint(int itemPoint) {
+		this.itemPoint = itemPoint;
 	}
 	public int getDiscount() {
 		return discount;
@@ -81,12 +102,7 @@ public class ItemManage {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
-		this.point = point;
-	}
+
 	public int getSalePrice() {
 		return salePrice;
 	}
@@ -140,6 +156,12 @@ public class ItemManage {
 	}
 	public void setCtNum(long ctNum) {
 		this.ctNum = ctNum;
+	}
+	public long getSubCtNum() {
+		return subCtNum;
+	}
+	public void setSubCtNum(long subCtNum) {
+		this.subCtNum = subCtNum;
 	}
 	public Long getParentCt() {
 		return parentCt;
@@ -237,6 +259,18 @@ public class ItemManage {
 	public void setOption2Names2(List<String> option2Names2) {
 		this.option2Names2 = option2Names2;
 	}
+	public List<Long> getExtraPrices() {
+		return extraPrices;
+	}
+	public void setExtraPrices(List<Long> extraPrices) {
+		this.extraPrices = extraPrices;
+	}
+	public List<Long> getExtraPrices2() {
+		return extraPrices2;
+	}
+	public void setExtraPrices2(List<Long> extraPrices2) {
+		this.extraPrices2 = extraPrices2;
+	}
 	public int getTotalStock() {
 		return totalStock;
 	}
@@ -246,26 +280,26 @@ public class ItemManage {
 	public long getExtraPrice() {
 		return extraPrice;
 	}
+	public long getExtraPrice2() {
+		return extraPrice2;
+	}
+	public void setExtraPrice2(long extraPrice2) {
+		this.extraPrice2 = extraPrice2;
+	}
 	public void setExtraPrice(long extraPrice) {
 		this.extraPrice = extraPrice;
 	}
-	public int getCouponEnable() {
-		return couponEnable;
+	public long getPhotoNum() {
+		return photoNum;
 	}
-	public void setCouponEnable(int couponEnable) {
-		this.couponEnable = couponEnable;
+	public void setPhotoNum(long photoNum) {
+		this.photoNum = photoNum;
 	}
-	public long getFileNum() {
-		return fileNum;
+	public String getPhotoName() {
+		return photoName;
 	}
-	public void setFileNum(long fileNum) {
-		this.fileNum = fileNum;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
 	}
 	public List<MultipartFile> getAddFiles() {
 		return addFiles;
@@ -273,11 +307,11 @@ public class ItemManage {
 	public void setAddFiles(List<MultipartFile> addFiles) {
 		this.addFiles = addFiles;
 	}
-	public String getMadeDate() {
-		return madeDate;
+	public String getManufactDate() {
+		return manufactDate;
 	}
-	public void setMadeDate(String madeDate) {
-		this.madeDate = madeDate;
+	public void setManufactDate(String manufactDate) {
+		this.manufactDate = manufactDate;
 	}
 	public String getExpriy() {
 		return expriy;
@@ -291,9 +325,12 @@ public class ItemManage {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
-	
-	
+	public int getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(int coupon) {
+		this.coupon = coupon;
+	}
 
 	
 }
