@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sp.withtail.common.FileManager;
 import com.sp.withtail.common.MyUtil;
 
 @Controller("shop.shopController")
@@ -31,9 +30,6 @@ public class ShopController {
 	
 	@Autowired
 	private MyUtil myUtilCustom;
-	
-	@Autowired
-	private FileManager fileManager;
 	
 	// 카테고리 탭
 	@GetMapping("{ctNum}")

@@ -239,6 +239,133 @@
 		color: #82ae46 !important;
 	}
 	
+	/* 리뷰 */
+	.rv-tit {
+		border-bottom: 2px solid rgb(23, 24, 26);
+	}
+	
+	.rv-count-div {
+		font-weight: 600;
+    	font-size: 14px;
+    	color: rgb(77, 83, 89);
+	    background: rgb(241, 243, 245);
+	    border-radius: 4px;
+	    padding: 4px 12px;
+	    display: inline-block;
+	}
+	
+	.hr {
+		width: 1px;
+    	height: 120px;
+    	background: rgb(201, 207, 214);
+	}
+	
+	.rv-container {
+		border-bottom: 1px solid #999;
+	}
+	
+	ul.rv-cont {
+		
+	}
+	
+	ul.rv-cont {
+		
+	}
+	
+	ul.rv-cont > li {
+		padding: 20px;
+	}
+	
+	.rv-user-li {
+		background: rgb(241, 243, 245);
+		flex-direction: column;
+	}
+	
+	.rv-cont-li {
+		flex-direction: column;
+	}
+	
+	.rv-user-li .rv-user-tit {
+		overflow: hidden;
+	}
+	
+	.rv-user-li .rv-user-tit > span {
+		display: inline-block;
+	}
+	
+	.rv-op-div > span {
+		display: inline-block;
+		font-size: 12px;
+	}
+	
+	.rv-like-div {
+		overflow: hidden;
+	}
+	
+	.rv-thumb {
+		float: left;
+		border: 1px solid #999; 
+		display: inline-block; 
+		font-size: 12px; 
+		padding: 5px 10px; 
+		color: #999;
+		border-radius: 5px;
+	}
+	
+	.rv-thumb:hover {
+		color: #82ae46;
+		border: 1px solid #82ae46;
+	}
+	
+	.reply-btn {
+		float: right;
+		border: 1px solid #999; 
+		display: inline-block; 
+		font-size: 12px; 
+		padding: 5px 20px; 
+		color: #999;
+		border-radius: 5px;
+	}
+	
+	.reply-btn:hover {
+		color: #82ae46;
+		border: 1px solid #82ae46;
+	}
+
+	/* 리뷰 댓글 */
+	.rv-reply-container {
+		background: #eee;
+		padding: 10px 0;
+		border-top: 1px solid #999;
+	}
+	
+	.rv-reply-user {
+		font-size: 12px;
+	}
+	
+	.rv-reply-user > span {
+		display: inline-block;
+	}
+	
+	.rv-reply-cont {
+		font-size: 13px;
+	}
+	
+	/*페이징*/
+	.block-27 ul li a, .block-27 ul li span {
+	    color: #666;
+	    vertical-align: middle;
+	}
+	
+	.block-27 ul li span.disabled {
+		color: #999;
+	}
+	
+	/*리뷰 댓글*/
+	.rv-reply-container {
+    	display: none;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -701,169 +828,16 @@
 					<a href="#qnaSection">배송/교환/환불</a>
 				</div>
 			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<span class="subheading">Review</span>
-					<h2 class="mb-4">상품리뷰</h2>
-					<div class="review-container">
-	
-						<div class="col-md-12 d-flex ftco-animate"
-							style="border-bottom: 1px solid #ccc; width: 100%">
-						<div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0"
-							style="width: 100%;">
-							<div class="block-20"
-								style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
-							<div class="text d-block pl-md-4">
-								<div class="meta mb-3">
-									<div class="d-flex mb-5 justify-content-end">
-										<p class="text-left mr-4">
-										<div class="mr-3" style="display: flex">
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-													width="12" height="12">
-											</div>
-										</div>
-										</p>
-										<div class="float-right mr-3">관리자</div>
-										<div class="float-right mr-3">2019년 7월 20일</div>
-										<div class="float-right">
-											<a class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</div>
-									</div>
-	
-								</div>
-								<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
-							</div>
-						</div>
-					</div>
-	
-					<div class="col-md-12 d-flex ftco-animate"
-						style="border-bottom: 1px solid #ccc; width: 100%">
-						<div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0"
-							style="width: 100%;">
-							<div class="block-20"
-								style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
-							<div class="text d-block pl-md-4">
-								<div class="meta mb-3">
-									<div class="d-flex mb-5 justify-content-end">
-										<p class="text-left mr-4">
-										<div class="mr-3" style="display: flex">
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-													width="12" height="12">
-											</div>
-										</div>
-										</p>
-										<div class="float-right mr-3">관리자</div>
-										<div class="float-right mr-3">2019년 7월 20일</div>
-										<div class="float-right">
-											<a class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</div>
-									</div>
-	
-								</div>
-								<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
-							</div>
-						</div>
-					</div>
-	
-					<div class="col-md-12 d-flex ftco-animate"
-						style="border-bottom: 1px solid #ccc; width: 100%">
-						<div class="blog-entry align-self-stretch d-md-flex mt-3 mb-0"
-							style="width: 100%;">
-							<div class="block-20"
-								style="background-image: url('${pageContext.request.contextPath}/resources/images/image_1.jpg');"></div>
-							<div class="text d-block pl-md-4">
-								<div class="meta mb-3">
-									<div class="d-flex mb-5 justify-content-end">
-										<p class="text-left mr-4">
-										<div class="mr-3" style="display: flex">
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star-on.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-													width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star"
-													src="${pageContext.request.contextPath}/resources/svg/star.svg"
-														width="12" height="12">
-												</div>
-											</div>
-											</p>
-											<div class="float-right mr-3">관리자</div>
-											<div class="float-right mr-3">2019년 7월 20일</div>
-											<div class="float-right">
-												<a class="meta-chat"><span class="icon-chat"></span> 3</a>
-											</div>
-										</div>
-									</div>
-									<p class="mt-3">리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용리뷰내용</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			
+			<!-- 리뷰 -->
+			<div class="rv-div mt-5">
+				<!-- review/list.jsp 로 분리 -->
+				
+				<!-- //review/list.jsp 로 분리 -->
 			</div>
-			<div class="text-right">
-				<button type="button" class="btn btn-outline-success review-button ftco-animate mt-1">리뷰 쓰기</button>
-			</div>
+			<!-- //리뷰 -->
+			
+			
 		</div>
 	</section>
 
@@ -1094,6 +1068,50 @@
 
 	</div>
 </div>
+
+ <!-- 검색 폼 -->
+	<form name="reviewForm" method="post">
+		<input type="hidden" name="condition" value="all">
+		<input type="hidden" name="keyword" value="">
+	</form>
+	
+<script>
+$(function(){
+	listPage(1);
+});
+
+//리뷰 리스트
+function listPage(page) {
+	let itemNum = "${itemNum}";
+	let url = "${pageContext.request.contextPath}/review/list?itemNum="+itemNum;
+	let query = "pageNo="+page;
+	let search = $('form[name=reviewForm]').serialize();
+	query = query+"&"+search;
+	let selector = ".rv-div";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	ajaxProd(url, "get", query, "html", fn);
+}
+</script>
+
+<script>
+// 댓글 버튼 열고 다기
+$(function(){
+	$("body").on("click", ".reply-btn", function(){
+		const $reply = $(this).closest(".rv-reply-container").next();
+		
+		let isVisible = $reply.is(':visible');
+			
+		if(isVisible) {
+			$reply.hide();
+		} else {
+			$reply.show();
+		}
+	});
+});
+</script>
 
 <script>
 	// 네비게이터 클릭 시 섹션으로 스크롤 이동
