@@ -30,12 +30,12 @@ public class MyPageController {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	int dataCount;
     	int addDataCount;
-    	int couponDataCount;
+    	int couponUnusedDataCount;
     	
     	dto.setUserId(info.getUserId());
 		dataCount = service.dataCount(info.getUserId());
 		addDataCount = service.addDataCount(info.getUserId());
-		couponDataCount = service.couponDataCount(info.getUserId());
+		couponUnusedDataCount = service.couponUnusedDataCount(info.getUserId());
 		
 		
 		List<MyPage> list = service.listMyPages(dto);
@@ -54,7 +54,7 @@ public class MyPageController {
     	model.addAttribute("addDataCount", addDataCount);
     	model.addAttribute("dataCount", dataCount);
     	model.addAttribute("dto1", dto1);
-    	model.addAttribute("couponDataCount", couponDataCount);
+    	model.addAttribute("couponUnusedDataCount", couponUnusedDataCount);
     	
         return ".myPage.myPage";
     }
@@ -66,16 +66,52 @@ public class MyPageController {
 	}
     
     @GetMapping("orders")
-	public String orders() throws Exception {
+	public String orders(MyPage dto, HttpSession session, 
+			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	int orderDataCount;
+    	
+    	dto.setUserId(info.getUserId());
+    	orderDataCount = service.orderDataCount(info.getUserId());
+		
+		
+		List<MyPage> list = service.listOrder(dto);
 	
+    	model.addAttribute("list", list);
+    	model.addAttribute("orderDataCount", orderDataCount);
+    	
 		return ".myPage.orders";
 	}
     
     @GetMapping("orderDetail")
-	public String execute2() throws Exception {
-	
+	public String orderDetail(@RequestParam long orderNum, 
+			Model model) throws Exception {
+    	
+    	MyPage dto = service.readOrderList(orderNum);
+    	
+    	List<MyPage> list = service.listNumOrder(orderNum);
+    	model.addAttribute("dto", dto);
+    	model.addAttribute("list", list);
+    	
 		return ".myPage.orderDetail";
 	}
+    
+    @PostMapping("updateOrderState")
+    @ResponseBody
+    public Map<String, Object> updateOrderState (MyPage dto) throws Exception {
+    	
+    	String state = "true";
+    	try {
+			service.updateOrderState(dto.getOrderNum());
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
     
     @GetMapping("pet")
 	public String pet(@RequestParam long num, 
@@ -304,12 +340,12 @@ public class MyPageController {
 		dto.setUserId(info.getUserId());
 		List<MyPage> list = service.listCoupon(dto);
 		
-		int couponDataCount = 0;
+		int couponUnusedDataCount = 0;
     	
-		couponDataCount = service.couponDataCount(info.getUserId());
+		couponUnusedDataCount = service.couponUnusedDataCount(info.getUserId());
 		
     	model.addAttribute("list", list);
-    	model.addAttribute("couponDataCount", couponDataCount);
+    	model.addAttribute("couponUnusedDataCount", couponUnusedDataCount);
     	
    		return ".myPage.coupon";
    	}

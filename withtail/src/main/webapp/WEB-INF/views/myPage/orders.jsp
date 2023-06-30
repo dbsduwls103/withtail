@@ -182,6 +182,7 @@ select {
     display: flex;
     gap: 20px;
     padding: 20px 16px;
+    margin-top: -17px
 }
 
 .product-info-layout {
@@ -279,7 +280,7 @@ select {
     align-self: stretch;
     flex: 1;
     margin-top: -1px;
-    text-align: right;
+    text-align: left;
     color: rgb(137 133 133);
     font-weight: 400;
     font-style: normal;
@@ -317,10 +318,11 @@ select {
     gap: 10px;
     justify-content: flex-end;
     padding: 40px 28px;
+    margin-top: -17px;
 }
 
 .btn2 {
-    margin-top: 17px;
+    margin-top: 5px;
     width: 162px;
     margin-left: -58px;
     border-radius: 6px;
@@ -331,8 +333,76 @@ select {
     background-color: #82ae46;
 }
 
-  </style>
+.orderhistory-layout {
+    align-items: center;
+    align-self: stretch;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 80px 0px;
+}
 
+.orderhistory-contents {
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: center;
+}
+
+.order-image-1 {
+    height: 100px;
+    min-width: 100px;
+    object-fit: cover;
+}
+
+.orderhistory-text-layout {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.orderhistory-text {
+    align-self: stretch;
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn30 {
+	width: 380px;
+    height: 55px;
+    border-radius: 5px;
+    border: none;
+    background-color: #82ae46;
+    color: white;
+}
+
+.btn40 {
+	border: 1px solid #82ae46;
+    background-color: white;
+    color: #82ae46;
+    margin-top: 5px;
+    width: 162px;
+    margin-left: -58px;
+    border-radius: 6px;
+    font-size: 12px;
+    height: 33px;
+    margin-left: 566px
+}
+  </style>
+ 
+
+  
   <div class="container -min">
 	<div class="submenu-layout">
 	  <ul>
@@ -349,7 +419,7 @@ select {
 				<p>최대 지난 3년 간의 주문 내역까지 확인할 수 있어요.</p>
 			</div>	
 			<div class="text-input-1">
-				<select name="period">
+				<select name="period" id="period-select">
 				    <option value="">기간</option>
 				    <option value="3month">3개월</option>
 				    <option value="6month">6개월</option>
@@ -360,242 +430,110 @@ select {
 			</div>
 		</div>
 		
-		<div class="order-view-section">
-			<div class="order-view-list">
-				<div class="order-date-layout">
-					<div class="order-date">
-						<div class="date valign-text-middle">
-							<span>2023년 6월 15일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#801<!-- 주문번호 --></span>
+		
+		<c:choose>
+			<c:when test="${orderDataCount eq 0}">
+				<div class="orderhistory-layout">
+					<div class="orderhistory-contents">
+						<img class="order-image-1" alt="" src="${pageContext.request.contextPath}/resources/images/icon/order-image-1.png" width="120" height="100">
+						<div class="orderhistory-text-layout">
+							<p class="orderhistory-text">
+								해당 기간에 주문하신 상품이 없습니다.
+								<br>
+								펫하이를 한번 둘러보시는 건 어떠신가요?
+							</p>
 						</div>
-						<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 					</div>
+					<button type="button" class="btn30" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
 				</div>
-				
-				<!-- 한번에 주문했을떄의 상품 리스트 (상품1) -->
-				<div class="order-view-product-wrap">
-					<div class="order-view-product-layout">
-						<div class="order-list-layout">
-							<div class="product-info-layout">
-								<div class="product-info">
-									<div class="product-image-layout">
-										<div class="product-image">
-											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-										</div>
-									</div>
-									<div class="product-name">
-										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-										<a href="#" class="ov-price-layout">
-											<div class="price-text valign-text-middle">
-												9,740원
-											</div>
-											<div class="ov-counting-text valign-text-middle">
-												(1개)
-											</div>
-										</a>
-										<div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ov-text-btn">
-								<button type="button" class="btn2">장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-					<div class="ov-status-text-container">
-						<div class="ov-status-text-wrap">
-							<div class="ov-status-text-layout">
-								<div class="ov-status-text valign-text-middle">
-									배송완료
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-				
-				<!-- 상품2 -->
-				<div class="order-view-product-wrap">
-					<div class="order-view-product-layout">
-						<div class="order-list-layout">
-							<div class="product-info-layout">
-								<div class="product-info">
-									<div class="product-image-layout">
-										<div class="product-image">
-											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-										</div>
-									</div>
-									<div class="product-name">
-										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-										<a href="#" class="ov-price-layout">
-											<div class="price-text valign-text-middle">
-												9,740원
-											</div>
-											<div class="ov-counting-text valign-text-middle">
-												(1개)
-											</div>
-										</a>
-										<div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ov-text-btn">
-								<button type="button" class="btn2">장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-					<div class="ov-status-text-container">
-						<div class="ov-status-text-wrap">
-							<div class="ov-status-text-layout">
-								<div class="ov-status-text valign-text-middle">
-								 	배송완료
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-				
-				<!-- 상품3 -->
-				
-				<div class="order-view-product-wrap">
-					<div class="order-view-product-layout">
-						<div class="order-list-layout">
-							<div class="product-info-layout">
-								<div class="product-info">
-									<div class="product-image-layout">
-										<div class="product-image">
-											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-										</div>
-									</div>
-									<div class="product-name">
-										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-										<a href="#" class="ov-price-layout">
-											<div class="price-text valign-text-middle">
-												9,740원
-											</div>
-											<div class="ov-counting-text valign-text-middle">
-												(1개)
-											</div>
-										</a>
-										<div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ov-text-btn">
-								<button type="button" class="btn2">장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-					<div class="ov-status-text-container">
-						<div class="ov-status-text-wrap">
-							<div class="ov-status-text-layout">
-								<div class="ov-status-text valign-text-middle">
-								 	배송완료
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-				
-				<!-- 다른날 주문 -->
-			
-				<div class="order-date-layout">
-					<div class="order-date">
-						<div class="date valign-text-middle">
-							<span>2023년 7월 18일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#802<!-- 주문번호 --></span>
-						</div>
-						<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
-					</div>
-				</div>
-				
-				<!-- 상품1 -->
-				
-				<div class="order-view-product-wrap">
-					<div class="order-view-product-layout">
-						<div class="order-list-layout">
-							<div class="product-info-layout">
-								<div class="product-info">
-									<div class="product-image-layout">
-										<div class="product-image">
-											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-										</div>
-									</div>
-									<div class="product-name">
-										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-										<a href="#" class="ov-price-layout">
-											<div class="price-text valign-text-middle">
-												9,740원
-											</div>
-											<div class="ov-counting-text valign-text-middle">
-												(1개)
-											</div>
-										</a>
-										<div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ov-text-btn">
-								<button type="button" class="btn2">장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-					<div class="ov-status-text-container">
-						<div class="ov-status-text-wrap">
-							<div class="ov-status-text-layout">
-								<div class="ov-status-text valign-text-middle">
-									상품 준비중
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-				
-				<!-- 상품2 -->
-				<div class="order-view-product-wrap">
-					<div class="order-view-product-layout">
-						<div class="order-list-layout">
-							<div class="product-info-layout">
-								<div class="product-info">
-									<div class="product-image-layout">
-										<div class="product-image">
-											<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-										</div>
-									</div>
-									<div class="product-name">
-										<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-										<a href="#" class="ov-price-layout">
-											<div class="price-text valign-text-middle">
-												9,740원
-											</div>
-											<div class="ov-counting-text valign-text-middle">
-												(1개)
-											</div>
-										</a>
-										<div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ov-text-btn">
-								<button type="button" class="btn2">장바구니 담기</button>
-							</div>
-						</div>
-					</div>
-					<div class="ov-status-text-container">
-						<div class="ov-status-text-wrap">
-							<div class="ov-status-text-layout">
-								<div class="ov-status-text valign-text-middle">
-									상품 준비중
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-				
-			</div>		
-		</div>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="dto" items="${list}" varStatus="status">
+				    <c:url var="url" value="/myPage/orderDetail">
+			    		<c:param name="orderNum" value="${dto.orderNum}"/>
+			    		<c:param name="addNum" value="25"/>
+			    	</c:url>
+				    <c:if test="${status.index == 0 || dto.orderNum != list[status.index - 1].orderNum}">
+				    	
+				        <div class="order-view-section">
+				            <div class="order-view-list">
+				                <div class="order-date-layout">
+				                    <div class="order-date">
+				                        <div class="date valign-text-middle">
+				                            <span>${dto.purchaseDate} &nbsp;&nbsp;|&nbsp;&nbsp;#${dto.orderNum}<!-- 주문번호 --></span>
+				                        </div>
+				                        <c:if test="${dto.orderState eq 4}">
+					                    	<button type="button" class="btn40" onclick="location.href='${url}'">구매확정 하기</button>
+					                	</c:if>	
+				                        <a href="${url}" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </c:if>
+				    
+				    <div class="order-view-product-wrap">
+				        <div class="order-view-product-layout">
+				            <div class="order-list-layout">
+				                <div class="product-info-layout">
+				                    <div class="product-info">
+				                        <div class="product-image-layout">
+				                            <div class="product-image">
+				                                <img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+				                            </div>
+				                        </div>
+				                        <div class="product-name">
+				                            <a href="#" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
+				                            <a href="#" class="ov-price-layout">
+				                                <div class="price-text valign-text-middle">
+				                                    <fmt:formatNumber value="${dto.purchaseMoney}" pattern="#,###" />원
+				                                </div>
+				                                <div class="ov-counting-text valign-text-middle">
+				                                    (${dto.count}개)
+				                                </div>
+				                            </a>
+				                            <div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				                <div class="ov-text-btn">
+				                    <button type="button" class="btn2">장바구니 담기</button>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="ov-status-text-container">
+				            <div class="ov-status-text-wrap">
+				                <div class="ov-status-text-layout">
+				                    <div class="ov-status-text valign-text-middle">
+				                        <c:if test="${dto.orderState eq 1}">
+											결제완료
+										</c:if>
+										<c:if test="${dto.orderState eq 2}">
+											배송준비중
+										</c:if>
+										<c:if test="${dto.orderState eq 3}">
+											배송중
+										</c:if>
+										<c:if test="${dto.orderState eq 4}">
+											배송완료
+										</c:if>
+										<c:if test="${dto.orderState eq 5}">
+											구매확정
+										</c:if>
+										<c:if test="${dto.orderState eq 6}">
+											구매취소
+										</c:if>
+				                    </div>
+				                </div> 
+				            </div>
+				        </div>
+				    </div>	
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		
+		
 	</div>
   </div>
  	

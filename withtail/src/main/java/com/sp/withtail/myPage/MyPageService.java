@@ -21,5 +21,13 @@ public interface MyPageService {
 	
 	public List<MyPage> listCoupon(MyPage dto) throws Exception;
 	public int couponDataCount(String userId);
+	public int couponUnusedDataCount(String userId);
+	
+	public List<MyPage> listOrder(MyPage dto) throws Exception;
+	public int orderDataCount(String userId);
+	
+	public MyPage readOrderList(long orderNum);
+	public void updateOrderState(long orderNum) throws Exception;
+	public List<MyPage> listNumOrder(long orderNum) throws Exception;
 	
 }

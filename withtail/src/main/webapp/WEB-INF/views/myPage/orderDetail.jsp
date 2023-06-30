@@ -613,7 +613,51 @@ img {
     font-size: 8px;
 }
 
+.btn40 {
+	margin-left: 300px;
+    width: 142px;
+    height: 35px;
+    border: 1px solid #82ae46;
+    background-color: white;
+    color: #82ae46;
+    border-radius: 5px;
+}
+
   </style>
+
+<script>
+$(function() {
+	$('#orderGood').click(function() {
+		alert("확인");
+		let orderState = $('#orderState').val();
+		let orderNum = ${dto.orderNum};
+		updateOrderState(orderNum, orderState);
+		
+	});
+	
+	function updateOrderState(orderNum, orderState) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/updateOrderState",
+		      type: "POST", 
+		      data: { orderNum:orderNum, orderState: orderState },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("주문 상태 변경 성공");
+		        $('#orderGood').hide();
+		        $('#od-status').text('구매확정');
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("주문 상태 변경 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+</script>
 
   <div class="container -min">
 	<div class="submenu-layout">
@@ -644,9 +688,13 @@ img {
 								주문번호
 							</div>
 							<div class="od-num-med valign-text-middle">
-								#801
+								#${dto.orderNum}
 							</div>
 						</div>
+						<c:if test="${dto.orderState eq 4}">
+							<button type="button" class="btn40" id="orderGood">구매확정 하기</button>
+						</c:if>
+						<input type="hidden" name="orderState" id="orderState" value="${dto.orderState}">
 					</div>
 				</div>
 				
@@ -662,15 +710,15 @@ img {
 								<div class="od-item-text valign-text-middle">
 									주문자 정보
 								</div>
-								<p class="od-name-text valign-text-middle">최수징 (010-1111-1111)</p>
+								<p class="od-name-text valign-text-middle">${dto.addName} (${dto.tel})</p>
 							</div>
 							<div class="x-wrap">
 								<div class="od-item-text valign-text-middle">
 									배송지 정보
 								</div>
 								<div class="od-address-layout">								
-									<p class="x-text valign-text-middle">[11111] 경기도 무슨시 무슨무슨로 120(무슨동, 무슨아파트) 120동 403호</p>
-									<p class="x-text valign-text-middle">대문 앞에 놓아주세요.</p>
+									<p class="x-text valign-text-middle">[${dto.zip}] ${dto.addr1} ${dto.addr2}</p>
+									<p class="x-text valign-text-middle">${dto.memo}</p>
 								</div>
 							</div>
 						</div>
@@ -691,6 +739,7 @@ img {
 						</div>
 					</div>
 					<div class="od-product-layout">
+						<c:forEach var="dto1" items="${list}" varStatus="status">
 						<div class="od-product">
 							<div class="od-product-info">
 								<div class="od-product-image-layout">
@@ -699,25 +748,42 @@ img {
 								<div class="od-product-detail-wrap">
 									<a href="#" class="od-product-name">
 										<div class="od-brand-text valign-text-middle">
-											KONG
+											${dto1.madeBy}
 										</div>
-										<p class="x-text valign-text-middle">KONG 테니스공 장난감(대)</p>
+										<p class="x-text valign-text-middle">${dto1.madeBy} ${dto1.itemName}<c:if test="${not empty dto1.option2Name}">(${dto1.option2Name}/${dto1.option2Name2})</c:if></p>
 										<div class="od-price-layout">
 											<div class="od-price-text valign-text-middle">
-												9,740원
+												<fmt:formatNumber value="${dto1.salePrice}" pattern="#,###" />원
 											</div>
 											<div class="od-retail-price valign-text-middle">
-												14,000원
+												<fmt:formatNumber value="${dto1.price}" pattern="#,###" />원
 											</div>
 											<div class="od-counting-text valign-text-middle">
-												(1개)
+												(${dto1.count}개)
 											</div>
 										</div>
 									</a>
 									<div class="od-product-detail">
 										<div class="od-status-layout">
-											<div class="od-status-text valign-text-middle">
-												상품 준비중
+											<div class="od-status-text valign-text-middle" id="od-status">
+												<c:if test="${dto.orderState eq 1}">
+													결제완료
+												</c:if>
+												<c:if test="${dto.orderState eq 2}">
+													배송준비중
+												</c:if>
+												<c:if test="${dto.orderState eq 3}">
+													배송중
+												</c:if>
+												<c:if test="${dto.orderState eq 4}">
+													배송완료
+												</c:if>
+												<c:if test="${dto.orderState eq 5}">
+													구매확정
+												</c:if>
+												<c:if test="${dto.orderState eq 6}">
+													구매취소
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -727,6 +793,7 @@ img {
 								<button type="button" class="btn3">장바구니 담기</button>
 							</div>
 						</div>
+						</c:forEach>
 					</div>				
 				</div>			
 			</div>
@@ -747,7 +814,7 @@ img {
 											상품 금액
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											14,000원
+											<fmt:formatNumber value="${dto.totalOriPrice}" pattern="#,###" />원
 										</div>
 									</div>
 								</div>	
@@ -759,7 +826,7 @@ img {
 											</div>
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											- 4,260원
+											- <fmt:formatNumber value="${dto.total_discount}" pattern="#,###" />원
 										</div>
 									</div>
 									<div class="o-details-component">
@@ -767,7 +834,7 @@ img {
 											상품 할인
 										</div>
 										<div class="o-details-minimal-dd valign-text-middle">
-											- 4,260원
+											- <fmt:formatNumber value="${dto.total_discount}" pattern="#,###" />원
 										</div>
 									</div>
 								</div>
@@ -779,7 +846,7 @@ img {
 											</div>
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											3,000원
+											<fmt:formatNumber value="${dto.deliveryCharge}" pattern="#,###" />원
 										</div>
 									</div>
 									<div class="o-details-component">
@@ -787,7 +854,7 @@ img {
 											배송비
 										</div>
 										<div class="o-details-minimal-dd valign-text-middle">
-											3,000원
+											<fmt:formatNumber value="${dto.deliveryCharge}" pattern="#,###" />원
 										</div>
 									</div>
 								</div>
@@ -801,7 +868,7 @@ img {
 											</div>
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											- 0원
+											- <fmt:formatNumber value="${dto.usedCoupon}" pattern="#,###" />원
 										</div>
 									</div>
 									<div class="o-details-component">
@@ -811,7 +878,7 @@ img {
 											</div>
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											- 0원
+											- <fmt:formatNumber value="${dto.usedPoint}" pattern="#,###" />원
 										</div>
 									</div>
 								</div>
@@ -822,7 +889,7 @@ img {
 									</div>
 									<div class="o-details-main-dd valign-text-middle">
 										<span>	
-											<span class="span0">12,740</span>
+											<span class="span0"><fmt:formatNumber value="${dto.totalPurchasePrice}" pattern="#,###" /></span>
 											<span class="span1">원</span>
 										</span>
 									</div>

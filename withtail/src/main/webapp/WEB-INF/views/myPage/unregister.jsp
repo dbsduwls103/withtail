@@ -144,6 +144,7 @@ span {
 
 $(function() {
 	$('#withdrawalButton').click(function(){
+		alert("해ㅐㅇ");
 		let enabled = $('#enabled').val();
 		
 		updateEnabled(enabled);

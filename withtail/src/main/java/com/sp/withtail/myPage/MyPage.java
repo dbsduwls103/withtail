@@ -56,9 +56,144 @@ public class MyPage {
 	private String endDate2;
 	private int used;
 	
+	// 주문내역
+	private long orderNum;
+	private long purchaseMoney;
+	private int count;
+	private String itemName;
+	private String madeBy;
+	private String mainImage;
+	private String option2Name;
+	private String option2Name2;
+	private String purchaseDate;
+	private int orderState;
+	private long totalPurchasePrice;
+	private long total_discount;
+	private long totalOriPrice;
+	private long deliveryCharge;
+	private long usedPoint;
+	private long usedCoupon;
+	private long itemPrice;
+	private long price;
+	private long salePrice;
 	
 	
 	
+	public long getPrice() {
+		return price;
+	}
+	public void setPrice(long price) {
+		this.price = price;
+	}
+	public long getSalePrice() {
+		return salePrice;
+	}
+	public void setSalePrice(long salePrice) {
+		this.salePrice = salePrice;
+	}
+	public long getItemPrice() {
+		return itemPrice;
+	}
+	public void setItemPrice(long itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	public long getUsedCoupon() {
+		return usedCoupon;
+	}
+	public void setUsedCoupon(long usedCoupon) {
+		this.usedCoupon = usedCoupon;
+	}
+	public long getUsedPoint() {
+		return usedPoint;
+	}
+	public void setUsedPoint(long usedPoint) {
+		this.usedPoint = usedPoint;
+	}
+	
+	public long getDeliveryCharge() {
+		return deliveryCharge;
+	}
+	public void setDeliveryCharge(long deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+	public long getTotalOriPrice() {
+		return totalOriPrice;
+	}
+	public void setTotalOriPrice(long totalOriPrice) {
+		this.totalOriPrice = totalOriPrice;
+	}
+	public long getTotal_discount() {
+		return total_discount;
+	}
+	public void setTotal_discount(long total_discount) {
+		this.total_discount = total_discount;
+	}
+	public long getTotalPurchasePrice() {
+		return totalPurchasePrice;
+	}
+	public void setTotalPurchasePrice(long totalPurchasePrice) {
+		this.totalPurchasePrice = totalPurchasePrice;
+	}
+	public int getOrderState() {
+		return orderState;
+	}
+	public void setOrderState(int orderState) {
+		this.orderState = orderState;
+	}
+	public String getPurchaseDate() {
+		return purchaseDate;
+	}
+	public void setPurchaseDate(String purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+	public long getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(long orderNum) {
+		this.orderNum = orderNum;
+	}
+	public long getPurchaseMoney() {
+		return purchaseMoney;
+	}
+	public void setPurchaseMoney(long purchaseMoney) {
+		this.purchaseMoney = purchaseMoney;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public String getMadeBy() {
+		return madeBy;
+	}
+	public void setMadeBy(String madeBy) {
+		this.madeBy = madeBy;
+	}
+	public String getMainImage() {
+		return mainImage;
+	}
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+	public String getOption2Name() {
+		return option2Name;
+	}
+	public void setOption2Name(String option2Name) {
+		this.option2Name = option2Name;
+	}
+	public String getOption2Name2() {
+		return option2Name2;
+	}
+	public void setOption2Name2(String option2Name2) {
+		this.option2Name2 = option2Name2;
+	}
 	public int getUsed() {
 		return used;
 	}

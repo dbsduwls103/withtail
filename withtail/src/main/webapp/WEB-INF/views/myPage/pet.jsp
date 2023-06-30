@@ -204,6 +204,7 @@ img {
 }
 </style>
 
+
 <script type="text/javascript">
 function deleteOk() {
 	let query = "num=${dto.num}&${query}&petsImageFilename=${dto.petsImageFilename}";

@@ -414,19 +414,7 @@ a {
 					</div>
 				</div>
 				<div class="my-point-lower">
-					<ul>
-						<li class="my-point-tab"><a  class="my-point-tab-text valign-text-middle" href="#">전체 내역</a></li>
-						<li class="my-point-tab"><a  class="my-point-tab-text valign-text-middle" href="#">적립 내역</a></li>
-						<li class="my-point-tab"><a  class="my-point-tab-text valign-text-middle" href="#">사용 내역</a></li>
-					</ul>	
-					<select name="period" class="sel1">
-						    <option value="">기간</option>
-						    <option value="3month">3개월</option>
-						    <option value="6month">6개월</option>
-						    <option value="1year">1년</option>
-						    <option value="2year">2년</option>
-						    <option value="3year">3년</option>				    
-					</select>				
+						<div class="my-point-tab"><a  class="my-point-tab-text valign-text-middle">전체 내역</a></div>
 				</div>
 				<hr style="width: 100%; margin-bottom: 0px; margin-top:-21px;">
 				<div class="order-view-section">

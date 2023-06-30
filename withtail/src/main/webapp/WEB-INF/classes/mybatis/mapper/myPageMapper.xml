@@ -88,7 +88,7 @@
 	</insert>
 	
 	<select id="listCoupon" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT c.couponNum, userId, used, startDate, endDate, couponName, couponPrice, couponMinPrice , TO_CHAR(endDate, 'YYYY. MM. DD AM HH:MI:SS') AS endDate2
+		SELECT c.couponNum, userId, used, startDate, endDate, couponName, couponPrice, couponMinPrice , TO_CHAR(endDate, 'YYYY. MM. DD AM HH:MI:SS') AS endDate2, couponCategory
 		FROM coupon c
 		JOIN memberCoupon m ON c.couponNum = m.couponNum
 		WHERE userId = #{userId}
@@ -100,7 +100,59 @@
 		JOIN memberCoupon m ON c.couponNum = m.couponNum
 		WHERE userId = #{userId}
 	</select>
+	
+	<select id="couponUnusedDataCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM coupon c
+		JOIN memberCoupon m ON c.couponNum = m.couponNum
+		WHERE userId = #{userId} AND used = 0
+	</select>
 
+	<select id="listOrder" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState
+		FROM member1 m
+		JOIN orderList ol ON m.userId = ol.userId
+		JOIN orderDetail OD ON ol.orderNum = od.orderNum
+		JOIN item i ON i.itemNum = od.itemNum
+		LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
+		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
+		WHERE m.userId = #{userId}
+	</select>
+	
+	<select id="orderDataCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*),0)
+		FROM orderList
+		WHERE userId = #{usreId}		
+	</select>
+	
+	<select id="readOrderList" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, addName, orderState, totalOriPrice, deliveryCharge,usedPoint, usedCoupon,
+      		 SUM((od.price - NVL(od.salePrice, 0)) * od.count) AS total_discount, totalPurchasePrice
+		FROM member1 m
+		JOIN orderList ol ON ol.userId = m.userId
+		JOIN address a ON m.userId = a.userId
+		JOIN orderDetail OD ON ol.orderNum = od.orderNum
+		WHERE addNum = 25 AND od.orderNum=#{orderNum}
+		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, addName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice
+	</select>
+	
+	<update id="updateOrderState" parameterType="Long">
+		update orderList set orderState=5 where orderNum=#{orderNum}
+	</update>
+	
+	<select id="listNumOrder" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2,
+			 TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState,price , salePrice
+		FROM member1 m
+		JOIN orderList ol ON m.userId = ol.userId
+		JOIN orderDetail OD ON ol.orderNum = od.orderNum
+		JOIN item i ON i.itemNum = od.itemNum
+		LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
+		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
+		WHERE od.orderNum = #{orderNum}
+	</select>
+	
+	
 	
 </mapper>
 

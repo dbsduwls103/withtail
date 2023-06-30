@@ -243,6 +243,82 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return result;
 	}
+
+	@Override
+	public int couponUnusedDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.couponUnusedDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<MyPage> listOrder(MyPage dto) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listOrder", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int orderDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.orderDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public MyPage readOrderList(long orderNum) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readOrderList", orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void updateOrderState(long orderNum) throws Exception {
+		try {
+			dao.updateData("myPage.updateOrderState", orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}	
+	}
+
+	@Override
+	public List<MyPage> listNumOrder(long orderNum) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listNumOrder", orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
 	
 
 
