@@ -806,7 +806,6 @@ $(function() {
 							</div>
 							<div class="od-text-btn-layout">
 								<button type="button" class="btn3">장바구니 담기</button>
-								<button type="button" class="btn3">주문 취소</button>
 							</div>
 						</div>
 						</c:forEach>
