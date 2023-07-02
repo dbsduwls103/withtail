@@ -184,6 +184,7 @@
     border: 1px none;
     display: flex;
     gap: 10px;
+    justify-content: space-between;
 }
 
 .od-delivery-title {
@@ -623,12 +624,21 @@ img {
     border-radius: 5px;
 }
 
+.od-delivery-invoice {
+    text-align: center;
+    width: fit-content;
+    color: rgb(139 139 139);
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+}
+
   </style>
 
 <script>
 $(function() {
 	$('#orderGood').click(function() {
-		alert("확인");
+
 		let orderState = $('#orderState').val();
 		let orderNum = ${dto.orderNum};
 		updateOrderState(orderNum, orderState);
@@ -704,13 +714,18 @@ $(function() {
 							<div class="od-delivery-title valign-text-middle">
 								배송 정보
 							</div>
+							<c:if test="${dto.orderState >= 2}">
+								<div class="od-delivery-invoice valign-text-middle">
+									한진택배 453229651976
+								</div>
+							</c:if>
 						</div>
 						<div class="od-delivery-information">
 							<div class="x-wrap">
 								<div class="od-item-text valign-text-middle">
 									주문자 정보
 								</div>
-								<p class="od-name-text valign-text-middle">${dto.addName} (${dto.tel})</p>
+								<p class="od-name-text valign-text-middle">${dto.orderName} (${dto.tel})</p>
 							</div>
 							<div class="x-wrap">
 								<div class="od-item-text valign-text-middle">
@@ -791,6 +806,7 @@ $(function() {
 							</div>
 							<div class="od-text-btn-layout">
 								<button type="button" class="btn3">장바구니 담기</button>
+								<button type="button" class="btn3">주문 취소</button>
 							</div>
 						</div>
 						</c:forEach>

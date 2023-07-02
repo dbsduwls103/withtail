@@ -30,4 +30,14 @@ public interface MyPageService {
 	public void updateOrderState(long orderNum) throws Exception;
 	public List<MyPage> listNumOrder(long orderNum) throws Exception;
 	
+	public List<MyPage> listPoint(String userId) throws Exception;
+	public int pointDataCount(String userId);
+	
+	public void updateOrderCancel(long orderNum) throws Exception;
+	public void updateOrderRefund(long orderNum) throws Exception;
+	
+	public List<MyPage> listFavorite(String userId) throws Exception;
+	public int favoriteDataCount(String userId);
+	
+	
 }

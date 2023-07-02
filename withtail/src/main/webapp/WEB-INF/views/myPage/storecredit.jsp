@@ -122,27 +122,27 @@ a {
     border-top: 1px solid;
     border-color: rgb(241 241 241);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .my-point-tab {
-    align-items: flex-start;
+   	align-items: flex-start;
     border-bottom-style: solid;
     border-bottom-width: 3px;
+    display: flex;
+    flex-direction: column;
     padding: 15px 16px;
     width: fit-content;
-	display: inline-block;
 }
 
 .my-point-tab-text {
     color: black;
     white-space: nowrap;
     width: fit-content;
+    font-size: 15px;
+    font-weight: 400;
 }
 
-.my-point-tab.active {
-  border-bottom-color:  #82ae46;
-}
 
 .sel1 {
 	margin-left: 737px;
@@ -161,6 +161,7 @@ a {
     display: flex;
     gap: 10px;
     padding: 15px 10px;
+    margin-top: -25px;
 }
 
 .detailed-point-layout {
@@ -172,224 +173,88 @@ a {
     gap: 3px;
 }
 
-.order-view-section {
-    align-items: flex-start;
-    align-self: stretch;
-    border: 1px none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.order-view-list {
-    align-items: flex-start;
-    align-self: stretch;
-    border: 1px none;
-    display: flex;
-    flex-direction: column;
-}
-
-.order-date-layout {
-    align-items: flex-start;
-    align-self: stretch;
-    background-color: rgb(248 248 248);
-    border-color: rgb(219 219 219);
-    border-top-style: solid;
-    border-top-width: 1px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.order-date {
+.detailed-point-wrap {
     align-items: center;
     align-self: stretch;
     border: 1px none;
     display: flex;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 15px 10px;
+    flex-wrap: wrap;
+}
+
+.detailed-point-layout {
+    align-items: flex-start;
+    border: 1px none;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.point-date {
+    align-self: stretch;
+    white-space: nowrap;
+    color: rgb(139 139 139);
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .valign-text-middle {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.detailed-point{
+    align-self: stretch;
+    white-space: nowrap;
     color: black;
+    font-size: 15px;
+    font-weight: 400;;
 }
-
-.date {
-    font-weight: 500;
-    font-style: normal;
-}
-
-.order-detail-button {
-    flex: 1;
-    margin-top: -1px;
-    text-align: right;
-}
-
-.order-detail-button {
-    font-weight: 400;
-    font-style: normal;
-}
-
-.order-view-product-wrap {
-    align-items: center;
-    align-self: stretch;
-    background-color: rgb(255 255 255);
+   
+.amount-layout {
+    align-items: flex-end;
     border: 1px none;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-}
-
-.order-list-layout {
-    align-items: flex-start;
-    align-self: stretch;
-    background-color: rgb(255 255 255);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: rgb(241 241 241);
-    display: flex;
-    gap: 20px;
-    padding: 20px 16px;
-}
-
-.product-info-layout {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 20px;
-    width: 100%;
-}
-
-.product-info {
-    align-items: center;
-    border: 1px none;
-    display: flex;
-    flex: 1;
-    gap: 20px;
-}
-
-.product-image-layout {
-    align-items: flex-start;
-    background-color: rgb(255 255 255);
-    border: 1px solid;
-    border-color: rgb(219 219 219);
-    border-radius: 5px;
-    display: flex;
     width: fit-content;
 }
 
-.product-image {
-    height: 60px;
-    min-width: 60px;
-    object-fit: cover;
+.amount-text.plus {
+    color: #82ae46;
 }
 
-.product-name {
-    align-items: flex-start;
-    align-self: stretch;
-    border: 1px none;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 5px;
-    justify-content: center;
-}
-
-.x-text {
-    color: var(--aloy-black);
-    font-size: var(--font-size-15px);
-    font-weight: 400;
-    font-style: normal;
-    align-self: stretch;
-}
-
-.ov-price-layout {
-    align-items: center;
-    align-self: stretch;
-    border: 1px none;
-    display: flex;
-    gap: 5px;
-}
-
-.price-text {
-    color: rgb(18 18 18);
+.amount-text {
+    white-space: nowrap;
+    width: fit-content;
     font-size: 16px;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.ov-counting-text {
-    color: var(--aloy-gray6);
-    font-size: var(--font-size-12px);
     font-weight: 400;
-    font-style: normal;
 }
 
-.ov-text-btn {
-    align-items: flex-end;
-    border: 1px none;
-    flex-direction: column;
-    gap: 6px;
-    width: 140px;
+.amount-text.my-point-total {
+    color: rgb(139 139 139);
+    text-align: right;
 }
 
-.order-view-product-layout {
-    align-items: center;
-    border: 1px none;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
+.my-point-total {
+    font-size: 12px;
 }
 
-.ov-status-text {
-    flex: 1;
-    margin-top: -1px;
+.empty-text {
+    color: rgb(91 91 91);
+    width: 100%;
     text-align: center;
-    color: black;
-    font-weight: 500;
-    font-style: normal;
-    width: 77px;
+    padding: 200px 0;
     font-size: 15px;
+    font-weight: 400;
 }
 
 
-.ov-status-text-container {
-    align-items: flex-start;
-    align-self: stretch;
-    border: 1px none;
-    flex-direction: column;
-    width: 130px;
-}
 
-.ov-status-text-wrap {
-    align-items: flex-start;
-    align-self: stretch;
-    border: 1px none;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-}
 
-.ov-status-text-layout {
-    align-items: center;
-    align-self: stretch;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: rgb(248 248 248);
-    border-left-style: solid;
-    border-left-width: 1px;
-    display: flex;
-    flex: 1;
-    gap: 10px;
-    justify-content: flex-end;
-    padding: 40px 0px;
-}
-
-    
 </style>
 
 <div class="container -min">
@@ -410,112 +275,62 @@ a {
 						<div class="my-point-title valign-text-middle">
 							현재 적립금
 						</div>
-						<p class="my-point-text valign-text-middle">0원</p>
+						<c:choose>
+							<c:when test="${dto1.balance eq 0 or pointDataCount eq 0}">
+								<p class="my-point-text valign-text-middle">0원</p>
+							</c:when>
+							<c:otherwise>
+								<p class="my-point-text valign-text-middle">${dto1.balance}원</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="my-point-lower">
-						<div class="my-point-tab"><a  class="my-point-tab-text valign-text-middle">전체 내역</a></div>
-				</div>
-				<hr style="width: 100%; margin-bottom: 0px; margin-top:-21px;">
-				<div class="order-view-section">
-					<div class="order-view-list">
-						<div class="order-date-layout">
-							<div class="order-date">
-								<div class="date valign-text-middle">
-									<span>2023년 6월 15일 목요일 &nbsp;&nbsp;|&nbsp;&nbsp;#801&nbsp;&nbsp;|&nbsp;&nbsp;구매적립<!-- 주문번호 --></span>
+					<div class="my-point-tab"><div  class="my-point-tab-text valign-text-middle">전체 내역</div></div>
+					<hr style="width: 100%; margin-bottom: 27px; margin-top:-1px;">			
+					
+					<c:choose>
+						<c:when test="${pointDataCount eq 0}">
+							<div class="detailed-point-wrap">
+								<div class="detailed-point-layout">
+									<p class="empty-text valign-text-middle">적립금 내역이 없어요.</p>
 								</div>
-								<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 							</div>
-						</div>
-						
-						<!-- 한번에 주문했을떄의 상품 리스트 (상품1) -->
-						<div class="order-view-product-wrap">
-							<div class="order-view-product-layout">
-								<div class="order-list-layout">
-									<div class="product-info-layout">
-										<div class="product-info">
-											<div class="product-image-layout">
-												<div class="product-image">
-													<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-												</div>
-											</div>
-											<div class="product-name">
-												<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-												<a href="#" class="ov-price-layout">
-													<div class="price-text valign-text-middle">
-														9,740원
-													</div>
-													<div class="ov-counting-text valign-text-middle">
-														(1개)
-													</div>
-												</a>
-												<div>
-												</div>
-											</div>
-										</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="dto" items="${list}" varStatus="status">
+							<div class="detailed-point-wrap">											
+								<div class="detailed-point-layout">
+									<div class="point-date valign-text-middle">
+										${dto.pointRegDate}
 									</div>
+									<c:if test="${dto.pointChk eq 0}">
+										<p class="detailed-point valign-text-middle">구매 확정</p>
+									</c:if>
+									<c:if test="${dto.pointChk eq 1}">
+										<p class="detailed-point valign-text-middle">포인트 사용</p>
+									</c:if>
 								</div>
-							</div>
-							<div class="ov-status-text-container">
-								<div class="ov-status-text-wrap">
-									<div class="ov-status-text-layout">
-										<div class="ov-status-text valign-text-middle">
-											+ 370 원 
+								<div class="amount-layout my-point-total-layout">
+									<c:if test="${dto.pointChk eq 0}">
+										<div class="amount-text plus valign-text-middle">
+											+<fmt:formatNumber value="${dto.amount}" pattern="#,###" />원
 										</div>
-									</div> 
-								</div>
-							</div>
-						</div>
-						<!-- 다른 날 상품 구입 -->
-						<div class="order-date-layout">
-							<div class="order-date">
-								<div class="date valign-text-middle">
-									<span>2023년 6월 18일 일요일 &nbsp;&nbsp;|&nbsp;&nbsp;#802&nbsp;&nbsp;|&nbsp;&nbsp;결제 시 사용<!-- 주문번호 --></span>
-								</div>
-								<a href="${pageContext.request.contextPath}/myPage/orderDetail" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
-							</div>
-						</div>
-						
-						<!-- 한번에 주문했을떄의 상품 리스트 (상품1) -->
-						<div class="order-view-product-wrap">
-							<div class="order-view-product-layout">
-								<div class="order-list-layout">
-									<div class="product-info-layout">
-										<div class="product-info">
-											<div class="product-image-layout">
-												<div class="product-image">
-													<img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
-												</div>
-											</div>
-											<div class="product-name">
-												<a href="#" class="x-text valign-text-middle">KONG 테니스공 장난감(대)</a>
-												<a href="#" class="ov-price-layout">
-													<div class="price-text valign-text-middle">
-														9,740원
-													</div>
-													<div class="ov-counting-text valign-text-middle">
-														(1개)
-													</div>
-												</a>
-												<div>
-												</div>
-											</div>
+									</c:if>
+									<c:if test="${dto.pointChk eq 1}">
+										<div class="amount-text plus valign-text-middle">
+											-<fmt:formatNumber value="${dto.amount}" pattern="#,###" />원
 										</div>
+									</c:if>
+									<div class="amount-text my-point-total valign-text-middle">
+										<fmt:formatNumber value="${dto.balance}" pattern="#,###" />원
 									</div>
-								</div>
-							</div>
-							<div class="ov-status-text-container">
-								<div class="ov-status-text-wrap">
-									<div class="ov-status-text-layout">
-										<div class="ov-status-text valign-text-middle">
-											- 370 원 
-										</div>
-									</div> 
-								</div>
-							</div>
-						</div>
-						
-					</div>
+								</div>				
+								<hr style="width: 100%; margin-bottom: 0px; margin-top:-21px;">
+							</div>	
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>	
 				</div>
 			</div>
 	</div>

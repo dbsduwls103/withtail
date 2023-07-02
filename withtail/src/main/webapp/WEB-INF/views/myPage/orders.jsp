@@ -265,6 +265,16 @@ select {
     flex-direction: column;
     gap: 6px;
     width: 140px;
+    margin-top: 5px;
+}
+
+.ov-text-btn1 {
+    align-items: flex-end;
+    border: 1px none;
+    flex-direction: column;
+    gap: 6px;
+    width: 140px;
+    margin-top: 7px;
 }
 
 .order-view-product-layout {
@@ -333,6 +343,18 @@ select {
     background-color: #82ae46;
 }
 
+.btn3 {
+    margin-top: 5px;
+    width: 162px;
+    margin-left: -58px;
+    border-radius: 6px;
+    border: 1px solid #82ae46;
+    font-size: 12px;
+    height: 33px;
+    color: #82ae46;
+    background-color: white;
+}
+
 .orderhistory-layout {
     align-items: center;
     align-self: stretch;
@@ -392,15 +414,95 @@ select {
     background-color: white;
     color: #82ae46;
     margin-top: 5px;
-    width: 162px;
+    width: 100px;
     margin-left: -58px;
     border-radius: 6px;
     font-size: 12px;
     height: 33px;
-    margin-left: 566px
+    margin-left: 627px
+}
+
+.btn41 {
+	border: 1px solid #82ae46;
+    background-color: white;
+    color: #82ae46;
+    margin-top: 5px;
+    width: 100px;
+    margin-left: -58px;
+    border-radius: 6px;
+    font-size: 12px;
+    height: 33px;
+    margin-left: -218px;
 }
   </style>
  
+<script>
+$(function() {
+	$('#orderCancel').click(function() {
+
+		let orderState = $('#orderState').val();
+		let orderNum = $('#orderNum').val();
+		
+		updateOrderCancel(orderNum, orderState);
+		
+	});
+	
+	function updateOrderCancel(orderNum, orderState) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/updateOrderCancel",
+		      type: "POST", 
+		      data: { orderNum:orderNum, orderState: orderState },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("주문 상태 변경 성공");
+		        $('#orderCancel').hide();
+		        $('#status-text').text('주문취소');
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("주문 상태 변경 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+
+$(function() {
+	$('#orderRefund').click(function() {
+
+		let orderState = $('#orderState').val();
+		let orderNum = $('#orderNum').val();
+		updateOrderRefund(orderNum, orderState);
+		
+	});
+	
+	function updateOrderRefund(orderNum, orderState) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/updateOrderRefund",
+		      type: "POST", 
+		      data: { orderNum:orderNum, orderState: orderState },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("주문 상태 변경 성공");
+		        $('#orderRefund').hide();
+		        $('#status-text').text('환불요청');
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("주문 상태 변경 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+
+</script>
 
   
   <div class="container -min">
@@ -418,16 +520,7 @@ select {
 				<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: 0px;">주문 조회</p>
 				<p>최대 지난 3년 간의 주문 내역까지 확인할 수 있어요.</p>
 			</div>	
-			<div class="text-input-1">
-				<select name="period" id="period-select">
-				    <option value="">기간</option>
-				    <option value="3month">3개월</option>
-				    <option value="6month">6개월</option>
-				    <option value="1year">1년</option>
-				    <option value="2year">2년</option>
-				    <option value="3year">3년</option>				    
-				</select>
-			</div>
+			
 		</div>
 		
 		
@@ -451,7 +544,6 @@ select {
 				<c:forEach var="dto" items="${list}" varStatus="status">
 				    <c:url var="url" value="/myPage/orderDetail">
 			    		<c:param name="orderNum" value="${dto.orderNum}"/>
-			    		<c:param name="addNum" value="25"/>
 			    	</c:url>
 				    <c:if test="${status.index == 0 || dto.orderNum != list[status.index - 1].orderNum}">
 				    	
@@ -461,10 +553,15 @@ select {
 				                    <div class="order-date">
 				                        <div class="date valign-text-middle">
 				                            <span>${dto.purchaseDate} &nbsp;&nbsp;|&nbsp;&nbsp;#${dto.orderNum}<!-- 주문번호 --></span>
+				                 			<input type="hidden" value="${dto.orderNum}" id="orderNum">
 				                        </div>
 				                        <c:if test="${dto.orderState eq 4}">
 					                    	<button type="button" class="btn40" onclick="location.href='${url}'">구매확정 하기</button>
+					                    	<button type="button" class="btn41" id="orderRefund">환불요청 하기</button>
 					                	</c:if>	
+					                	<c:if test="${dto.orderState eq 1}">
+					                    	<button type="button" class="btn40" id="orderCancel">주문취소 하기</button>
+					                	</c:if>
 				                        <a href="${url}" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
 				                    </div>
 				                </div>
@@ -486,7 +583,7 @@ select {
 				                            <a href="#" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
 				                            <a href="#" class="ov-price-layout">
 				                                <div class="price-text valign-text-middle">
-				                                    <fmt:formatNumber value="${dto.purchaseMoney}" pattern="#,###" />원
+				                                    <fmt:formatNumber value="${dto.salePrice}" pattern="#,###" />원
 				                                </div>
 				                                <div class="ov-counting-text valign-text-middle">
 				                                    (${dto.count}개)
@@ -497,15 +594,16 @@ select {
 				                        </div>
 				                    </div>
 				                </div>
-				                <div class="ov-text-btn">
-				                    <button type="button" class="btn2">장바구니 담기</button>
-				                </div>
+						                <div class="ov-text-btn">
+						                    <button type="button" class="btn2">장바구니 담기</button>  	
+						             	</div>
+				                
 				            </div>
 				        </div>
 				        <div class="ov-status-text-container">
 				            <div class="ov-status-text-wrap">
 				                <div class="ov-status-text-layout">
-				                    <div class="ov-status-text valign-text-middle">
+				                    <div class="ov-status-text valign-text-middle" id="status-text">
 				                        <c:if test="${dto.orderState eq 1}">
 											결제완료
 										</c:if>
@@ -522,7 +620,13 @@ select {
 											구매확정
 										</c:if>
 										<c:if test="${dto.orderState eq 6}">
-											구매취소
+											주문취소
+										</c:if>
+										<c:if test="${dto.orderState eq 7}">
+											환불요청
+										</c:if>
+										<c:if test="${dto.orderState eq 8}">
+											환불완료
 										</c:if>
 				                    </div>
 				                </div> 

@@ -31,37 +31,58 @@ public class MyPageController {
     	int dataCount;
     	int addDataCount;
     	int couponUnusedDataCount;
+    	int pointDataCount;
     	
     	dto.setUserId(info.getUserId());
 		dataCount = service.dataCount(info.getUserId());
 		addDataCount = service.addDataCount(info.getUserId());
 		couponUnusedDataCount = service.couponUnusedDataCount(info.getUserId());
+		pointDataCount = service.pointDataCount(info.getUserId());
 		
+		MyPage dto2 = service.readProfile(info.getUserId());
 		
 		List<MyPage> list = service.listMyPages(dto);
 		List<MyPage> list1 = service.listDelivery(dto);
 	
+		List<MyPage> list2 = service.listPoint(info.getUserId());
+		
+		MyPage dto3 = null;
+		if(list2.size() > 0)
+	        dto3 = list2.get(list2.size()-1);
+		
 		
 		    MyPage dto1 = null;
 		    if(list1.size() > 0)
 		        dto1 = list1.get(0);	
 	
 		
-		
-		
+		model.addAttribute("dto3", dto3);
+		model.addAttribute("dto2", dto2);
 		model.addAttribute("list1", list1);
     	model.addAttribute("list", list);
     	model.addAttribute("addDataCount", addDataCount);
     	model.addAttribute("dataCount", dataCount);
     	model.addAttribute("dto1", dto1);
     	model.addAttribute("couponUnusedDataCount", couponUnusedDataCount);
+    	model.addAttribute("pointDataCount", pointDataCount);
     	
         return ".myPage.myPage";
     }
     
     @GetMapping("favorite")
-	public String execute() throws Exception {
-	
+	public String favorite(MyPage dto, HttpSession session,
+			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	int favoriteDataCount;
+    	
+    	dto.setUserId(info.getUserId());
+    	favoriteDataCount = service.favoriteDataCount(info.getUserId());
+    	
+    	List<MyPage> list = service.listFavorite(info.getUserId());
+    	
+    	model.addAttribute("list", list);
+    	model.addAttribute("favoriteDataCount", favoriteDataCount);
+    	
 		return ".myPage.favorite";
 	}
     
@@ -103,6 +124,40 @@ public class MyPageController {
     	String state = "true";
     	try {
 			service.updateOrderState(dto.getOrderNum());
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
+    
+    @PostMapping("updateOrderCancel")
+    @ResponseBody
+    public Map<String, Object> updateOrderCancel (MyPage dto) throws Exception {
+    	
+    	String state = "true";
+    	try {
+			service.updateOrderCancel(dto.getOrderNum());
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
+    
+    @PostMapping("updateOrderRefund")
+    @ResponseBody
+    public Map<String, Object> updateOrderRefund (MyPage dto) throws Exception {
+    	
+    	String state = "true";
+    	try {
+			service.updateOrderRefund(dto.getOrderNum());
 		} catch (Exception e) {
 			state = "false";
 		}
@@ -171,7 +226,23 @@ public class MyPageController {
     }
     
     @GetMapping("storecredit")
-   	public String execute6() throws Exception {
+   	public String storecredit(MyPage dto, HttpSession session, 
+			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
+    	List<MyPage> list = service.listPoint(info.getUserId());
+    	
+    	 MyPage dto1 = null;
+		    if(list.size() > 0)
+		        dto1 = list.get(list.size()-1);
+    		
+    	int pointDataCount = 0;
+    	
+    	pointDataCount = service.pointDataCount(info.getUserId());
+    	
+    	model.addAttribute("dto1", dto1);
+    	model.addAttribute("list", list);
+    	model.addAttribute("pointDataCount", pointDataCount);
    	
    		return ".myPage.storecredit";
    	}
