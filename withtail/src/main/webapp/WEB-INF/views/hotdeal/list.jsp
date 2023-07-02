@@ -111,7 +111,7 @@
 							<div class="d-flex">
 								<div class="pricing">
 									<p class="price">
-										<span class="mr-2 price-dc ${dto.discount==0 ? 'hidden' : ''}"><fmt:formatNumber value="${dto.price}" type="currency"/></span>
+										<span class="mr-2 price-dc ${dto.discount==0 ? 'hidden' : ''}"><fmt:formatNumber value="${dto.itemPrice}" type="currency"/></span>
 										<span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span>
 									</p>
 								</div>

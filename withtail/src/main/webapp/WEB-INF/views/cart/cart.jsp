@@ -100,9 +100,9 @@
 
 .help > .content > ul > li {
     font-size: 13px;
-    color: #888;;
-   margin : 5px 18px;
-   line-height: 140%;
+    color: #888;
+   	margin : 5px 18px;
+   	line-height: 140%;
 }
 
 .help .content li {
@@ -192,117 +192,178 @@
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	let cartSize = "${list.size()}";
+
+	if(cartSize!=="" && cartSize!=="0") {
+		$("#chkAll").prop("checked", true);
+		$("input[name=nums]").prop("checked", true);
+
+	}
+
+    $("#chkAll").click(function () {
+    	$("input[name=nums]").prop("checked", $(this).is(":checked"));
+
+    });
+});
+
+
+function SelectSendOk() {
+	//  선택 구매하기
+	const f = document.cartForm;
+	
+	let cnt = $("input[name=nums]:checked").length;
+    if (cnt === 0) {
+		alert("구매할 상품을 먼저 선택 하세요 !!!");
+		return;
+    }
+    
+    $("input[name=nums]").each(function(index, item){
+		if(! $(this).is(":checked")) {
+			$(this).closest("tr").remove();
+		}
+	});
+	
+	f.action = "${pageContext.request.contextPath}/cart/checkout";
+	f.submit();
+}
+
+function sendOk() {
+	// 전부 구매하기
+	const f = document.cartForm;
+	
+	let cnt = $("input[name=nums]:checked").length;
+    if (cnt === 0) {
+		alert("구매할 상품을 먼저 선택 하세요 !!!");
+		return;
+    }
+    
+    $("input[name=nums]").each(function(index, item){
+		if(! $(this).is(":checked")) {
+			$(this).closest("tr").remove();
+		}
+	});
+	
+	f.action = "${pageContext.request.contextPath}/cart/checkout";
+	f.submit();
+}
+
+function deleteCartAll() {
+	// 장바구니 비우기
+	if(! confirm('장바구니를 비우시겠습니까 ? ')) {
+		return;
+	}
+
+	location.href = '${pageContext.request.contextPath}/cart/deleteCartAll';	
+}
+
+function deleteCartSelect() {
+	// 선택된 항목 삭제
+	let cnt = $("input[name=nums]:checked").length;
+    if (cnt === 0) {
+		alert("삭제할 상품을 먼저 선택 하세요 !!!");
+		return;
+    }
+    
+	if(! confirm('선택한 상품을 장바구니에서 비우시겠습니까 ? ')) {
+		return;
+	}
+	
+	const f = document.cartForm;
+	f.action = "${pageContext.request.contextPath}/cart/deleteListCart";
+	f.submit();
+}
+
+</script>
+
 
 <div class="hero-wrap hero-bread" style="background-image: url('${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg');">
       
     </div>
     <section class="ftco-section ftco-cart">
+    	<form name="cartForm" method="post">
          <div class="container">
             <p style="margin-left: 4px; margin-bottom: -14px;">일반상품이 <span style="font-size: 17px; text-decoration: underline; font-weight: 500">2&nbsp;</span>개 있습니다. 구매시 참고해주세요.<p>
             <div class="row">
              <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
-                   <table class="table">
+                   <table class="table" >
                       <thead class="thead-primary" style="background: #fbfafa;">
                         <tr class="text-center">
-                          <th><input type="checkbox"></th>
+                          <th><input type="checkbox" name="chkAll" id="chkAll"></th>
                           <th>이미지</th>
                           <th>상품정보</th>
                           <th>판매가</th>
                           <th>수량</th>
                           <th>적립금</th>
-                          <th>배송구분</th>
                           <th>배송비</th>
                           <th>합계</th>
-                          <th>선택</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                       <!-- c:foreach로 반복문으로 짜서 할 것. -->
-                        <tr class="text-center">
-                          <td class="product-remove"><input type="checkbox"></td>
-                          
-                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
-                          
-                          <td class="product-name">
-                             <h3>수수펫스튜디오 수수까까 30g (3종)</h3>
-                             <p>육류에 알러지가 있는 친구들을 위한 건강한 간식입니다.</p>
-                          </td>
-                          
-                          <td class="price">4,000원</td>
-                          
-                         <td class="quantity">
-                          <div style="display: flex; justify-content: space-between;">
-                            <span>
-                              <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                <i class="ion-ios-remove"></i>
-                              </button>
-                            </span>
-                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                            </span>
-                            <span>
-                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                <i class="ion-ios-add"></i>
-                              </button>
-                            </span>
-                          </div>
-                        </td>
-                          
-                          <td class="total">230원</td>
-                          <td class="total">기본배송</td>
-                          <td class="total">5,000원 조건</td>
-                          <td class="total">40,000원</td>
-                          <td class="total">기본배송</td>
-                        </tr><!-- END TR-->
+					<c:set var="all" value="0"/>
+                      <c:forEach var="dto" items="${list}" varStatus="status">
+                      
+                        	<tr class="text-center">
+	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.num}"></td>
+	                          
+	                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
+	                          
+	                          <td class="product-name">
+	                             <h3>${dto.itemName}</h3>                        
+	                             <p>${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
 
-                        <tr class="text-center">
-                          <td class="product-remove"><input type="checkbox"></td>
-                          
-                          <td class="image-prod"><div class="img" style="background-image:url('${pageContext.request.contextPath}/resources/images/main/product_sample.png');"></div></td>
-                          
-                          <td class="product-name">
-                             <h3>Bell Pepper</h3>
-                             <p>Far far away, behind the word mountains, far from the countries</p>
-                          </td>
-                          
-                          <td class="price">$15.70</td>
-                          
-                          <td class="quantity">
-                             <div style="display: flex; justify-content: space-between;">
-                            <span>
-                              <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                <i class="ion-ios-remove"></i>
-                              </button>
-                            </span>
-                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                            </span>
-                            <span>
-                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                <i class="ion-ios-add"></i>
-                              </button>
-                            </span>
-                          </div>
-                         </td>
-                          
-                          <td class="total">230원</td>
-                          <td class="total">기본배송</td>
-                          <td class="total">5,000원 조건</td>
-                          <td class="total">40,000원</td>
-                          <td class="total">기본배송</td>
-                        </tr><!-- END TR-->
+	                          </td>
+	                          
+	                          <td class="price"><span id="price-${status.index}">${dto.itemPrice}</span></td>
+	                          
+	                         <td class="quantity">
+	                          <div style="display: flex; justify-content: space-between;">
+	                            <span>
+	                              <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="" id="minus-${status.index}">
+	                                <i class="ion-ios-remove"></i>
+	                              </button>
+	                            </span>
+	                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
+	                              <input type="text" id="quantity-${status.index}" name="quantity" class="form-control input-number" value="${dto.quantity}" 
+	                              maxlength = "3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" min="1" max="100">
+	                            </span>
+	                            <span>
+	                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="" id="plus-${status.index}">
+	                                <i class="ion-ios-add"></i>
+	                              </button>
+	                            </span>
+	                          </div>
+	                        </td>
+	                     
+	                          <td class="total">${dto.itemPoint}</td>
+	                          <td class="total">${dto.deliveryFee}</td>
+	                          <td class="total"><span id="totalPrice-${status.index}">${dto.itemPrice * dto.quantity}</span></td>
+	                        </tr>
+	                        <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
+						</c:forEach>
+			
                         <tr>
                           <td colspan="10" style="padding-bottom: 20px !important; padding-top: 20px !important; background: #fbfafa;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                              <span style="float: left; margin-right: auto;">[새벽배송/신선식품배송]</span>
+                              <span style="float: left; margin-right: auto;"></span>
                               <div style="float: right;">
                                 <span>상품구매금액</span>
-                                <span style="font-weight: 1000; font-size: 14px;">29,000</span>
-                                <span>+ 배송비 5,000</span>
+                                <span style="font-weight: 1000; font-size: 14px;" id="allPrice">${all}</span>
+                                <input type="text" name="allPrice" value="${all}">
+                                
+                                
+                                
+                                <span id="deliveryFee">+ 배송비 5,000</span>
+                                <input type="hidden" name="deliveryFee" value="3000">
+ 
                                 <span>- 상품할인금액 5,800</span>
                                 <span>= 합계:</span>
-                                <span style="font-weight: 1000; font-size: 17px; color: black;"> 28,200</span>
+                                <span style="font-weight: 1000; font-size: 17px; color: black;" id="finalPrice">${all}</span>
+                                <input type="hidden" name="finalPrice" value="${all}">
                                 <span> 원</span>
                               </div>
                             </div>
@@ -322,7 +383,7 @@
                   text-shadow: none;
                    font-size: 13px;
                    padding: 0px 7px;
-                   height: 21px !important;">삭제</button>
+                   height: 21px !important;" onclick="deleteCartSelect()">삭제</button>
                </p> 
                <p style="display: inline-block; float: right;"> 
                    <button type="button" style="border: 1px solid #008e61 !important;
@@ -331,7 +392,7 @@
                   text-shadow: none;
                    font-size: 13px;
                    padding: 0px 7px;
-                   height: 21px !important;">장바구니비우기</button>
+                   height: 21px !important;" onclick="deleteCartAll()">장바구니비우기</button>
                 </p>
              </div>
              
@@ -366,8 +427,8 @@
                 <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button>
                </p> 
                <p style="display: inline-block; float: right;"> 
-                   <button type="button" class="-btn1" onclick="location.href='${pageContext.request.contextPath}/cart/checkout'" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
-                   <button type="button" class="-btn1" onclick="location.href='${pageContext.request.contextPath}/cart/checkout'" style="padding: 0 18px; height: 41px !important; ">전체상품 주문</button>
+                   <button type="button" class="-btn1" onclick="SelectSendOk" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
+                   <button type="button" class="-btn1" onclick="sendOk" style="padding: 0 18px; height: 41px !important; ">전체상품 주문</button>
                 </p>
              </div>
              
@@ -389,42 +450,65 @@
                 </div>   
          </div>
       </div>
-
+	</form>
       </section>
 
 	<script>
       $(document).ready(function(){
+		var allPrice = '<c:out value="${all}"/>';
 
-      var quantitiy=0;
-         $('.quantity-right-plus').click(function(e){
-              
-              // Stop acting like a button
-              e.preventDefault();
-              // Get the field name
-              var quantity = parseInt($('#quantity').val());
-              
-              // If is not undefined
-                  
-                  $('#quantity').val(quantity + 1);
+	   	 <c:forEach items="${list}" varStatus="status" var="dto">
 
-                
-                  // Increment
-              
-          });
+		   	  var price = document.getElementById('price-${status.index}').innerHTML;
+		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
+		      var quantity=0;
 
-           $('.quantity-left-minus').click(function(e){
-              // Stop acting like a button
-              e.preventDefault();
-              // Get the field name
-              var quantity = parseInt($('#quantity').val());
-              
-              // If is not undefined
-            
-                  // Increment
-                  if(quantity>0){
-                  $('#quantity').val(quantity - 1);
-                  }
-          });
-          
+	         $('#plus-${status.index}').click(function(e){
+	        	    	 	
+	              // Stop acting like a button
+	              e.preventDefault();
+	              // Get the field name
+	              var quantity = parseInt($('#quantity-${status.index}').val());
+	              
+	              // If is not undefined
+	                  
+	               $('#quantity-${status.index}').val(quantity + 1);
+	               quantity = quantity + 1;
+	               document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
+	               document.getElementById('allPrice').innerHTML = allPrice;
+	               console.log(allPrice);
+	          });
+	
+	           $('#minus-${status.index}').click(function(e){
+	              // Stop acting like a button
+	              e.preventDefault();
+	              // Get the field name
+	              var quantity = parseInt($('#quantity-${status.index}').val());
+	              
+	              // If is not undefined
+	            
+	                  // Increment
+	                  if(quantity>1){
+	                  $('#quantity-${status.index}').val(quantity - 1);
+	            
+	                  quantity = quantity - 1;
+	                  document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
+	                  document.getElementById('allPrice').innerHTML = allPrice;
+	                  console.log(allPrice);
+	                  }
+	
+	          });
+	           
+	           $('#quantity-${status.index}').keyup(function(e){       	   
+	        	   var quantity = parseInt($('#quantity-${status.index}').val());
+	        	   
+	        	   if( ! quantity){
+	        		   quantity = 0;
+	        	   }
+	        	   document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
+	           });
+	           </c:forEach>
+	           
+	  
       });
    </script>

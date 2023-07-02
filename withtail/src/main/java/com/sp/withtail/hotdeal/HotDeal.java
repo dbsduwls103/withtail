@@ -10,7 +10,7 @@ public class HotDeal {
 	private String itemName;
 	private String discount;
 	private String photoName;
-	private int price;
+	private int itemPrice;
 	private int showNotice;
 	private int numCount;
 	
@@ -75,12 +75,14 @@ public class HotDeal {
 		this.photoName = photoName;
 	}
 
-	public int getPrice() {
-		return price;
+
+
+	public int getItemPrice() {
+		return itemPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 
 	public int getShowNotice() {

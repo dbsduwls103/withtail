@@ -4,7 +4,7 @@
 <mapper namespace="hotdeal">
 	<select id="hotdealList" parameterType="map" resultType="com.sp.withtail.hotdeal.HotDeal">
 	
-	    SELECT i.itemNum, i.ctNum, itemName, i.price,  i.price * (100-NVL(discount,0)) * 0.01 finalPrice,
+	    SELECT i.itemNum, i.ctNum, itemName, i.itemPrice,  i.itemPrice * (100-NVL(discount,0)) * 0.01 finalPrice,
 	           discount
 	    FROM item i
 	    JOIN (

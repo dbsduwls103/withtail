@@ -4,7 +4,7 @@
 <mapper namespace="ranking">
 	<select id="rankList" parameterType="map" resultType="com.sp.withtail.ranking.Ranking">
 	
-    SELECT i.itemNum, i.ctNum, itemName, i.price,  i.price * (100-NVL(discount,0)) * 0.01 finalPrice,
+    SELECT i.itemNum, i.ctNum, itemName, i.itemPrice,  i.itemPrice * (100-NVL(discount,0)) * 0.01 finalPrice,
            discount, NVL(COUNT(o.itemNum),0) numCount
     FROM item i
     JOIN (
@@ -14,9 +14,9 @@
         START WITH parentCT IS NULL
         CONNECT BY PRIOR ctNum = parentCT
     ) c ON c.ctNum =  i.ctNum
-    JOIN orderDetail o ON o.itemNum = i.itemNum
+    LEFT JOIN orderDetail o ON o.itemNum = i.itemNum
     WHERE showNotice = 0
-    GROUP BY i.itemNum, i.ctNum, itemName, i.price,  i.price * (100-NVL(discount,0)) * 0.01, discount
+    GROUP BY i.itemNum, i.ctNum, itemName, i.itemPrice,  i.itemPrice * (100-NVL(discount,0)) * 0.01, discount
     ORDER BY numCount DESC, i.itemNum DESC
  
 	</select>
