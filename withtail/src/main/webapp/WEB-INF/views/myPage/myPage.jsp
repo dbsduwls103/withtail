@@ -114,7 +114,7 @@
     color: #121212;
     flex: 1;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .title-three {
@@ -426,8 +426,8 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
 						<div class="text-layout">
-							<p style="margin-bottom: -5px; font-size: 13px;">${sessionScope.member.userName}</p>
-							<p style="margin-bottom: -5px; font-size: 13px;">${sessionScope.member.email}</p>
+							<p style="margin-bottom: -5px; font-size: 13px;">${dto2.userName}</p>
+							<p style="margin-bottom: -5px; font-size: 13px;">${dto2.email}</p>
 							<p style="margin-bottom: -5px; font-size: 13px;">비밀번호 : ********</p>						
 						</div>
 					</div>
@@ -477,7 +477,14 @@
 					<div class="information-layout">
 						<p class="title-two" style="margin-bottom: 0px" >적립금</p>
 						<div class="text-layout">
-							<p style="margin-bottom: 0px; font-size: 13px;">1000원</p>					
+							<c:choose>
+								<c:when test="${pointDataCount eq 0 or dto3.balance eq 0}">
+									<p style="margin-bottom: 0px; font-size: 13px;">0원</p>
+								</c:when>
+								<c:otherwise>
+									<p style="margin-bottom: 0px; font-size: 13px;"><fmt:formatNumber value="${dto3.balance}" pattern="#,###" />원</p>	
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div> 	

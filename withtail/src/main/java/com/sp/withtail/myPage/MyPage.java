@@ -76,9 +76,64 @@ public class MyPage {
 	private long itemPrice;
 	private long price;
 	private long salePrice;
+	private String orderName;
 	
+	private long pointNum;
+	private int pointChk;
+	private long amount;
+	private long balance;
+	private String pointRegDate;
+	private long salePrice1;
+	private int star;
 	
-	
+	public int getStar() {
+		return star;
+	}
+	public void setStar(int star) {
+		this.star = star;
+	}
+	public long getSalePrice1() {
+		return salePrice1;
+	}
+	public void setSalePrice1(long salePrice1) {
+		this.salePrice1 = salePrice1;
+	}
+	public long getPointNum() {
+		return pointNum;
+	}
+	public void setPointNum(long pointNum) {
+		this.pointNum = pointNum;
+	}
+	public int getPointChk() {
+		return pointChk;
+	}
+	public void setPointChk(int pointChk) {
+		this.pointChk = pointChk;
+	}
+	public long getAmount() {
+		return amount;
+	}
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+	public long getBalance() {
+		return balance;
+	}
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+	public String getPointRegDate() {
+		return pointRegDate;
+	}
+	public void setPointRegDate(String pointRegDate) {
+		this.pointRegDate = pointRegDate;
+	}
+	public String getOrderName() {
+		return orderName;
+	}
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
 	public long getPrice() {
 		return price;
 	}

@@ -283,6 +283,60 @@ hr.vertical-line {
     font-size: 13px;
 }
 
+.orderhistory-layout {
+    align-items: center;
+    align-self: stretch;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 80px 0px;
+}
+
+.orderhistory-contents {
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: center;
+}
+
+.order-image-1 {
+    height: 100px;
+    min-width: 100px;
+    object-fit: cover;
+}
+
+.orderhistory-text-layout {
+    align-items: center;
+    align-self: stretch;
+    border: 1px none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.orderhistory-text {
+    align-self: stretch;
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn30 {
+	width: 380px;
+    height: 55px;
+    border-radius: 5px;
+    border: none;
+    background-color: #82ae46;
+    color: white;
+}
+
   </style>
 
   <div class="container -min">
@@ -300,126 +354,87 @@ hr.vertical-line {
  			<div class="favorite-title valign-text-bottom">
  				<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: -10px;">즐겨찾기</p>
  			</div>
- 		</div>
- 	</div>
- 	
- 	<div class="favorite-section">
- 		<hr style="border-color: #f1f1f1; width: 100%; border: 1px solid; margin-bottom: 0px; margin-top: 0px;">
- 		<div class="favorite-list">
- 			<div class="f-product-info">
-			 	<div style="position: relative;">
- 					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
- 					</a>
- 				</div>	
- 				<div class="f-product-wrap">
- 					<div style="display: contents;"> 
- 						<div class="f-product-name">
-							<div class="f-product-text-layout">
-								<a class="f-brand-text valign-text-middle" href="#">두바보</a>
-								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">두바보 MDF 펜던트 (펜던트만) P13</a>
-								<a href="#" style="display: contents">		
-									<div class="rating">
-										<div class="stars">
-											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-										</div>
-									</div>
-								</a>	
-							</div>
-							<a class="f-price-layout" href="#">
-								<div class="f-price-text valign-text-middle">
-									3,960원
-								</div>
-								<div class="f-price-underline valign-text-middle">
-									7,500원
-								</div>								
-							</a> 						
- 						</div>
- 					</div>
- 				</div>
- 				<div class="f-button-layout">
- 					<hr class="vertical-line">
- 					<button class="btn1">장바구니 담기</button>							
- 					<hr class="vertical-line">
- 					<a href="#">삭제</a>
- 				</div>
- 			</div>	
  		</div>	
- 		
- 		<!-- 위 내용 반복임 c:foreach 사용해서 구현할것. -->
- 		<hr style="border-color: #f1f1f1; width: 100%; border: 1px solid; margin-bottom: 0px; margin-top: 0px;">
- 		<div class="favorite-list">
- 			<div class="f-product-info">
-			 	<div style="position: relative;">
- 					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
- 					</a>
- 				</div>	
- 				<div class="f-product-wrap">
- 					<div style="display: contents;"> 
- 						<div class="f-product-name">
-							<div class="f-product-text-layout">
-								<a class="f-brand-text valign-text-middle" href="#">두바보</a>
-								<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">두바보 MDF 펜던트 (펜던트만) P13</a>
-								<a href="#" style="display: contents">		
-									<div class="rating">
-										<div class="stars">
-											<div class="star star-layout">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
-											<div class="star-layout-two">
-												<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">			
-											</div>
+ 		<c:choose>
+ 		<c:when test="${favoriteDataCount eq 0}">
+			<div class="orderhistory-layout">
+				<div class="orderhistory-contents">
+					<img class="order-image-1" alt="" src="${pageContext.request.contextPath}/resources/images/icon/order-image-1.png" width="120" height="100">
+					<div class="orderhistory-text-layout">
+						<p class="orderhistory-text">
+							해당 기간에 주문하신 상품이 없습니다.
+							<br>
+							펫하이를 한번 둘러보시는 건 어떠신가요?
+						</p>
+					</div>
+				</div>
+				<button type="button" class="btn30" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
+			</div>
+		</c:when>
+	 	<c:otherwise>
+		 	
+			 	<div class="favorite-section">
+			 	<c:forEach var="dto" items="${list}" varStatus="status">
+			 		<hr style="border-color: #c3c3c3; width: 100%; margin-bottom: 0px; margin-top: 0px;">
+			 		<div class="favorite-list">
+			 			<div class="f-product-info">
+						 	<div style="position: relative;">
+			 					<a class="f-product-image-layout" href="#">
+			 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
+			 					</a>
+			 				</div>	
+			 				<div class="f-product-wrap">
+			 					<div style="display: contents;"> 
+			 						<div class="f-product-name">
+										<div class="f-product-text-layout">
+											<a class="f-brand-text valign-text-middle" href="#">${dto.madeBy}</a>
+											<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
+											<a href="#" style="display: contents">		
+												<div class="rating">
+													<div class="stars">
+														<c:forEach var="star" begin="1" end="5">
+														  <c:choose>
+														    <c:when test="${star <= dto.star}">
+														      <div class="star star-layout">
+														      	<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star-on.svg" width="12" height="12">
+														      </div>
+														    </c:when>
+														    <c:otherwise>
+														      <div class="star star-layout">
+														      	<img alt="star" src="${pageContext.request.contextPath}/resources/svg/star.svg" width="12" height="12">
+														      </div>
+														    </c:otherwise>
+														  </c:choose>
+														</c:forEach>
+													</div>
+												</div>
+											</a>	
 										</div>
-									</div>
-								</a>	
-							</div>
-							<a class="f-price-layout" href="#">
-								<div class="f-price-text valign-text-middle">
-									3,960원
-								</div>
-								<div class="f-price-underline valign-text-middle">
-									7,500원
-								</div>								
-							</a> 						
- 						</div>
- 					</div>
- 				</div>
- 				<div class="f-button-layout">
- 					<hr class="vertical-line">
- 					<button class="btn1">장바구니 담기</button>							
- 					<hr class="vertical-line">
- 					<a href="#">삭제</a>
- 				</div>
- 			</div>	
- 		</div>
- 		
- 		
- 	</div>
-  
+										<a class="f-price-layout" href="#">
+											<div class="f-price-text valign-text-middle">
+												<fmt:formatNumber value="${dto.salePrice1}" pattern="#,###" />원
+											</div>
+											<div class="f-price-underline valign-text-middle">
+												<fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원
+											</div>								
+										</a> 						
+			 						</div>
+			 					</div>
+			 				</div>
+			 				<div class="f-button-layout">
+			 					<hr class="vertical-line">
+			 					<button class="btn1">장바구니 담기</button>							
+			 					<hr class="vertical-line">
+			 					<a href="#">삭제</a>
+			 				</div>
+			 			</div>	
+			 		</div>
+			 		</c:forEach>	
+			 	</div>
+		 	
+	 	</c:otherwise>
+ 	</c:choose>
+  </div>
 	
   </div>
 

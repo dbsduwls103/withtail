@@ -317,6 +317,78 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return list;
 	}
+
+	@Override
+	public List<MyPage> listPoint(String userId) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listPoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int pointDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.pointDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return result;
+	}
+
+	@Override
+	public void updateOrderCancel(long orderNum) throws Exception {
+		try {
+			dao.updateData("myPage.updateOrderCancel", orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void updateOrderRefund(long orderNum) throws Exception {
+		try {
+			dao.updateData("myPage.updateOrderRefund", orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public List<MyPage> listFavorite(String userId) throws Exception {
+		List<MyPage> list = null;
+		
+		try {
+			list = dao.selectList("myPage.listFavorite", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int favoriteDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("myPage.favoriteDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return result;
+	}
 	
 	
 	
