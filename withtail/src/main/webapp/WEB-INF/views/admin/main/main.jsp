@@ -218,20 +218,45 @@ margin-left: 8px;
 
 
 $(function(){
-	let url = "${pageContext.request.contextPath}/admin/chart1";
+	let url = "${pageContext.request.contextPath}/admin/charts";
 	
 	$.getJSON(url, function(data){
+		chartsSales(data);
+		chartsNewMember(data);
+		
+	});
+
+	function chartsSales (data){	
+		console.log(data);
+		let chartData = [];
+		
+		 const dates = [];
+		 const today = new Date();
+
+		  for (let i = 6; i >= 0; i--) {
+		    const currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+		    const month = currentDate.getMonth() + 1; 
+		    const day = currentDate.getDate();
+		    const formattedDate = month+'월'+ day+'일';
+		    dates.push(formattedDate);
+		  }
+		console.log(dates)
+		for(let item of data.weekSales) {
+			let s = parseInt(item.ORDERDATE.substring(5, 7))+'월 ';
+			s += parseInt(item.ORDERDATE.substring(8))+'일';
+
+			let obj = {value:item.TOTALMONEY, name:s};
+			chartData.push(obj);
+		}
+		
+		
+		
 	
+		const chartDom = document.getElementById('chart1');
+		let myChart = echarts.init(chartDom);
+		let option;
 
-		var chartDom = document.getElementById('chart1');
-		var myChart = echarts.init(chartDom);
-		var option;
-
-		option = {
-		  title: {
-		    text: '일자별 판매 총액'
-		  },
-		  tooltip: {
+		option = {	  tooltip: {
 		    trigger: 'axis',
 		    axisPointer: {
 		      type: 'cross',
@@ -240,44 +265,26 @@ $(function(){
 		      }
 		    }
 		  },
-		  legend: {
-		    data: 'Email'
-		  },
-		  toolbox: {
+		  		  toolbox: {
 		    feature: {
 		      saveAsImage: {}
 		    }
 		  },
-		  grid: {
+		   grid: {
 		    left: '3%',
 		    right: '4%',
 		    bottom: '3%',
 		    containLabel: true
 		  },
-		  xAxis: [
-		    {
-		      type: 'category',
-		      boundaryGap: false,
-		      data: [
-		        '6월13일',
-		        '6월14일',
-		        '6월15일',
-		        '6월16일',
-		        '6월17일',
-		        '6월18일',
-		        '6월19일'
-		      ]
-		    }
-		  ],
-		  yAxis: [
-		    {
-		      type: 'value'
-		    }
-		  ],
-		  series: [
-		    {
-		      name: 'Search Engine',
-		      type: 'line',
+  xAxis: {
+    type: 'category',
+    data:  dates
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    { name: '일별 판매현황',
 		      stack: 'Total',
 		      label: {
 		        show: true,
@@ -287,65 +294,87 @@ $(function(){
 		      emphasis: {
 		        focus: 'series'
 		      },
-		      data: [23000, 33000, 54000, 28900, 15000, 78000, 46800]
-		    }
-		  ]
-		};
+      data: chartData,
+      type: 'bar',
+      showBackground: true,
+      backgroundStyle: {
+        color: 'rgba(248, 248, 248, 1)'
+      },
+      color : 'rgba(130, 173, 70, 1)'
+    }
+  ]
+};
 
 		option && myChart.setOption(option);
 
 	
-	});
-});
+	}
 
-
-$(function(){
-
-	let url = "${pageContext.request.contextPath}/admin/chart2";
-	
-	$.getJSON(url, function(data){
+	function chartsNewMember(data) {
 		
+		
+		let chartData = [];
+		
+		for(let item of data.weekNewMember) {
+			let s = parseInt(item.RDATE.substring(5, 7))+'월 ';
+			s += parseInt(item.RDATE.substring(8))+'일';
+
+			let obj = {value:item.TOTALMEMBER, name:s};
+			chartData.push(obj);
+		}		
 	
-		var chartDom = document.getElementById('chart2');
-		var myChart = echarts.init(chartDom);
-		var option;
+		const chartDom = document.getElementById('chart2');
+		let myChart = echarts.init(chartDom);
+		let option;
 
 		option = {
-		 title: {
-			    text: '일자별 신규회원 수'
-			  },
-		tooltip: {
-				trigger: 'axis',
-		},
-		  xAxis: {
-		    type: 'category',
-		    data: [   
-		    	'6월13일',
-		        '6월14일',
-		        '6월15일',
-		        '6월16일',
-		        '6월17일',
-		        '6월18일',
-		        '6월19일']
-		  },
-		  yAxis: {
-		    type: 'value'
-		  },
-		  series: [
-		    {
-		      data: [150, 230, 224, 218, 135, 147, 260],
-		      type: 'line'
-		    }
-		  ]
-		};
+				  tooltip: {
+				    trigger: 'item'
+				  },
+				  legend: {
+				    top: '3%',
+				    left: 'center'
+				  },
+				  toolbox: {
+				    feature: {
+				      saveAsImage: {}
+				    }
+				  },
+				  series: [
+				    {
+				      top: '10%',
+				      name: '일별 신규회원 수',
+				      type: 'pie',
+				      radius: ['30%', '70%'],
+				      avoidLabelOverlap: false,
+				      itemStyle: {
+				        borderRadius: 10,
+				        borderColor: '#fff',
+				        borderWidth: 2
+				      },
+				      label: {
+				        show: false,
+				        position: 'center'
+				      },
+				      emphasis: {
+				        label: {
+				          show: true,
+				          fontSize: '40',
+				          fontWeight: 'bold'
+				        }
+				      },
+				      labelLine: {
+				        show: false
+				      },
+				      data: chartData
+				    }
+				  ]
+				};		
+				
+				option && myChart.setOption(option);
+			}
 
-		option && myChart.setOption(option);
-	
-	
-	});
 });
-
-
 
 
 </script>
@@ -363,16 +392,16 @@ $(function(){
     <td>누적 회원 수</td>
     <td>현재 접속 수</td>
     <td>오늘 방문자 수</td>
-    <td>월별 방문자 수</td>
-    <td>연도별 방문자 수</td>
+    <td>어제 방문자 수</td>
+    <td>전체 방문자 수</td>
   </tr>
   <tr>
-    <td>0명</td>
-    <td>0명</td>
-    <td>0명</td>
-    <td>0명</td>
-    <td>0명</td>
-    <td>0명</td>
+    <td>${todayNewMember.COUNT }명</td>
+    <td>${totalMember.COUNT }명</td>
+    <td>${currentCount }명</td>
+    <td>${toDayCount }명</td>
+    <td>${yesterDayCount }명</td>
+    <td>${totalCount }명</td>
   </tr>
 </table>
 
@@ -381,8 +410,16 @@ $(function(){
 
 <br>
 <div class="container">
-	<div class="chartbox1" id="chart1"></div>
-	<div class="chartbox1" id="chart2"></div>
+	<div>
+		<div style="margin-bottom: 10px;"><h4>>&nbsp; 최근 1주일 판매현황</h4></div>
+		<div class="chartbox1" id="chart1"></div>
+	</div>	
+	
+	<div>
+		<div style="margin-bottom: 10px;"><h4>>&nbsp; 최근 1주일 신규회원 수</h4></div>
+		<div class="chartbox1" id="chart2"></div>
+	</div>	
+
 </div>
 <br>
 
@@ -392,35 +429,36 @@ $(function(){
 
 <div class="container">
   <div class="box">
-  	<div class="boxprice">30,000 원</div>
+  	<div class="boxprice"><fmt:formatNumber value="${todaySales.TODAYSALES }" pattern="#,##0원" /></div>
   	<div class="smallBox">
 	  	<div class="left">오늘</div>
-	  	<div class="right">12건</div>
+	  	<div class="right">${todaySales.COUNT }건</div>
   	</div>
   </div>
   <div class="box">
-  	<div class="boxprice color1">450,000 원</div>
+  	<div class="boxprice color1"><fmt:formatNumber value="${yesterDaySales.YESTERDAYSALES }" pattern="#,##0원" /></div>
   	<div class="smallBox">
-	  	<div class="left">이번주</div>
-	  	<div class="right color1">46건</div>
+	  	<div class="left">어제</div>
+	  	<div class="right color1">${yesterDaySales.COUNT }건</div>
   	</div>
   </div>
   <div class="box">
-  	<div class="boxprice color2">230,000 원</div>
+  	<div class="boxprice color2"><fmt:formatNumber value="${monthSales.MONTHSALES }" pattern="#,##0원" /></div>
   	<div class="smallBox">
 	  	<div class="left">이번달</div>
-	  	<div class="right color2">212건</div>
+	  	<div class="right color2">${monthSales.COUNT }건</div>
   	</div>
   </div>
-  <div class="box">
-  	<div class="boxprice color3">17,060,100 원</div>
+  <div class="box"> 
+  	<div class="boxprice color3"><fmt:formatNumber value="${totalSales.TOTALSALES }" pattern="#,##0원" /></div>
   	<div class="smallBox">
-	  	<div class="left">올해</div>
-	  	<div class="right color3">1540건</div>
+	  	<div class="left">전체</div>
+	  	<div class="right color3">${totalSales.COUNT }건</div>
   	</div>
   </div>
 </div>
-
+<!--
+	 
 <form method="post" name="dateSearch">
 	<div class="datebox">
 		<input type="date" id="start-date" name="start-date">&nbsp; 
@@ -428,25 +466,26 @@ $(function(){
 		<button type="submit" class="btn">검색</button>
 	</div>
 </form>
-
+ -->
+ <br>
 <div class="container">	
 	<div class="box4">
 		<div class="inbox4" style="border-right: none; border-bottom:none;">  
 			<div class="ininbox4" >
 				<div class="lt" >결제완료</div>
-				<div class="rt">3건</div>
+				<div class="rt">${paymentCompleted.COUNT}건</div>
 			</div>
 			<div>
-				<div class="box4price"> 50,000 원 </div>
+				<div class="box4price"><fmt:formatNumber value="${paymentCompleted.PRICE }" pattern="#,##0원" /></div>
 			</div>
 		</div>
 		<div class="inbox4" style="border-right: none;" >
 			<div class="ininbox4" >
 				<div class="lt" >배송중</div>
-				<div class="rt">3건</div>
+				<div class="rt">${inTransit.COUNT }건</div>
 			</div>
 			<div>
-				<div class="box4price"> 50,000 원 </div>
+				<div class="box4price"><fmt:formatNumber value="${inTransit.PRICE }" pattern="#,##0원" /></div>
 			</div>
 		</div>
 	</div>
@@ -455,19 +494,19 @@ $(function(){
 		<div class="inbox4" style="border-bottom: none;" >
 			<div class="ininbox4" >
 				<div class="lt" >배송준비중</div>
-				<div class="rt">3건</div>
+				<div class="rt">${preparing.COUNT }건</div>
 			</div>
 			<div>
-				<div class="box4price"> 50,000 원 </div>
+				<div class="box4price"><fmt:formatNumber value="${preparing.PRICE }" pattern="#,##0원" /></div>
 			</div>
 		</div>
 		<div class="inbox4" >
 			<div class="ininbox4" >
 				<div class="lt" >배송완료</div>
-				<div class="rt">3건</div>
+				<div class="rt">${deliveryCompleted.COUNT }건</div>
 			</div>
 			<div>
-				<div class="box4price"> 50,000 원 </div>
+				<div class="box4price"><fmt:formatNumber value="${deliveryCompleted.PRICE }" pattern="#,##0원" /></div>
 			</div>
 		</div>
 		
@@ -476,8 +515,8 @@ $(function(){
 	
 	<div class="box5" >
 		<div class="box5top">주문처리완료</div>
-		<div class="box5middle">7건</div>
-		<div class="box5bottom">184,500 원</div>
+		<div class="box5middle">${orderComplete.COUNT }건</div>
+		<div class="box5bottom"><fmt:formatNumber value="${orderComplete.PRICE }" pattern="#,##0원" /></div>
 	</div>
 
 </div>
@@ -485,7 +524,7 @@ $(function(){
 
 </div>
 </div><!-- 전체 -->
-
+<br><br><br><br>
 
 
 

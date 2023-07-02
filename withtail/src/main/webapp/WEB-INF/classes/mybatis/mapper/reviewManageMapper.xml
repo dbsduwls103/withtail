@@ -32,7 +32,7 @@
 	
 	<!-- 리뷰 리스트 -->
 	<select id="listReviewManage" parameterType="map" resultType="com.sp.withtail.admin.reviewManage.ReviewManage">
-		select rvNum,orderNum,rvContent,star,TO_CHAR(r.regDate,'YYYY-MM-DD')regDate,r.itemNum,r.userId,
+		select rvNum,orderDetailNum ,rvContent,star,TO_CHAR(r.regDate,'YYYY-MM-DD')regDate,r.itemNum,r.userId,
         itemName, mainImage, madeby ,userName
         from review r
         join item i on r.itemNum=i.itemNum
@@ -48,7 +48,7 @@
 	
 	<!-- 글보기 -->
 	<select id="readReview" parameterType="Long" resultType="com.sp.withtail.admin.reviewManage.ReviewManage">
-		select r.rvNum,orderNum,rvContent,star,TO_CHAR(r.regDate,'YYYY-MM-DD')regDate,r.itemNum,r.userId,
+		select r.rvNum,orderDetailNum ,rvContent,star,TO_CHAR(r.regDate,'YYYY-MM-DD')regDate,r.itemNum,r.userId,
         replyContent,TO_CHAR(replyDate,'YYYY-MM-DD')replyDate,
         itemName, mainImage, madeby,m.userName,
         saveName,replyId,m1.userName replyName
