@@ -127,6 +127,31 @@
 	
 	</style>
 	
+	
+<script type="text/javascript">
+$(function(){
+	let product = JSON.parse(localStorage.getItem("product")) || [];
+	let out = "";
+	
+	
+	for(let item of product){
+		let itemNum = item.pnum;
+		let mainImage = item.pimg;
+		
+		out += "<li>"
+		out += "<a href='${pageContext.request.contextPath}/shop/info/"+itemNum+"'>" 
+		out += "src='${pageContext.request.contextPath}/uploads/shop/"+mainImage+"'>"
+		out += "</a></li>";
+		
+	}
+	
+	$(".ulclass").html(out);
+});
+</script>
+	
+	
+	
+	
 	<!-- 모바일 플로팅 버튼 -->
 	<!--  
 	<div class="m-fl_layout">
@@ -144,10 +169,7 @@
 	<!-- 최근 본 상품 -->
 	<div class="rc_layout">
 		<p>최근 본 상품</p>
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img01" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
-			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img02" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
-			<li><a href="${pageContext.request.contextPath}/shop/info"><img alt="rc_img03" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"></a></li>
+		<ul class="ulclass">
 		</ul>
 	</div>
 	<!-- //최근 본 상품 -->
