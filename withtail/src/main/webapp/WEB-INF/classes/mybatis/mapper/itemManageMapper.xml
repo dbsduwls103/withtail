@@ -205,7 +205,7 @@
 	
 	<insert id="insertItemStock" parameterType="com.sp.withtail.admin.itemManage.ItemStock">
 	   INSERT INTO itemStock(stockNum, option2Num, option2Num2, totalStock, itemNum) 
-	   VALUES (itemStock_seq.NEXTVAL, #{option2Num}, #{option2Num2}, #{totalStock}, #{itemNum})
+	   VALUES (itemStock_seq.NEXTVAL, #{option2Num, jdbcType=INTEGER}, #{option2Num2, jdbcType=INTEGER}, #{totalStock}, #{itemNum})
 	</insert>
 	
 	<update id="updateItemStock" parameterType="map">
@@ -217,12 +217,9 @@
 		DELETE FROM itemPhoto WHERE itemNum = #{itemNum}
 	</delete>
 	
-	<delete id="deleteitem" parameterType="map">
+	<delete id="deleteitem" parameterType="Long">
 		DELETE FROM item
-	    WHERE itemNum IN
-		<foreach collection="itemNums" item="itemNum" index="index"	open="(" separator="," close=")">
-				#{itemNum}
-		</foreach>
+	    WHERE itemNum = #{itemNum}
 	</delete>
 	
 	<select id="stocklist"  parameterType="map" resultType="com.sp.withtail.admin.itemManage.ItemStock">
@@ -230,8 +227,8 @@
 			op2.option2Name option2Name, op22.option2Name option2Name2, i.mainImage, st.totalStock totalStock
 			from itemStock st
 			JOIN item i on i.itemNum = st.itemNum
-			JOIN option2 op2 ON st.option2Num = op2.option2Num
-			JOIN option2 op22 ON st.option2Num2 = op22.option2Num
+			LEFT OUTER JOIN option2 op2 ON st.option2Num = op2.option2Num
+			LEFT OUTER JOIN option2 op22 ON st.option2Num2 = op22.option2Num
 			where st.itemNum = #{itemNum}
 			order by stockNum asc
 	</select>

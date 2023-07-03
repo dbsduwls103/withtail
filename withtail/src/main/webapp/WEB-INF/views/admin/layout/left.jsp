@@ -94,7 +94,7 @@ $(function(){
 
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value='/admin/orderManage/list'/>" class="sub_menu--link">주문 관리</a>
+					<a href="<c:url value='/admin/orderManage/order'/>" class="sub_menu--link">주문 관리</a>
 				</li>
 				<li class="sub_menu--item">
 					<a href="<c:url value='/admin/itemManage/list'/>" class="sub_menu--link">상품 관리</a>

@@ -358,32 +358,34 @@ public class ItemManageController {
 
 
 	@PostMapping("deleteListItem")
-	public String deleteListItem (
-			@RequestParam List<Long> itemNums,
-			@RequestParam(defaultValue = "0") long parentCt,
-			@RequestParam(defaultValue = "0") long subCtNum,
-			@RequestParam(defaultValue = "0") long lastCtNum,
-			@RequestParam String page,
-			HttpSession session) {
+	@ResponseBody
+	public Map<String, Object> deleteListItem (
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session)throws Exception{
+		String state = "true";
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "item";
+		paramMap.put("pathname", pathname);
 
 		try {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("itemNums", itemNums);
-
+			int cnt = (int)paramMap.get("cnt");
+			String list = (String)paramMap.get("list");
+			String[] nums = list.split(",");
+			for(int i = 0; i<cnt; i++) {
+				long itemNum = Integer.parseInt((String)nums[i]);
+				paramMap.put("itemNum", itemNum);
+				service.deleteItemList(paramMap);
+				System.out.println("성공");
+			}
 		} catch (Exception e) {
+			state = "false";
+			System.out.println("실패");
 		}
 
-		if(lastCtNum == 0) {
-			lastCtNum = subCtNum;
-		}
-
-		String query = "parentCt=" + parentCt + "&subCtNum=" + subCtNum + "&ctNum=" + lastCtNum +"&page="+page;
-
-		if(lastCtNum == subCtNum) {
-			query = "parentCt="+parentCt+"&ctNum="+subCtNum+"&page="+page;
-		}
-
-		return "redirect:/admin/itemManage/list?"+query;
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
 	}
 
 	@GetMapping("stockList")

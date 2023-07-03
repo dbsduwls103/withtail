@@ -202,7 +202,7 @@ $(function(){
 		</table>
 		 
 		<div class="page-navigation">
-			${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+			${dataCount == 0 ? "등록된 옵션이 없습니다." : paging}
 		</div>
 		
 		<table class="table">

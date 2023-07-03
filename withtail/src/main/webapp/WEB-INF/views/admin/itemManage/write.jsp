@@ -90,19 +90,6 @@ p {
 </style>
 
 <script type="text/javascript">
-
-<c:if test="${mode=='update'}">
-  function deleteFile(photoNum) {
-		let url = "${pageContext.request.contextPath}/admin/itemManage/deleteFile";
-		$.post(url, {photoNum:photoNum}, function(data){
-			$("#f"+photoNum).remove();
-		}, "json");
-} 
-</c:if>
-
-</script>
-
-<script type="text/javascript">
 function check() {
 	const f = document.itemForm;
 	let str, b;
@@ -151,50 +138,8 @@ function check() {
 		return false;
 	}
 	
-	if(! f.option1Name.value.trim()) {
-		alert("상위 옵션명 입력 하세요.");
-		f.option1Name.focus();
-		return false;
-	}
-	
 	b = true;
-	$("input[name=option2Names]").each(function(){
-		if(! $(this).val().trim()) {
-			b= false;
-			return false;
-		}
-	});
 	
-	if(! b) {
-		alert("상위 옵션값을 입력 하세요.");
-		return false;
-	}
-	
-	if(! f.option1Name2.value.trim()) {
-		alert("하위 옵션명 입력 하세요.");
-		f.option1Name2.focus();
-		return false;
-	}
-	
-	b = true;
-	$("input[name=option2Names2]").each(function(){
-		if(! $(this).val().trim()) {
-			b= false;
-			return false;
-		}
-	});
-	if(! b) {
-		alert("하위 옵션값을 입력 하세요.");
-		return false;
-	}
-	
-	b = false;
-	for(let ps of f.showNotice) {
-		if( ps.checked ) {
-			b = true;
-			break;
-		}
-	}
 	if( ! b ) {
 		alert("상품진열 여부를 선택하세요.");
 		f.showNotice[0].focus();

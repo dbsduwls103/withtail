@@ -6,7 +6,7 @@ import java.util.Map;
 public interface ItemManageService {
 	public void insertItem(ItemManage dto, String pathname) throws Exception;
 	public void updateItem(ItemManage dto, String pathname) throws Exception;
-	public void deleteItem(long itemNum, String pathname) throws Exception;
+	public void deleteItemList(Map<String, Object> map) throws Exception;
 	public void deleteItemPhoto(long photoNum, String pathname) throws Exception;
 	public void deleteOption2(long option2Num) throws Exception;
 	

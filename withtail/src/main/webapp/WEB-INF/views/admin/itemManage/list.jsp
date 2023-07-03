@@ -80,32 +80,6 @@ function changeLastList() {
 	searchList();
 }
 
-function deleteItemSelect() {
-	// 선택된 항목 삭제
-	let cnt = $("form input[name=nums]:checked").length;
-    if (cnt === 0) {
-		alert("삭제할 상품을 선택해주세요");
-		return;
-    }
-
-    if(! confirm('선택한 상품을 지우시겠습니까 ? ')) {
-		return;
-	}
-	
-	const f = document.itemForm;
-	f.action = "${pageContext.request.contextPath}/admin/itemManage/deleteItemList";
-	f.submit();
-}
-
-$(function() {
-	 $(".chkAll").click(function() {
-		   if($(this).is(":checked")) {
-			   $("input[name=nums]").prop("checked", true);
-	        } else {
-			   $("input[name=nums]").prop("checked", false);
-	        }
-	   });
-})
 
 function ajaxFun(url, method, query, dataType, fn) {
 	$.ajax({
@@ -133,6 +107,40 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 
+$(function() {
+	 $(".chkAll").click(function() {
+		   if($(this).is(":checked")) {
+			   $("input[name=nums]").prop("checked", true);
+	        } else {
+			   $("input[name=nums]").prop("checked", false);
+	        }
+	   });
+})
+
+$(function() {
+	$(".listDeleteBtn").click(function(){
+            const cnt = $("input[name=nums]:checked").length;
+            const arr = new Array();
+            const list = $("input[name=nums]:checked");
+            for(var i = 0; i < cnt; i++){
+            	arr.push(list[i].value);
+            }
+            if(cnt == 0){
+            	alert("선택된 글이 없습니다.");
+            }
+            else {
+            	const url = "${pageContext.request.contextPath}/admin/itemManage/deleteListItem";
+            	const query = "list="+arr+"&cnt="+cnt;
+            	const fn = function(data){
+        			if(data.state === "true") {
+        				alert("상품이 삭제되었습니다..");
+        			}
+        		};
+        		
+        		ajaxFun(url, "post", query, "json", fn);
+            }
+	});
+});
 
 $(function(){
 	$("select[name=parentCt]").change(function(){
@@ -230,7 +238,7 @@ $(function(){
 			<thead>
 				<tr>
 					<th class="wx-50"><input type="checkbox" class="chkAll"></th>
-					<th class="wx-80">상품 코드</th>
+					<th class="wx-70">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
 					<th class="wx-100">가격</th>
@@ -246,7 +254,7 @@ $(function(){
 		 	<tbody>
 		     	<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr> 
-						<td class="item-remove"><input type="checkbox" name="nums"></td>
+						<td class="item-remove"><input type="checkbox" name="nums" value="${dto.itemNum}"></td>
 						<td>${dataCount - (page-1) * size - status.index}</td>
                         <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/uploads/item/${dto.mainImage}); background-size:cover;"></div></td>
 						<td class="left">
@@ -274,18 +282,15 @@ $(function(){
 								<c:param name="page" value="${page}"/>
 							</c:url>
 							<button class="btn" onclick="location.href='${stockUrl}';">재고</button> 
-							<button class="btn" onclick="location.href='${updateUrl}';">수정</button> 
+							<button class="btn" onclick="location.href='${updateUrl}';">수정</button>
 						</td>
 					</tr>
 			     </c:forEach>
-		  	</tbody>
-		  	<!-- 
-		  	<div style="text-align: right; margin: 3px 0;">
-				<button type="button" style="margin: 3px 0;" class="btn btn-light"
-					onclick="deleteItemSelect">삭제</button>
-			</div>
-		  	 -->
+			</tbody>
 		</table>
+		<div style="text-align: right; margin: 3px 0;">
+				<button type="button" style="margin: 3px 0;" class="btn btn-light listDeleteBtn">삭제</button>
+		</div>
 			
 		<div class="page-navigation">
 			${dataCount == 0 ? "등록된 상품이 없습니다." : paging}

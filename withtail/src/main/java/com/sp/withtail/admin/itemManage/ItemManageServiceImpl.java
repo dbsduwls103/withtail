@@ -41,54 +41,92 @@ public class ItemManageServiceImpl implements ItemManageService {
 				}
 			}
 
-
-			long option1Num = dao.selectOne("itemManage.option1Seq");
-			dto.setOption1Num(option1Num);
-			dto.setParent(null);
-			dao.insertData("itemManage.insertOption1", dto);
-
-			long option2Num;
-			dto.setOption2Nums(new ArrayList<Long>());
-			for(int i =0; i<dto.getOption2Names().size(); i++) {
-				option2Num = dao.selectOne("itemManage.option2Seq");
-				dto.setOption2Num(option2Num);
-				dto.setOption2Name(dto.getOption2Names().get(i));
-				dto.setExtraPrice(dto.getExtraPrices().get(i));
-				dao.insertData("itemManage.insertOption2",dto);
-
-				dto.getOption2Nums().add(option2Num);
-			}
-			
-			
-			long option1Num2 = dao.selectOne("itemManage.option1Seq");
-			dto.setOption1Num(option1Num2);
-			dto.setOption1Name(dto.getOption1Name2());
-			dto.setParent(option1Num);
-			dao.insertData("itemManage.insertOption1", dto);
-
-			long option2Num2;
-			dto.setOption2Nums2(new ArrayList<Long>());
-			for(int i =0; i<dto.getOption2Names2().size(); i++) {
-				option2Num2= dao.selectOne("itemManage.option2Seq");
-				dto.setOption2Num(option2Num2);
-				dto.setOption2Name(dto.getOption2Names2().get(i));
-				dto.setExtraPrice(dto.getExtraPrices2().get(i));
-				dao.insertData("itemManage.insertOption2",dto);
-
-				dto.getOption2Nums2().add(option2Num2);
-			}
-
 			ItemStock stock = new ItemStock();
 			stock.setItemNum(itemNum);
-			
-			for(long op2Num : dto.getOption2Nums()) {
-				for(long op2Num2 : dto.getOption2Nums2()) {
+
+			if((dto.getOption2Names() != null && dto.getOption2Names().size() != 0) &&
+					(dto.getOption2Names2() != null && dto.getOption2Names2().size() != 0)){
+
+				long option1Num = dao.selectOne("itemManage.option1Seq");
+				dto.setOption1Num(option1Num);
+				dto.setParent(null);
+				dao.insertData("itemManage.insertOption1", dto);
+
+				long option2Num;
+				dto.setOption2Nums(new ArrayList<Long>());
+				for(int i =0; i<dto.getOption2Names().size(); i++) {
+					option2Num = dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(option2Num);
+					dto.setOption2Name(dto.getOption2Names().get(i));
+					dto.setExtraPrice(dto.getExtraPrices().get(i));
+					dao.insertData("itemManage.insertOption2",dto);
+
+					dto.getOption2Nums().add(option2Num);
+				}
+
+
+				long option1Num2 = dao.selectOne("itemManage.option1Seq");
+				dto.setOption1Num(option1Num2);
+				dto.setOption1Name(dto.getOption1Name2());
+				dto.setParent(option1Num);
+				dao.insertData("itemManage.insertOption1", dto);
+
+				long option2Num2;
+				dto.setOption2Nums2(new ArrayList<Long>());
+				for(int i =0; i<dto.getOption2Names2().size(); i++) {
+					option2Num2= dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(option2Num2);
+					dto.setOption2Name(dto.getOption2Names2().get(i));
+					dto.setExtraPrice(dto.getExtraPrices2().get(i));
+					dao.insertData("itemManage.insertOption2",dto);
+
+					dto.getOption2Nums2().add(option2Num2);
+				}
+
+
+				for(long op2Num : dto.getOption2Nums()) {
+					for(long op2Num2 : dto.getOption2Nums2()) {
+						stock.setOption2Num(op2Num);
+						stock.setOption2Num2(op2Num2);
+
+						dao.insertData("itemManage.insertItemStock", stock);
+					}
+				}
+
+			} else if((dto.getOption2Names() != null && dto.getOption2Names().size() != 0) &&
+					(dto.getOption2Names2() == null && dto.getOption2Names2().size() == 0)){
+				long option1Num = dao.selectOne("itemManage.option1Seq");
+				dto.setOption1Num(option1Num);
+				dto.setParent(null);
+				dao.insertData("itemManage.insertOption1", dto);
+
+				long option2Num;
+				dto.setOption2Nums(new ArrayList<Long>());
+				for(int i =0; i<dto.getOption2Names().size(); i++) {
+					option2Num = dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(option2Num);
+					dto.setOption2Name(dto.getOption2Names().get(i));
+					dto.setExtraPrice(dto.getExtraPrices().get(i));
+					dao.insertData("itemManage.insertOption2",dto);
+
+					dto.getOption2Nums().add(option2Num);
+				}
+
+				for(long op2Num : dto.getOption2Nums()) {
 					stock.setOption2Num(op2Num);
-					stock.setOption2Num2(op2Num2);
 
 					dao.insertData("itemManage.insertItemStock", stock);
 				}
+
+			} else {
+				stock.setOption2Num(null);
+				stock.setOption2Num2(null);
+				dao.insertData("itemManage.insertItemStock", stock);
 			}
+
+
+
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,11 +143,11 @@ public class ItemManageServiceImpl implements ItemManageService {
 				if(dto.getMainImage().length() != 0) {
 					fileManager.doFileDelete(dto.getMainImage(), pathname);
 				}
-				
+
 				dto.setMainImage(photoName);
 			}
 			dao.updateData("itemManage.updateItem", dto);
-			
+
 			if(! dto.getAddFiles().isEmpty()) {
 				for(MultipartFile mf : dto.getAddFiles()) {
 					photoName = fileManager.doFileUpload(mf, pathname);
@@ -117,75 +155,106 @@ public class ItemManageServiceImpl implements ItemManageService {
 						continue;
 					}
 					dto.setPhotoName(photoName);
-					
+
 					dao.insertData("itemManage.insertItemPhoto",dto);
 				}
 			}
-			
-			dao.updateData("itemManage.updateOption1",dto);
-			
-			int size = dto.getOption2Nums().size();
-			for(int i = 0; i< size; i++) {
-				dto.setOption2Num(dto.getOption2Nums().get(i));
-				dto.setOption2Name(dto.getOption2Names().get(i));
-				dto.setExtraPrice(dto.getExtraPrices().get(i));
-				dao.updateData("itemManage.updateOption2", dto);
+
+
+			if((dto.getOption1Name() != null && ! dto.getOption1Name().equals("")) &&
+					(dto.getOption1Name2() != null && ! dto.getOption1Name2().equals(""))){
+				dao.updateData("itemManage.updateOption1",dto);
+
+
+				int size = dto.getOption2Nums().size();
+				for(int i = 0; i< size; i++) {
+					dto.setOption2Num(dto.getOption2Nums().get(i));
+					dto.setOption2Name(dto.getOption2Names().get(i));
+					dto.setExtraPrice(dto.getExtraPrices().get(i));
+					dao.updateData("itemManage.updateOption2", dto);
+				}
+
+				long option2Num;
+				dto.setOption2Nums(new ArrayList<Long>());
+				for(int i = size; i < dto.getOption2Names().size(); i++) {
+					option2Num = dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(Long.parseLong(dto.getOption2Names().get(i)));
+					dao.insertData("itemManage.insertOption2", dto);
+
+					dto.getOption2Nums().add(option2Num);
+				}
+
+				dto.setOption1Num(dto.getOption1Num2());
+				dto.setOption1Name(dto.getOption1Name2());
+				dao.updateData("itemManage.updateOption1",dto);
+
+				int size2 = dto.getOption2Nums2().size();
+				for(int i = 0; i < size2; i++) {
+					dto.setOption2Num(dto.getOption2Nums2().get(i));
+					dto.setOption2Name(dto.getOption2Names2().get(i));
+					dto.setExtraPrice(dto.getExtraPrices2().get(i));
+					dao.updateData("itemManage.updateOption2",dto);
+				}
+
+				dto.setOption2Nums2(new ArrayList<Long>());
+				for(int i = size2; i < dto.getOption2Names2().size(); i++) {
+					option2Num = dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(option2Num);
+					dto.setOption2Name(dto.getOption2Names2().get(i));
+					dto.setExtraPrice(dto.getExtraPrices2().get(i));
+					dao.insertData("itemManage.insertOption2",dto);
+
+					dto.getOption2Nums2().add(option2Num);
+				}
+
+			} else if((dto.getOption1Name() != null && ! dto.getOption1Name().equals("")) &&
+					(dto.getOption1Name2() == null && dto.getOption1Name2().equals(""))) {
+
+				dao.updateData("itemManage.updateOption1",dto);
+
+				int size = dto.getOption2Nums().size();
+				for(int i = 0; i< size; i++) {
+					dto.setOption2Num(dto.getOption2Nums().get(i));
+					dto.setOption2Name(dto.getOption2Names().get(i));
+					dto.setExtraPrice(dto.getExtraPrices().get(i));
+					dao.updateData("itemManage.updateOption2", dto);
+				}
+
+				long option2Num;
+				dto.setOption2Nums(new ArrayList<Long>());
+				for(int i = size; i < dto.getOption2Names().size(); i++) {
+					option2Num = dao.selectOne("itemManage.option2Seq");
+					dto.setOption2Num(Long.parseLong(dto.getOption2Names().get(i)));
+					dao.insertData("itemManage.insertOption2", dto);
+
+					dto.getOption2Nums().add(option2Num);
+				}
+
 			}
-			
-			long option2Num;
-			dto.setOption2Nums(new ArrayList<Long>());
-			for(int i = size; i < dto.getOption2Names().size(); i++) {
-				option2Num = dao.selectOne("itemManage.option2Seq");
-				dto.setOption2Num(Long.parseLong(dto.getOption2Names().get(i)));
-				dao.insertData("itemManage.insertOption2", dto);
-				
-				dto.getOption2Nums().add(option2Num);
-			}
-			
-			dto.setOption1Num(dto.getOption1Num2());
-			dto.setOption1Name(dto.getOption1Name2());
-			dao.updateData("itemManage.updateOption1",dto);
-			
-			int size2 = dto.getOption2Nums2().size();
-			for(int i = 0; i < size2; i++) {
-				dto.setOption2Num(dto.getOption2Nums2().get(i));
-				dto.setOption2Name(dto.getOption2Names2().get(i));
-				dto.setExtraPrice(dto.getExtraPrices2().get(i));
-				dao.updateData("itemManage.updateOption2",dto);
-			}
-			
-			dto.setOption2Nums2(new ArrayList<Long>());
-			for(int i = size2; i < dto.getOption2Names2().size(); i++) {
-				option2Num = dao.selectOne("itemManage.option2Seq");
-				dto.setOption2Num(option2Num);
-				dto.setOption2Name(dto.getOption2Names2().get(i));
-				dto.setExtraPrice(dto.getExtraPrices2().get(i));
-				dao.insertData("itemManage.insertOption2",dto);
-				
-				dto.getOption2Nums2().add(option2Num);
-			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-
 	}
 
 	@Override
-	public void deleteItem(long itemNum, String pathname) throws Exception {
+	public void deleteItemList(Map<String, Object> map) throws Exception {
 		try {
+			String pathname = (String)map.get("pathname");
+			long itemNum =(long)map.get("itemNum");
+
 			if(pathname != null) {
 				fileManager.doFileDelete(pathname);
 			}
-			
+
 			List<ItemManage> listPhoto = listItemPhoto(itemNum);
 			if(listPhoto != null) {
 				for(ItemManage dto : listPhoto) {
 					fileManager.doFileDelete(dto.getPhotoName(), pathname);
 				}
 			}
-			
+
 			ItemManage dto = readItem(itemNum);
 			List<Long> listOption2 = dto.getOption2Nums();
 			if(listOption2 != null) {
@@ -199,7 +268,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 					dao.deleteData("itemManage.deleteOption2", option2num);
 				}
 			}
-			
+
 			Long option1Num = dto.getOption1Num();
 			if(option1Num != null) {
 				dao.deleteData("itemManage.deleteOption1", option1Num);
@@ -208,9 +277,9 @@ public class ItemManageServiceImpl implements ItemManageService {
 			if(option1Num2 != null) {
 				dao.deleteData("itemManage.deleteOption1", option1Num2);
 			}
-					
+
 			dao.deleteData("itemManage.deleteItem", itemNum);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -224,7 +293,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 			if(pathname != null) {
 				fileManager.doFileDelete(pathname);
 			}
-			
+
 			dao.deleteData("itemManage.deleteItemPhoto", photoNum);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -369,7 +438,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 
@@ -396,5 +465,5 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 		return result;
 	}
-	
+
 }

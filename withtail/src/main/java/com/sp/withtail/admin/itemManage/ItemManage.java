@@ -27,20 +27,20 @@ public class ItemManage {
 	private long dept;
 	private String ctName;
 	
-	private long option1Num;
+	private Long option1Num;
 	private String option1Name;
 	private Long parent;
 	
-	private long option1Num2;
+	private Long option1Num2;
 	private String option1Name2;
 	
 	
-	private long option2Num;
+	private Long option2Num;
 	private String option2Name;
 	private List<Long> option2Nums;
 	private List<String> option2Names;
 	
-	private long option2Num2;
+	private Long option2Num2;
 	private String option2Name2;
 	private List<Long> option2Nums2;
 	private List<String> option2Names2;
@@ -61,16 +61,6 @@ public class ItemManage {
 	private String manufactDate;
 	private String expriy;
 	private String country;
-	
-	
-	
-	
-	public String getMadeby() {
-		return madeby;
-	}
-	public void setMadeby(String madeby) {
-		this.madeby = madeby;
-	}
 	public long getItemNum() {
 		return itemNum;
 	}
@@ -83,18 +73,11 @@ public class ItemManage {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	
 	public int getItemPrice() {
 		return itemPrice;
 	}
 	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
-	}
-	public int getItemPoint() {
-		return itemPoint;
-	}
-	public void setItemPoint(int itemPoint) {
-		this.itemPoint = itemPoint;
 	}
 	public int getDiscount() {
 		return discount;
@@ -102,7 +85,12 @@ public class ItemManage {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-
+	public int getItemPoint() {
+		return itemPoint;
+	}
+	public void setItemPoint(int itemPoint) {
+		this.itemPoint = itemPoint;
+	}
 	public int getSalePrice() {
 		return salePrice;
 	}
@@ -114,6 +102,12 @@ public class ItemManage {
 	}
 	public void setDeliveryFee(int deliveryFee) {
 		this.deliveryFee = deliveryFee;
+	}
+	public String getMadeby() {
+		return madeby;
+	}
+	public void setMadeby(String madeby) {
+		this.madeby = madeby;
 	}
 	public int getShowNotice() {
 		return showNotice;
@@ -181,10 +175,10 @@ public class ItemManage {
 	public void setCtName(String ctName) {
 		this.ctName = ctName;
 	}
-	public long getOption1Num() {
+	public Long getOption1Num() {
 		return option1Num;
 	}
-	public void setOption1Num(long option1Num) {
+	public void setOption1Num(Long option1Num) {
 		this.option1Num = option1Num;
 	}
 	public String getOption1Name() {
@@ -199,10 +193,10 @@ public class ItemManage {
 	public void setParent(Long parent) {
 		this.parent = parent;
 	}
-	public long getOption1Num2() {
+	public Long getOption1Num2() {
 		return option1Num2;
 	}
-	public void setOption1Num2(long option1Num2) {
+	public void setOption1Num2(Long option1Num2) {
 		this.option1Num2 = option1Num2;
 	}
 	public String getOption1Name2() {
@@ -211,10 +205,10 @@ public class ItemManage {
 	public void setOption1Name2(String option1Name2) {
 		this.option1Name2 = option1Name2;
 	}
-	public long getOption2Num() {
+	public Long getOption2Num() {
 		return option2Num;
 	}
-	public void setOption2Num(long option2Num) {
+	public void setOption2Num(Long option2Num) {
 		this.option2Num = option2Num;
 	}
 	public String getOption2Name() {
@@ -235,10 +229,10 @@ public class ItemManage {
 	public void setOption2Names(List<String> option2Names) {
 		this.option2Names = option2Names;
 	}
-	public long getOption2Num2() {
+	public Long getOption2Num2() {
 		return option2Num2;
 	}
-	public void setOption2Num2(long option2Num2) {
+	public void setOption2Num2(Long option2Num2) {
 		this.option2Num2 = option2Num2;
 	}
 	public String getOption2Name2() {
@@ -280,14 +274,20 @@ public class ItemManage {
 	public long getExtraPrice() {
 		return extraPrice;
 	}
+	public void setExtraPrice(long extraPrice) {
+		this.extraPrice = extraPrice;
+	}
 	public long getExtraPrice2() {
 		return extraPrice2;
 	}
 	public void setExtraPrice2(long extraPrice2) {
 		this.extraPrice2 = extraPrice2;
 	}
-	public void setExtraPrice(long extraPrice) {
-		this.extraPrice = extraPrice;
+	public int getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(int coupon) {
+		this.coupon = coupon;
 	}
 	public long getPhotoNum() {
 		return photoNum;
@@ -325,12 +325,11 @@ public class ItemManage {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public int getCoupon() {
-		return coupon;
-	}
-	public void setCoupon(int coupon) {
-		this.coupon = coupon;
-	}
+	
+	
+	
+	
+	
 
 	
 }
