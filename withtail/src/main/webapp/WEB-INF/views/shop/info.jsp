@@ -173,6 +173,7 @@
 	
 	.x-btn {
 		color: #999;
+		cursor: pointer;
 	}
 	
 	.qt-btn {
@@ -437,14 +438,16 @@
 			}
 			
 			let option1Num = $(".requiredOption").attr("data-optionNum");
+			let extra1 = $(".requiredOption :selected").attr("data-extra1");
+			
 			let option1Sub = $(".requiredOption2").attr("data-optionNum2");
 			
 			let url = "${pageContext.request.contextPath}/shop/info/listOptionDetail2";
-			$.get(url, {option1Num:option1Num, option1Sub:option1Sub, option2Num:option2Num}, function(data){
+			$.get(url, {option1Num:option1Num, option1Sub:option1Sub, option2Num:option2Num, extra1:extra1}, function(data){
 				$(data).each(function(index, item){
 					let option2Num = item.option2Num;
 					let option2Name = item.option2Name;
-					let extraPrice = item.extraPrice;
+					let extraPrice = parseInt(extra1) + parseInt(item.extraPrice);
 					let rExtraPrice = extraPrice.toLocaleString();
 					
 					$(".requiredOption2").append("<option value='"+option2Num+"' data-extra='"+extraPrice+"'>"+option2Name+" (+"+rExtraPrice+"원)</option>");
@@ -490,7 +493,7 @@
 			
 			let oriPrice = Number("${dto.dcPrice}") + Number(extraPrice);
 			
-			let s = "- " + optionValue + "/" + optionValue2;
+			let s = "- " + optionValue + "/ " + optionValue2;
 			
 			let out = "";
 			out = '<tr class="order-group">';
@@ -506,9 +509,9 @@
 			out += '				</button>';
 			out += '			</span>';
 			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
-			out += '			<input type="hidden" name="itemNums" value="+itemNum+">';
-			out += '			<input type="hidden" name="subNums" value="+subNum+">';
-			out += '			<input type="hidden" name="subNums2" value="+subNum2+">';
+			out += '			<input type="hidden" name="itemNums" value="'+itemNum+'">';
+			out += '			<input type="hidden" name="subNums" value="'+subNum+'">';
+			out += '			<input type="hidden" name="subNums2" value="'+subNum2+'">';
 			out += '			<span class="input-group-btn ml-2">';
 			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
 			out += '					<i class="ion-ios-add"></i>';
@@ -582,8 +585,8 @@
 			out += '				</button>';
 			out += '			</span>';
 			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
-			out += '			<input type="hidden" name="itemNums" value="+itemNum+">';
-			out += '			<input type="hidden" name="subNums2" value="+subNum2+">';
+			out += '			<input type="hidden" name="itemNums" value="'+itemNum+'">';
+			out += '			<input type="hidden" name="subNums2" value="'+subNum2+'">';
 			out += '			<span class="input-group-btn ml-2">';
 			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
 			out += '					<i class="ion-ios-add"></i>';
@@ -593,7 +596,7 @@
 			out += '	</td>';
 			out += '	<td class="op-price" data-optionPrice="'+optionPrice+'" data-oriPrice="'+oriPrice+'">'+opPriceResult+'원</td>';
 			out += '	<td>';
-			out += '		<a href="#" class="x-btn">';
+			out += '		<a class="x-btn">';
 			out += '			<i class="fa-regular fa-rectangle-xmark"></i>';
 			out += '		</a>';
 			out += '	</td>';
@@ -649,6 +652,9 @@
   				alert("구매 수량은 한개 이상입니다.");
   				$(".requiredOption").val("");
   				$(".requiredOption").trigger("change");
+  				// 옵션 1개만 있을 때
+  				$(".option1").val("");
+  				$(".option1").trigger("change");
   				
   				totalProductPrice();
   				
@@ -667,7 +673,54 @@
   			totalProdPrice();
   			
   		});
+  		
+  		// 수량 제거
+  		$(".order-area").on("click", ".x-btn", function() {
+  			let $order = $(this).closest("tr.order-group");
+  			
+  			$(".requiredOption").val("");
+  			$(".requiredOption").trigger("change");
+  			// 옵션 1개만 있을 때
+			$(".option1").val("");
+			$(".option1").trigger("change");
+				
+  			$order.remove();
+  			
+  			totalProdPrice();
+  		});
+  		
   	});
+  </script>
+  
+  <script type="text/javascript">
+  function sendOk() {
+		let totalQty = 0;
+		$(".order-group").each(function(){
+			let qty = parseInt($(this).find("input[name=qtys]").val());
+			
+			totalQty += qty;
+		});
+		
+		if(totalQty <= 0) {
+			alert("구매 상품의 수량을 선택하세요 !!! ");
+			return;
+		}
+
+		//const f = document.buyForm;
+		let qs = $('form[name=buyForm]').serialize();
+		
+		let url = "${pageContext.request.contextPath}/shop/saveCart";
+		
+		const fn = function(data) {
+			if(data.state === "true") {
+				f.reset();
+			} else {
+				alert("장바구니에 상품을 담지 못했습니다.");
+			}
+		};
+		
+		ajaxProd(url, "post", qs, "json", fn);
+	}
   </script>
   
   </head>
@@ -689,217 +742,226 @@
 					</ul>
 				</div>
 				<div class="col-lg-6 product-details animate__animated animate__fadeInUp">
-					<h4 style="text-align: right;">${dto.itemName}</h4>
-					<hr>
-	
-					<div class="rating d-flex"></div>
-					<div class="">
-						<p class="originalPrice text-right">
-							<span><del><fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원</del></span>
-						</p>
-						<p class="price text-right" style="font-size: 25px;">
-							<span class="${dto.discount==0 ? 'hidden' : ''}" style="color: red; font-size: 25px;">${dto.discount}%</span>
-							<span class="ml-2" style="font-size: 25px;"><fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />원</span>
-						</p>
-					</div>
-					<hr style="margin-bottom: 0">
-					<div class="text-right">
-						<div>
-							<a class="text-top">적립금</a>
+					<form name="buyForm">
+						<h4 style="text-align: right;">${dto.itemName}</h4>
+						<hr>
+		
+						<div class="rating d-flex"></div>
+						<div class="">
+							<p class="originalPrice text-right">
+								<span><del><fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원</del></span>
+							</p>
+							<p class="price text-right" style="font-size: 25px;">
+								<span class="${dto.discount==0 ? 'hidden' : ''}" style="color: red; font-size: 25px;">${dto.discount}%</span>
+								<span class="ml-2" style="font-size: 25px;"><fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />원</span>
+							</p>
 						</div>
-						
-						<span style="color: #82ae46; font-size: 20px">
-							<fmt:formatNumber value="${dto.itemPoint}" pattern="#,###" />
-						</span>
-						<span>원</span>
-					</div>
-					<hr style="margin-bottom: 0; margin-top: 3px;">
-					<div class="text-right">
-						<div>
-							<a class="text-top">배송비</a>
-						</div>
-						
-						<span style="color: #82ae46; font-size: 20px">
-							<fmt:formatNumber value="${dto.deliveryFee}" pattern="#,###" />
-						</span>
-						<span>원</span>
-					</div>
-					<hr style="margin-top: 3px">
-
-				<div class="my-3">
-					<c:choose>
-						<c:when test="${not empty listOption[0] && not empty listOption[1]}">
-							<!-- 옵션1 -->
-							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
-								<span class="option mr-3">${listOption[0].option1Name}</span>
-								<div class="select-wrap">
-									<div class="icon">
-										<span class="ion-ios-arrow-down"></span>
-									</div>
-									<select name="" id="" class="form-control requiredOption"
-										data-optionNum="${listOption[0].option1Num}"
-										style="border-radius: 5px">
-										<option value="">-- ${listOption[0].option1Name} --</option>
-										<c:forEach var="vo" items="${listOptionDetail}">
-											<option value="${vo.option2Num}">
-												${vo.option2Name}
-											</option>
-										</c:forEach>
-									</select>
-								</div>
+						<hr style="margin-bottom: 0">
+						<div class="text-right">
+							<div>
+								<a class="text-top">적립금</a>
 							</div>
-							<!-- //옵션1 -->
-							<!-- 옵션2 -->
-							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
-								<span class="option mr-3">${listOption[1].option1Name}</span>
-								<div class="select-wrap">
-									<div class="icon">
-										<span class="ion-ios-arrow-down"></span>
-									</div>
-									<select name="" id="" class="form-control requiredOption2"
-										data-optionNum2="${listOption[1].option1Num}"
-										style="border-radius: 5px;">
-										<option value="">-- ${listOption[1].option1Name} --</option>
-									</select>
-								</div>
-							</div>
-							<!-- //옵션2 -->
-						</c:when>
-						<c:when test="${not empty listOption[0] && empty listOption[1]}">
-							<!-- 옵션 1개밖에 없을 때 -->
-							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
-								<span class="option mr-3">${listOption[0].option1Name}</span>
-								<div class="select-wrap">
-									<div class="icon">
-										<span class="ion-ios-arrow-down"></span>
-									</div>
-									<select name="" id="" class="form-control option1"
-										data-optionNum="${listOption[0].option1Num}"
-										style="border-radius: 5px">
-										<option value="">-- ${listOption[0].option1Name} --</option>
-										<c:forEach var="vo" items="${listOptionDetail}">
-											<option value="${vo.option2Num}" data-optionNum2="${vo.option2Num}" data-extra="${vo.extraPrice}">
-												${vo.option2Name} (+${vo.extraPrice}원)
-											</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-							<!-- //옵션 1개밖에 없을 때 -->
-						</c:when>
-					</c:choose>
-				</div>
-
-				<div class="order-area">
-					<div class="totalProducts mb-3">
-						<table class="table bordered">
-							<thead>
-								<tr>
-									<th>이름</th>
-									<th>수량</th>
-									<th>가격</th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody class="order-tbody">
-								<c:if test="${empty listOption[0] && empty listOption[1]}">
-									<tr class="order-group">
-										<td>
-											<h6 class="prod-tit">${dto.itemName}</h6>
-											<!--<p class="op-tit">- 옐로우 / M</p>-->
-										</td>
-										<td>
-											<div class="d-flex">
-												<span class="input-group-btn mr-2">
-													<button type="button" class="quantity-left-minus btn qt-btn"
-														data-type="minus" data-field="">
-														<i class="ion-ios-remove"></i>
-													</button>
-												</span>
-												<input type="text" name="qtys"
-													class="form-control input-number quantity" value="1" min="1"
-													max="100"
-													style="border-radius: 5px; width: 60px !important; display: inline-block;">
-												<input type='hidden' name='itemNums' value="${itemNum}">
-												<span class="input-group-btn ml-2">
-													<button type="button" class="quantity-right-plus btn qt-btn"
-														data-type="plus" data-field="">
-														<i class="ion-ios-add"></i>
-													</button>
-												</span>
-											</div>
-										</td>
-										<td class="op-price" data-optionPrice="${dto.itemPrice}" data-oriPrice="${dto.dcPrice}">
-											<fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원
-										</td>
-										<td><a href="#" class="x-btn"> <i
-												class="fa-regular fa-rectangle-xmark"></i>
-										</a></td>
-									</tr>
-								</c:if>
-							</tbody>
-						</table>
-					</div>
-					<!-- //상품 표 -->
-					
-					<!-- 총 상품금액 -->
-					<div class="">
-						<p class="originalPrice text-right">
-							<span style="color: #000">총 상품금액</span>
-							<span class="total-qty">
-								<c:choose>
-									<c:when test="${empty listOption[0] && empty listOption[1]}">
-										(1개)
-									</c:when>
-									<c:otherwise>
-										(0개)
-									</c:otherwise>
-								</c:choose>
+							
+							<span style="color: #82ae46; font-size: 20px">
+								<fmt:formatNumber value="${dto.itemPoint}" pattern="#,###" />
 							</span>
-						</p>
-						<p class="price text-right" style="font-size: 25px;">
-							<span style="font-size: 25px;">
-								<span class="total-price">
+							<span>원</span>
+						</div>
+						<hr style="margin-bottom: 0; margin-top: 3px;">
+						<div class="text-right">
+							<div>
+								<a class="text-top">배송비</a>
+							</div>
+							
+							<span style="color: #82ae46; font-size: 20px">
+								<fmt:formatNumber value="${dto.deliveryFee}" pattern="#,###" />
+							</span>
+							<span>원</span>
+						</div>
+						<hr style="margin-top: 3px">
+	
+					<div class="my-3">
+						<c:choose>
+							<c:when test="${not empty listOption[0] && not empty listOption[1]}">
+								<!-- 옵션1 -->
+								<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+									<span class="option mr-3">${listOption[0].option1Name}</span>
+									<div class="select-wrap">
+										<div class="icon">
+											<span class="ion-ios-arrow-down"></span>
+										</div>
+										<select name="" id="" class="form-control requiredOption"
+											data-optionNum="${listOption[0].option1Num}"
+											style="border-radius: 5px">
+											<option value="">-- ${listOption[0].option1Name} --</option>
+											<c:forEach var="vo" items="${listOptionDetail}">
+												<option value="${vo.option2Num}" data-extra1="${vo.extraPrice}">
+													${vo.option2Name} (+<fmt:formatNumber value="${vo.extraPrice}" pattern="#,###"/>원)
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+								<!-- //옵션1 -->
+								<!-- 옵션2 -->
+								<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+									<span class="option mr-3">${listOption[1].option1Name}</span>
+									<div class="select-wrap">
+										<div class="icon">
+											<span class="ion-ios-arrow-down"></span>
+										</div>
+										<select name="" id="" class="form-control requiredOption2"
+											data-optionNum2="${listOption[1].option1Num}"
+											style="border-radius: 5px;">
+											<option value="">-- ${listOption[1].option1Name} --</option>
+										</select>
+									</div>
+								</div>
+								<!-- //옵션2 -->
+							</c:when>
+							<c:when test="${not empty listOption[0] && empty listOption[1]}">
+								<!-- 옵션 1개밖에 없을 때 -->
+								<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+									<span class="option mr-3">${listOption[0].option1Name}</span>
+									<div class="select-wrap">
+										<div class="icon">
+											<span class="ion-ios-arrow-down"></span>
+										</div>
+										<select name="" id="" class="form-control option1"
+											data-optionNum="${listOption[0].option1Num}"
+											style="border-radius: 5px">
+											<option value="">-- ${listOption[0].option1Name} --</option>
+											<c:forEach var="vo" items="${listOptionDetail}">
+												<option value="${vo.option2Num}" data-optionNum2="${vo.option2Num}" data-extra="${vo.extraPrice}">
+													${vo.option2Name} (+<fmt:formatNumber value="${vo.extraPrice}" pattern="#,###"/>원)
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+								<!-- //옵션 1개밖에 없을 때 -->
+							</c:when>
+						</c:choose>
+					</div>
+	
+					<div class="order-area">
+						<div class="totalProducts mb-3">
+							<table class="table bordered">
+								<thead>
+									<tr>
+										<th>이름</th>
+										<th>수량</th>
+										<th>가격</th>
+										<c:if test="${not empty listOption[0]}">
+											<th>&nbsp;</th>
+										</c:if>
+									</tr>
+								</thead>
+								<tbody class="order-tbody">
+									<c:if test="${empty listOption[0] && empty listOption[1]}">
+										<tr class="order-group">
+											<td>
+												<h6 class="prod-tit">${dto.itemName}</h6>
+												<!--<p class="op-tit">- 옐로우 / M</p>-->
+											</td>
+											<td>
+												<div class="d-flex">
+													<span class="input-group-btn mr-2">
+														<button type="button" class="quantity-left-minus btn qt-btn"
+															data-type="minus" data-field="">
+															<i class="ion-ios-remove"></i>
+														</button>
+													</span>
+													<input type="text" name="qtys"
+														class="form-control input-number quantity" value="1" min="1"
+														max="100"
+														style="border-radius: 5px; width: 60px !important; display: inline-block;">
+													<input type='hidden' name='itemNums' value="${itemNum}">
+													<span class="input-group-btn ml-2">
+														<button type="button" class="quantity-right-plus btn qt-btn"
+															data-type="plus" data-field="">
+															<i class="ion-ios-add"></i>
+														</button>
+													</span>
+												</div>
+											</td>
+											<td class="op-price" data-optionPrice="${dto.itemPrice}" data-oriPrice="${dto.dcPrice}">
+												<fmt:formatNumber value="${dto.itemPrice}" pattern="#,###" />원
+											</td>
+											<!--  
+											<td><a href="#" class="x-btn"> <i
+													class="fa-regular fa-rectangle-xmark"></i>
+											</a></td>
+											-->
+										</tr>
+									</c:if>
+								</tbody>
+							</table>
+						</div>
+						<!-- //상품 표 -->
+						
+						<!-- 총 상품금액 -->
+						<div class="">
+							<p class="originalPrice text-right">
+								<span style="color: #000">총 상품금액</span>
+								<span class="total-qty">
 									<c:choose>
 										<c:when test="${empty listOption[0] && empty listOption[1]}">
-											<fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />
+											(1개)
 										</c:when>
 										<c:otherwise>
-											0
+											(0개)
 										</c:otherwise>
 									</c:choose>
-								</span>원
-							</span>
-						</p>
+								</span>
+							</p>
+							<p class="price text-right" style="font-size: 25px;">
+								<span style="font-size: 25px;">
+									<span class="total-price">
+										<c:choose>
+											<c:when test="${empty listOption[0] && empty listOption[1]}">
+												<fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />
+											</c:when>
+											<c:otherwise>
+												0
+											</c:otherwise>
+										</c:choose>
+									</span>원
+								</span>
+							</p>
+						</div>
+						<!-- //총 상품금액 -->
 					</div>
-					<!-- //총 상품금액 -->
+					
+					<hr>
+					
+					<c:choose>
+						<c:when test="${empty sessionScope.member}">
+							<div class="d-flex justify-content-end">
+								<p class="mr-2">
+									<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">장바구니</button>
+								</p>
+									
+								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜</button>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="d-flex justify-content-end">
+								<p class="mr-2">
+									<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" 
+										class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="sendOk();">
+										장바구니
+									</button>
+								</p>
+									
+								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					</form>
 				</div>
-				
-				<hr>
-				
-				<c:choose>
-					<c:when test="${empty sessionScope.member}">
-						<div class="d-flex justify-content-end">
-							<p class="mr-2">
-								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">장바구니</button>
-							</p>
-								
-							<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜</button>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="d-flex justify-content-end">
-							<p class="mr-2">
-								<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
-							</p>
-								
-							<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
-						</div>
-					</c:otherwise>
-				</c:choose>
-
+			
 			</div>
-		</div>
 		</div>
 	</section>
 

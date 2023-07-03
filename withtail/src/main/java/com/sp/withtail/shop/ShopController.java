@@ -149,7 +149,8 @@ public class ShopController {
 	@GetMapping("info/listOptionDetail2")
 	@ResponseBody
 	public List<Product> listOptionDetail2(@RequestParam long option1Num,
-			@RequestParam long option1Sub, @RequestParam long option2Num) {
+			@RequestParam long option1Sub, @RequestParam long option2Num,
+			 @RequestParam long extra1) {
 		List<Product> list = service.listOptionDetail(option1Sub);
 		return list;
 	}
