@@ -127,54 +127,26 @@ function reloadFaq() {
 		<h3 class="text-center faq-h3">자주 묻는 질문</h3>
 
 		<div class="faqbox">
+		<div class="accordion accordion-flush" id="accordionFlushExample">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 		
-				<li class="nav-item" role="presentation">
+				<li class="accordion-item" role="presentation">
 					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">모두</button>
 				</li>
 				<c:forEach var="dto" items="${listCategory}" varStatus="status">
-					<li class="nav-item" role="presentation">
+					<li class="accordion-item" role="presentation">
 						<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.category}</button>
 					</li>
 				</c:forEach>
 			</ul>	
 			
-			
-			
+					
 			<div class="tab-content pt-2" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-content" role="tabpanel" aria-labelledby="nav-tab-content"></div>
-				
-				<div class="row py-3">
-					<div class="col">
-						<button type="button" class="btn btn-light" onclick="reloadFaq();" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
-					</div>
-					<div class="col-6 text-center">
-						<form class="row" name="searchForm" method="post">
-							<div class="col-auto p-1">
-								<select name="condition" id="condition" class="form-select">
-									<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
-									<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-									<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
-								</select>
-							</div>
-							<div class="col-auto p-1">
-								<input type="text" name="keyword" id="keyword" value="${keyword}" class="form-control">
-							</div>
-							<div class="col-auto p-1">
-								<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
-							</div>
-						</form>
-					</div>
-					<div class="col text-end">&nbsp;</div>
-				</div>				
 			</div>
 			
-			
+	
+			</div>
 		</div>
 	</div>
 </section>
-
-<form name="faqSearchForm" method="post">
-	<input type="hidden" name="condition" value="all">
-    <input type="hidden" name="keyword" value="">
-</form>
