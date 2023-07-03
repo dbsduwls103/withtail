@@ -20,7 +20,6 @@ public class WebAppInit implements ServletContextListener{
 		
 		//실제 경로
 		pathname = sce.getServletContext().getRealPath(pathname);
-		System.out.println(pathname+"!!!!");
 		loadFile();//불러오기
 		
 	}
