@@ -50,12 +50,12 @@
 		JOIN faqCategory c ON f.categoryNum = c.categoryNum
 		<where>
 			<if test="categoryNum!=0">
-				( c.categoryNum = #{categoryNum} )
+				( c.categoryNum = #{categoryNum} ) AND
 			</if>
 			<if test="keyword!=null and keyword!='' ">
-				AND <include refid="where-list"/>
+				<include refid="where-list"/> AND
 			</if>
-			AND c.enabled = 1
+			c.enabled = 1
 		</where>
 		ORDER BY orderNo, num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY

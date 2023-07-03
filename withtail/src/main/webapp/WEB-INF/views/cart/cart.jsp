@@ -238,12 +238,6 @@ function sendOk() {
 		alert("구매할 상품을 먼저 선택 하세요 !!!");
 		return;
     }
-    
-    $("input[name=nums]").each(function(index, item){
-		if(! $(this).is(":checked")) {
-			$(this).closest("tr").remove();
-		}
-	});
 	
 	f.action = "${pageContext.request.contextPath}/cart/checkout";
 	f.submit();
