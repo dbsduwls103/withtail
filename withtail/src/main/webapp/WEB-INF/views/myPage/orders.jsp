@@ -584,8 +584,8 @@ $(function() {
 				                            </div>
 				                        </div>
 				                        <div class="product-name">
-				                            <a href="#" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
-				                            <a href="#" class="ov-price-layout">
+				                            <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
+				                            <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="ov-price-layout">
 				                                <div class="price-text valign-text-middle">
 				                                    <fmt:formatNumber value="${dto.salePrice}" pattern="#,###" />원
 				                                </div>

@@ -418,7 +418,7 @@ $(function() {
 			 		<div class="favorite-list favoriteList${dto.itemNum}">
 			 			<div class="f-product-info">
 						 	<div style="position: relative;">
-			 					<a class="f-product-image-layout" href="#">
+			 					<a class="f-product-image-layout" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">
 			 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
 			 					</a>
 			 				</div>	
@@ -427,9 +427,9 @@ $(function() {
 			 						<div class="f-product-name">
 										<div class="f-product-text-layout">
 											<input type="hidden" name="itemNum" value="${dto.itemNum}" class="itemNum${dto.itemNum}">
-											<a class="f-brand-text valign-text-middle" href="#">${dto.madeBy}</a>
-											<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
-											<a href="#" style="display: contents">		
+											<a class="f-brand-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">${dto.madeBy}</a>
+											<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
+											<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="display: contents">		
 												<div class="rating">
 													<div class="stars">
 														<c:forEach var="star" begin="1" end="5">
@@ -450,7 +450,7 @@ $(function() {
 												</div>
 											</a>	
 										</div>
-										<a class="f-price-layout" href="#">
+										<a class="f-price-layout" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">
 											<div class="f-price-text valign-text-middle">
 												<fmt:formatNumber value="${dto.salePrice1}" pattern="#,###" />원
 											</div>
