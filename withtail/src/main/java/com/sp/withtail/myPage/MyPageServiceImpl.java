@@ -389,6 +389,19 @@ public class MyPageServiceImpl implements MyPageService {
 	
 		return result;
 	}
+
+	@Override
+	public void deleteFavorite(long itemNum) throws Exception {
+		try {
+		
+			dao.deleteData("myPage.deleteFavorite", itemNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	
 	
 	

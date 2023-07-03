@@ -187,5 +187,9 @@
 		WHERE userId = #{userId}
 	</select>
 	
+	<delete id="deleteFavorite" parameterType="Long">
+		DELETE FROM itemJjim WHERE itemNum = #{itemNum}
+	</delete>
+	
 </mapper>
 

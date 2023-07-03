@@ -38,6 +38,7 @@ public interface MyPageService {
 	
 	public List<MyPage> listFavorite(String userId) throws Exception;
 	public int favoriteDataCount(String userId);
+	public void deleteFavorite(long itemNum) throws Exception;
 	
 	
 }

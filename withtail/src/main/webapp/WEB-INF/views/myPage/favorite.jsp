@@ -338,6 +338,45 @@ hr.vertical-line {
 }
 
   </style>
+  
+<script>
+$(function() {
+	$('.deleteBtn').click(function() {
+		const $btn = $(this);
+		let itemNum = $(this).attr('data-itemNum');
+
+		
+		deleteFavorite($btn, itemNum);
+		
+	});
+	
+	function deleteFavorite($btn, itemNum) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/deleteFavorite",
+		      type: "POST", 
+		      data: { itemNum : itemNum },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("삭제 성공");
+		        $('.favoriteList' + itemNum).remove();
+		       
+		        if(!itemNum) {
+		        	$('.orderhistory-layout').show();
+		        }
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("삭제 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+
+</script>
 
   <div class="container -min">
 	<div class="submenu-layout">
@@ -376,7 +415,7 @@ hr.vertical-line {
 			 	<div class="favorite-section">
 			 	<c:forEach var="dto" items="${list}" varStatus="status">
 			 		<hr style="border-color: #c3c3c3; width: 100%; margin-bottom: 0px; margin-top: 0px;">
-			 		<div class="favorite-list">
+			 		<div class="favorite-list favoriteList${dto.itemNum}">
 			 			<div class="f-product-info">
 						 	<div style="position: relative;">
 			 					<a class="f-product-image-layout" href="#">
@@ -387,6 +426,7 @@ hr.vertical-line {
 			 					<div style="display: contents;"> 
 			 						<div class="f-product-name">
 										<div class="f-product-text-layout">
+											<input type="hidden" name="itemNum" value="${dto.itemNum}" class="itemNum${dto.itemNum}">
 											<a class="f-brand-text valign-text-middle" href="#">${dto.madeBy}</a>
 											<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
 											<a href="#" style="display: contents">		
@@ -425,7 +465,7 @@ hr.vertical-line {
 			 					<hr class="vertical-line">
 			 					<button class="btn1">장바구니 담기</button>							
 			 					<hr class="vertical-line">
-			 					<a href="#">삭제</a>
+			 					<a href="#" class="deleteBtn" data-itemNum=${dto.itemNum}>삭제</a>
 			 				</div>
 			 			</div>	
 			 		</div>

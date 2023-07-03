@@ -85,7 +85,14 @@ public class MyPage {
 	private String pointRegDate;
 	private long salePrice1;
 	private int star;
+	private long itemNum;
 	
+	public long getItemNum() {
+		return itemNum;
+	}
+	public void setItemNum(long itemNum) {
+		this.itemNum = itemNum;
+	}
 	public int getStar() {
 		return star;
 	}
