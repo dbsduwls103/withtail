@@ -402,6 +402,17 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 	}
+
+	@Override
+	public void insertCart(MyPage dto) throws Exception {
+		try {		
+			dao.insertData("myPage.insertCart", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	
 	
 	

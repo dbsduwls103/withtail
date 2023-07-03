@@ -40,5 +40,7 @@ public interface MyPageService {
 	public int favoriteDataCount(String userId);
 	public void deleteFavorite(long itemNum) throws Exception;
 	
+	public void insertCart(MyPage dto) throws Exception;
+	
 	
 }

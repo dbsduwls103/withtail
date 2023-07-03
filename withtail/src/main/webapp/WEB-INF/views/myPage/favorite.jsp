@@ -359,10 +359,12 @@ $(function() {
 		      success: function(data) {
 		        console.log("삭제 성공");
 		        $('.favoriteList' + itemNum).remove();
+		        
+		        let cnt = $('.favoriteList' + itemNum).length;
 		       
-		        if(!itemNum) {
+		      if(cnt == 0) {
 		        	$('.orderhistory-layout').show();
-		        }
+		       }
 		     
 		      },
 		      error: function(xhr, status, error) {
@@ -374,6 +376,9 @@ $(function() {
 	}
 	
 });
+
+
+	
 
 
 </script>
@@ -394,9 +399,7 @@ $(function() {
  				<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: -10px;">즐겨찾기</p>
  			</div>
  		</div>	
- 		<c:choose>
- 		<c:when test="${favoriteDataCount eq 0}">
-			<div class="orderhistory-layout">
+			<div class="orderhistory-layout" style="${favoriteDataCount eq 0 ? '' :'display: none;'}">
 				<div class="orderhistory-contents">
 					<img class="order-image-1" alt="" src="${pageContext.request.contextPath}/resources/images/icon/order-image-1.png" width="120" height="100">
 					<div class="orderhistory-text-layout">
@@ -409,8 +412,9 @@ $(function() {
 				</div>
 				<button type="button" class="btn30" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
 			</div>
-		</c:when>
-	 	<c:otherwise>
+	
+		
+	 	<c:if test="${favoriteDataCount !=0}">
 		 	
 			 	<div class="favorite-section">
 			 	<c:forEach var="dto" items="${list}" varStatus="status">
@@ -463,17 +467,17 @@ $(function() {
 			 				</div>
 			 				<div class="f-button-layout">
 			 					<hr class="vertical-line">
-			 					<button class="btn1">장바구니 담기</button>							
+			 					<button class="btn1" onclick="location.href='${pageContext.request.contextPath}/shop/info/${dto.itemNum}'">상품 상세보기</button>							
 			 					<hr class="vertical-line">
-			 					<a href="#" class="deleteBtn" data-itemNum=${dto.itemNum}>삭제</a>
+			 					<a href="#" class="deleteBtn" data-itemNum="${dto.itemNum}">삭제</a>
 			 				</div>
 			 			</div>	
 			 		</div>
 			 		</c:forEach>	
 			 	</div>
 		 	
-	 	</c:otherwise>
- 	</c:choose>
+	 	</c:if>
+
   </div>
 	
   </div>

@@ -438,6 +438,22 @@ public class MyPageController {
    		return ".myPage.coupon";
    	}
     
+    @PostMapping("insertCart")
+    @ResponseBody
+    public Map<String, Object> insertCart(MyPage dto) {
+    	String state ="true";
+    	
+    	try {
+			service.insertCart(dto);
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
     
    
       

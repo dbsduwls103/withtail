@@ -87,6 +87,44 @@ public class MyPage {
 	private int star;
 	private long itemNum;
 	
+	// 장바구니
+	private long cartNum;
+	private long quantity;
+	private String cartRegDate;
+	private long option2Num;
+	private long option2Num2;
+	
+	
+	public long getOption2Num() {
+		return option2Num;
+	}
+	public void setOption2Num(long option2Num) {
+		this.option2Num = option2Num;
+	}
+	public long getOption2Num2() {
+		return option2Num2;
+	}
+	public void setOption2Num2(long option2Num2) {
+		this.option2Num2 = option2Num2;
+	}
+	public long getCartNum() {
+		return cartNum;
+	}
+	public void setCartNum(long cartNum) {
+		this.cartNum = cartNum;
+	}
+	public long getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(long quantity) {
+		this.quantity = quantity;
+	}
+	public String getCartRegDate() {
+		return cartRegDate;
+	}
+	public void setCartRegDate(String cartRegDate) {
+		this.cartRegDate = cartRegDate;
+	}
 	public long getItemNum() {
 		return itemNum;
 	}

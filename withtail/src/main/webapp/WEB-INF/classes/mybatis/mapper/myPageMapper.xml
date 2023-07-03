@@ -178,7 +178,7 @@
 		SELECT ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice) AS salePrice1, star
 		FROM itemJjim ij
 		JOIN item i ON ij.itemNum = i.itemNum
-		JOIN review r ON r.itemNum = i.itemNum
+		LEFT OUTER JOIN review r ON r.itemNum = i.itemNum
 		WHERE ij.userId = #{userId}
 	</select>
 	
@@ -191,6 +191,13 @@
 	<delete id="deleteFavorite" parameterType="Long">
 		DELETE FROM itemJjim WHERE itemNum = #{itemNum}
 	</delete>
+	
+	<insert id="insertCart" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO cart(cartNum, option2Num, itemNum, userId, quantity, cartRegDate, option2Num2)
+		VALUES(cart_seq.nextval,#{option2Num},#{itemNum},#{userId},1,SYSDATE, #{option2Num2});
+	</insert>
+	
+	
 	
 </mapper>
 
