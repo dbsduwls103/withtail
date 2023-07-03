@@ -13,7 +13,11 @@
 	<select id="listCategory" resultType="com.sp.withtail.shop.Product">
 		SELECT dept, ctNum, ctName, parentCt
 		FROM category
-		WHERE parentCt 
+		WHERE parentCt = (
+			SELECT parentCt
+			FROM category
+			WHERE ctNum = #{ctNum}
+		)
 	</select>
 	
 	<!-- 바로 하위 카테고리 리스트 -->
@@ -79,7 +83,6 @@
 		    i.itemPoint, i.deliveryFee,
 		    NVL(rvCount, 0) rvCount
 		FROM item i
-		LEFT OUTER JOIN food f ON i.itemNum = f.itemNum
 		LEFT OUTER JOIN itemJjim ij ON i.itemNum = ij.itemNum
 		LEFT OUTER JOIN (
 			SELECT itemNum, COUNT(*) rvCount

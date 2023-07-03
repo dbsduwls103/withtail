@@ -37,10 +37,14 @@
 										<span style="float: left; color: #000; font-weight: 600;">${dto.nickName}</span>
 										<span style="float: right;">${dto.regDate}</span>
 									</div>
-									<div class="rv-op-div d-flex gap-3">
-										<span style="color: rgb(123, 132, 141);">구매옵션</span>
-										<span style="color: rgb(23, 24, 26);">${dto.option2Name} / ${dto.option2Name2}</span>
-									</div>
+									<c:if test="${not empty dto.option2Num}">
+										<div class="rv-op-div d-flex gap-3">
+											<span style="color: rgb(123, 132, 141);">구매옵션</span>
+											<span style="color: rgb(23, 24, 26);">
+												${dto.option2Name}<c:if test="${not empty dto.option2Num2}"> / ${dto.option2Name2}</c:if>
+											</span>
+										</div>
+									</c:if>
 								</li>
 								<li class="rv-cont-li col-md-9 d-flex gap-3">
 									<div style="color: #82ae46;">
@@ -80,7 +84,7 @@
 										<a class="rv-thumb" href="#">
 											<i class="fa-regular fa-thumbs-up"></i> 유용해요 ${dto.rvLikeCount}
 										</a>
-										<a class="reply-btn" href="#" data-replyNum="${dto.rvNum}">
+										<a class="reply-btn" data-replyNum="${dto.rvNum}" style="cursor: pointer;">
 											댓글 ${dto.replyId=="" ? 0 : 1}
 										</a>
 									</div>
@@ -88,7 +92,7 @@
 							</ul>
 							<!-- review/listReply 로 분리 -->
 							<!-- 댓글 foreach -->
-							<ul class='rv-reply-container d-flex'>
+							<ul class='rv-reply-container hidden'>
 								<li class="rv-reply-user col-md-3 d-flex gap-2 align-items-center">
 									<span style="color: #333; font-weight: 600;">${dto.replyName}</span>
 									<span>|</span>

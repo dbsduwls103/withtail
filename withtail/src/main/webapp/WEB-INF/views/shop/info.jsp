@@ -419,6 +419,7 @@
   </script>
 
   <script type="text/javascript">
+  	// 옵션이 2개 있을 때
   	$(function(){
 		// 필수 옵션-1
 		$(".requiredOption").change(function(){
@@ -527,6 +528,81 @@
 			
 			totalProdPrice();
 		});
+  	});
+  	
+  	// 옵션이 한 개 밖에 없을 때
+  	$(function(){
+  		$(".option1").change(function(){
+  			if(! $(this).val()) {
+				return false;
+			}
+			let itemNum = "${dto.itemNum}";
+			if(! itemNum) {
+				return false;
+			}
+			
+			let subNum2 = $(this).val();
+			
+			let b = true;
+			$(".order-area input[name=subNums2]").each(function(){
+				let snum2 = $(this).val();
+				if(subNum2 === snum2) {
+					alert("선택된 옵션입니다.");
+					$(".option1").val("");
+					$(".option1").trigger("change");
+					b = false;
+					return false;
+				}
+			});
+			if(! b) {
+				return false;
+			}
+			
+			let optionValue = $(".option1 :selected").text();
+			let extraPrice = $(".option1 :selected").attr("data-extra");
+			
+			let optionPrice = Number("${dto.itemPrice}") + Number(extraPrice);
+			let opPriceResult = optionPrice.toLocaleString();
+			
+			let oriPrice = Number("${dto.dcPrice}") + Number(extraPrice);
+			
+			let s = "- " + optionValue;
+			
+			let out = "";
+			out = '<tr class="order-group">';
+			out += '	<td>';		
+			out += '		<h6 class="prod-tit">${dto.itemName}</h6>';
+			out += '			<p class="op-tit">'+s+'</p>';
+			out += '	</td>';
+			out += '	<td>';
+			out += '		<div class="d-flex">';
+			out += '			<span class="input-group-btn mr-2">';
+			out += '				<button type="button" class="quantity-left-minus btn qt-btn" data-type="minus" data-field="">';
+			out += '					<i class="ion-ios-remove"></i>';
+			out += '				</button>';
+			out += '			</span>';
+			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
+			out += '			<input type="hidden" name="itemNums" value="+itemNum+">';
+			out += '			<input type="hidden" name="subNums2" value="+subNum2+">';
+			out += '			<span class="input-group-btn ml-2">';
+			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
+			out += '					<i class="ion-ios-add"></i>';
+			out += '				</button>';
+			out += '			</span>';
+			out += '		</div>';
+			out += '	</td>';
+			out += '	<td class="op-price" data-optionPrice="'+optionPrice+'" data-oriPrice="'+oriPrice+'">'+opPriceResult+'원</td>';
+			out += '	<td>';
+			out += '		<a href="#" class="x-btn">';
+			out += '			<i class="fa-regular fa-rectangle-xmark"></i>';
+			out += '		</a>';
+			out += '	</td>';
+			out += '</tr>';
+			
+			$("tbody.order-tbody").append(out);
+			
+			totalProdPrice();
+  		});
   	});
   
   	function totalProdPrice() {
@@ -651,43 +727,67 @@
 					<hr style="margin-top: 3px">
 
 				<div class="my-3">
-					<c:if test="${not empty listOption[0]}">
-						<!-- 옵션1 -->
-						<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
-							<span class="option mr-3">${listOption[0].option1Name}</span>
-							<div class="select-wrap">
-								<div class="icon">
-									<span class="ion-ios-arrow-down"></span>
+					<c:choose>
+						<c:when test="${not empty listOption[0] && not empty listOption[1]}">
+							<!-- 옵션1 -->
+							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+								<span class="option mr-3">${listOption[0].option1Name}</span>
+								<div class="select-wrap">
+									<div class="icon">
+										<span class="ion-ios-arrow-down"></span>
+									</div>
+									<select name="" id="" class="form-control requiredOption"
+										data-optionNum="${listOption[0].option1Num}"
+										style="border-radius: 5px">
+										<option value="">-- ${listOption[0].option1Name} --</option>
+										<c:forEach var="vo" items="${listOptionDetail}">
+											<option value="${vo.option2Num}">
+												${vo.option2Name}
+											</option>
+										</c:forEach>
+									</select>
 								</div>
-								<select name="" id="" class="form-control requiredOption"
-									data-optionNum="${listOption[0].option1Num}"
-									style="border-radius: 5px">
-									<option value="">-- ${listOption[0].option1Name} --</option>
-									<c:forEach var="vo" items="${listOptionDetail}">
-										<option value="${vo.option2Num}">
-											${vo.option2Name} ${vo.extraPrice==0 ? "" : "(+"+vo.extraPrice+"원)"}
-										</option>
-									</c:forEach>
-								</select>
 							</div>
-						</div>
-						<!-- //옵션1 -->
-						<!-- 옵션2 -->
-						<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
-							<span class="option mr-3">${listOption[1].option1Name}</span>
-							<div class="select-wrap">
-								<div class="icon">
-									<span class="ion-ios-arrow-down"></span>
+							<!-- //옵션1 -->
+							<!-- 옵션2 -->
+							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+								<span class="option mr-3">${listOption[1].option1Name}</span>
+								<div class="select-wrap">
+									<div class="icon">
+										<span class="ion-ios-arrow-down"></span>
+									</div>
+									<select name="" id="" class="form-control requiredOption2"
+										data-optionNum2="${listOption[1].option1Num}"
+										style="border-radius: 5px;">
+										<option value="">-- ${listOption[1].option1Name} --</option>
+									</select>
 								</div>
-								<select name="" id="" class="form-control requiredOption2"
-									data-optionNum2="${listOption[1].option1Num}"
-									style="border-radius: 5px;">
-									<option value="">-- ${listOption[1].option1Name} --</option>
-								</select>
 							</div>
-						</div>
-						<!-- //옵션2 -->
-					</c:if>
+							<!-- //옵션2 -->
+						</c:when>
+						<c:when test="${not empty listOption[0] && empty listOption[1]}">
+							<!-- 옵션 1개밖에 없을 때 -->
+							<div class="form-group d-flex w-100 justify-content-end align-items-center op-div">
+								<span class="option mr-3">${listOption[0].option1Name}</span>
+								<div class="select-wrap">
+									<div class="icon">
+										<span class="ion-ios-arrow-down"></span>
+									</div>
+									<select name="" id="" class="form-control option1"
+										data-optionNum="${listOption[0].option1Num}"
+										style="border-radius: 5px">
+										<option value="">-- ${listOption[0].option1Name} --</option>
+										<c:forEach var="vo" items="${listOptionDetail}">
+											<option value="${vo.option2Num}" data-optionNum2="${vo.option2Num}" data-extra="${vo.extraPrice}">
+												${vo.option2Name} (+${vo.extraPrice}원)
+											</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							<!-- //옵션 1개밖에 없을 때 -->
+						</c:when>
+					</c:choose>
 				</div>
 
 				<div class="order-area">
@@ -702,7 +802,7 @@
 								</tr>
 							</thead>
 							<tbody class="order-tbody">
-								<c:if test="${empty listOption[0]}">
+								<c:if test="${empty listOption[0] && empty listOption[1]}">
 									<tr class="order-group">
 										<td>
 											<h6 class="prod-tit">${dto.itemName}</h6>
@@ -748,7 +848,7 @@
 							<span style="color: #000">총 상품금액</span>
 							<span class="total-qty">
 								<c:choose>
-									<c:when test="${empty listOption[0]}">
+									<c:when test="${empty listOption[0] && empty listOption[1]}">
 										(1개)
 									</c:when>
 									<c:otherwise>
@@ -761,7 +861,7 @@
 							<span style="font-size: 25px;">
 								<span class="total-price">
 									<c:choose>
-										<c:when test="${empty listOption[0]}">
+										<c:when test="${empty listOption[0] && empty listOption[1]}">
 											<fmt:formatNumber value="${dto.dcPrice}" pattern="#,###" />
 										</c:when>
 										<c:otherwise>
@@ -777,13 +877,26 @@
 				
 				<hr>
 				
-				<div class="d-flex justify-content-end">
-					<p class="mr-2">
-						<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
-					</p>
-						
-					<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
-				</div>
+				<c:choose>
+					<c:when test="${empty sessionScope.member}">
+						<div class="d-flex justify-content-end">
+							<p class="mr-2">
+								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">장바구니</button>
+							</p>
+								
+							<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜</button>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="d-flex justify-content-end">
+							<p class="mr-2">
+								<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">장바구니</button>
+							</p>
+								
+							<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 		</div>
@@ -1097,17 +1210,17 @@ function listPage(page) {
 </script>
 
 <script>
-// 댓글 버튼 열고 다기
+// 댓글 버튼 열고 닫기
 $(function(){
 	$("body").on("click", ".reply-btn", function(){
-		const $reply = $(this).closest(".rv-reply-container").next();
+		const $reply = $(this).closest(".rv-container").find(".rv-reply-container");
 		
 		let isVisible = $reply.is(':visible');
 			
 		if(isVisible) {
-			$reply.hide();
+			$reply.addClass("hidden").removeClass("d-flex");
 		} else {
-			$reply.show();
+			$reply.addClass("d-flex").removeClass("hidden");
 		}
 	});
 });
