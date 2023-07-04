@@ -193,7 +193,7 @@ public class ReviewManageController {
 	
 	@RequestMapping(value = "deleteReview")
 	public String delete(@RequestParam long rvNum,
-			@RequestParam String page,
+			@RequestParam(defaultValue = "1") String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {

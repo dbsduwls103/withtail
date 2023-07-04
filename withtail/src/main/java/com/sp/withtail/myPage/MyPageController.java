@@ -86,6 +86,23 @@ public class MyPageController {
 		return ".myPage.favorite";
 	}
     
+    @PostMapping("deleteFavorite")
+    @ResponseBody
+    public Map<String, Object> deleteFavorite(MyPage dto) throws Exception {
+    	
+    	String state = "true";
+    	try {
+			service.deleteFavorite(dto.getItemNum());;
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
+    
     @GetMapping("orders")
 	public String orders(MyPage dto, HttpSession session, 
 			Model model) throws Exception {
@@ -421,6 +438,22 @@ public class MyPageController {
    		return ".myPage.coupon";
    	}
     
+    @PostMapping("insertCart")
+    @ResponseBody
+    public Map<String, Object> insertCart(MyPage dto) {
+    	String state ="true";
+    	
+    	try {
+			service.insertCart(dto);
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
     
    
       

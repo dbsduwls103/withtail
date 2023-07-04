@@ -2,6 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
  
 <style>
 .table {
@@ -278,7 +279,7 @@ function deleteCartSelect() {
     <section class="ftco-section ftco-cart">
     	<form name="cartForm" method="post">
          <div class="container">
-            <p style="margin-left: 4px; margin-bottom: -14px;">일반상품이 <span style="font-size: 17px; text-decoration: underline; font-weight: 500">2&nbsp;</span>개 있습니다. 구매시 참고해주세요.<p>
+            <p style="margin-left: 4px; margin-bottom: -14px;">일반상품이 <span style="font-size: 17px; text-decoration: underline; font-weight: 500">${fn:length(list)}&nbsp;</span>개 있습니다. 구매시 참고해주세요.<p>
             <div class="row">
              <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
@@ -302,7 +303,7 @@ function deleteCartSelect() {
                       <c:forEach var="dto" items="${list}" varStatus="status">
                       
                         	<tr class="text-center">
-	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.num}"></td>
+	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.cartNum}"></td>
 	                          
 	                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
 	                          
@@ -312,7 +313,9 @@ function deleteCartSelect() {
 
 	                          </td>
 	                          
-	                          <td class="price"><span id="price-${status.index}">${dto.itemPrice}</span></td>
+	                          <td class="price"><span id="price-${status.index}">${dto.itemPrice}</span>
+	                         <div><span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span></div>
+	                          </td>
 	                          
 	                         <td class="quantity">
 	                          <div style="display: flex; justify-content: space-between;">
@@ -335,7 +338,10 @@ function deleteCartSelect() {
 	                     
 	                          <td class="total">${dto.itemPoint}</td>
 	                          <td class="total">${dto.deliveryFee}</td>
-	                          <td class="total"><span id="totalPrice-${status.index}">${dto.itemPrice * dto.quantity}</span></td>
+	                          <td class="total"><span id="totalPrice-${status.index}">${dto.itemPrice * dto.quantity}
+	                          <input type="hidden" name="totalPrice-${status.index}">
+	                          </span>
+	                          </td>
 	                        </tr>
 	                        <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
 						</c:forEach>
@@ -347,8 +353,7 @@ function deleteCartSelect() {
                               <div style="float: right;">
                                 <span>상품구매금액</span>
                                 <span style="font-weight: 1000; font-size: 14px;" id="allPrice">${all}</span>
-                                <input type="text" name="allPrice" value="${all}">
-                                
+                                <input type="text" name="allPrice" value="" id="onePrice">
                                 
                                 
                                 <span id="deliveryFee">+ 배송비 5,000</span>
@@ -449,35 +454,42 @@ function deleteCartSelect() {
 
 	<script>
       $(document).ready(function(){
-		var allPrice = '<c:out value="${all}"/>';
-
+		//let allPrice = parseInt('<c:out value="${all}"/>');
+		document.getElementById('onePrice').value = parseInt('<c:out value="${all}"/>');
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
-
+			var size = '${fn:length(list)}'; //상품 개수
 		   	  var price = document.getElementById('price-${status.index}').innerHTML;
 		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
 		      var quantity=0;
-
+			
 	         $('#plus-${status.index}').click(function(e){
 	        	    	 	
 	              // Stop acting like a button
 	              e.preventDefault();
 	              // Get the field name
-	              var quantity = parseInt($('#quantity-${status.index}').val());
+	              let quantity = parseInt($('#quantity-${status.index}').val());
 	              
 	              // If is not undefined
 	                  
 	               $('#quantity-${status.index}').val(quantity + 1);
 	               quantity = quantity + 1;
 	               document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
+	               //allPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
+
+					let allPrice = 0;
+	               for(let i = 0; i < size; i ++){
+	            	   allPrice = allPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
+	               }
+	               document.getElementById('onePrice').value = allPrice;
 	               document.getElementById('allPrice').innerHTML = allPrice;
-	               console.log(allPrice);
+
 	          });
 	
 	           $('#minus-${status.index}').click(function(e){
 	              // Stop acting like a button
 	              e.preventDefault();
 	              // Get the field name
-	              var quantity = parseInt($('#quantity-${status.index}').val());
+	              let quantity = parseInt($('#quantity-${status.index}').val());
 	              
 	              // If is not undefined
 	            
@@ -487,9 +499,16 @@ function deleteCartSelect() {
 	            
 	                  quantity = quantity - 1;
 	                  document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
-	                  document.getElementById('allPrice').innerHTML = allPrice;
-	                  console.log(allPrice);
-	                  }
+	                  //allPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
+	
+						let allPrice = 0;
+		               for(let i = 0; i < size; i ++){
+		            	   allPrice = allPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
+
+		               }
+		               document.getElementById('onePrice').value = allPrice;
+		               document.getElementById('allPrice').innerHTML = allPrice;
+	                 }
 	
 	          });
 	           

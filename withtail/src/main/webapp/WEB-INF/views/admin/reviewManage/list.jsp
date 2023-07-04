@@ -250,11 +250,11 @@ hr.vertical-line {
 
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId==dto.userId||sessionScope.member.membership>50}">
-function deleteBoard() {
+function deleteBoard(rvNum) {
     if(confirm("리뷰를 삭제 하시 겠습니까 ? ")) {
-	    let query = "num=${dto.num}&${query}";
-	    let url = "${pageContext.request.contextPath}/bbs/delete?" + query;
-    	//location.href = url;
+    	let query = "rvNum="+rvNum+"&${query}";
+	    let url = "${pageContext.request.contextPath}/admin/reviewManage/deleteReview?" + query;
+    	location.href = url;
     }
 }
 </c:if>
@@ -304,7 +304,7 @@ function searchList() {
 							</a> 						
  						</div>
 		 				<div class="f-button-layout">
-		 					<a onclick="deleteBoard();">삭제</a>
+		 					<a onclick="deleteBoard('${dto.rvNum}');">삭제</a>
 		 				</div>
  					</div>
  				</div>

@@ -338,6 +338,50 @@ hr.vertical-line {
 }
 
   </style>
+  
+<script>
+$(function() {
+	$('.deleteBtn').click(function() {
+		const $btn = $(this);
+		let itemNum = $(this).attr('data-itemNum');
+
+		
+		deleteFavorite($btn, itemNum);
+		
+	});
+	
+	function deleteFavorite($btn, itemNum) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/deleteFavorite",
+		      type: "POST", 
+		      data: { itemNum : itemNum },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("삭제 성공");
+		        $('.favoriteList' + itemNum).remove();
+		        
+		        let cnt = $('.favoriteList' + itemNum).length;
+		       
+		      if(cnt == 0) {
+		        	$('.orderhistory-layout').show();
+		       }
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("삭제 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+
+	
+
+
+</script>
 
   <div class="container -min">
 	<div class="submenu-layout">
@@ -355,9 +399,7 @@ hr.vertical-line {
  				<p style="font-size: 24px; color: black; font-weight: 1000; margin-bottom: -10px;">즐겨찾기</p>
  			</div>
  		</div>	
- 		<c:choose>
- 		<c:when test="${favoriteDataCount eq 0}">
-			<div class="orderhistory-layout">
+			<div class="orderhistory-layout" style="${favoriteDataCount eq 0 ? '' :'display: none;'}">
 				<div class="orderhistory-contents">
 					<img class="order-image-1" alt="" src="${pageContext.request.contextPath}/resources/images/icon/order-image-1.png" width="120" height="100">
 					<div class="orderhistory-text-layout">
@@ -370,16 +412,17 @@ hr.vertical-line {
 				</div>
 				<button type="button" class="btn30" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
 			</div>
-		</c:when>
-	 	<c:otherwise>
+	
+		
+	 	<c:if test="${favoriteDataCount !=0}">
 		 	
 			 	<div class="favorite-section">
 			 	<c:forEach var="dto" items="${list}" varStatus="status">
 			 		<hr style="border-color: #c3c3c3; width: 100%; margin-bottom: 0px; margin-top: 0px;">
-			 		<div class="favorite-list">
+			 		<div class="favorite-list favoriteList${dto.itemNum}">
 			 			<div class="f-product-info">
 						 	<div style="position: relative;">
-			 					<a class="f-product-image-layout" href="#">
+			 					<a class="f-product-image-layout" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">
 			 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/resources/images/icon/d3b9142c2ad60c913e9763341b85fabe.jpg">
 			 					</a>
 			 				</div>	
@@ -387,9 +430,10 @@ hr.vertical-line {
 			 					<div style="display: contents;"> 
 			 						<div class="f-product-name">
 										<div class="f-product-text-layout">
-											<a class="f-brand-text valign-text-middle" href="#">${dto.madeBy}</a>
-											<a class="f-item-text valign-text-middle" href="#" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
-											<a href="#" style="display: contents">		
+											<input type="hidden" name="itemNum" value="${dto.itemNum}" class="itemNum${dto.itemNum}">
+											<a class="f-brand-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">${dto.madeBy}</a>
+											<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="font-size: 15px;">${dto.madeBy} ${dto.itemName}</a>
+											<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="display: contents">		
 												<div class="rating">
 													<div class="stars">
 														<c:forEach var="star" begin="1" end="5">
@@ -410,7 +454,7 @@ hr.vertical-line {
 												</div>
 											</a>	
 										</div>
-										<a class="f-price-layout" href="#">
+										<a class="f-price-layout" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">
 											<div class="f-price-text valign-text-middle">
 												<fmt:formatNumber value="${dto.salePrice1}" pattern="#,###" />원
 											</div>
@@ -423,17 +467,17 @@ hr.vertical-line {
 			 				</div>
 			 				<div class="f-button-layout">
 			 					<hr class="vertical-line">
-			 					<button class="btn1">장바구니 담기</button>							
+			 					<button class="btn1" onclick="location.href='${pageContext.request.contextPath}/shop/info/${dto.itemNum}'">상품 상세보기</button>							
 			 					<hr class="vertical-line">
-			 					<a href="#">삭제</a>
+			 					<a href="#" class="deleteBtn" data-itemNum="${dto.itemNum}">삭제</a>
 			 				</div>
 			 			</div>	
 			 		</div>
 			 		</c:forEach>	
 			 	</div>
 		 	
-	 	</c:otherwise>
- 	</c:choose>
+	 	</c:if>
+
   </div>
 	
   </div>

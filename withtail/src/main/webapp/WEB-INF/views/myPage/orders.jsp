@@ -438,16 +438,16 @@ select {
  
 <script>
 $(function() {
-	$('#orderCancel').click(function() {
-
-		let orderState = $('#orderState').val();
-		let orderNum = $('#orderNum').val();
+	$('.orderCancel').click(function() {
+		const $btn = $(this);
+		let orderState = $(this).attr('data-orderState');
+		let orderNum = $(this).attr('data-orderNum');
 		
-		updateOrderCancel(orderNum, orderState);
+		updateOrderCancel($btn, orderNum, orderState);
 		
 	});
 	
-	function updateOrderCancel(orderNum, orderState) {
+	function updateOrderCancel($btn, orderNum, orderState) {
 		$.ajax({
 		      url: "${pageContext.request.contextPath}/myPage/updateOrderCancel",
 		      type: "POST", 
@@ -455,8 +455,8 @@ $(function() {
 		      dataType: "JSON",
 		      success: function(data) {
 		        console.log("주문 상태 변경 성공");
-		        $('#orderCancel').hide();
-		        $('#status-text').text('주문취소');
+		        $btn.hide();
+		        $('#status-text'+orderNum).text('주문취소');
 		     
 		      },
 		      error: function(xhr, status, error) {
@@ -471,15 +471,17 @@ $(function() {
 
 
 $(function() {
-	$('#orderRefund').click(function() {
+	$('.orderRefund').click(function() {
+		const $btn = $(this);
+		let orderState = $(this).attr('data-orderState');
+		let orderNum = $(this).attr('data-orderNum');
 
-		let orderState = $('#orderState').val();
-		let orderNum = $('#orderNum').val();
-		updateOrderRefund(orderNum, orderState);
+		
+		updateOrderRefund($btn, orderNum, orderState);
 		
 	});
 	
-	function updateOrderRefund(orderNum, orderState) {
+	function updateOrderRefund($btn, orderNum, orderState) {
 		$.ajax({
 		      url: "${pageContext.request.contextPath}/myPage/updateOrderRefund",
 		      type: "POST", 
@@ -487,8 +489,9 @@ $(function() {
 		      dataType: "JSON",
 		      success: function(data) {
 		        console.log("주문 상태 변경 성공");
-		        $('#orderRefund').hide();
-		        $('#status-text').text('환불요청');
+		        $btn.hide();
+		        $('.whatStatus'+orderNum).text('환불요청');
+		        $('#orderComplete'+orderNum).hide();
 		     
 		      },
 		      error: function(xhr, status, error) {
@@ -553,16 +556,17 @@ $(function() {
 				                    <div class="order-date">
 				                        <div class="date valign-text-middle">
 				                            <span>${dto.purchaseDate} &nbsp;&nbsp;|&nbsp;&nbsp;#${dto.orderNum}<!-- 주문번호 --></span>
-				                 			<input type="hidden" value="${dto.orderNum}" id="orderNum">
+				                 		
 				                        </div>
 				                        <c:if test="${dto.orderState eq 4}">
-					                    	<button type="button" class="btn40" onclick="location.href='${url}'">구매확정 하기</button>
-					                    	<button type="button" class="btn41" id="orderRefund">환불요청 하기</button>
+					                    	<button type="button" class="btn40 orderComplete" onclick="location.href='${url}'" id="orderComplete${dto.orderNum}">구매확정 하기</button>
+					                    	<button type="button" class="btn41 orderRefund" data-orderNum="${dto.orderNum}" data-orderState="${dto.orderState}">환불요청 하기</button>
 					                	</c:if>	
 					                	<c:if test="${dto.orderState eq 1}">
-					                    	<button type="button" class="btn40" id="orderCancel">주문취소 하기</button>
+					                    	<button type="button" class="btn40 orderCancel" data-orderNum="${dto.orderNum}" data-orderState="${dto.orderState}">주문취소 하기</button>
 					                	</c:if>
 				                        <a href="${url}" class="order-detail-button valign-text-middle" style="color: rgb(68 148 241);">주문 상세 보기&nbsp;&nbsp;&nbsp;&nbsp;></a>
+				              
 				                    </div>
 				                </div>
 				            </div>
@@ -580,8 +584,8 @@ $(function() {
 				                            </div>
 				                        </div>
 				                        <div class="product-name">
-				                            <a href="#" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
-				                            <a href="#" class="ov-price-layout">
+				                            <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="x-text valign-text-middle">${dto.madeBy} ${dto.itemName}<c:if test="${not empty dto.option2Name}">(${dto.option2Name}/${dto.option2Name2})</c:if></a>
+				                            <a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="ov-price-layout">
 				                                <div class="price-text valign-text-middle">
 				                                    <fmt:formatNumber value="${dto.salePrice}" pattern="#,###" />원
 				                                </div>
@@ -603,7 +607,7 @@ $(function() {
 				        <div class="ov-status-text-container">
 				            <div class="ov-status-text-wrap">
 				                <div class="ov-status-text-layout">
-				                    <div class="ov-status-text valign-text-middle" id="status-text">
+				                    <div class="ov-status-text valign-text-middle whatStatus${dto.orderNum}" id="status-text${dto.orderNum}">
 				                        <c:if test="${dto.orderState eq 1}">
 											결제완료
 										</c:if>

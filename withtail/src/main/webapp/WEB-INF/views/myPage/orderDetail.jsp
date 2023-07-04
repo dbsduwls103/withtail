@@ -654,7 +654,7 @@ $(function() {
 		      success: function(data) {
 		        console.log("주문 상태 변경 성공");
 		        $('#orderGood').hide();
-		        $('#od-status').text('구매확정');
+		        $('.whatStatus').text('구매확정');
 		     
 		      },
 		      error: function(xhr, status, error) {
@@ -780,7 +780,7 @@ $(function() {
 									</a>
 									<div class="od-product-detail">
 										<div class="od-status-layout">
-											<div class="od-status-text valign-text-middle" id="od-status">
+											<div class="od-status-text valign-text-middle whatStatus">
 												<c:if test="${dto.orderState eq 1}">
 													결제완료
 												</c:if>
