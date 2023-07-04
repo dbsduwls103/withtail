@@ -201,6 +201,20 @@
 		    width: 400px;
 		}
 	}
+	
+	/*고객상담*/
+	.consultation1{
+		padding-left:20px; padding-top:15px; font-weight: bold; color: #82ae46; font-size: 17px;
+	}
+	
+	.consultationTel{
+		 padding-left: 20px; font-weight: bold; padding-top: 10px; color: #292929; font-size:20px;
+	}
+	
+	.consultationTime{
+		padding-left: 20px; padding-right: 20px; padding-top: 10px; font-size: 14px; color: #949494;
+	}
+	
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="z-index: 99;">
@@ -224,7 +238,21 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="#" class="nav-link">고객상담</a></li>
+	          
+	          <li class="nav-item dropdown" >
+	          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객상담</a>
+	         	<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0; width: 200px; height: 200px;">
+					<div class="consultation1" ><i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;고객상담</div>
+						<div class="consultationTel">010-1234-5678</div>
+					<div class="consultationTime" >
+						<div>평일 10:00 ~ 18:00</div>
+						<div>점심시간 12:30 ~ 13:30</div>
+						<div>주말, 공휴일 휴무</div>
+					</div>
+				</div>
+	          </li>
+			
+			
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;">
