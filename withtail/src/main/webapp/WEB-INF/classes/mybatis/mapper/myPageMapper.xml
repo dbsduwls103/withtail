@@ -112,7 +112,7 @@
 
 	<select id="listOrder" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
 		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState, salePrice
-		,i.itemNum
+		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2
 		FROM member1 m
 		JOIN orderList ol ON m.userId = ol.userId
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum
@@ -120,6 +120,7 @@
 		LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
 		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
 		WHERE m.userId = #{userId}
+		ORDER BY ol.orderNum DESC
 	</select>
 	
 	<select id="orderDataCount" parameterType="String" resultType="Integer">
@@ -194,10 +195,32 @@
 	
 	<insert id="insertCart" parameterType="com.sp.withtail.myPage.MyPage">
 		INSERT INTO cart(cartNum, option2Num, itemNum, userId, quantity, cartRegDate, option2Num2)
-		VALUES(cart_seq.nextval,#{option2Num},#{itemNum},#{userId},1,SYSDATE, #{option2Num2});
+		VALUES(cart_seq.nextval,#{option2Num, jdbcType=INTEGER},#{itemNum},#{userId},1,SYSDATE, #{option2Num2, jdbcType=INTEGER})
 	</insert>
 	
+	<update id="increaseCart" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE cart SET quantity = quantity + 1 
+		WHERE userId = #{userId} AND itemNum = #{itemNum} 
+		<if test="option2Num!=null">
+		  AND option2Num = #{option2Num}
+		</if>
+		<if test="option2Num2!=null">
+		  AND option2Num2 = #{option2Num2}
+		</if>
+	</update>	
 	
+	<select id="myCartCount" parameterType="com.sp.withtail.myPage.MyPage" resultType="Integer">
+		SELECT COUNT(*)
+		FROM cart
+		WHERE userId = #{userId} AND itemNum = #{itemNum} 
+		<if test="option2Num!=null">
+		  AND option2Num = #{option2Num}
+		</if>
+		<if test="option2Num2!=null">
+		  AND option2Num2 = #{option2Num2}
+		</if>
+	</select>
+
 	
 </mapper>
 

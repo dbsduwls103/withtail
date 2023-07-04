@@ -91,20 +91,21 @@ public class MyPage {
 	private long cartNum;
 	private long quantity;
 	private String cartRegDate;
-	private long option2Num;
-	private long option2Num2;
+	private Long option2Num;
+	private Long option2Num2;
 	
 	
-	public long getOption2Num() {
+	
+	public Long getOption2Num() {
 		return option2Num;
 	}
-	public void setOption2Num(long option2Num) {
+	public void setOption2Num(Long option2Num) {
 		this.option2Num = option2Num;
 	}
-	public long getOption2Num2() {
+	public Long getOption2Num2() {
 		return option2Num2;
 	}
-	public void setOption2Num2(long option2Num2) {
+	public void setOption2Num2(Long option2Num2) {
 		this.option2Num2 = option2Num2;
 	}
 	public long getCartNum() {

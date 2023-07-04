@@ -440,10 +440,12 @@ public class MyPageController {
     
     @PostMapping("insertCart")
     @ResponseBody
-    public Map<String, Object> insertCart(MyPage dto) {
+    public Map<String, Object> insertCart(MyPage dto, HttpSession session) {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	String state ="true";
     	
     	try {
+    		dto.setUserId(info.getUserId());
 			service.insertCart(dto);
 		} catch (Exception e) {
 			state = "false";
