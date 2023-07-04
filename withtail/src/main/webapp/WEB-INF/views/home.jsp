@@ -140,17 +140,29 @@ $(function(){
 		
 		out += "<li>"
 		out += "<a href='${pageContext.request.contextPath}/shop/info/"+itemNum+"'>" 
-		out += "src='${pageContext.request.contextPath}/uploads/shop/"+mainImage+"'>"
+		out += "<img src='${pageContext.request.contextPath}/uploads/item/"+mainImage+"'>"
 		out += "</a></li>";
 		
 	}
 	
-	$(".ulclass").html(out);
+	
+	if (out === "") {
+	    $(".rc_layout").hide();
+	  } else {
+	    $(".ulclass").html(out);
+	  }
+	
 });
 </script>
+
+	<!-- 최근 본 상품 -->
+	<div class="rc_layout">
+		<p>최근 본 상품</p>
+		<ul class="ulclass">
+		</ul>
+	</div>
 	
-	
-	
+	<!-- //최근 본 상품 -->
 	
 	<!-- 모바일 플로팅 버튼 -->
 	<!--  
@@ -166,13 +178,7 @@ $(function(){
 	-->
 	<!-- //모바일 플로팅 버튼 -->
 	
-	<!-- 최근 본 상품 -->
-	<div class="rc_layout">
-		<p>최근 본 상품</p>
-		<ul class="ulclass">
-		</ul>
-	</div>
-	<!-- //최근 본 상품 -->
+
     
     <!-- 메인 배너 -->
     <section>

@@ -93,6 +93,11 @@
 			<exclude-mapping path="/tailPath/**"/>
 			<exclude-mapping path="/faq/**"/>
 			
+			<exclude-mapping path="/hotdeal/**"/>
+			<exclude-mapping path="/event/list"/>
+			<exclude-mapping path="/notice/**"/>
+			
+			
 			<exclude-mapping path="/review/list"/>
 			
 			<exclude-mapping path="/uploads/item/**"/>

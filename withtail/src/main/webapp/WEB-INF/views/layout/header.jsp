@@ -262,7 +262,9 @@
 				</div>
               </li>
 	          <li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/cart/cart" class="nav-link"><span class="icon-shopping_cart"></span><span class="cart-count">0</span> <span class="">장바구니</span></a></li>
-			  <li class="nav-item"><a href="${pageContext.request.contextPath}/admin" class="nav-link" title="관리자"><i class="fa-solid fa-gear"></i></a></li>
+			 <c:if test="${sessionScope.member.userId == 'admin' }">
+			  	<li class="nav-item"><a href="${pageContext.request.contextPath}/admin" class="nav-link" title="관리자"><i class="fa-solid fa-gear"></i></a></li>
+	         </c:if>
 	        </ul>
 	      </div>
 	    </div>

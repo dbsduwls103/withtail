@@ -183,7 +183,7 @@ function sendAnswerOk() {
 				<thead>
 					<!-- 상품상세페이지로 연결 -->
 					<tr class="">
-						<td style="width: 60px; padding-bottom: 0px;"><img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}"></td>
+						<td style="width: 60px; padding-bottom: 0px;"><img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"></td>
 						<td style="padding: 0px;">${dto.madeby }<br>${dto.itemName }</td>
 					</tr>
 					<tr >

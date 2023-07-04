@@ -276,7 +276,7 @@ function searchList() {
  			<div class="f-product-info">
 			 	<div style="position: relative;">
  					<a class="f-product-image-layout" href="#">
- 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/shop/${dto.mainImage}">
+ 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}">
  					</a>
  				</div>	
  				<div class="f-product-wrap">

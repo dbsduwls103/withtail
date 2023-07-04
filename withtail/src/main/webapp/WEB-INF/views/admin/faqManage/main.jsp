@@ -41,6 +41,7 @@
     border-radius:4px;	
     cursor:pointer;
     margin: 3px 0 0;
+    font-size: 17px;
 }
 .accordion h3.question:hover {
 	background-color: #82ae4654;
