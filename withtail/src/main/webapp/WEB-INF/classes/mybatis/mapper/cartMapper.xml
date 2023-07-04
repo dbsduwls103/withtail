@@ -4,28 +4,29 @@
 <mapper namespace="cart">
 	<select id = "listCart" parameterType="map" resultType="com.sp.withtail.cart.Cart">
 		SELECT userId, ct.quantity, 
-			ct.num, ct.option2Num, op1.option2Name, ct.option2Num2, op2.option2Name option2Name2,
-			deliveryFee, itemPrice, itemPoint, mainImage,
-			ct.itemNum, itemName, i.itemPrice * (100-NVL(discount,0)) * 0.01 finalPrice
+			ct.cartNum, ct.option2Num, op1.option2Name, ct.option2Num2, op2.option2Name option2Name2,
+			deliveryFee, itemPoint, mainImage,
+			ct.itemNum, itemName, i.itemPrice + op2.extraPrice itemPrice, i.itemPrice * (NVL(discount,0) * 0.01) disPrice,
+            i.itemPrice * (100-NVL(discount,0)) * 0.01 finalPrice
 		FROM cart ct
 		JOIN item i ON ct.itemNum = i.itemNum
 		JOIN option2 op1 ON ct.option2Num = op1.option2Num
 		LEFT JOIN option2 op2 ON ct.option2Num2 = op2.option2Num
 		WHERE userId = #{userId}
-		ORDER BY ct.num DESC
+		ORDER BY ct.cartNum DESC
 	</select>
 	
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM cart
 		WHERE userId = #{userId} 
 		<if test="gubun == 'item' ">
-			AND num = #{num}
+			AND cartNum = #{cartNum}
 		</if>
 		<if test="gubun == 'list' ">
-			AND num IN
-			<foreach collection="list" item="num" index="index"
+			AND cartNum IN
+			<foreach collection="list" item="cartNum" index="index"
 				open="(" separator="," close=")">
-				#{num}
+				#{cartNum}
 			</foreach>
 		</if>
 	</delete>

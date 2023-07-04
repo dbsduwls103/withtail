@@ -2,7 +2,7 @@ package com.sp.withtail.cart;
 
 public class Cart {
 	private String userId; //아이디
-	private Long num; //장바구니 기본키
+	private Long cartNum; //장바구니 기본키
 	private int quantity; //각 구매 개수
 	private Long option2Num; //옵션2 번호 -상위
 	private String option2Name; //옵션2 이름
@@ -14,7 +14,9 @@ public class Cart {
 	private String itemName; // 물품명
 	private int deliveryFee; //배달비
 	private int itemPrice; //가격
+	private int disPrice; //할인가
 	private int discount; //할인율
+	private int finalPrice; //최종가
 	private int itemPoint; //포인트
 	private int extraPrice; //추가금
 	
@@ -96,11 +98,11 @@ public class Cart {
 	public void setmainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
-	public Long getNum() {
-		return num;
+	public Long getCartNum() {
+		return cartNum;
 	}
-	public void setNum(Long num) {
-		this.num = num;
+	public void setCartNum(Long cartNum) {
+		this.cartNum = cartNum;
 	}
 	public String getMainImage() {
 		return mainImage;
@@ -126,5 +128,16 @@ public class Cart {
 	public void setExtraPrice(int extraPrice) {
 		this.extraPrice = extraPrice;
 	}
-	
+	public int getDisPrice() {
+		return disPrice;
+	}
+	public void setDisPrice(int disPrice) {
+		this.disPrice = disPrice;
+	}
+	public int getFinalPrice() {
+		return finalPrice;
+	}
+	public void setFinalPrice(int finalPrice) {
+		this.finalPrice = finalPrice;
+	}
 }
