@@ -1,13 +1,8 @@
-package com.sp.withtail.shop;
+package com.sp.withtail.order;
 
-public class Product {
-	/* 카테고리 */
-	private long ctNum;
-	private String ctName;
-	private Long parentCt;
-	private int dept;
-	private int level;
-	
+import java.util.List;
+
+public class Order {
 	/* 상품 */
 	private long itemNum;
 	private String itemName;
@@ -23,58 +18,34 @@ public class Product {
 	private String mainImage;
 	private int dcPrice;
 	
-	/*카운트*/
-	private int orderCount;
-	private int rvCount;
-	
 	/*옵션*/
 	private Long option1Num;
 	private String option1Name;
 	private Long parent;
 	
 	private Long option2Num;
-	//private Long option2Num2;
 	private String option2Name;
 	private int extraPrice;
 	private int coupon;
 	
-	/*재고*/
-	private long stockNum;
-	private int totalStock;
+	/*장바구니*/
+	private long cartNum;
+	private String userId;
+	private int quantity;
+	private String cartRegDate;
 	
-	private long photoNum;
-	private String photoName;
+	private Long option2Num2;
+	private String option2Name2;
 	
-	public long getCtNum() {
-		return ctNum;
-	}
-	public void setCtNum(long ctNum) {
-		this.ctNum = ctNum;
-	}
-	public String getCtName() {
-		return ctName;
-	}
-	public void setCtName(String ctName) {
-		this.ctName = ctName;
-	}
-	public Long getParentCt() {
-		return parentCt;
-	}
-	public void setParentCt(Long parentCt) {
-		this.parentCt = parentCt;
-	}
-	public int getDept() {
-		return dept;
-	}
-	public void setDept(int dept) {
-		this.dept = dept;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
+	private List<String> option1Names;
+	private List<String> option2Names;
+	
+	/*장바구니 추가 리스트*/
+	private List<Long> itemNums;
+	private List<Long> subNums;
+	private List<Long> subNums2;
+	private List<Integer> qtys;
+	
 	public long getItemNum() {
 		return itemNum;
 	}
@@ -153,18 +124,6 @@ public class Product {
 	public void setDcPrice(int dcPrice) {
 		this.dcPrice = dcPrice;
 	}
-	public int getOrderCount() {
-		return orderCount;
-	}
-	public void setOrderCount(int orderCount) {
-		this.orderCount = orderCount;
-	}
-	public int getRvCount() {
-		return rvCount;
-	}
-	public void setRvCount(int rvCount) {
-		this.rvCount = rvCount;
-	}
 	public Long getOption1Num() {
 		return option1Num;
 	}
@@ -207,29 +166,77 @@ public class Product {
 	public void setCoupon(int coupon) {
 		this.coupon = coupon;
 	}
-	public long getStockNum() {
-		return stockNum;
+	public long getCartNum() {
+		return cartNum;
 	}
-	public void setStockNum(long stockNum) {
-		this.stockNum = stockNum;
+	public void setCartNum(long cartNum) {
+		this.cartNum = cartNum;
 	}
-	public int getTotalStock() {
-		return totalStock;
+	public String getUserId() {
+		return userId;
 	}
-	public void setTotalStock(int totalStock) {
-		this.totalStock = totalStock;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public long getPhotoNum() {
-		return photoNum;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setPhotoNum(long photoNum) {
-		this.photoNum = photoNum;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	public String getPhotoName() {
-		return photoName;
+	public String getCartRegDate() {
+		return cartRegDate;
 	}
-	public void setPhotoName(String photoName) {
-		this.photoName = photoName;
+	public void setCartRegDate(String cartRegDate) {
+		this.cartRegDate = cartRegDate;
+	}
+	public Long getOption2Num2() {
+		return option2Num2;
+	}
+	public void setOption2Num2(Long option2Num2) {
+		this.option2Num2 = option2Num2;
+	}
+	public String getOption2Name2() {
+		return option2Name2;
+	}
+	public void setOption2Name2(String option2Name2) {
+		this.option2Name2 = option2Name2;
+	}
+	public List<String> getOption1Names() {
+		return option1Names;
+	}
+	public void setOption1Names(List<String> option1Names) {
+		this.option1Names = option1Names;
+	}
+	public List<String> getOption2Names() {
+		return option2Names;
+	}
+	public void setOption2Names(List<String> option2Names) {
+		this.option2Names = option2Names;
+	}
+	public List<Long> getItemNums() {
+		return itemNums;
+	}
+	public void setItemNums(List<Long> itemNums) {
+		this.itemNums = itemNums;
+	}
+	public List<Long> getSubNums() {
+		return subNums;
+	}
+	public void setSubNums(List<Long> subNums) {
+		this.subNums = subNums;
+	}
+	public List<Long> getSubNums2() {
+		return subNums2;
+	}
+	public void setSubNums2(List<Long> subNums2) {
+		this.subNums2 = subNums2;
+	}
+	public List<Integer> getQtys() {
+		return qtys;
+	}
+	public void setQtys(List<Integer> qtys) {
+		this.qtys = qtys;
 	}
 	
 	

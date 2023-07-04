@@ -693,7 +693,8 @@
   </script>
   
   <script type="text/javascript">
-  function sendOk() {
+  	// 장바구니 담기
+  	function sendCart() {
 		let totalQty = 0;
 		$(".order-group").each(function(){
 			let qty = parseInt($(this).find("input[name=qtys]").val());
@@ -706,21 +707,37 @@
 			return;
 		}
 
-		//const f = document.buyForm;
 		let qs = $('form[name=buyForm]').serialize();
 		
-		let url = "${pageContext.request.contextPath}/shop/saveCart";
+		/*
+		let itemNums = [];
+		let subNums = [];
+		let subNums2 = [];
+		let qtys = [];
+	    $(".order-group").each(function(i) {
+	        itemNums.push($(this).find("input[name=itemNums]").val());
+	        subNums.push($(this).find("input[name=subNums]").val());
+	        subNums2.push($(this).find("input[name=subNums2]").val());
+	        qtys.push($(this).find("input[name=qtys]").val());
+	    });
+	    
+	    let qs = {"itemNums": itemNums, "subNums": subNums, "subNums2": subNums2, "qtys": qtys};
+	    */
+    
+		let url = "${pageContext.request.contextPath}/order/saveCart";
 		
 		const fn = function(data) {
 			if(data.state === "true") {
-				f.reset();
+				$(".offcanvas-title").text = "장바구니에 추가되었습니다.";
 			} else {
 				alert("장바구니에 상품을 담지 못했습니다.");
+				$(".offcanvas-title").text = "장바구니에 상품을 담지 못했습니다.";
+				return false;
 			}
 		};
 		
 		ajaxProd(url, "post", qs, "json", fn);
-	}
+  	}
   </script>
   
   </head>
@@ -949,7 +966,7 @@
 							<div class="d-flex justify-content-end">
 								<p class="mr-2">
 									<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" 
-										class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="sendOk();">
+										class="btn btn-outline-success info-btn px-5 btn-cart" style="box-shadow: none;" onclick="sendCart();">
 										장바구니
 									</button>
 								</p>
@@ -1319,6 +1336,39 @@ $(function(){
 			block : "start" // 스크롤을 시작점으로 스무스하게 이동
 		});
 	});
+</script>
+
+<script type="text/javascript">
+// 최근 본 상품 저장용
+$(function(){
+   let pnum = "${dto.itemNum}";
+   let pimg = "${dto.mainImage}";
+   
+   let product = JSON.parse(localStorage.getItem("product")) || [];
+   
+   // 동일한 상품이면 삭제
+   product.forEach(function(data){
+      if(data.pnum === pnum) {
+         let idx = product.indexOf(data);
+         if(idx > -1) product.splice(idx, 1);
+         return;
+      }
+   });
+   
+   // 3개 이상이면 마지막 데이터 삭제
+   if(product.length >= 3) {
+      product.splice(product.length-1, 1);
+   }
+   
+   // 저장할 데이터
+   let obj = {pnum:pnum, pimg:pimg};
+   product.unshift(obj); // 배열 가장 앞에 추가
+   
+   // 웹스트로지에 저장
+   let p = JSON.stringify(product);
+   localStorage.setItem("product", p);
+   
+});
 </script>
 
 </html>

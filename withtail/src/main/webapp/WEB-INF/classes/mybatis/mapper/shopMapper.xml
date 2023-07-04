@@ -114,4 +114,5 @@
 		WHERE option1Num = #{option1Num}
 		ORDER BY option2Num
 	</select>
+
 </mapper>
