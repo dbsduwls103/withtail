@@ -155,7 +155,7 @@ public class CouponManageController {
 		model.addAttribute("noCouponMember",noCouponMember);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
-		
+
 		return ".admin.couponManage.article";
 	}
 	

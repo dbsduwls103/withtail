@@ -96,7 +96,7 @@
         where couponNum is null
         order by m2.num asc
     </select>
-    
+     
     <insert id="insertToMember" parameterType="map">
         INSERT INTO membercoupon(couponNum, userId, used) VALUES(#{couponNum}, #{userId}, 0)
     </insert>
