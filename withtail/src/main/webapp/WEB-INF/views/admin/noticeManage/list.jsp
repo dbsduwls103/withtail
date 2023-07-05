@@ -15,8 +15,8 @@
 }
 
 .badge {
-	display: inline-block; padding:2px 3px; background: #0d6efd; color: #fff; font-weight: 500;
-	font-size: 11px;
+	display: inline-block; padding:2px 3px; background: #82ae46; color: #fff; font-weight: 500;
+	font-size: 11px; border-radius: 3px;
 }
 .btn{border-radius: 10px;}
 

@@ -165,7 +165,7 @@ $(function(){
 		
 
 		<li class="menu--item">
-			<a href="#" class="menu--link" title="Logout">
+			<a href="${pageContext.request.contextPath}/member/logout" class="menu--link" title="Logout">
 				<i class="menu--icon fa-fw fa-solid fa-lock-open"></i>
 				<span class="menu--label">Logout</span>
 			</a>
