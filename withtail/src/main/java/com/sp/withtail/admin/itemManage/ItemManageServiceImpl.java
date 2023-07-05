@@ -166,7 +166,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 				dao.updateData("itemManage.updateOption1",dto);
 
 
-				int size = dto.getOption2Nums().size();
+				int size = dto.getOption2Nums().size() == 0 ? 0 : dto.getOption2Nums().size();
 				for(int i = 0; i< size; i++) {
 					dto.setOption2Num(dto.getOption2Nums().get(i));
 					dto.setOption2Name(dto.getOption2Names().get(i));
@@ -188,7 +188,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 				dto.setOption1Name(dto.getOption1Name2());
 				dao.updateData("itemManage.updateOption1",dto);
 
-				int size2 = dto.getOption2Nums2().size();
+				int size2 = dto.getOption2Nums2().size() == 0 ? 0 : dto.getOption2Nums2().size();
 				for(int i = 0; i < size2; i++) {
 					dto.setOption2Num(dto.getOption2Nums2().get(i));
 					dto.setOption2Name(dto.getOption2Names2().get(i));
@@ -212,7 +212,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 				dao.updateData("itemManage.updateOption1",dto);
 
-				int size = dto.getOption2Nums().size();
+				int size = dto.getOption2Nums().size() == 0 ? 0 : dto.getOption2Nums().size();
 				for(int i = 0; i< size; i++) {
 					dto.setOption2Num(dto.getOption2Nums().get(i));
 					dto.setOption2Name(dto.getOption2Names().get(i));
@@ -239,52 +239,62 @@ public class ItemManageServiceImpl implements ItemManageService {
 	}
 
 	@Override
-	public void deleteItemList(Map<String, Object> map) throws Exception {
+	public void deleteItem(long itemNum, String pathname) throws Exception {
 		try {
-			String pathname = (String)map.get("pathname");
-			long itemNum =(long)map.get("itemNum");
-
-			if(pathname != null) {
-				fileManager.doFileDelete(pathname);
+			
+			ItemManage dto = dao.selectOne("itemManage.readItem", itemNum);
+			
+			String pathname2 = pathname + dto.getMainImage();
+			
+			if (pathname != null) {
+				fileManager.doFileDelete(pathname2);
 			}
+			
+			List<String> photos = dao.selectList("itemManage.listItemPhotoName", itemNum);
+			
+			for(int i = 0; i < photos.size(); i++) {
+				pathname = pathname + photos.get(i);
+				deleteItemPhoto(itemNum, pathname);
+			}
+			
+			dao.deleteData("itemManage.deleteStock", itemNum);
+			
 
-			List<ItemManage> listPhoto = listItemPhoto(itemNum);
-			if(listPhoto != null) {
-				for(ItemManage dto : listPhoto) {
-					fileManager.doFileDelete(dto.getPhotoName(), pathname);
+			if(dto.getOption2Names2() != null && dto.getOption2Names2().size() != 0) {
+				for(int i = 0; i < dto.getOption2Nums2().size(); i++ ) {
+					dao.deleteData("itemManage.deleteOption2", dto.getOption2Nums2().get(i));
 				}
 			}
 
-			ItemManage dto = readItem(itemNum);
-			List<Long> listOption2 = dto.getOption2Nums();
-			if(listOption2 != null) {
-				for( long option2num : listOption2) {
-					dao.deleteData("itemManage.deleteOption2", option2num);
-				}
-			}
-			List<Long> listOption22 = dto.getOption2Nums2();
-			if(listOption22 != null) {
-				for( long option2num : listOption22) {
-					dao.deleteData("itemManage.deleteOption2", option2num);
+			if(dto.getOption2Names() != null && dto.getOption2Names().size() != 0) {
+				for(int i = 0; i < dto.getOption2Nums().size(); i++ ) {
+					dao.deleteData("itemManage.deleteOption2", dto.getOption2Nums().get(i));
 				}
 			}
 
-			Long option1Num = dto.getOption1Num();
-			if(option1Num != null) {
-				dao.deleteData("itemManage.deleteOption1", option1Num);
-			}
-			Long option1Num2 = dto.getOption1Num2();
-			if(option1Num2 != null) {
-				dao.deleteData("itemManage.deleteOption1", option1Num2);
+			if(dto.getOption1Num2() != null && dto.getOption1Num2() != 0) {
+
+				dao.deleteData("itemManage.deleteOption1", dto.getOption1Num2());
 			}
 
+			if(dto.getOption1Num() != null && dto.getOption1Num() != 0) {
+				
+				dao.deleteData("itemManage.deleteOption1", dto.getOption1Num());
+			}
+			
 			dao.deleteData("itemManage.deleteItem", itemNum);
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
 		}
 
+	}
+
+	@Override
+	public void deleteItemList(List<Long> list, String path) throws Exception {
+		
+		for(int i = 0; i < list.size(); i++) {
+			deleteItem(list.get(i), path);
+		}
 	}
 
 	@Override
@@ -465,5 +475,19 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 		return result;
 	}
+
+	@Override
+	public int orderCount(long itemNum) {
+		int result = 0;
+
+		try {
+			result = dao.selectOne("itemManage.orderCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
 
 }

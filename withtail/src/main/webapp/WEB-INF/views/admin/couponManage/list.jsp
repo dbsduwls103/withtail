@@ -174,6 +174,7 @@ function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
+
 </script> 
 
 <div class="body-container">
@@ -183,97 +184,39 @@ function searchList() {
     
     <div class="body-main">
 	<div class="coupon-wrap">
+		 <div style="text-align: right; width: 100%; margin: 5px; padding: 3px;">
+		    ${dataCount}개(${page}/${total_page} 페이지)
+		 </div>
+		 
 		<div class="coupon-layout">
-			<div class="coupon" style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath}/admin/couponManage/article'">
+		 <c:forEach var="dto" items="${list}" varStatus="status">
+			<div class="coupon" style="cursor: pointer;" onclick="location.href='${articleUrl}&couponNum=${dto.couponNum}'">
 				<div class="coupon-upper">
 					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
+						<div class="coupon-title valign-text-middle">
+							${dto.couponName }
+						</div>
+						<div class="coupon-text valign-text-middle">${dto.couponPrice }</div>
 					</div>
 				</div>
 				<div class="coupon-lower">
 					<div class="restriction">
 						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
+							<span>- 사용기간 : ~</span> <span> ${dto.endDate }</span> <span>까지</span>
 						</p>
 						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
+							<span>- 최소주문금액</span> <span> ${dto.couponMinPrice} </span><span>원</span>
 						</p>
 					</div>
 				</div>
 			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="coupon" style="cursor: pointer;">
-				<div class="coupon-upper">
-					<div class="coupon-text-layout">
-						<div class="coupon-title valign-text-middle">위드테일과
-							첫만남★ 5,000원 할인 쿠폰</div>
-						<div class="coupon-text valign-text-middle">5,000원</div>
-					</div>
-				</div>
-				<div class="coupon-lower">
-					<div class="restriction">
-						<p class="restriction-text valign-text-middle">
-							<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-								8:30:57</span> <span>까지</span>
-						</p>
-						<p class="restriction-text valign-text-middle">
-							<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-						</p>
-					</div>
-				</div>
-			</div>
+	     </c:forEach>
+	</div>
+	<div style="width: 100%">
+		<div style="text-align: center;" class="page-navigation">
+			${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
 		</div>
 	</div>
-	
-
-
-		 
-		<div class="page-navigation">
-			123
-		</div>
-		
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
@@ -289,6 +232,7 @@ function searchList() {
 							<option value="price" ${condition=="price"?"selected='selected'":""}>가격</option>
 						</select>
 						<input type="text" name="keyword" value="${keyword}" class="form-control">
+						<input type="hidden" name="page" value="${page}" class="form-control">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>
@@ -297,6 +241,6 @@ function searchList() {
 				</td>
 			</tr>
 		</table>
-
+	</div>
 	</div>
 </div>

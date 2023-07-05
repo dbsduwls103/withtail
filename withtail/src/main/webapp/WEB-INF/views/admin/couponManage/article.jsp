@@ -78,6 +78,55 @@
 .modalinput {
 	padding: 3px;
 }
+
+
+.tabmenu{ 
+  margin: 0 auto; 
+  position:relative; 
+}
+.tabmenu ul{
+  position: relative;
+}
+.tabmenu ul li{
+  display:  inline-block;
+  width:200px; 
+  float:left;  
+  text-align:center; 
+  background :#f9f9f9;
+  line-height:40px;
+}
+.tabmenu label{
+  display:block;
+  width:200; 
+  height:40px;
+  line-height:40px;
+}
+.tabmenu input{display:none;}
+.tabCon{
+  display:none; 
+  width: 100%;
+  text-align:left; 
+  padding: 20px;
+  position:absolute; 
+  left:0; top:40px; 
+  box-sizing: border-box; 
+  border : 5px solid #f9f9f9;
+}
+.tabmenu input:checked ~ label{
+  background:#ccc;
+}
+.tabmenu input:checked ~ .tabCon{
+  display:block;
+}
+
+.tab-menu {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab {
+  display: flex;
+}
 </style>
 
 <style>
@@ -148,9 +197,10 @@
 </style>
 
 <script type="text/javascript">
+
 <c:if test="${sessionScope.member.membership==99}">
 	function deleteOk() {
-		let query = "num=${dto.num}&${query}";
+		let query = "couponNum=${dto.couponNum}&${query}";
 		let url = "${pageContext.request.contextPath}/admin/couponManage/delete?" + query;
 	
 		if(confirm("위 쿠폰을 삭제 하시 겠습니까 ? ")) {
@@ -158,36 +208,114 @@
 		} 
 	}
 </c:if>
+
 </script>
 
 <script type="text/javascript">
-        window.onload = function() {
-
-            $("#table1").show();
-            $("#table2").hide();
-        }
-        $(document).ready(function() {
-            $("#btn_1").click(function() {
-
-                $("#table1").show();
-                $("#table2").hide();
-                $("#btn_1").addClass("active");
-                $("#btn_2").removeClass("active");
-                
-            })
-            $("#btn_2").click(function() {
-
-                $("#table1").hide();
-                $("#table2").show();
-                $("#btn_1").removeClass("active");
-                $("#btn_2").addClass("active");
-            })
+$(function() {
+	 $(".chkAll").click(function() {
+		   if($(this).is(":checked")) {
+			   $("input[name=nums]").prop("checked", true);
+	        } else {
+			   $("input[name=nums]").prop("checked", false);
+	        }
+	   });
+})
+/*
+$(function() {
+	$(".insertAll").click(function(){
+            let cnt = $("input[name=nums]:checked").length;
+            let userIds = "";
             
-        })
+            $("input[name=nums]:checked").each(function(index, num) {
+				userIds += $(num).val() + ",";
+			});
+			
+            if(cnt == 0){
+            	alert("지급 대상이 없습니다.");
+            	return false;
+            }
+            
+            if(confirm('선택한 멤버에게 쿠폰을 지급하시겠습니까?')) {
+    			const f = document.giveCounponForm;
+    			let url = "${pageContext.request.contextPath}/admin/itemManage/insertToMember";
+    			query = "nums="+userIds+"couponNum=${couponNum}"
+    			
+    			alert(url)
+    			alert(query)
+    			
+    			f.action = url+query;
+    			
+    			
+    			f.submit();
+    		}
+	});
+});
+*/
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+$(function() {
+	$(".insertAll").click(function(){
+		let cnt = $("input[name=nums]:checked").length;
+        let userIds = "";
+        let couponNum = $("form[name=giveCounponForm] input[name=couponNum]").val();
+        
+        
+        $("input[name=nums]:checked").each(function(index, num) {
+			userIds += $(num).val() + ",";
+		});
+		
+        if(cnt == 0){
+        	alert("지급 대상이 없습니다.");
+        	return false;
+        }
+        
+		const query = "userIds="+userIds+"&couponNum="+couponNum;		
+		const url = "${pageContext.request.contextPath}/admin/couponManage/insertToMember";
+        
+        if(confirm('선택한 멤버에게 쿠폰을 지급하시겠습니까?')) {
+			
+        	const fn = function(data){
+    			if(data.state === "true") {
+    				alert("쿠폰을 지급했습니다.");
+    				infoOff();
+    			}
+    		};
+    		
+    		 ajaxFun(url, "post", query, "json", fn);
+		}
+        
+	});
+});
 </script>
 
 
 <div class="body-container">
+
 	<div class="body-title">
 		<h2>
 			<i class="fa-solid fa-tags"></i> 쿠폰
@@ -197,30 +325,24 @@
 	<div class="body-main">
 
 		<table class="table table-border table-article">
-			<thead>
-				<tr>
-					<td colspan="2" align="center">${dto.name}</td>
-				</tr>
-			</thead>
-
 			<tbody>
 				<tr>
-					<td width="30%">이름 : 가입이벤트</td>
+					<td width="30%">쿠폰 이름 : ${dto.couponName }</td>
 				</tr>
 				<tr>
-					<td width="50%" align="left">할인율 : 10%</td>
-				</tr>
-
-				<tr>
-					<td width="50%" align="left">최소 주문 금액 : 30000</td>
+					<td width="50%" align="left">할인금액 : ${dto.couponPrice } ${dto.couponCategory == 0 ? '원' : '%' }</td>
 				</tr>
 
+				<tr>
+					<td width="50%" align="left">최소 주문 금액 :${dto.couponMinPrice } 원</td>
+				</tr>
+
 
 				<tr>
-					<td width="50%" align="left">시작일 : 2000-01-01</td>
+					<td width="50%" align="left">시작일 : ${dto.startDate }</td>
 				</tr>
 				<tr>
-					<td width="50%" align="left">종료일 : 2000-01-31</td>
+					<td width="50%" align="left">종료일 : ${dto.endDate }</td>
 				</tr>
 
 			</tbody>
@@ -230,7 +352,7 @@
 			<tr>
 				<td width="50%" align="left">
 					<button type="button" class="btn"
-						onclick="javascript:location.href='${pageContext.request.contextPath}/admin/couponManage/write';">수정</button>
+						onclick="javascript:location.href='${pageContext.request.contextPath}/admin/couponManage/update?couponNum=${dto.couponNum}&page=${page}';">수정</button>
 
 					<button type="button" class="btn" onclick="deleteOk();">삭제</button>
 				</td>
@@ -243,70 +365,76 @@
 				</td>
 			</tr>
 		</table>
-
 	</div>
 
 
-
-	<div id="modal" class="modal-overlay">
-		<div class="modal-window">
-			<div class="title">
-				<h2>회원 정지</h2>
-			</div>
-			<div class="close-area">X</div>
-		</div>
-	</div>
 
 	<div id="infomodal" class="modal-overlay" style="margin-top: 20px;">
 		<div class="modal-window" style="overflow-y: scroll;">
 			<div class="title">
-				<h2>쿠폰 전달</h2>
+				<h2 style="padding: 10px;">쿠폰 전달 현황</h2>
 			</div>
 			<div class="close-area">X</div>
-
-
-			<div style="margin-top: 30px;">
-		
-
-				
-				<table class="table table-border table-list"
-					style="margin-top: 10px;">
+	  		<div style="clear:both;"></div>
+	  		<div>
+				<table class="table table-border table-list" style="margin-top: 10px;">
 					<thead>
 						<tr>
 							<th class="wx-80">회원 코드</th>
 							<th class="wx-100">회원 아이디</th>
 							<th class="wx-80">보유</th>
-							<th class="wx-80">지급/회수</th>
+							<th class="wx-80">사용여부</th>
 						</tr>
 					</thead>
-
+	
 					<tbody>
+					    <c:forEach var="dto" items="${allMember}" varStatus="status">
 						<tr>
-							<td>2</td>
-							<td>test1</td>
-							<td>없음</td>
-							<td><input type="button" class="btn" value="지급"></td>
+							<td>${dto.memberNum}</td>
+							<td>${dto.userId }</td>
+							<td>${dto.couponNum == null || dto.couponNum == 0 ? "미보유" : "보유" }</td>
+							<td>${dto.used == null ? "--" : dto.used == 0 ? "미사용" : "사용" }</td>
 						</tr>
-						<tr>
-							<td>3</td>
-							<td>test2</td>
-							<td>있음</td>
-							<td><input type="button" class="btn" value="회수"></td>
-						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 			
-			<div class="page-navigation" style="text-align:center;">
-				123
+	        <div style="margin-top: 50px;">
+	        <div class="title">
+				<h2 style="padding: 10px;">쿠폰 지급</h2>
+			</div>
+			<form name="giveCounponForm" action="">
+					<table class="table table-border table-list" style="margin-top: 10px;">
+						<thead>
+							<tr>
+							    <th class="wx-50"><input type="checkbox" class="chkAll"></th>
+								<th class="wx-80">회원 코드</th>
+								<th class="wx-100">회원 아이디</th>
+								<th class="wx-80">보유</th>
+							</tr>
+						</thead>
+		
+						<tbody>
+						    <c:forEach var="dto" items="${noCouponMember}" varStatus="status">
+							<tr>
+							    <td class="item-remove"><input type="checkbox" name="nums" value="${dto.userId}"></td>
+								<td>${dto.memberNum}</td>
+								<td>${dto.userId }</td>
+								<td>
+								   <button type="button" class="btn insertOne" data-memberNum = "${dto.memberNum}" data-couponNum = "${couponNum}">지급하기</button>
+								</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div style="width: 100%; text-align: right; margin: 15px;" >
+					   <input type="hidden" name="couponNum" value="${dto.couponNum}">
+					   <button type="button" class="btn insertAll" style="margin-right: 30px;">일괄지급</button>
+					</div>
+				</form>
 			</div>
 			
-			<div  style="margin-top: 30px; text-align:center;">
-					<label><input type="radio" name="category" value="all" checked="checked">전체</label>           	
-					<label><input type="radio" name="category" value="">보유</label>
-					<label><input type="radio" name="category" value="">미보유</label>
-			</div>
-
 			<div style="margin-top: 30px;">
 				<table class="table">
 					<tr>
@@ -327,31 +455,8 @@
 			</div>
 		</div>
 	</div>
-
-
-
 </div>
 
-
-
-
-<script>
-const modal = document.getElementById("modal")
-        
-function modalOn() {
-      modal.style.display = "flex"
-}
-        
-function modalOff() {
-       modal.style.display = "none"
-}
-        
-const closeBtn = modal.querySelector(".close-area")
-closeBtn.addEventListener("click", e => {
-    modalOff();
-});
-
-</script>
 
 <script>
 const infomodal = document.getElementById("infomodal")

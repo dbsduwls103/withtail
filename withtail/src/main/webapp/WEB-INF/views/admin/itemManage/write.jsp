@@ -220,12 +220,6 @@ $(function(){
 	$("form select[name=subCtNum]").change(function(){
 		let parentCt = $(this).val();
 		
-		if(parentCt == 3 || parentCt == 4 || parentCt == 7 || parentCt == 11 || parentCt == 12 || parentCt == 18) {
-			$('.food1').removeClass("food2");
-		} else {
-			$('.food1').addClass("food2");
-		}
-		
 		$("form select[name=lastCtNum]").find('option').remove().end()
 			.append("<option value=''>:: 카테고리 선택 ::</option>");	
 		
@@ -432,27 +426,6 @@ $(function(){
                     </td>
 				</tr>
 				
-				<tr class="food1 food2"> 
-					<td>제조 날짜</td>
-					<td> 
-                       <input type="date" name="manufactDate" maxlength="100" class="form-control" value="${dto.manufactDate}" placeholder="제조일자">					
-                    </td>
-				</tr>
-				
-				<tr class="food1 food2"> 
-					<td>유통 기한</td>
-					<td> 
-                       <input type="date" name="expriy" maxlength="100" class="form-control" value="${dto.expriy}" placeholder="유통기한">					
-                    </td>
-				</tr>
-				
-				<tr class="food1 food2"> 
-					<td>원산지</td>
-					<td> 
-						<input type="text" name="country" maxlength="100" class="form-control" value="${dto.country}" placeholder="원산지">
-					</td>
-				</tr>
-				
 				<tr> 
 					<td>적립금</td>
 					<td> 
@@ -466,8 +439,8 @@ $(function(){
 					</td>
 				</tr>
 				
-			<tr>
-						<td class="table-light col-sm-2">상위 옵션</td>
+			    <tr>
+					<td class="table-light col-sm-2">상위 옵션</td>
 						<td>
 							<div class="mb-2">
 								<input type="text" name="option1Name" class="form-control" style="width: 250px; margin: 3px;" placeholder="옵션명" value="${dto.option1Name}">

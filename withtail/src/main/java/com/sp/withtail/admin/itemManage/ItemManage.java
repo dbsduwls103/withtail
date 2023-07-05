@@ -21,6 +21,14 @@ public class ItemManage {
 	private String upddate;
 	private MultipartFile mainImageFile;
 	
+	private long orderNum;
+	
+	public long getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(long orderNum) {
+		this.orderNum = orderNum;
+	}
 	private long ctNum;
 	private long subCtNum;
 	private Long parentCt;

@@ -80,7 +80,6 @@ function changeLastList() {
 	searchList();
 }
 
-
 function ajaxFun(url, method, query, dataType, fn) {
 	$.ajax({
 		type:method,
@@ -119,26 +118,17 @@ $(function() {
 
 $(function() {
 	$(".listDeleteBtn").click(function(){
-            const cnt = $("input[name=nums]:checked").length;
-            const arr = new Array();
-            const list = $("input[name=nums]:checked");
-            for(var i = 0; i < cnt; i++){
-            	arr.push(list[i].value);
-            }
+            let cnt = $("input[name=nums]:checked").length;
+			
             if(cnt == 0){
             	alert("선택된 글이 없습니다.");
+            	return false;
             }
-            else {
-            	const url = "${pageContext.request.contextPath}/admin/itemManage/deleteListItem";
-            	const query = "list="+arr+"&cnt="+cnt;
-            	const fn = function(data){
-        			if(data.state === "true") {
-        				alert("상품이 삭제되었습니다..");
-        			}
-        		};
-        		
-        		ajaxFun(url, "post", query, "json", fn);
-            }
+            if(confirm('선택한 정보를 삭제하시겠습니까?')) {
+    			const f = document.itemForm;
+    			f.action = "${pageContext.request.contextPath}/admin/itemManage/deleteListItem";
+    			f.submit();
+    		}
 	});
 });
 
@@ -233,7 +223,7 @@ $(function(){
 			</tr>
 		</table>
 		
-		
+		<form name="itemForm" method="post">
 		<table class="table table-border table-list">
 			<thead>
 				<tr>
@@ -254,15 +244,20 @@ $(function(){
 		 	<tbody>
 		     	<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr> 
+					<c:if test="${dto.orderNum != 0}">
+						<td class="item-remove"><input type="checkbox" name="nums" value="${dto.itemNum}" disabled="disabled"></td>
+					</c:if>	
+					<c:if test="${dto.orderNum == 0}">
 						<td class="item-remove"><input type="checkbox" name="nums" value="${dto.itemNum}"></td>
-						<td>${dataCount - (page-1) * size - status.index}</td>
+					</c:if>	
+						<td>${dataCount - (page-1) * size - status.index}    ${dto.orderNum }</td>
                         <td><div class="imgbox" style="background:url(${pageContext.request.contextPath}/uploads/item/${dto.mainImage}); background-size:cover;"></div></td>
 						<td class="left">
 						    <!-- 제품 상세 페이지로 이동 -->
 							<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">${dto.itemName }</a>
 						</td>
 						<td>${dto.itemPrice }</td>
-						<td>${dto.discount } % </td>
+						<td>${dto.orderNum } % </td>
 						<td>${dto.totalStock }</td>
 						<td>${dto.showNotice==0?"진열":"숨김"}</td>
 						<td>${dto.upddate }</td>
@@ -289,8 +284,13 @@ $(function(){
 			</tbody>
 		</table>
 		<div style="text-align: right; margin: 3px 0;">
-				<button type="button" style="margin: 3px 0;" class="btn btn-light listDeleteBtn">삭제</button>
+		        <input type="hidden" name="page" value="${page}">
+		        <input type="hidden" name="parentCt" value="${parentCt}">
+		        <input type="hidden" name="subCtNum" value="${subCtNum}">
+		        <input type="hidden" name="lastCtNum" value="${lastCtNum}">
+				<button type="button" style="margin: 3px 0;" class="btn btn-light listDeleteBtn" onclick="check();">삭제</button>
 		</div>
+		</form>
 			
 		<div class="page-navigation">
 			${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
@@ -315,6 +315,7 @@ $(function(){
 						<input type="hidden" name="parentCt" value="${parentCt}">
 						<input type="hidden" name="subCtNum" value="${subCtNum}">
 						<input type="hidden" name="lastCtNum" value="${lastCtNum}">
+						<input type="hidden" name="page" value="${page}">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>

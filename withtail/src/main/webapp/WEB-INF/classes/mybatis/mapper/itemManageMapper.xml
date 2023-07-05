@@ -130,10 +130,11 @@
 	</select>
 	
 	<select id="listItem"  parameterType="map" resultType="com.sp.withtail.admin.itemManage.ItemManage">
-	   select itemName, discount, itemNum, itemPrice,
-	          mainImage, TO_CHAR(upddate,'YYYY-MM-DD')upddate, showNotice, TO_CHAR(regDate,'YYYY-MM-DD')regDate
+       select itemName, discount, i.itemNum, itemPrice,
+	          mainImage, TO_CHAR(upddate,'YYYY-MM-DD')upddate, showNotice, TO_CHAR(regDate,'YYYY-MM-DD')regDate, count(orderNum) orderNum
 	   from item i
-        	    <if test="lastCtNum == 0 and subCtNum == 0 and parentCt != 0">
+       LEFT OUTER JOIN orderDetail od ON od.itemNum = i.itemNum 
+       <if test="lastCtNum == 0 and subCtNum == 0 and parentCt != 0">
         JOIN (
 	      select c1.ctNum 
 	      from category c1
@@ -163,6 +164,7 @@
 	            AND <include refid="where-list"/>
 	         </if>
         </where>
+      group by itemName, discount, i.itemNum, itemPrice, mainImage, TO_CHAR(upddate,'YYYY-MM-DD'), showNotice, TO_CHAR(regDate,'YYYY-MM-DD')  
       ORDER BY i.itemNum DESC
       OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -178,6 +180,12 @@
 	
 	<select id="listItemPhoto" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
 	    SELECT photoNum, itemNum, photoName
+	    FROM itemPhoto
+	    WHERE itemNum = #{itemNum}
+	</select>
+	
+	<select id="listItemPhotoName" parameterType="Long" resultType="String">
+	    SELECT photoName
 	    FROM itemPhoto
 	    WHERE itemNum = #{itemNum}
 	</select>
@@ -217,10 +225,18 @@
 		DELETE FROM itemPhoto WHERE itemNum = #{itemNum}
 	</delete>
 	
-	<delete id="deleteitem" parameterType="Long">
-		DELETE FROM item
-	    WHERE itemNum = #{itemNum}
+	<delete id="deleteItem" parameterType="long">
+	   DELETE FROM item
+	   where itemNum = #{itemNum}
 	</delete>
+
+    <delete id="deleteListItem" parameterType="java.util.List">
+       DELETE FROM item
+       WHERE itemNum IN 
+       <foreach collection="list" item="itemNum" index="index" open="(" separator="," close=")">
+       #{itemNum}
+       </foreach>
+    </delete>
 	
 	<select id="stocklist"  parameterType="map" resultType="com.sp.withtail.admin.itemManage.ItemStock">
 			select st.itemNum itemNum, i.itemName itemName, stockNum, 
@@ -245,7 +261,11 @@
 	   ) stcnt
 	</select>
 	
+	<delete id="deleteStock" parameterType="Long">
+	   DELETE FROM itemStock where itemNum = #{itemNum}
+	</delete>
 	
-	
-	
+	<select id="orderCount" parameterType="long" resultType="Integer">
+	   SELECT NVL(COUNT(*),0) from orderDetail where itemNum = #{itemNum}
+	</select>
 </mapper>

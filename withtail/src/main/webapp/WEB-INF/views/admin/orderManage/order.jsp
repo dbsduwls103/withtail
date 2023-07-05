@@ -291,13 +291,8 @@ $(function(){
 		let orderNum = f.orderNum.value;
 		let orderState = f.orderState.value;
 		
-		alert(orderNum);
-		alert(orderState);
-		
-		
 		let qs = $('form[name=invoiceNumberForm]').serialize();
 		
-		alert(qs);
 		let url = '${pageContext.request.contextPath}/admin/orderManage/detail/invoiceNumber';
 		
 		const fn = function(data) {

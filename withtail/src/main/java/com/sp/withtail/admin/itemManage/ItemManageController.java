@@ -358,34 +358,51 @@ public class ItemManageController {
 
 
 	@PostMapping("deleteListItem")
-	@ResponseBody
-	public Map<String, Object> deleteListItem (
-			@RequestParam Map<String, Object> paramMap,
+	public String deleteListItem (
+			@RequestParam List<Long> nums,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "0") long parentCt,
+			@RequestParam(defaultValue = "0") long subCtNum,
+			@RequestParam(defaultValue = "0") long lastCtNum,
 			HttpSession session)throws Exception{
-		String state = "true";
-		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "item";
-		paramMap.put("pathname", pathname);
 
-		try {
-			int cnt = (int)paramMap.get("cnt");
-			String list = (String)paramMap.get("list");
-			String[] nums = list.split(",");
-			for(int i = 0; i<cnt; i++) {
-				long itemNum = Integer.parseInt((String)nums[i]);
-				paramMap.put("itemNum", itemNum);
-				service.deleteItemList(paramMap);
-				System.out.println("성공");
-			}
-		} catch (Exception e) {
-			state = "false";
-			System.out.println("실패");
+		List<ItemManage> listCategory = service.listCategory();
+		List<ItemManage> listSubCategory = null;
+		List<ItemManage> listLastCategory = null;
+
+		if(parentCt == 0 && listCategory.size() != 0) {
+			parentCt = listCategory.get(0).getCtNum();
+		}
+		listSubCategory = service.listSubCategory(parentCt);
+		if(subCtNum == 0 && listSubCategory.size() != 0) {
+			subCtNum = listSubCategory.get(0).getCtNum();
+		}
+		listLastCategory = service.listSubCategory(subCtNum);
+		if(lastCtNum == 0 && listLastCategory.size() != 0) {
+			lastCtNum = listLastCategory.get(0).getCtNum();
+		} else if(lastCtNum == 0 && listLastCategory.size() == 0 ) {
+			lastCtNum = subCtNum;
 		}
 
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("state", state);
-		return model;
+
+		try {
+
+			String root = session.getServletContext().getRealPath("/");
+			String path = root + "uploads" + File.separator + "item";
+
+			service.deleteItemList(nums,path);
+
+		} catch (Exception e) {
+
+		}
+
+		String query = "parentCt=" + parentCt + "&subCtNum=" + subCtNum + "&ctNum=" + lastCtNum +"&page="+page;
+
+		if(lastCtNum ==  subCtNum ) {
+			query = "parentCt="+parentCt+"&ctNum="+subCtNum+"&page="+page;
+		}
+
+		return "redirect:/admin/itemManage/list?"+query;
 	}
 
 	@GetMapping("stockList")
@@ -451,7 +468,7 @@ public class ItemManageController {
 		listUrl += "?" + query;
 
 		String paging = myUtilGeneral.paging(current_page, total_page, listUrl);
-		
+
 		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("listSubCategory", listSubCategory);
 		model.addAttribute("listLastCategory", listLastCategory);
@@ -471,7 +488,7 @@ public class ItemManageController {
 
 		return ".admin.itemManage.stockList";
 	}
-	
+
 	@PostMapping("updateStock")
 	@ResponseBody
 	public Map<String, Object> updateStock(
@@ -484,9 +501,9 @@ public class ItemManageController {
 			state = "false";
 		}
 
-		 Map<String, Object> model = new HashMap<String, Object>();
-		 model.put("state", state);
-		 return model;
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
 	}
 
 }
