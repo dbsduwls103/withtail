@@ -457,6 +457,10 @@ public class MyPageController {
     	return model;
     }
     
-   
+    @GetMapping("writeReview")
+    public String writeReview() throws Exception {
+    	
+    	return ".myPage.writeReview";
+    }
       
 }

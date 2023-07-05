@@ -265,7 +265,7 @@ select {
     flex-direction: column;
     gap: 6px;
     width: 140px;
-    margin-top: 5px;
+    margin-top: -11px;
 }
 
 .ov-text-btn1 {
@@ -341,6 +341,18 @@ select {
     height: 33px;
     color: #fff;
     background-color: #82ae46;
+}
+
+.btn2-1 {
+    margin-top: 5px;
+    width: 162px;
+    margin-left: -58px;
+    border-radius: 6px;
+    border: 1px solid #82ae46;
+    font-size: 12px;
+    height: 33px;
+    color: #82ae46;
+    background-color: white;
 }
 
 .btn3 {
@@ -633,10 +645,23 @@ $(function() {
 				                        </div>
 				                    </div>
 				                </div>
-						                <div class="ov-text-btn">
-						                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  			
-						             	</div>
-						             	
+				              		  <c:choose>
+				              		  	<c:when test="${dto.orderState eq 5}">
+							                <div class="ov-text-btn">
+							                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  	
+							                	
+							                	    <button type="button" class="btn2-1">후기 작성</button>		
+							             		
+							             	</div>
+										</c:when>	
+										<c:otherwise>
+						              <div class="ov-text-btn1">
+						                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  	
+						                	
+						             </div>	
+						             </c:otherwise>
+						             </c:choose>
+						             
 				                
 				            </div>
 				        </div>
