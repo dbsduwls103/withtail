@@ -317,8 +317,8 @@ function deleteCartSelect() {
 	                          
 	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
 	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
-	                         <input type="hidden" value="${dto.disPrice}" id="disPrice-${status.index}">
-	                         <input type="hidden" value="${dto.itemPrice}" id="price1-${status.index}">
+	                         <input type="text" value="${dto.disPrice}" name="disPrice-${status.index}">
+	                         <input type="text" value="${dto.itemPrice}" name="price1-${status.index}">
 	                          </td>
 	                          
 	                         <td class="quantity">
@@ -340,14 +340,16 @@ function deleteCartSelect() {
 	                          </div>
 	                        </td>
 	                     
-	                          <td class="total">${dto.itemPoint}</td>
+	                          <td class="total"><span id="itemPoint-${status.index}">${dto.itemPoint * dto.quantity}</span></td>
 	                          <td class="total">${dto.deliveryFee}</td>
-	                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}
-	                          <input type="hidden" name="totalPrice-${status.index}">
-	                          </span>
+	                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}</span>
+	                          <input type="text" name="totalPrice-${status.index}" value="${dto.finalPrice * dto.quantity}">
 	                          </td>
 	                        </tr>
 	                        <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
+	                        <c:set var="poi" value="${poi + (dto.itemPoint * dto.quantity)}"/>
+	                        <c:set var="dis" value="${dis + (dto.disPrice * dto.quantity)}"/>
+	                        <c:set var="fin" value="${fin + (dto.finalPrice * dto.quantity)}"/>
 						</c:forEach>
 			
                         <tr>
@@ -357,17 +359,17 @@ function deleteCartSelect() {
                               <div style="float: right;">
                                 <span>상품구매금액</span>
                                 <span style="font-weight: 1000; font-size: 14px;" id="allPrice">${all}</span>
-                                <input type="text" name="allPrice" value="" id="onePrice">
+
                                 
                                 
                                 + 배송비<span id="deliveryFee"></span>
-                                <input type="hidden" name="deliveryFee" value="3000">
+                                <input type="hidden" name="deliveryFee" value="">
  
-                                - 상품할인금액 <span id="allDisPrice"></span>
+                                - 상품할인금액 <span id="allDisPrice">${dis}</span>
                                 <input type="hidden" name="allDisPrice" value="">
                                 
                                 <span>= 합계:</span>
-                                <span style="font-weight: 1000; font-size: 17px; color: black;" id="finalPrice">${all}</span>
+                                <span style="font-weight: 1000; font-size: 17px; color: black;" id="finalPrice"></span>
                                 <input type="hidden" name="finalPrice" value="${all}">
                                 <span> 원</span>
                               </div>
@@ -460,15 +462,24 @@ function deleteCartSelect() {
 
 	<script>
       $(document).ready(function(){
-		//let allPrice = parseInt('<c:out value="${all}"/>');
-		document.getElementById('onePrice').value = parseInt('<c:out value="${all}"/>');
 
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
-			document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
-	   	 
-			  var size = '${fn:length(list)}'; //상품 개수
+			
+	   	 //10만원 이상시 배달비 무료
+			if(parseInt('<c:out value="${all}"/>') >= 100000){
+				document.getElementById('deliveryFee').innerHTML = 0;
+				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>');
+			} else {
+				document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
+				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>') + parseInt('${dto.deliveryFee}'); 
+			} 
+			
+			
+			
+			
+			  var size = '${fn:length(list)}';
 		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML; //할인 적용 총 합계
-		      var quantity=0;
+		      var quantity=0; //각 상품 개수
 
 
 
@@ -481,17 +492,20 @@ function deleteCartSelect() {
 	               $('#quantity-${status.index}').val(quantity + 1);
 	               quantity = quantity + 1;
 
-	               document.getElementById('price1-${status.index}').value = '${dto.itemPrice}' * quantity;
-	               document.getElementById('disPrice-${status.index}').value = '${dto.disPrice}' * quantity;
+	               document.getElementsByName('price1-${status.index}')[0].value = '${dto.itemPrice}' * quantity;
+	               document.getElementsByName('disPrice-${status.index}')[0].value = '${dto.disPrice}' * quantity;
+	               document.getElementById('itemPoint-${status.index}').innerHTML = '${dto.itemPoint}' * quantity;
 	               document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
+	               document.getElementsByName('totalPrice-${status.index}')[0].value = '${dto.finalPrice}' * quantity;
 
 	   			
 					let allPrice = 0; //정가 총합
 					let allDisPrice = 0; //할인금액 총합
+					
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-		            	   allPrice = allPrice + parseInt(document.getElementById('price1-' + i).value);
-		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPrice-' + i).value);
+		            	   allPrice = allPrice + parseInt(document.getElementsByName('price1-' + i)[0].value);
+		            	   allDisPrice = allDisPrice + parseInt(document.getElementsByName('disPrice-' + i)[0].value);
 		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
 		               }
 		               document.getElementById('allPrice').innerHTML = allPrice;
@@ -524,16 +538,18 @@ function deleteCartSelect() {
 	                  $('#quantity-${status.index}').val(quantity - 1);
 	            
 	                  quantity = quantity - 1;
-		              document.getElementById('price1-${status.index}').value = '${dto.itemPrice}' * quantity;
-		              document.getElementById('disPrice-${status.index}').value = '${dto.disPrice}' * quantity;
+		              document.getElementsByName('price1-${status.index}')[0].value = '${dto.itemPrice}' * quantity;
+		              document.getElementsByName('disPrice-${status.index}')[0].value = '${dto.disPrice}' * quantity;
+		              document.getElementById('itemPoint-${status.index}').innerHTML = '${dto.itemPoint}' * quantity;
 	                  document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
+	                  document.getElementsByName('totalPrice-${status.index}')[0].value = '${dto.finalPrice}' * quantity;
 			
 					let allPrice = 0; //정가 총합
 					let allDisPrice = 0; //할인금액 총합
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-		            	   allPrice = allPrice + parseInt(document.getElementById('price1-' + i).value);
-		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPrice-' + i).value);
+		            	   allPrice = allPrice + parseInt(document.getElementsByName('price1-' + i)[0].value);
+		            	   allDisPrice = allDisPrice + parseInt(document.getElementsByName('disPrice-' + i)[0].value);
 		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
 		               }
 		               document.getElementById('allPrice').innerHTML = allPrice;

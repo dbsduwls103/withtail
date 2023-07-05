@@ -3,15 +3,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cart">
 	<select id = "listCart" parameterType="map" resultType="com.sp.withtail.cart.Cart">
-		SELECT userId, ct.quantity, 
+		 SELECT userId, ct.quantity, 
 			ct.cartNum, ct.option2Num, op1.option2Name, ct.option2Num2, op2.option2Name option2Name2,
-			deliveryFee, itemPoint, mainImage,
+            (SELECT NVL(MAX(deliveryFee),0) 
+            FROM cart ct
+            JOIN item i ON ct.itemNum = i.itemNum
+            WHERE userId = #{userId}) deliveryFee,
+            NVL(itemPoint, 0) itemPoint, mainImage,
 			ct.itemNum, itemName, i.itemPrice + op2.extraPrice itemPrice, (i.itemPrice +  op2.extraPrice) * (NVL(discount,0) * 0.01) disPrice,
-            (i.itemPrice + op2.extraPrice) * (100-NVL(discount,0)) * 0.01 finalPrice
+            (i.itemPrice + op2.extraPrice) * (100-NVL(discount,0)) * 0.01 finalPrice, NVL(totalStock, 0) totalStock
 		FROM cart ct
 		JOIN item i ON ct.itemNum = i.itemNum
-		JOIN option2 op1 ON ct.option2Num = op1.option2Num
+		LEFT JOIN option2 op1 ON ct.option2Num = op1.option2Num
 		LEFT JOIN option2 op2 ON ct.option2Num2 = op2.option2Num
+        LEFT JOIN itemStock it ON it.itemNum = ct.itemNum
 		WHERE userId = #{userId}
 		ORDER BY ct.cartNum DESC
 	</select>

@@ -19,6 +19,7 @@ public class Cart {
 	private int finalPrice; //최종가
 	private int itemPoint; //포인트
 	private int extraPrice; //추가금
+	private int totalStock; //재고량
 	
 	public String getUserId() {
 		return userId;
@@ -139,5 +140,11 @@ public class Cart {
 	}
 	public void setFinalPrice(int finalPrice) {
 		this.finalPrice = finalPrice;
+	}
+	public int getTotalStock() {
+		return totalStock;
+	}
+	public void setTotalStock(int totalStock) {
+		this.totalStock = totalStock;
 	}
 }
