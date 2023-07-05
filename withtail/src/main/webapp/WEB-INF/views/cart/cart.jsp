@@ -310,6 +310,9 @@ function deleteCartSelect() {
 	                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
 	                          
 	                          <td class="product-name">
+	                             <c:if test="${dto.totalStock == 0}">
+	                             <h3>품절된 상품입니다.</h3>
+	                             </c:if>
 	                             <h3>${dto.itemName}</h3>                        
 	                             <p>${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
 
@@ -317,39 +320,60 @@ function deleteCartSelect() {
 	                          
 	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
 	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
-	                         <input type="text" value="${dto.disPrice}" name="disPrice-${status.index}">
-	                         <input type="text" value="${dto.itemPrice}" name="price1-${status.index}">
+
 	                          </td>
 	                          
-	                         <td class="quantity">
-	                          <div style="display: flex; justify-content: space-between;">
-	                            <span>
-	                              <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="" id="minus-${status.index}">
-	                                <i class="ion-ios-remove"></i>
-	                              </button>
-	                            </span>
-	                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
-	                              <input type="text" id="quantity-${status.index}" name="quantity" class="form-control input-number" value="${dto.quantity}" 
-	                              maxlength = "3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" min="1" max="100">
-	                            </span>
-	                            <span>
-	                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="" id="plus-${status.index}">
-	                                <i class="ion-ios-add"></i>
-	                              </button>
-	                            </span>
-	                          </div>
-	                        </td>
-	                     
-	                          <td class="total"><span id="itemPoint-${status.index}">${dto.itemPoint * dto.quantity}</span></td>
-	                          <td class="total">${dto.deliveryFee}</td>
-	                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}</span>
-	                          <input type="text" name="totalPrice-${status.index}" value="${dto.finalPrice * dto.quantity}">
+	                          
+	                          <c:choose>
+	                          <c:when test="${dto.totalStock == 0 }">
+	                          <td>품절</td>
+	                          <td>품절</td>
+	                          <td>품절</td>
+	                          <td>품절</td>
+	                          <td>
+	                          	<input type="text" value="0" name="totalStock-${status.index}">
+		                         <input type="text" value="0" name="disPrice-${status.index}">
+		                         <input type="text" value="0" name="price1-${status.index}">
+		                         <input type="text" name="totalPrice-${status.index}" value="0">
 	                          </td>
+	                          </c:when>
+	                          <c:otherwise>
+		                         <td class="quantity">
+		                          <div style="display: flex; justify-content: space-between;">
+		                            <span>
+		                              <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="" id="minus-${status.index}">
+		                                <i class="ion-ios-remove"></i>
+		                              </button>
+		                            </span>
+		                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
+		                              <input type="text" id="quantity-${status.index}" name="quantity" class="form-control input-number" value="${dto.quantity}" 
+		                              maxlength = "3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" min="1" max="100">
+		                            </span>
+		                            <span>
+		                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="" id="plus-${status.index}">
+		                                <i class="ion-ios-add"></i>
+		                              </button>
+		                            </span>
+		                          </div>
+		                        </td>
+		                     
+		                          <td class="total"><span id="itemPoint-${status.index}">${dto.itemPoint * dto.quantity}</span></td>
+		                          <td class="total">${dto.deliveryFee}</td>
+		                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}</span>
+		                          
+		                          <!-- hidden 처리 -->
+		                         <input type="text" value="${dto.totalStock}" name="totalStock-${status.index}">
+		                         <input type="text" value="${dto.disPrice}" name="disPrice-${status.index}">
+		                         <input type="text" value="${dto.itemPrice}" name="price1-${status.index}">
+		                         <input type="text" name="totalPrice-${status.index}" value="${dto.finalPrice * dto.quantity}">
+		                          </td>
+		                      </c:otherwise>
+	                          </c:choose>
 	                        </tr>
 	                        <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
 	                        <c:set var="poi" value="${poi + (dto.itemPoint * dto.quantity)}"/>
 	                        <c:set var="dis" value="${dis + (dto.disPrice * dto.quantity)}"/>
-	                        <c:set var="fin" value="${fin + (dto.finalPrice * dto.quantity)}"/>
+	                        <c:set var="fin" value="${fin + (dto.finalPrice * dto.quantity)}"/>    
 						</c:forEach>
 			
                         <tr>
@@ -462,9 +486,10 @@ function deleteCartSelect() {
 
 	<script>
       $(document).ready(function(){
-
+    	  
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
-			
+	   	 	
+	  	<c:if test="${dto.totalStock != 0}">	
 	   	 //10만원 이상시 배달비 무료
 			if(parseInt('<c:out value="${all}"/>') >= 100000){
 				document.getElementById('deliveryFee').innerHTML = 0;
@@ -577,6 +602,7 @@ function deleteCartSelect() {
 	        	   }
 	        	   document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
 	           });
+	           </c:if>
 	           </c:forEach>
 	           
 	  
