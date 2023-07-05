@@ -37,7 +37,7 @@ function searchList() {
     <div class="out" >
     <div class="body-main" style="padding: 0 auto;">
     <div class="body-title">
-		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
+		<h2>공지사항 </h2>
     </div>
 
 		<table class="table">

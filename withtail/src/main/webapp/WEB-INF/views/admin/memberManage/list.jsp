@@ -441,7 +441,7 @@ function insertOk(userId) {
     <div class="body-main">
 
     <div class="body-title">
-		<h2><i class="fa-solid fa-user"></i> 회원 목록 </h2>
+		<h2> 회원 목록 </h2>
     </div>
     
         <div style="margin-bottom: 10px">

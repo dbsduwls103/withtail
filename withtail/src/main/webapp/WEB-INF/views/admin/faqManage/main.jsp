@@ -220,7 +220,7 @@ function deleteFaq(num, page) {
     
     <div class="body-main">
     <div class="body-title">
-		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
+		<h2> 자주하는 질문 </h2>
     </div>
 
 		<div>
