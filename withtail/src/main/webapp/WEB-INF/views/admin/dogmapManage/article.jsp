@@ -5,8 +5,12 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 900px;
+	width: 960px;
 }
 </style>
 
@@ -23,12 +27,12 @@
 </c:if>
 </script>
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class=" fa-solid fa-democrat"></i> 댕댕여지도 </h2>
     </div>
-    
-    <div class="body-main">
 
 		<table class="table table-border table-article">
 			<thead>

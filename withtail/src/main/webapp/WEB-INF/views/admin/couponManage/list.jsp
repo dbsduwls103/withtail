@@ -5,10 +5,13 @@
 
 
 <style type="text/css">
-.body-main {
-	max-width: 1200px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
 
+.body-main {
+	width: 960px;
+}
 
 </style>
 <style>
@@ -177,12 +180,12 @@ function searchList() {
 
 </script> 
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-tags"></i> 쿠폰 </h2>
     </div>
-    
-    <div class="body-main">
 	<div class="coupon-wrap">
 		 <div style="text-align: right; width: 100%; margin: 5px; padding: 3px;">
 		    ${dataCount}개(${page}/${total_page} 페이지)

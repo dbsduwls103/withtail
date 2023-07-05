@@ -6,8 +6,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 900px;
+	width: 960px;
 }
 .table-form tr>td:first-child{
     width: 150px;
@@ -134,12 +138,12 @@ function check() {
 }
 </script>
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-tags"></i> 쿠폰 등록 </h2>
     </div>
-    
-    <div class="body-main">
     	
 		<form name="couponForm" method="post" >
 			<table class="table table-border border-top2 table-form">

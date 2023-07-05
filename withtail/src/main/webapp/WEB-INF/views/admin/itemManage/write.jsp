@@ -6,8 +6,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
+}
+
 .body-main {
-	max-width: 900px;
+	width: 960px;
 }
 </style>
 
@@ -358,12 +362,12 @@ $(function(){
 </script>
 
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-basket-shopping"></i> 상품 등록 </h2>
     </div>
-    
-    <div class="body-main">
     	
 		<form name="itemForm" method="post" enctype="multipart/form-data">
 			<table class="table table-border border-top2 table-form">

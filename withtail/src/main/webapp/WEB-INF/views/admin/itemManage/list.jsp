@@ -6,10 +6,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
-.body-main {
-	max-width: 900px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
 
+.body-main {
+	width: 960px;
+}
 .btn {
 color: #333;
 border: 1px solid #999;
@@ -186,12 +189,12 @@ $(function(){
 </script>
 
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-solid fa-basket-shopping"></i> 상품 관리 </h2>
     </div>
-    
-    <div class="body-main">
 		<table class="table">
 			<tr>
 				<td align="left" width="50%">

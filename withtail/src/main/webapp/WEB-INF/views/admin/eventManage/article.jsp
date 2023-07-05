@@ -6,10 +6,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <style type="text/css">
-.body-main {
-	max-width: 900px;
+.out{
+ display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
 
+.body-main {
+	width: 960px;
+}
 .rank-plus, .rank-minus {
 	cursor: pointer;
 	padding: 7px;
@@ -62,12 +65,12 @@ $(function(){
 });
 </script>
 
-<div class="body-container">
+<div class="out">
+    
+    <div class="body-main">
     <div class="body-title">
 		<h2><i class="fa-regular fa-calendar"></i> 이벤트 </h2>
     </div>
-    
-    <div class="body-main">
 		<div>
 			<ul class="tabs">
 				<li id="tab-all" data-category="all">전체 이벤트</li>
