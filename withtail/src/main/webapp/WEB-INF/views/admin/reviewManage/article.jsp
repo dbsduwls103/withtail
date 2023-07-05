@@ -245,7 +245,7 @@ function sendAnswerOk() {
 				    	</c:choose>
 					</td>
 					<td style="text-align: right" >
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';">리스트</button>
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list/before';">리스트</button>
 					</td>
 				</tr>
 			</table>

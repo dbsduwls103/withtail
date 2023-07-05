@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +33,10 @@ public class ReviewManageController {
 	@Qualifier("myUtilGeneral")
 	private MyUtil myUtil;
 	
-	@RequestMapping(value = "list")
-	public String reviewList(@RequestParam(value = "page", defaultValue = "1") int current_page,
+	@RequestMapping(value = "list/{state}")
+	public String reviewList(
+			@PathVariable String state,
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "userId") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpServletRequest req,
@@ -55,7 +58,14 @@ public class ReviewManageController {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		
-		dataCount = service.dataCount(map);
+		/////
+		if(state.equals("before")) {
+			dataCount = service.dataCountbefore(map);
+		}else if(state.equals("complete")) {
+			dataCount = service.dataCountcomplete(map);
+		}
+		
+		
 		if (dataCount != 0) {
 			total_page = myUtil.pageCount(dataCount, size);
 		}
@@ -71,7 +81,12 @@ public class ReviewManageController {
 		map.put("size", size);
 		
 		// 글 리스트
-		List<ReviewManage> list = service.listReview(map);
+		List<ReviewManage> list = null;
+		if(state.equals("before")) {
+			list = service.listReviewbefore(map);
+		}else if(state.equals("complete")) {
+			list = service.listReviewcomplete(map);
+		}
 
 		String query = "";
 		String listUrl = cp + "/admin/reviewManage/list";
@@ -86,6 +101,8 @@ public class ReviewManageController {
 		}
 		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+		model.addAttribute("state", state);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("articleUrl", articleUrl);
@@ -162,7 +179,7 @@ public class ReviewManageController {
 		} catch (Exception e) {
 		}
 
-		return "redirect:/admin/reviewManage/list?" + query;
+		return "redirect:/admin/reviewManage/list/before?" + query;
 	}
 	
 	
@@ -187,7 +204,7 @@ public class ReviewManageController {
 			}
 		}
 
-		return "redirect:/admin/reviewManage/list?" + query;
+		return "redirect:/admin/reviewManage/list/before?" + query;
 	}
 	
 	
@@ -212,7 +229,7 @@ public class ReviewManageController {
 			}
 		}
 
-		return "redirect:/admin/reviewManage/list?" + query;
+		return "redirect:/admin/reviewManage/list/before?" + query;
 	}
 	
 }

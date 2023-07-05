@@ -246,6 +246,85 @@ hr.vertical-line {
 .score-star .item:first-child{ margin-left: 0; }
 .score-star .on { color: #FFE400; font-weight: bold; }
 
+.tab-menu {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab {
+  display: flex;
+}
+
+.tab-button {
+    background-color: #f2f2f2;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    flex: 1;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #ddd;
+}
+
+.pointhover:hover{
+  background-color: #82ae4654;
+}
+
+.tab-button.active {
+  background-color: #82ae46;
+}
+
+.tabmenu{ 
+  margin: 0 auto; 
+  position:relative; 
+}
+.tabmenu ul{
+  position: relative;
+}
+.tabmenu ul li{
+  display:  inline-block;
+  width:200px; 
+  float:left;  
+  text-align:center; 
+  background :#f9f9f9;
+  line-height:40px;
+}
+.tabmenu label{
+  display:block;
+  width:200; 
+  height:40px;
+  line-height:40px;
+}
+.tabmenu input{display:none;}
+.tabCon{
+  display:none; 
+  width: 100%;
+  text-align:left; 
+  padding: 20px;
+  position:absolute; 
+  left:0; top:40px; 
+  box-sizing: border-box; 
+  border : 5px solid #f9f9f9;
+}
+.tabmenu input:checked ~ label{
+  background:#ccc;
+}
+.tabmenu input:checked ~ .tabCon{
+  display:block;
+}
+
+.tab-menu {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab {
+  display: flex;
+}
 </style>
 
 <script type="text/javascript">
@@ -264,12 +343,33 @@ function searchList() {
 	f.submit();
 }
 </script> 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+          $("#btn_1").click(function() {
+        	  location.href="${pageContext.request.contextPath}/admin/reviewManage/list/before"
+          });
+          
+          $("#btn_2").click(function() {
+        	  location.href="${pageContext.request.contextPath}/admin/reviewManage/list/complete"
+          });
+	});
+</script>
  <div class="out">
 <div class="body-main">
  	 <div class="body-title">
-		<h2><i class="fa-solid fa-pen"></i> 리뷰 관리 </h2>
+		<h2>리뷰 관리 </h2>
     </div>
  	<br><br>
+ 	
+ 	 <div class="tab-menu" style="border: none; margin-bottom: 40px;">
+    	 <div class="tab">
+	        <button type="button" class="tab-button ${state=='before'?'active':'' }" id="btn_1" >리뷰 답변 전</button>
+	        <button type="button" class="tab-button ${state=='complete'?'active':'' }" id="btn_2" >리뷰 답변 완료</button>
+   		</div>
+    </div>
+ 	
+ 	
  	<c:forEach var="dto" items="${list }">
  	<div class="favorite-section">
  		<div class="favorite-list pointhover">
@@ -283,22 +383,22 @@ function searchList() {
  					<div style="display: contents;"> 
  						<div class="f-product-name">
 							<div class="f-product-text-layout">
-							<div>${dto.regDate }</div>
+							<div class="score-star review-score-star" style="padding-bottom: 5px;">
+								<c:forEach var="n" begin="1" end="5">
+									<c:set var="star" value="${dto.star + ((dto.star%1>=0.5) ? (1-dto.star%1)%1 : -(dto.star%1))}"/>
+									<span class="item fs-2 ${dto.star>=n?'on':''}">★</span>
+								</c:forEach>
+							</div>
 								<!--상품 상세보기 페이지 연결  -->
-								<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="font-size: 15px;">${dto.madeby }<br>${dto.itemName }</a>
-									<div class="rating">
+								<a class="f-item-text valign-text-middle" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" style="font-size: 15px; padding-left: 3px;">${dto.madeby }<br>${dto.itemName }</a>
+									<div class="rating" style="padding-left: 3px;">
 										<div>${dto.userName }&nbsp;(${dto.userId })&nbsp;&nbsp;|&nbsp;&nbsp; </div>
-											<div class="score-star review-score-star">
-												<c:forEach var="n" begin="1" end="5">
-													<c:set var="star" value="${dto.star + ((dto.star%1>=0.5) ? (1-dto.star%1)%1 : -(dto.star%1))}"/>
-													<span class="item fs-2 ${dto.star>=n?'on':''}">★</span>
-												</c:forEach>
-											</div>
+										<div>${dto.regDate }</div>
 									</div>
 							</div>
 							<!-- 리뷰글보기 링크연결 -->
 							<a class="f-price-layout" href='${articleUrl}&rvNum=${dto.rvNum}'><!-- &rvNum=${dto.rvNum}&itemNum=${dto.itemNum }&mainImage=${dto.mainImage} -->
-								<div class="f-price-text valign-text-middle">
+								<div class="f-price-text valign-text-middle" style="padding-left: 3px;">
 									${dto.rvContent }
 								</div>
 							</a> 						
@@ -316,16 +416,22 @@ function searchList() {
 
  		
 	<div class="page-navigation">
-		${dataCount == 0 ? "등록된 리뷰가 없습니다." : paging}
+		<c:if test="${state == 'before' }">
+			${dataCount == 0 ? "답변 전 리뷰가 없습니다." : paging}
+		</c:if>
+		<c:if test="${state == 'complete' }">
+			${dataCount == 0 ? "답변 완료된 리뷰가 없습니다." : paging}
+		</c:if>
+		
 	</div>
  		
 		<table class="table" >
 			<tr>
 				<td align="left" width="100">
-					<button style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+					<button style="height: 35px;" type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/reviewManage/list/${state}';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 				</td>
 				<td align="center">
-					<form name="searchForm" action="${pageContext.request.contextPath}/admin/reviewManage/list" method="post">
+					<form name="searchForm" action="${pageContext.request.contextPath}/admin/reviewManage/list/${state}" method="post">
 						<select name="condition" class="form-select" style="height: 35px;">
 							<option value="userId" ${condition=="userId"?"selected='selected'":""}>아이디</option>
 							<option value="userName" ${condition=="userName"?"selected='selected'":""}>작성자</option>

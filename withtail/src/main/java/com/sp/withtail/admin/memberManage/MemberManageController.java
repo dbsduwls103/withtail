@@ -125,14 +125,7 @@ public class MemberManageController {
 		model.addAttribute("condition2", condition2);
 		model.addAttribute("startKeyword", startKeyword);
 		model.addAttribute("endKeyword", endKeyword);
-		
-		System.out.println("------------------------------------");
-		System.out.println("condition1="+condition1);
-		System.out.println("keyword="+keyword);
-		System.out.println("condition2="+condition2);
-		System.out.println("startKeyword="+startKeyword);
-		System.out.println("endKeyword="+endKeyword);
-		
+
 		return ".admin.memberManage.list";
 	}
 	

@@ -14,11 +14,26 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	private CommonDAO dao;
 	
 	@Override
-	public int dataCount(Map<String, Object> map) {
+	public int dataCountbefore(Map<String, Object> map) {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("reviewManage.dataCount",map);
+			result = dao.selectOne("reviewManage.dataCountbefore",map);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;//
+	}
+	
+	@Override
+	public int dataCountcomplete(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("reviewManage.dataCountcomplete",map);
 			
 			
 		} catch (Exception e) {
@@ -29,11 +44,24 @@ public class ReviewManageServiceImpl implements ReviewManageService{
 	}
 
 	@Override
-	public List<ReviewManage> listReview(Map<String, Object> map) {
+	public List<ReviewManage> listReviewbefore(Map<String, Object> map) {
 		List<ReviewManage> list = null;
 		
 		try {
-			list = dao.selectList("reviewManage.listReviewManage", map);
+			list = dao.selectList("reviewManage.listReviewbefore", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public List<ReviewManage> listReviewcomplete(Map<String, Object> map) {
+		List<ReviewManage> list = null;
+		
+		try {
+			list = dao.selectList("reviewManage.listReviewcomplete", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

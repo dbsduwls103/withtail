@@ -5,9 +5,11 @@ import java.util.Map;
 
 public interface ReviewManageService {
 	//총개수
-	public int dataCount(Map<String, Object> map);
+	public int dataCountbefore(Map<String, Object> map);
+	public int dataCountcomplete(Map<String, Object> map);
 	//리스트(상품명,상품썸네일 가져와야함)
-	public List<ReviewManage> listReview(Map<String, Object> map);
+	public List<ReviewManage> listReviewbefore(Map<String, Object> map);
+	public List<ReviewManage> listReviewcomplete(Map<String, Object> map);
 	
 	//글보기(상품명,상품썸네일,별점 가져와야함)
 	public ReviewManage readReview(long rvNum);
