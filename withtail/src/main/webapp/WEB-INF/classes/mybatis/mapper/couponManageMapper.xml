@@ -43,10 +43,6 @@
        DELETE FROM coupon WHERE couponNum = #{couponNum}
     </delete>
     
-     <delete  id="deleteCoupon">
-       DELETE FROM coupon 
-       WHERE endDate &lt;= SYSDATE
-     </delete>
     
     <select id="readCoupon" parameterType="long" resultType="com.sp.withtail.admin.couponManage.CouponManage">
        SELECT couponNum, startDate, endDate, couponName, couponPrice, couponCategory, couponMinPrice
