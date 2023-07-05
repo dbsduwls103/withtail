@@ -159,19 +159,18 @@ $('.box button.close').click(function() {
 
 
     <div class="course_all">
-        
-        <div class="course_all_top">
-            <h3 style="text-align: center; color: white; font-weight: bold;">
-                Tail&amp;Path 검색
-            </h3>
-            <form method="post" name="search">
-	            <input id="search" name="searchMap" type="text" placeholder="주소 또는 명칭으로 검색" />
-	            <button type="submit" class="searchbtn" >검색</button>
-            </form>
-				<div style="display: flex;">
-                    
-                  </div>
-        </div>
+     	<h1>현재 날씨 정보</h1>
+ 		<div id="weatherInfo"></div>
+ 		<div id="temperatureInfo"></div>
+			<div class="course_all_top">
+			    <h3 style="text-align: center; color: white; font-weight: bold;">
+			        Tail&amp;Path 검색
+			    </h3>
+			    <div id="searchContainer">
+			        <input id="search" type="text" placeholder="주소 또는 명칭으로 검색" />
+			        <button id="searchBtn" class="searchbtn">검색</button>
+			    </div>
+			</div>
 
         <div class="course_all_box choose-filed">
             <h5>주변 탐색</h5>
@@ -187,6 +186,10 @@ $('.box button.close').click(function() {
                 <li>
                     <input type="checkbox" id="animal_hospital" name="partCode" value="반려의료" checked>
                     <label for="animal_hospital">의료</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="animal_service" name="partCode" value="반려동물 서비스" checked>
+                    <label for="animal_service">서비스</label>
                 </li>
             </ul>
         </div>
@@ -271,15 +274,14 @@ function addProtocol(url) {
 
 function printJSON(data) {
 	 var positions = []
-	 console.log(data);
+	 
+	 var nameData = []
 	 
 	 for (var i = 0; i < data.data.length; i++) {
 		 var item = data.data[i];
-		 //let stringItem = JSON.stringify(item);
-
 		 
 		 if(item["시도 명칭"] === "경기도" || item["시도 명칭"] === "서울특별시"){
-			 
+			 nameData.push(item.시설명);
 			 var link = '<a href="#" class="button btnSendOk" ';
 			 link += ' data-address="' + item["도로명주소"] + '"';
 			 link += ' data-address2="' + item["지번주소"] + '"';
@@ -304,7 +306,7 @@ function printJSON(data) {
 			 link += ' data-lat="' + item["위도"] + '"';
 			 link += ' data-lng="' + item["경도"] + '"';
 			 link += '>상세정보</a>';
-			 let obj = {lat:item.위도, lng: item.경도,  category: item.카테고리2, category2: item.카테고리3,
+			 let obj = {lat:item.위도, lng: item.경도,  category: item.카테고리2, category2: item.카테고리3, facilityName: item.시설명, address: item.도로명주소, address2: item.지번주소,
 			 content: '<div class="wrap">' + 
 	            '    <div class="info">' + 
 	            '        <div class="title">' + 
@@ -320,11 +322,22 @@ function printJSON(data) {
 	            '</div>'}
 			 positions.push(obj);
 		 }
+		 
 	 }
-	 
-	 
-	 
-	 console.log(positions);
+	 var jsonData = JSON.stringify(nameData);
+	 $.ajax({
+		  url: '${pageContext.request.contextPath}/tailPath/main',
+		  type: 'POST',
+		  contentType: 'application/json',
+		  data: jsonData,
+		  success: function(response) {
+		    console.log("success")
+		  },
+		  error: function(error) {
+		    console.log("failed")
+		  }
+	 });
+
 	 
    var markers = $(positions).map(function(i, position) {
        return new kakao.maps.Marker({
@@ -374,6 +387,9 @@ function printJSON(data) {
 
        // 선택된 체크박스의 값을 가져옵니다
        $('input[name="partCode"]:checked').each(function() {
+    	   if($(this).val() === "반려동반여행"){
+    		   selectedCodes.push("반려문화시설")
+    	   }
            selectedCodes.push($(this).val());
        });
 
@@ -394,6 +410,53 @@ function printJSON(data) {
 
    // 초기 클러스터 표시
    updateCluster();
+   
+   $(document).ready(function () {
+       // 검색 버튼 클릭 이벤트 처리
+       $('#searchBtn').click(function (e) {
+           e.preventDefault(); // 폼의 서버 전송 동작을 막습니다.
+           
+           var keyword = $('#search').val(); // 입력된 검색어를 가져옵니다.
+           
+           // 마커와 클러스터러를 필터링하여 표시하는 함수 호출
+           filterMarkers(keyword);
+       });
+   });
+   
+	// 마커와 클러스터러를 필터링하여 표시하는 함수
+	function filterMarkers(keyword) {
+	    // 이벤트 핸들러 일시적으로 비활성화
+	    $('input[name="partCode"]').off('change');
+	
+	    // 선택된 체크박스를 저장할 배열
+	    var selectedCheckboxes = [];
+	
+	    // 모든 체크박스를 체크 상태로 변경하고 선택된 체크박스를 배열에 저장
+	    $('input[name="partCode"]').prop('checked', true);
+	
+	    // 필터링된 마커들을 저장할 배열
+	    var filteredMarkers = [];
+	
+	    for (var i = 0; i < markers.length; i++) {
+	        var facilityName = positions[i].facilityName; // 마커의 제목을 소문자로 변환하여 가져옵니다.
+	        var address = positions[i].address || ''; // 마커의 주소를 소문자로 변환하여 가져옵니다. 주소가 null인 경우 빈 문자열로 초기화합니다.
+	        var address2 = positions[i].address2 || ''; // 마커의 주소2를 소문자로 변환하여 가져옵니다. 주소2가 null인 경우 빈 문자열로 초기화합니다.
+	        
+	        // 제목, 주소, 주소2 중 하나라도 검색어를 포함하고 있는 경우 해당 마커를 선택합니다.
+	        if (facilityName.includes(keyword) || address.includes(keyword) || address2.includes(keyword)) {
+	            filteredMarkers.push(markers[i]);
+	        }
+	    }
+	
+	    // 클러스터러의 마커를 설정합니다.
+	    clusterer.clear();
+	    clusterer.addMarkers(filteredMarkers);
+
+	    // 이벤트 핸들러 활성화
+	    $('input[name="partCode"]').on('change', function() {
+	        updateCluster();
+	    });
+	}
 
 }
 
@@ -413,7 +476,41 @@ closeButton.addEventListener('click', function() {
     }
 });
 
+$(document).ready(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+});
 
+function success(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var apiKey = "d3ab98ed62e86f1b01cefd84ef3b7f4b";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+
+    $.ajax({
+        url: apiUrl,
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            var weather = data.weather[0].main;
+            var temperature = Math.round(data.main.temp - 273.15);
+
+            $("#weatherInfo").text("날씨: " + weather);
+            $("#temperatureInfo").text("온도: " + temperature + "°C");
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+function error() {
+    alert("Unable to retrieve your location.");
+}
 $(function(){
 	$("body").on("click", ".btnSendOk", function(){
 		const f = document.itemForm;
