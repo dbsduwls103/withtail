@@ -406,7 +406,25 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void insertCart(MyPage dto) throws Exception {
 		try {		
-			dao.insertData("myPage.insertCart", dto);
+
+			
+			if(dto.getOption2Num() == null) {
+				dto.setOption2Num(null);
+			} else if(dto.getOption2Num2() == null) {
+				dto.setOption2Num2(null);
+			}
+			
+			int cnt = dao.selectOne("myPage.myCartCount", dto);
+			if(cnt == 0) {
+				dao.insertData("myPage.insertCart", dto);
+			} else {
+				dao.updateData("myPage.increaseCart", dto);
+			}
+
+			
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

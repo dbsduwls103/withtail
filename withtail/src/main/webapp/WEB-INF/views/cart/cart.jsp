@@ -191,6 +191,8 @@
     padding: 1em 0 !important;
     position: relative;
 }
+
+
 </style>
 
 <script type="text/javascript">
@@ -313,8 +315,10 @@ function deleteCartSelect() {
 
 	                          </td>
 	                          
-	                          <td class="price"><span id="price-${status.index}">${dto.itemPrice}</span>
-	                         <div><span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span></div>
+	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
+	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
+	                         <input type="hidden" value="${dto.disPrice}" id="disPrice-${status.index}">
+	                         <input type="hidden" value="${dto.itemPrice}" id="price1-${status.index}">
 	                          </td>
 	                          
 	                         <td class="quantity">
@@ -338,7 +342,7 @@ function deleteCartSelect() {
 	                     
 	                          <td class="total">${dto.itemPoint}</td>
 	                          <td class="total">${dto.deliveryFee}</td>
-	                          <td class="total"><span id="totalPrice-${status.index}">${dto.itemPrice * dto.quantity}
+	                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}
 	                          <input type="hidden" name="totalPrice-${status.index}">
 	                          </span>
 	                          </td>
@@ -356,10 +360,12 @@ function deleteCartSelect() {
                                 <input type="text" name="allPrice" value="" id="onePrice">
                                 
                                 
-                                <span id="deliveryFee">+ 배송비 5,000</span>
+                                + 배송비<span id="deliveryFee"></span>
                                 <input type="hidden" name="deliveryFee" value="3000">
  
-                                <span>- 상품할인금액 5,800</span>
+                                - 상품할인금액 <span id="allDisPrice"></span>
+                                <input type="hidden" name="allDisPrice" value="">
+                                
                                 <span>= 합계:</span>
                                 <span style="font-weight: 1000; font-size: 17px; color: black;" id="finalPrice">${all}</span>
                                 <input type="hidden" name="finalPrice" value="${all}">
@@ -456,32 +462,52 @@ function deleteCartSelect() {
       $(document).ready(function(){
 		//let allPrice = parseInt('<c:out value="${all}"/>');
 		document.getElementById('onePrice').value = parseInt('<c:out value="${all}"/>');
+
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
-			var size = '${fn:length(list)}'; //상품 개수
-		   	  var price = document.getElementById('price-${status.index}').innerHTML;
-		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
+			document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
+	   	 
+			  var size = '${fn:length(list)}'; //상품 개수
+		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML; //할인 적용 총 합계
 		      var quantity=0;
-			
+
+
+
 	         $('#plus-${status.index}').click(function(e){
-	        	    	 	
-	              // Stop acting like a button
 	              e.preventDefault();
-	              // Get the field name
-	              let quantity = parseInt($('#quantity-${status.index}').val());
+
 	              
-	              // If is not undefined
-	                  
+	              let quantity = parseInt($('#quantity-${status.index}').val());
+
 	               $('#quantity-${status.index}').val(quantity + 1);
 	               quantity = quantity + 1;
-	               document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
-	               //allPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
 
-					let allPrice = 0;
-	               for(let i = 0; i < size; i ++){
-	            	   allPrice = allPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
-	               }
-	               document.getElementById('onePrice').value = allPrice;
-	               document.getElementById('allPrice').innerHTML = allPrice;
+	               document.getElementById('price1-${status.index}').value = '${dto.itemPrice}' * quantity;
+	               document.getElementById('disPrice-${status.index}').value = '${dto.disPrice}' * quantity;
+	               document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
+
+	   			
+					let allPrice = 0; //정가 총합
+					let allDisPrice = 0; //할인금액 총합
+					let allTotalPrice = 0; //정가에서 할인적용 총합
+		               for(let i = 0; i < size; i ++){
+		            	   allPrice = allPrice + parseInt(document.getElementById('price1-' + i).value);
+		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPrice-' + i).value);
+		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
+		               }
+		               document.getElementById('allPrice').innerHTML = allPrice;
+		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               
+		               
+		               if(allTotalPrice >= 100000){
+		            	   document.getElementById('deliveryFee').innerHTML = 0;
+		               } else {
+		            	   document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
+		            	   allTotalPrice += parseInt('${dto.deliveryFee}');
+		               }
+		               
+		               
+		               
+		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
 
 	          });
 	
@@ -494,21 +520,36 @@ function deleteCartSelect() {
 	              // If is not undefined
 	            
 	                  // Increment
-	                  if(quantity>1){
+	                  if(quantity>1) {
 	                  $('#quantity-${status.index}').val(quantity - 1);
 	            
 	                  quantity = quantity - 1;
-	                  document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
-	                  //allPrice = document.getElementById('totalPrice-${status.index}').innerHTML;
-	
-						let allPrice = 0;
+		              document.getElementById('price1-${status.index}').value = '${dto.itemPrice}' * quantity;
+		              document.getElementById('disPrice-${status.index}').value = '${dto.disPrice}' * quantity;
+	                  document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
+			
+					let allPrice = 0; //정가 총합
+					let allDisPrice = 0; //할인금액 총합
+					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-		            	   allPrice = allPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
-
+		            	   allPrice = allPrice + parseInt(document.getElementById('price1-' + i).value);
+		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPrice-' + i).value);
+		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
 		               }
-		               document.getElementById('onePrice').value = allPrice;
 		               document.getElementById('allPrice').innerHTML = allPrice;
-	                 }
+		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               
+		               if(allTotalPrice >= 100000){
+		            	   document.getElementById('deliveryFee').innerHTML = 0;
+		               } else {
+		            	   document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
+		            	   allTotalPrice += parseInt('${dto.deliveryFee}');
+		               }
+		               
+		               
+		               
+		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
+	              }
 	
 	          });
 	           

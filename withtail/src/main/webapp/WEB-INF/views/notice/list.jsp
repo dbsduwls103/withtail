@@ -119,7 +119,7 @@ function searchList() {
 						<td class="text-truncate" style="padding: 0 10px; box-sizing: border-box; max-width: 540px">
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
-						<td>관리자</td>
+						<td>${dto.nickName}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>
 						<td>
