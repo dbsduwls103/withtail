@@ -71,7 +71,7 @@ function searchList() {
 						<td >
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 						</td>
-						<td>관리자</td>
+						<td>${dto.userName}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>
 						<td>
@@ -93,7 +93,7 @@ function searchList() {
 								<img src='${pageContext.request.contextPath}/resources/images/new.gif'>
 							</c:if>
 						</td>
-						<td>관리자</td>
+						<td>${dto.userName}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>
 						<td>
