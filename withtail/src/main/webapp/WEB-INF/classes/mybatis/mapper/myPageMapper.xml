@@ -180,11 +180,13 @@
 	</select>
 	
 	<select id="listFavorite" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice) AS salePrice1, star
+		SELECT ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice) AS salePrice1, ROUND(avg(star)) as star
 		FROM itemJjim ij
 		JOIN item i ON ij.itemNum = i.itemNum
 		LEFT OUTER JOIN review r ON r.itemNum = i.itemNum
-		WHERE ij.userId = #{userId}
+        WHERE ij.userId = #{userId}
+        GROUP BY ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice)
+		
 	</select>
 	
 	<select id="favoriteDataCount" parameterType="String" resultType="Integer">
