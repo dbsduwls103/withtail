@@ -8,7 +8,7 @@
 	<span>[목록, ${pageNo}/${total_page} 페이지]</span>
 </div>
 
-<table class='table table-borderless'>
+<table class='table table-borderless' style="min-width: auto !important;">
 	<c:forEach var="vo" items="${listReply}">
 		<tr class='reply-tit'>
 			<td class="td-icon" style="text-align: left !important; border-bottom: 0 !important;">

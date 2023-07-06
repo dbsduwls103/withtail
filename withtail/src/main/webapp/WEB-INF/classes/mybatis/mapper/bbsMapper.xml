@@ -195,7 +195,7 @@
 	
 	<!-- 댓글의 답글 리스트 -->
 	<select id="listReplyAnswer" parameterType="map" resultType="com.sp.withtail.bbs.Reply">
-		SELECT replyNum, num, r.userId, userName, content, regDate, preNum,
+		SELECT replyNum, r.num, r.userId, userName, content, r.regDate, preNum
 		FROM bbsReply r
 		JOIN member1 m ON r.userId = m.userId
 		WHERE preNum = #{preNum}

@@ -7,6 +7,10 @@
 .body-container {
 	max-width: 850px;
 }
+.table tbody tr td {
+    padding: 15px 10px;
+}
+
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -44,7 +48,7 @@ function check() {
 </c:if>
 </script>
 
-<div class="container">
+<div class="container" style="min-height: 701px">
 	<div class="body-container">	
 		<div class="body-title">
 			<h3><i class="bi bi-app"></i> 게시판 </h3>
@@ -53,7 +57,7 @@ function check() {
 		<div class="body-main">
 		
 			<form name="boardForm" method="post" enctype="multipart/form-data">
-				<table class="table mt-5 write-form">
+				<table class="table mt-5 mb-2 write-form">
 					<tr>
 						<td class="table-light col-sm-2" scope="row">제 목</td>
 						<td>
@@ -72,13 +76,6 @@ function check() {
 						<td class="table-light col-sm-2" scope="row">내 용</td>
 						<td>
 							<textarea name="content" id="ir1" class="form-control" style="width: 93%;">${dto.content}</textarea>
-						</td>
-					</tr>
-					
-					<tr>
-						<td class="table-light col-sm-2">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
-						<td> 
-							<input type="file" name="selectFile" class="form-control">
 						</td>
 					</tr>
 					

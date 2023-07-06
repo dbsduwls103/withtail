@@ -8,6 +8,10 @@
 		color: #212529;
 	}
 	
+	img {
+		max-width: 100%;
+	}
+	
 	.notice-h3 {
 		color: #555;
 		font-weight: bold;
@@ -435,8 +439,23 @@ $(function(){
 		
 		<div class="col-md-12 d-flex mx-auto" style="max-width: 800px; padding-left: 0; padding-right: 0;">
 			<div class="col-md-6 text-start" style="padding-left: 0; padding-right: 0;">
-				<button type="button" class="btn btn-outline-secondary">수정</button>
-				<button type="button" class="btn btn-outline-secondary">삭제</button>
+				<c:choose>
+					<c:when test="${sessionScope.member.userId==dto.userId}">
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/bbs/update?num=${dto.num}&page=${page}';">수정</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-light" disabled="disabled">수정</button>
+					</c:otherwise>
+				</c:choose>
+		    	
+				<c:choose>
+		    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
+		    			<button type="button" class="btn btn-light" onclick="deleteBoard();">삭제</button>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
+		    		</c:otherwise>
+		    	</c:choose>
 			</div>
 			<div class="col-md-6 text-end" style="padding-left: 0; padding-right: 0;">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/bbs/list?${query}';">리스트</button>

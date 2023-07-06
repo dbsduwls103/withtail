@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.FileManager;
 import com.sp.withtail.common.MyUtil;
+import com.sp.withtail.common.MyUtilCustom;
 import com.sp.withtail.member.SessionInfo;
 
 
@@ -35,6 +36,8 @@ public class BoardController {
 	private BoardService service;
 	@Autowired
 	private MyUtil myUtil;
+	@Autowired
+	private MyUtilCustom myUtilCustom;
 	@Autowired
 	private FileManager fileManager;
 
@@ -78,11 +81,14 @@ public class BoardController {
 		// 글 리스트
 		List<Board> list = service.listBoard(map);
 
+		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
+		
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);

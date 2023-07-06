@@ -10,15 +10,15 @@
 				<div class='reply-writer d-flex'>
 					<div class="td-icon" style="width: 45px;"><i class='bi bi-person-circle text-muted icon'></i></div>
 					<div class="rp-con" style="text-align: left !important; margin-top: 5px; max-width: 650px;">
-						<div class='name'>김자바</div>
-						<p style="margin-bottom: 0;">답글 내용입니다.</p>
+						<div class='name'>${vo.userName}</div>
+						<p style="margin-bottom: 0;">${vo.content}</p>
 					</div>
 				</div>
 			</div>
 			<div class='col align-self-center text-end td-delete'>
-				<a class='deleteReply' data-replyNum='11' data-pageNo='1' href="#">삭제</a>
+				<a class='deleteReply' data-replyNum='${vo.replyNum}' data-pageNo='${pageNum}' href="#">삭제</a>
 			</div>
 		</div>
-		<div class='td-date mb-2' style="text-align: left !important; padding-left: 13px;">2023-06-20 09:00</div>
+		<div class='td-date mb-2' style="text-align: left !important; padding-left: 13px;">${vo.regDate}</div>
 	</div>
 </c:forEach>
