@@ -9,19 +9,14 @@
    
    <insert id="insertItem" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
         INSERT INTO item(itemNum, itemName, ctNum, itemPrice, discount, itemPoint, deliveryFee,
-                         itemContent, showNotice, regDate, upddate, mainImage, madeby, coupon)  
+                         itemContent, showNotice, regDate, upddate, mainImage, madeby)  
                   VALUES (#{itemNum}, #{itemName}, #{ctNum}, #{itemPrice}, #{discount}, #{itemPoint},
                    #{deliveryFee}, #{itemContent}, #{showNotice}, SYSDATE, 
-                   SYSDATE, #{mainImage}, #{madeby}, #{coupon})
+                   SYSDATE, #{mainImage}, #{madeby})
    </insert>
    
    <insert id="insertItemPhoto" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
        INSERT INTO itemPhoto(photoNum, itemNum, photoName) VALUES (itemphoto_seq.NEXTVAL, #{itemNum}, #{photoName})
-   </insert>
-   
-   <insert id="insertFood" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
-       INSERT INTO food(itemNum, expriy, country, manufactDate ) 
-       VALUES(#{itemNum}, TO_DATE(#{expriy}, 'YYYY-MM-DD') expriy, #{country}, TO_DATE(#{manufactDate}, 'YYYY-MM-DD') manufactDate )
    </insert>
    
    <select id="option1Seq" resultType="Long">
@@ -206,7 +201,7 @@
 	
 	<update id="updateItem" parameterType="com.sp.withtail.admin.itemManage.ItemManage">
 	  UPDATE item SET ctNum = #{ctNum}, itemName=#{itemName}, itemPrice=#{itemPrice}, itemPoint=#{itemPoint},
-	        madeby=#{madeby}, showNotice=#{showNotice}, coupon=#{coupon}, itemContent=#{itemContent}, mainImage=#{mainImage},
+	        madeby=#{madeby}, showNotice=#{showNotice}, itemContent=#{itemContent}, mainImage=#{mainImage},
 	        deliveryFee=#{deliveryFee}, upddate=SYSDATE
 	        WHERE itemNum=#{itemNum}
 	</update>

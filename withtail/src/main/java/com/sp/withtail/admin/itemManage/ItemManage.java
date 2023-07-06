@@ -66,9 +66,6 @@ public class ItemManage {
 	private String photoName;
 	private List<MultipartFile> addFiles;
 	
-	private String manufactDate;
-	private String expriy;
-	private String country;
 	public long getItemNum() {
 		return itemNum;
 	}
@@ -315,29 +312,5 @@ public class ItemManage {
 	public void setAddFiles(List<MultipartFile> addFiles) {
 		this.addFiles = addFiles;
 	}
-	public String getManufactDate() {
-		return manufactDate;
-	}
-	public void setManufactDate(String manufactDate) {
-		this.manufactDate = manufactDate;
-	}
-	public String getExpriy() {
-		return expriy;
-	}
-	public void setExpriy(String expriy) {
-		this.expriy = expriy;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	
-	
-	
-	
-	
-
 	
 }

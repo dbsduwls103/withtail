@@ -147,7 +147,7 @@ $(function(){
 			</label>
 			<ul class="sub_menu">
 				<li class="sub_menu--item">
-					<a href="<c:url value='/admin/dogmapManage/list'/>" class="sub_menu--link">Tail  &amp; Path 목록</a>
+					<a href="<c:url value='/admin/dogMapManage/list'/>" class="sub_menu--link">Tail  &amp; Path 목록</a>
 				</li>
 			</ul>
 		</li>
