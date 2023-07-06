@@ -638,7 +638,7 @@ $(function(){
 	});
 });
 
-// 추가 이미지
+//추가 이미지
 $(function(){
 	var sel_files = [];
 	
@@ -657,19 +657,19 @@ $(function(){
 			return false;
 		}
 		
-        for(let file of this.files) {
-        	sel_files.push(file);
-        	
-            const reader = new FileReader();
+   for(let file of this.files) {
+   	sel_files.push(file);
+   	
+       const reader = new FileReader();
 			const $img = $("<img>", {class:"item img-item"});
 			$img.attr("data-photoName", file.name);
-            reader.onload = e => {
-            	$img.attr("src", e.target.result);
-            };
+       reader.onload = e => {
+       	$img.attr("src", e.target.result);
+       };
 			reader.readAsDataURL(file);
-            
-            $(".img-grid").append($img);
-        }
+       
+       $(".img-grid").append($img);
+   }
 		
 		let dt = new DataTransfer();
 		for(let f of sel_files) {
@@ -677,7 +677,29 @@ $(function(){
 		}
 		document.itemForm.addFiles.files = dt.files;
 	});
-
+	
+	$("body").on("click", ".img-item", function(){
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-photoName");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				sel_files.splice(i, 1);
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.itemForm.addFiles.files = dt.files;		
+		
+		$(this).remove();
+	});
 });
 </script>
 

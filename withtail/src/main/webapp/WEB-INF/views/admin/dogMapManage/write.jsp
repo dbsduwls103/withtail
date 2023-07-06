@@ -77,6 +77,19 @@
  */
 </script>
 
+
+<script type="text/javascript">
+function check() {
+	const f = document.dogmapForm;
+	let str, b;
+	let mode = "${mode}";
+	
+	
+	f.action = "${pageContext.request.contextPath}/admin/dogMapManage/${mode}";
+	return true;
+}
+</script>
+
 <div class="out">
     
     <div class="body-main">
@@ -120,7 +133,7 @@
 						<div class="img-grid">
 							<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
 							<c:forEach var="vo" items="${listPhoto}">
-								<img src="${pageContext.request.contextPath}/uploads/dogmap/${vo.photoName}"
+								<img src="${pageContext.request.contextPath}/uploads/dogMap/${vo.photoName}"
 									class="item delete-img"
 									data-photoNum="${vo.photoNum}"
 									data-photoName="${vo.photoName}">
@@ -138,7 +151,7 @@
 					<td align="center">
 						<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=='update'?'수정완료':'등록하기'}</button>
 						<button type="reset" class="btn">다시입력</button>
-						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/dogmap/list';">${mode=='update'?'수정취소':'등록취소'}</button>
+						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/dogMapManage/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="placeNum" value="${dto.placeNum}">
 							<input type="hidden" name="page" value="${page}">
@@ -186,7 +199,7 @@ function setDefaultFont() {
 $(function(){
 	var img = "${dto.mainImage}";
 	if( img ) {
-		img = "${pageContext.request.contextPath}/uploads/dogmap/"+img;
+		img = "${pageContext.request.contextPath}/uploads/dogMap/"+img;
 		$(".mainImage-viewer").empty();
 		$(".mainImage-viewer").css("background-image", "url("+img+")");
 	}
@@ -202,7 +215,7 @@ $(function(){
 			$(".mainImage-viewer").empty();
 			
 			if( img ) {
-				img = "${pageContext.request.contextPath}/uploads/dogmap/"+img;
+				img = "${pageContext.request.contextPath}/uploads/dogMap/"+img;
 			} else {
 				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
 			}
@@ -242,7 +255,7 @@ $(function(){
 	});
 });
 
-// 추가 이미지
+//추가 이미지
 $(function(){
 	var sel_files = [];
 	
@@ -256,31 +269,53 @@ $(function(){
 			for(let f of sel_files) {
 				dt.items.add(f);
 			}
-			document.itemForm.addFiles.files = dt.files;
+			document.dogmapForm.addFiles.files = dt.files;
 			
 			return false;
 		}
 		
-        for(let file of this.files) {
-        	sel_files.push(file);
-        	
-            const reader = new FileReader();
+     for(let file of this.files) {
+     	sel_files.push(file);
+     	
+         const reader = new FileReader();
 			const $img = $("<img>", {class:"item img-item"});
 			$img.attr("data-photoName", file.name);
-            reader.onload = e => {
-            	$img.attr("src", e.target.result);
-            };
+         reader.onload = e => {
+         	$img.attr("src", e.target.result);
+         };
 			reader.readAsDataURL(file);
-            
-            $(".img-grid").append($img);
-        }
+         
+         $(".img-grid").append($img);
+     }
 		
 		let dt = new DataTransfer();
 		for(let f of sel_files) {
 			dt.items.add(f);
 		}
-		document.itemForm.addFiles.files = dt.files;
+		document.dogmapForm.addFiles.files = dt.files;
 	});
-
+	
+	$("body").on("click", ".img-item", function(){
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-photoName");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				sel_files.splice(i, 1);
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.dogmapForm.addFiles.files = dt.files;		
+		
+		$(this).remove();
+	});
 });
 </script>

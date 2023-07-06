@@ -106,7 +106,10 @@ public class DogMapManageController {
 			return "redirect:/admin/dogMapManage/list?"+query;
 		}
 		
+		List<DogMapManage> listPhoto = service.listDogMapPhoto(placeNum);
+		
 		model.addAttribute("mode", "update");
+		model.addAttribute("listPhoto", listPhoto);
 		model.addAttribute("dto",dto);
 
 		model.addAttribute("page",page);
