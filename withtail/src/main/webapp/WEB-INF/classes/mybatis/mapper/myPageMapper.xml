@@ -112,7 +112,7 @@
 
 	<select id="listOrder" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
 		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState, salePrice
-		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2
+		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2, od.orderDetailNum
 		FROM member1 m
 		JOIN orderList ol ON m.userId = ol.userId
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum
@@ -219,6 +219,31 @@
 		<if test="option2Num2!=null">
 		  AND option2Num2 = #{option2Num2}
 		</if>
+	</select>
+	
+	<select id="seq" resultType="Long">
+		SELECT review_seq.NEXTVAL FROM dual 
+	</select>
+	
+	<insert id="insertReview" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO review(rvNum, orderDetailNum, rvContent, star, regDate,itemNum, userId)
+		VALUES(#{rvNum}, #{orderDetailNum}, #{rvContent}, #{star}, SYSDATE, #{itemNum}, #{userId})
+	</insert>
+	
+	<insert id="insertReviewPhoto" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO reviewPhoto(rvPhotoNum, rvNum, saveName)
+			VALUES(reviewPhoto_seq.NEXTVAL, #{rvNum}, #{saveName})
+	</insert>
+	
+	<select id="readReviewItem" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT ol.orderNum, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2,od.orderDetailNum, i.itemNum
+		FROM member1 m
+		JOIN orderList ol ON m.userId = ol.userId
+		JOIN orderDetail OD ON ol.orderNum = od.orderNum
+		JOIN item i ON i.itemNum = od.itemNum
+		LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
+		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
+		WHERE od.orderdetailNum = #{orderDetailNum}
 	</select>
 
 	

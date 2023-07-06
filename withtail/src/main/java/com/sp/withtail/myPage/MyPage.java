@@ -1,5 +1,7 @@
 package com.sp.withtail.myPage;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MyPage {
@@ -94,8 +96,61 @@ public class MyPage {
 	private Long option2Num;
 	private Long option2Num2;
 	
+	// 리뷰
+	private long rvNum;
+	private long orderDetailNum;
+	private String rvContent;
 	
+	private long rvPhotoNum;
+	private String saveName;
+	private List<MultipartFile> selectFile1;
 	
+	private String[] listFilename;
+
+
+	public long getRvPhotoNum() {
+		return rvPhotoNum;
+	}
+	public void setRvPhotoNum(long rvPhotoNum) {
+		this.rvPhotoNum = rvPhotoNum;
+	}
+	public String getSaveName() {
+		return saveName;
+	}
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+	public List<MultipartFile> getSelectFile1() {
+		return selectFile1;
+	}
+	public void setSelectFile1(List<MultipartFile> selectFile1) {
+		this.selectFile1 = selectFile1;
+	}
+	public String[] getListFilename() {
+		return listFilename;
+	}
+	public void setListFilename(String[] listFilename) {
+		this.listFilename = listFilename;
+	}
+	public long getRvNum() {
+		return rvNum;
+	}
+	public void setRvNum(long rvNum) {
+		this.rvNum = rvNum;
+	}
+	public long getOrderDetailNum() {
+		return orderDetailNum;
+	}
+	public void setOrderDetailNum(long orderDetailNum) {
+		this.orderDetailNum = orderDetailNum;
+	}
+	public String getRvContent() {
+		return rvContent;
+	}
+	public void setRvContent(String rvContent) {
+		this.rvContent = rvContent;
+	}
+
 	public Long getOption2Num() {
 		return option2Num;
 	}

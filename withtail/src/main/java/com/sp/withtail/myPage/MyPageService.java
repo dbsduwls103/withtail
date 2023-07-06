@@ -42,5 +42,11 @@ public interface MyPageService {
 	
 	public void insertCart(MyPage dto) throws Exception;
 	
+	public void insertReview(MyPage dto, String pathname) throws Exception;
+	public MyPage readReviewItem(long orderDetailNum);
+	public void insertReviewPhoto(MyPage dto) throws Exception;
+	
+	
+	
 	
 }

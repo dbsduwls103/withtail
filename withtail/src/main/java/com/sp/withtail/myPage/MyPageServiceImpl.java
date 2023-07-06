@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.withtail.common.FileManager;
 import com.sp.withtail.common.dao.CommonDAO;
@@ -425,6 +426,57 @@ public class MyPageServiceImpl implements MyPageService {
 			
 			
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void insertReview(MyPage dto, String pathname) throws Exception {
+		try {
+			long seq = dao.selectOne("myPage.seq");
+			dto.setRvNum(seq);
+			
+			dao.insertData("myPage.insertReview", dto);
+			
+			if (!dto.getSelectFile1().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile1()) {
+					String savename = fileManager.doFileUpload(mf, pathname);
+					if (savename == null) {
+						continue;
+					}
+
+					dto.setSaveName(savename);
+
+					insertReviewPhoto(dto);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public MyPage readReviewItem(long orderDetailNum) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readReviewItem", orderDetailNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void insertReviewPhoto(MyPage dto) throws Exception {
+		try {
+			dao.insertData("myPage.insertReviewPhoto", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

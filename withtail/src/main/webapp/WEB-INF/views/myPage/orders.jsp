@@ -649,8 +649,11 @@ $(function() {
 				              		  	<c:when test="${dto.orderState eq 5}">
 							                <div class="ov-text-btn">
 							                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  	
-							                	
-							                	    <button type="button" class="btn2-1">후기 작성</button>		
+							                	<c:url var="url1" value="/myPage/writeReview">
+							                		<c:param name="orderDetailNum" value="${dto.orderDetailNum}"/>
+							                		<c:param name="itemNum" value="${dto.itemNum}"/>
+							                	</c:url>
+							                	    <button type="button" class="btn2-1" onclick="location.href='${url1}'">후기 작성</button>		
 							             		
 							             	</div>
 										</c:when>	

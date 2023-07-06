@@ -92,7 +92,7 @@ public class MyPageController {
     	
     	String state = "true";
     	try {
-			service.deleteFavorite(dto.getItemNum());;
+			service.deleteFavorite(dto.getItemNum());
 		} catch (Exception e) {
 			state = "false";
 		}
@@ -458,9 +458,45 @@ public class MyPageController {
     }
     
     @GetMapping("writeReview")
-    public String writeReview() throws Exception {
+    public String writeReviewForm(@RequestParam long orderDetailNum,
+    		Model model) throws Exception {
+    	
+    	MyPage dto = service.readReviewItem(orderDetailNum);
+    	
+    	model.addAttribute("dto", dto);
     	
     	return ".myPage.writeReview";
     }
+    
+    
+    @PostMapping("writeReview")
+   	public String writeReviewSubmit(MyPage dto, HttpSession session, 
+   			
+   			Model model) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
+    	String root = session.getServletContext().getRealPath("/");
+    	String pathname = root + "uploads" + File.separator + "writeReview";
+    	
+    	try {
+    	
+    		dto.setUserId(info.getUserId());
+			service.insertReview(dto, pathname);
+		
+			
+		} catch (Exception e) {
+		}
+   		return "redirect:/myPage/thankYou?itemNum=" + dto.getItemNum() + "&orderDetailNum=" + dto.getOrderDetailNum();
+   	}
       
+    @GetMapping("thankYou")
+    public String thankYou(@RequestParam long orderDetailNum,
+    		Model model) throws Exception {
+    	
+    	MyPage dto = service.readReviewItem(orderDetailNum);
+    	
+    	model.addAttribute("dto", dto);
+    	
+    	return ".myPage.thankYou";
+    }
 }

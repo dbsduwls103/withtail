@@ -248,6 +248,14 @@ input::placeholder {
 	color: #e3e3e3;
 }
 
+textarea::placeholder {
+	padding-left : 10px;
+	padding-top : 10px;
+	color: #e3e3e3;
+}
+
+
+
 .charCount {
 	text-align: right;
     font-size: 12px;
@@ -327,18 +335,91 @@ input:focus {
 	outline-color: #82ae46;
 }
 
+textarea:hover {
+	border-color: #82ae46;
+}
+
+textarea:focus {
+	outline-color: #82ae46;
+}
+
+
 .star a.on { color: #FFBB00; }
 
-a {
+.ahi {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
     color: #dedede;
+    font-size: 25px;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    color: #dedede;
+}
+
+.rw-photo-box {
+    align-items: center;
+    background-color: white;
+    border: 1px solid;
+    border-color: rgb(219 219 219);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 80px;
+    justify-content: center;
+    position: relative;
+    width: 80px;
+}
+
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 70px);
+	grid-gap: 5px;
+	margin-bottom: 17px;
+}
+
+.img-grid .item {
+    object-fit: cover; /* 가로세로 비율은 유지하면서 컨테이너에 꽉 차도록 설정 */
+    width: 70px;
+    height: 70px;
+	cursor: pointer;
+	border: 1px solid #2196F3;
+	border-radius: 10px;
+}
+
+.btn60 {
+	width: 225px;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    background-color: #82ae46;
+    color: white;
+    font-size: 18px;
+}
+
+.btn61 {
+	width: 225px;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid #82ae46;
+    background-color: white;
+    color: #82ae46;
+    font-size: 18px;
 }
 
 </style>
 
 <script>
+
+function sendOk() {
+	const f = document.reviewForm;
+	
+	f.action = "${pageContext.request.contextPath}/myPage/writeReview";
+	f.submit();
+}
 
 $(function() {
   $("#guideToggle").click(function() {
@@ -348,21 +429,7 @@ $(function() {
   });
 });
 
-function updateCharacterCount(input) {
-    var maxLength = input.getAttribute("maxlength");
-    var currentLength = input.value.length;
-    var characterCountElement = document.getElementById("characterCount");
 
-    characterCountElement.textContent = currentLength + "/" + maxLength;
-}
-
-function updateCharacterCount1(input) {
-    var maxLength = input.getAttribute("maxlength");
-    var currentLength = input.value.length;
-    var characterCountElement = document.getElementById("characterCount1");
-
-    characterCountElement.textContent = currentLength + "/" + maxLength;
-}
 
 function updateCharacterCount2(input) {
     var maxLength = input.getAttribute("maxlength");
@@ -384,11 +451,76 @@ $(function(){
 		}
 		
 		let s = $(this).closest(".rating").find(".star .on").length;
-		$(this).closest(".rating").find("input[name=score]").val(s);
+		$(this).closest(".rating").find("input[name=star]").val(s);
 		
 		// e.preventDefault(); // 화면 위로 이동 안되게
 		return false;
 	});
+});
+
+//추가 이미지
+$(function(){
+	var sel_files = [];
+	
+	$("body").on("click", ".img-add", function(){
+		$("form[name=reviewForm] input[name=selectFile1]").trigger("click");
+	});
+	
+	$("form[name=reviewForm] input[name=selectFile1]").change(function(){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			document.reviewForm.selectFile1.files = dt.files;
+			
+			return false;
+		}
+		
+        for(let file of this.files) {
+        	sel_files.push(file);
+        	
+            const reader = new FileReader();
+			const $img = $("<img>", {class:"item img-item"});
+			$img.attr("data-photoName", file.name);
+            reader.onload = e => {
+            	$img.attr("src", e.target.result);
+            };
+			reader.readAsDataURL(file);
+            
+            $(".img-grid").append($img);
+        }
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.reviewForm.selectFile1.files = dt.files;
+	});
+	
+	$("body").on("click", ".img-item", function(event) {
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ?")) {
+			return false;
+		}
+		
+		let photoName = $(this).attr("data-photoName");
+		
+	    for(let i = 0; i < sel_files.length; i++) {
+	    	if(photoName === sel_files[i].name){
+	    		sel_files.splice(i, 1);
+	    		break;
+			}
+	    }
+	
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.reviewForm.selectFile1.files = dt.files;
+		
+		$(this).remove();
+	});
+
 });
 
 
@@ -396,27 +528,28 @@ $(function(){
 
 <div class="container -min">
 	<div class="rw-section">
-		<form method="post" name="reviewForm" class="rw-section">
+		<form method="post" name="reviewForm" class="rw-section" enctype="multipart/form-data">
 		<div class="rw-container rw-input-container">
 			<div class="rw-product-info-wrap">
 				<div class="rw-product-info">
 					<div class="rw-product-image-layout">
 						<img class="rw-product-image" alt="" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
 					</div>
-					<div class="rw-product-name">
-						<p class="rw-product-text valign-text-middle">KONG | 테니스공 장난감(대)</p>
+					<div class="rw-product-name" style="margin-top: 30px;">
+						<p class="rw-product-text valign-text-middle">${dto.madeBy} | ${dto.itemName}<c:if test="${not empty dto.option2Name2}">(${dto.option2Name}/${dto.option2Name2})</c:if>
+				                            	<c:if test="${empty dto.option2Name2 and not empty dto.option2Name}">(${dto.option2Name})</c:if></p>
 						<div class="rw-rating-layout">
-							<div class="rw-r valign-text-middle" style="margin-bottom: 20px;">
+							<div class="rw-r valign-text-middle" style="margin-bottom: -4px;">
 								이 상품을 평가해주세요
 							</div>
 							<div class="rating" id="rating">
 								<p class="star">
-									<a href="#" class="on">★</a>
-									<a href="#" class="on">★</a>
-									<a href="#" class="on">★</a>
-									<a href="#" class="on">★</a>
-									<a href="#" class="on">★</a>
-									<input type="text" name="score" value="5">
+									<a href="#" class="on ahi">★</a>
+									<a href="#" class="on ahi">★</a>
+									<a href="#" class="on ahi">★</a>
+									<a href="#" class="on ahi">★</a>
+									<a href="#" class="on ahi">★</a>
+									<input type="hidden" name="star" value="5">
 								</p>
 							</div>
 						</div>
@@ -461,11 +594,7 @@ $(function(){
                                             * 해당 제품과 관련 있는 사진만 업로드 가능해요.
                                         
                                 </p>
-                                <p class="rw-guide-text valign-text-middle">
-                               		
-                                            * 사진 1장당 10MB, 최대 6장까지만 업로드 가능해요.
-                                        
-                                </p>
+          
                                 <p class="rw-guide-text valign-text-middle">                               	
                                             
                                             * 저작권자 승인을 받지 않은 타 저작권물(직접 촬영하지 않은 사진, 캡쳐,
@@ -477,14 +606,8 @@ $(function(){
 					</div>
 				</div>
 			</div>
-			<div class="rw-input-wrap review-no-rating">
-				<input type="text" class="inp1" name="rvNickName" placeholder="닉네임을 입력해주세요." onkeyup="updateCharacterCount(this);" maxlength="20" >
-				<div id="characterCount" class="charCount" style="margin-left: 97%;">0/20</div>
-				
-				<input type="text" class="inp1" name="rvTitle" placeholder="제목을 입력해주세요." onkeyup="updateCharacterCount1(this);" maxlength="32" >
-				<div id="characterCount1" class="charCount" style="margin-left: 97%;">0/32</div>
-				
-				<input type="text" class="inp2" name="rvContent" placeholder="사용하신 상품의 자세한 후기를 남겨주세요" onkeyup="updateCharacterCount2(this);" maxlength="4000" >
+			<div class="rw-input-wrap review-no-rating">			
+				<textarea  class="inp2" name="rvContent" placeholder="사용하신 상품의 자세한 후기를 남겨주세요" onkeyup="updateCharacterCount2(this);" maxlength="4000"></textarea>
 				<div id="characterCount2" class="charCount" style="margin-left: 96%;">0/4000</div>
 				
 				<div class="rw-notice-layout">
@@ -495,20 +618,28 @@ $(function(){
 					</div>
 				</div>
 			</div>
-			<div class="review-no-rating">
-				<div class="rw-photo-layout">
-					<label class="rw-add-photo">
-						<img class="vector" alt="Vector" src="${pageContext.request.contextPath}/resources/images/icon/camera1.png">
-						<div class="rw-add-photo-text valign-text-middle">
-							사진추가
-						</div>
-					</label>
+			<div class="review-no-rating" style="width: 100%">
+				<div class="img-grid">
+					<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/icon/camera1.png">
+					<c:forEach var="vo" items="${listFile}">
+						<img src="${pageContext.request.contextPath}/uploads/product/${vo.photoName}"
+							class="item delete-img"
+							data-fileNum="${vo.photoNum}"
+							data-filename="${vo.photoName}">
+					</c:forEach>
 				</div>
+				<input type="file" name="selectFile1" accept="image/*" multiple="multiple" class="form-control" style="display: none;">			
 				<div class="rw-notice-layout-1">
 					<p class="rw-notice-text-1 valign-text-middle">
-                            * 해당 제품과 관련 있는 사진만 업로드 가능해요. (사진 1장당 10MB, 최대 6장)
+                            * 해당 제품과 관련 있는 사진만 업로드 가능해요. 
                     </p>
 				</div>
+			</div>
+			<input type="hidden" name="itemNum" value="${dto.itemNum}">
+			<input type="hidden" name="orderDetailNum" value="${dto.orderDetailNum}">
+			<div>
+				<button type="button" class="btn60" onclick="sendOk();">등록</button>
+				<button type="button" class="btn61" onclick="location.href='${pageContext.request.contextPath}/myPage/orders'">취소</button>
 			</div>
 		</div>
 		</form>
