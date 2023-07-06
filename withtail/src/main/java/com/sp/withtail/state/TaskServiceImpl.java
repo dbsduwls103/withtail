@@ -13,12 +13,18 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private CommonDAO dao;
 	
-	@Scheduled(cron="0 0 1 * * *")  // 매일 밤 1시
+	@Scheduled(cron="0 0 0 * * *")  // 매일 밤 1시
 	@Override
 	public void automaticRepeatOperation() {
 		try {
 			// 15일이 지난 장바구니 지우기
 			dao.deleteData("cart.deleteCartExpiration");
+			
+			// 배송 완료 5일 후에 자동 구매 확정
+			dao.updateData("orderManage.updateOrderStateDone");
+			
+			// 쿠폰 만료기한 지나면 자동 삭제
+			dao.deleteData("couponManage.deleteDoneCoupon");
 
 		} catch (Exception e) {
 		}

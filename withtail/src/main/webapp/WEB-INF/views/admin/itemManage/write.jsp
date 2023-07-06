@@ -523,15 +523,6 @@ $(function(){
 						<label for="showNotice" class="form-check-label">미진열</label>
 					</td>
 				</tr>
-				<tr> 
-					<td>쿠폰여부</td>
-					<td> 
-						<input type="radio" name="coupon" class="form-check-input" value="0" ${mode=="update" || dto.coupon==0 ? "checked='checked' ":"" }>
-						<label for="showNotice" class="form-check-label">가능</label>
-						<input type="radio" name="coupon"  class="form-check-input" value="1" ${mode=="update" || dto.coupon==1 ? "checked='checked' ":"" }>
-						<label for="showNotice" class="form-check-label">불가능</label>
-					</td>
-				</tr>
 				
 				<tr> 
 					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>

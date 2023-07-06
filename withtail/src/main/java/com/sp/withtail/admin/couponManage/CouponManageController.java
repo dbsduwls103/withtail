@@ -112,7 +112,7 @@ public class CouponManageController {
 	}
 
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String writeSumbit(CouponManage dto, @RequestParam String page) throws Exception {
+	public String writeSumbit(CouponManage dto) throws Exception {
 		
 		try {
 			service.insertCoupon(dto);
@@ -120,7 +120,7 @@ public class CouponManageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/admin/couponManage/list?page="+page;
+		return "redirect:/admin/couponManage/list";
 	}
 
 

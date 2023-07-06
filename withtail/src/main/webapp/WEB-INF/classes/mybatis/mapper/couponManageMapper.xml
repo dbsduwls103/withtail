@@ -101,4 +101,13 @@
         INSERT INTO membercoupon(couponNum, userId, used) VALUES(#{couponNum}, #{userId}, 0)
     </insert>
     
+    <delete id="deleteDoneCoupon" parameterType="map">
+        DELETE FROM coupon 
+        WHERE couponNum IN (
+            SELECT couponNum 
+            FROM coupon
+            WHERE endDate &gt; SYSDATE
+        )
+    </delete>
+    
 </mapper>
