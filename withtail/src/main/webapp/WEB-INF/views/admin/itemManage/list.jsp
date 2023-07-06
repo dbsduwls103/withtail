@@ -279,8 +279,8 @@ $(function(){
 								<c:param name="lastCtNum" value="${lastCtNum}"/>
 								<c:param name="page" value="${page}"/>
 							</c:url>
-							<button class="btn" onclick="location.href='${stockUrl}';">재고</button> 
-							<button class="btn" onclick="location.href='${updateUrl}';">수정</button>
+							<button type="button" class="btn" onclick="location.href='${stockUrl}';">재고</button> 
+							<button type="button" class="btn" onclick="location.href='${updateUrl}';">수정</button>
 						</td>
 					</tr>
 			     </c:forEach>
