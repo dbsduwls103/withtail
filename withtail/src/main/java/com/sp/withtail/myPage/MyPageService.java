@@ -45,8 +45,7 @@ public interface MyPageService {
 	public void insertReview(MyPage dto, String pathname) throws Exception;
 	public MyPage readReviewItem(long orderDetailNum);
 	public void insertReviewPhoto(MyPage dto) throws Exception;
-	
-	
+
 	
 	
 }

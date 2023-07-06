@@ -108,13 +108,15 @@ public class MyPageController {
 			Model model) throws Exception {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	int orderDataCount;
+
     	
     	dto.setUserId(info.getUserId());
     	orderDataCount = service.orderDataCount(info.getUserId());
-		
+   		
 		
 		List<MyPage> list = service.listOrder(dto);
-	
+		
+		
     	model.addAttribute("list", list);
     	model.addAttribute("orderDataCount", orderDataCount);
     	

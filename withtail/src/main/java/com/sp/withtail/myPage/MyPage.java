@@ -106,8 +106,15 @@ public class MyPage {
 	private List<MultipartFile> selectFile1;
 	
 	private String[] listFilename;
+	
+	private int reviewWrite;
 
-
+	public int getReviewWrite() {
+		return reviewWrite;
+	}
+	public void setReviewWrite(int reviewWrite) {
+		this.reviewWrite = reviewWrite;
+	}
 	public long getRvPhotoNum() {
 		return rvPhotoNum;
 	}

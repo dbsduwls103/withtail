@@ -646,19 +646,21 @@ $(function() {
 				                    </div>
 				                </div>
 				              		  <c:choose>
-				              		  	<c:when test="${dto.orderState eq 5}">
+				              		  	<c:when test="${dto.orderState eq 5 and dto.reviewWrite eq 0}">
 							                <div class="ov-text-btn">
 							                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  	
 							                	<c:url var="url1" value="/myPage/writeReview">
 							                		<c:param name="orderDetailNum" value="${dto.orderDetailNum}"/>
 							                		<c:param name="itemNum" value="${dto.itemNum}"/>
 							                	</c:url>
+
 							                	    <button type="button" class="btn2-1" onclick="location.href='${url1}'">후기 작성</button>		
-							             		
+
 							             	</div>
 										</c:when>	
 										<c:otherwise>
 						              <div class="ov-text-btn1">
+						              		
 						                    <button type="button" class="btn2 insertCart" data-itemNum="${dto.itemNum}" data-option2Num2="${dto.option2Num2}" data-option2Num="${dto.option2Num}">장바구니 담기</button>  	
 						                	
 						             </div>	
