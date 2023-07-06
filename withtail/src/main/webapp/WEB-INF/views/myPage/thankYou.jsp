@@ -178,8 +178,8 @@ img {
 			</div>
 		</div>
 		<div>
-			<button type="button" class="btn60">후기 보러 가기</button>
-			<button type="button" class="btn61">쇼핑하러 가기</button>
+			<button type="button" class="btn60" onclick="location.href='${pageContext.request.contextPath}/shop/info/${dto.itemNum}'">후기 보러 가기</button>
+			<button type="button" class="btn61" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
 		</div>
 	</div>
 </div>
