@@ -29,10 +29,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(Member dto) throws Exception {
 		try {
-			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
-				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
-			}
-
 
 			long memberSeq = dao.selectOne("member.memberSeq");
 			dto.setNum(memberSeq);
@@ -40,9 +36,9 @@ public class MemberServiceImpl implements MemberService {
 			// 회원정보 저장
 			dao.insertData("member.insertMember", memberSeq);
 
-			// dao.insertData("member.insertMember1", dto);
-			// dao.insertData("member.insertMember2", dto);
-			dao.updateData("member.insertMember12", dto); // member1, member2 테이블 동시에
+			dao.insertData("member.insertMember1", dto);
+		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -56,14 +52,6 @@ public class MemberServiceImpl implements MemberService {
 		try {
 			dto = dao.selectOne("member.readMember", userId);
 
-			if (dto != null) {
-				if (dto.getEmail() != null) {
-					String[] s = dto.getEmail().split("@");
-					dto.setEmail1(s[0]);
-					dto.setEmail2(s[1]);
-				}
-
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

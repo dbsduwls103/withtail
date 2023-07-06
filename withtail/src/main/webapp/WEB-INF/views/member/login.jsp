@@ -106,7 +106,7 @@ function sendLogin() {
 			<a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a>
 		</p>
 		<p>
-			계정이 없으세요? <a href="#">회원가입</a>
+			계정이 없으세요? <a href="${pageContext.request.contextPath}/member/join">회원가입</a>
 		</p>
 	</div>
 </div>

@@ -118,11 +118,11 @@ input {
 		</div>
 		<div class="delivery-layout dialog">
 			<div style="width:40%">
-				<form>
+				<form name="memberForm" method="post" action="${pageContext.request.contextPath}/member/${mode}">
 					<div>
 						<div>
 							<div class="input-group">
-								<input type="text" id="username" name="name" maxlength="20" class="form-control" placeholder="이름*" onkeyup="checkUsernameValidity(); updateCharacterCount1(this);">
+								<input type="text" id="username" name="userName" maxlength="20" class="form-control" placeholder="이름*" onkeyup="checkUsernameValidity(); updateCharacterCount1(this);">
 							</div>
 							<div class="d-flex">
 								<div id="usernameError" style="color: #da1e28;"></div>
@@ -167,7 +167,7 @@ input {
 					<div>
 						<div>
 							<div class="input-group">
-								<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호*" onkeyup="checkPasswordValidity();">
+								<input type="password" id="password" name="userPwd" class="form-control" placeholder="비밀번호*" onkeyup="checkPasswordValidity();">
 							</div>
 							
 							<div id="passwordError" style="color: #da1e28; min-height: 26px;"></div>
@@ -183,8 +183,11 @@ input {
 							<div id="confirmPasswordError" style="color: #da1e28; min-height: 26px;"></div>
 						</div>
 					</div>
+					 <div class="row">
+						<p class="form-control-plaintext text-center">${message}</p>
+			    	</div>
 					<div style="text-align: center;">
-						<button type="button" class="btn-1">가입</button>
+						<button type="submit" class="btn-1">가입</button>
 					</div>
 				</form>
 			</div>
@@ -310,6 +313,33 @@ function checkUserIdValidity() {
  function checkDuplicateId() {
    // 여기에 중복 검사 로직을 작성하세요.
    // 중복 여부에 따라 처리 로직을 구현하면 됩니다.
+   
+   		let userId = $("#userId").val();	
+   		var errorDiv = document.getElementById("userIdError");
+   
+		let url = "${pageContext.request.contextPath}/member/userIdCheck";
+		let query = "userId=" + userId;
+		$.ajax({
+			type:"POST"
+			,url:url
+			,data:query
+			,dataType:"json"
+			,success:function(data) {
+				let passed = data.passed;
+
+				if(passed === "true") {
+					let str = "<span style='color:blue; font-weight: bold;'>" + userId + "</span> 아이디는 사용가능 합니다.";
+					$("#userIdError").html(str);
+				} else {
+					let str = "<span style='color:red; font-weight: bold;'>" + userId + "</span> 아이디는 사용할수 없습니다.";
+					$("#userIdError").html(str);
+					$("#userId").val("");
+					$("#userId").focus();
+				}
+			}
+		});
+   
+   
  }
 
  // 닉네임 중복 검사 함수

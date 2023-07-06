@@ -1,13 +1,22 @@
 package com.sp.withtail.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("member.memberController")
 @RequestMapping(value ="/member/*")
@@ -15,11 +24,77 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	@RequestMapping(value = "member", method = RequestMethod.GET)
+	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public String memberForm(Model model) {
-		model.addAttribute("mode", "member");
-		return ".member.member";
+		model.addAttribute("mode", "join");
+		return ".member.join";
 	}
+	
+	@PostMapping(value = "join")
+	public String memberSubmit(Member dto,
+			final RedirectAttributes reAttr,
+			Model model) {
+		
+		try {
+			
+			service.insertMember(dto);
+		
+		} catch (DuplicateKeyException e) {
+			// 기본키 중복에 의한 제약 조건 위반
+			model.addAttribute("mode", "join");
+			model.addAttribute("message", "아이디 중복으로 회원가입이 실패했습니다.");
+			return ".member.join";
+		} catch (DataIntegrityViolationException e) {
+			// 데이터형식 오류, 참조키, NOT NULL 등의 제약조건 위반
+			model.addAttribute("mode", "join");
+			model.addAttribute("message", "제약 조건 위반으로 회원가입이 실패했습니다.");
+			return ".member.join";
+		} catch (Exception e) {
+			model.addAttribute("mode", "join");
+			model.addAttribute("message", "회원가입이 실패했습니다.");
+			return ".member.join";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(dto.getUserName() + "님의 회원 가입이 정상적으로 처리되었습니다.<br>");
+		sb.append("메인화면으로 이동하여 로그인 하시기 바랍니다.<br>");
+
+		// 리다이렉트된 페이지에 값 넘기기
+		reAttr.addFlashAttribute("message", sb.toString());
+		reAttr.addFlashAttribute("title", "회원 가입");
+
+		return "redirect:/member/complete";
+	}
+	
+	@RequestMapping(value = "complete")
+	public String complete(@ModelAttribute("message") String message) throws Exception {
+
+		// 컴플릿 페이지(complete.jsp)의 출력되는 message와 title는 RedirectAttributes 값이다.
+		// F5를 눌러 새로 고침을 하면 null이 된다.
+
+		if (message == null || message.length() == 0) // F5를 누른 경우
+			return "redirect:/";
+
+		return ".member.complete";
+	}
+	
+	@RequestMapping(value = "userIdCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> idCheck(@RequestParam String userId) throws Exception {
+
+		String p = "true";
+		Member dto = service.readMember(userId);
+		if (dto != null) {
+			p = "false";
+		}
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String loginForm() {
