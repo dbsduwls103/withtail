@@ -478,7 +478,7 @@ public class MyPageController {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	
     	String root = session.getServletContext().getRealPath("/");
-    	String pathname = root + "uploads" + File.separator + "writeReview";
+    	String pathname = root + "uploads" + File.separator + "review";
     	
     	try {
     	

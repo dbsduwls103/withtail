@@ -348,6 +348,11 @@ align-items: flex-start;
 function selectPet(pet) {
 	var selectedPetInput = document.getElementById("selectedPet");
 	selectedPetInput.value = pet;
+	 if(pet== "강아지") {
+		  $("#petImage").attr("src", "${pageContext.request.contextPath}/resources/images/icon/dog1.png") ; 
+	  } else {
+		  $("#petImage").attr("src", "${pageContext.request.contextPath}/resources/images/icon/cat2.png") ; 		    
+	  }
 }
 
 function selectGender(gender) {
@@ -421,6 +426,7 @@ function printName() {
 	  petNameResults.forEach((result) => {
 	    result.innerText = name;
 	  });
+	 
 	}
 	
 function printBirth()  {
