@@ -321,7 +321,7 @@ $(function(){
 			
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<img src="" alt="강아지" style="width: 34px;" id="animalImg">
+					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;" id="animalImg">
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0;">
 					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" >
