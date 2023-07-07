@@ -8,6 +8,7 @@ public class SessionInfo {
 	private String nickName;
 	private int membership;
 	private String email;
+	private int animal;
 	
 	public long getNum() {
 		return num;
@@ -44,5 +45,11 @@ public class SessionInfo {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public int getAnimal() {
+		return animal;
+	}
+	public void setAnimal(int animal) {
+		this.animal = animal;
 	}
 }
