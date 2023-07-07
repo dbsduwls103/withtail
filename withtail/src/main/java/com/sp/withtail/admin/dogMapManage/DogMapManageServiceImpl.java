@@ -16,8 +16,8 @@ public class DogMapManageServiceImpl implements DogMapManageService{
 	private CommonDAO dao;
 
 	@Autowired
-	private FileManager fileManager;	
-
+	private FileManager fileManager;
+	
 	@Override
 	public void updateDogMap(DogMapManage dto, String pathname) throws Exception {
 		try {

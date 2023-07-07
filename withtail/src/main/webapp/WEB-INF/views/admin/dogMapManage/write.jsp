@@ -9,7 +9,6 @@
 .out{
  display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
-
 .body-main {
 	width: 960px;
 }
@@ -249,8 +248,6 @@ $(function(){
 		let $img = $(this);
 		let photoNum = $img.attr("data-photoNum");
 		let photoName = $img.attr("data-photoName");
-		alert(photoNum)
-		alert(photoName)
 		let url="${pageContext.request.contextPath}/admin/dogMapManage/deletePhoto";
 		$.post(url, {photoNum:photoNum, photoName:photoName}, function(data){
 			$img.remove();
