@@ -519,7 +519,7 @@ $(function(){
 					<td> 
 						<input type="radio" name="showNotice" class="form-check-input" value="0" ${mode=="update" || dto.showNotice==0 ? "checked='checked' ":"" }>
 						<label for="showNotice" class="form-check-label">진열</label>
-						<input type="radio" name="showNotice" class="form-check-input" value="1" ${mode=="update" || dto.showNotice==1 ? "checked='checked' ":"" }>
+						<input type="radio" name="showNotice" class="form-check-input" value="1">
 						<label for="showNotice" class="form-check-label">미진열</label>
 					</td>
 				</tr>

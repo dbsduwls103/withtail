@@ -217,7 +217,7 @@
 	</update>
 	
     <delete id="deleteItemPhoto" parameterType="Long">
-		DELETE FROM itemPhoto WHERE itemNum = #{itemNum}
+		DELETE FROM itemPhoto WHERE photoNum = #{photoNum}
 	</delete>
 	
 	<delete id="deleteItem" parameterType="long">

@@ -155,6 +155,7 @@ function check() {
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="placeNum" value="${dto.placeNum}">
 							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="mainImage" value="${dto.mainImage}">
 						</c:if>
 					</td>
 				</tr>
@@ -248,6 +249,8 @@ $(function(){
 		let $img = $(this);
 		let photoNum = $img.attr("data-photoNum");
 		let photoName = $img.attr("data-photoName");
+		alert(photoNum)
+		alert(photoName)
 		let url="${pageContext.request.contextPath}/admin/dogMapManage/deletePhoto";
 		$.post(url, {photoNum:photoNum, photoName:photoName}, function(data){
 			$img.remove();

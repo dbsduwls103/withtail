@@ -21,6 +21,7 @@ public class DogMapManageServiceImpl implements DogMapManageService{
 	@Override
 	public void updateDogMap(DogMapManage dto, String pathname) throws Exception {
 		try {
+			
 			String photoName = fileManager.doFileUpload(dto.getMainImageFile(), pathname);
 			if(photoName != null) {
 				if(dto.getMainImage().length() != 0) {
@@ -29,6 +30,7 @@ public class DogMapManageServiceImpl implements DogMapManageService{
 
 				dto.setMainImage(photoName);
 			}
+			
 			dao.updateData("dogMapManage.updateDogMap", dto);
 
 			if(! dto.getAddFiles().isEmpty()) {
@@ -57,7 +59,7 @@ public class DogMapManageServiceImpl implements DogMapManageService{
 				fileManager.doFileDelete(pathname);
 			}
 
-			dao.deleteData("itemManage.deleteItemPhoto", photoNum);
+			dao.deleteData("dogMapManage.deleteDogMapPhoto", photoNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -95,7 +97,7 @@ public class DogMapManageServiceImpl implements DogMapManageService{
 	List<DogMapManage> list = null;
 		
 		try {
-			list = dao.selectList("dogMapManage.listItemPhoto",placeNum);
+			list = dao.selectList("dogMapManage.listDogMapPhoto",placeNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
