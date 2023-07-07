@@ -15,6 +15,7 @@ public class DogMapManage {
 	private long photoNum;
 	private String photoName;
 	private List<MultipartFile> addFiles;
+
 	
 	public long getPlaceNum() {
 		return placeNum;

@@ -324,7 +324,7 @@ public class ItemManageController {
 
 	@RequestMapping(value = "deletePhoto", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> deleteFile(@RequestParam long photoNum, 
+	public Map<String, Object> deletePhoto(@RequestParam long photoNum, 
 			@RequestParam String photoName, HttpSession session) throws Exception {
 
 		String state = "true";

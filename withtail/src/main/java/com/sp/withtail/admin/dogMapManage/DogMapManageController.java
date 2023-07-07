@@ -16,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.MyUtil;
+
 
 @Controller("admin.dogMapManageController")
 @RequestMapping("/admin/dogMapManage/*")
@@ -144,6 +146,28 @@ public class DogMapManageController {
 		return ".admin.dogMapManage.article";
 	}
 
+	@RequestMapping(value = "deletePhoto", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deletePhoto(@RequestParam long photoNum, 
+			@RequestParam String photoName,
+			HttpSession session) throws Exception {
+
+		String state = "true";
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "dogMap" + File.separator + photoName;
+
+			service.deleteDogMapPhoto(photoNum, pathname);
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	
 
 
 }

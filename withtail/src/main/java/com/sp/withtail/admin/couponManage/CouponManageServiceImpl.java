@@ -82,6 +82,7 @@ public class CouponManageServiceImpl implements CouponManageService {
 	@Override
 	public void deleteCoupon(long couponNum) throws Exception {
 		try {
+			
 			dao.deleteData("couponManage.deleteCoupon", couponNum);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,7 +9,6 @@
 .out{
  display: flex; align-items: center;  flex-direction: row; justify-content: center;
 }
-
 .body-main {
 	width: 960px;
 }
@@ -155,6 +154,7 @@ function check() {
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="placeNum" value="${dto.placeNum}">
 							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="mainImage" value="${dto.mainImage}">
 						</c:if>
 					</td>
 				</tr>

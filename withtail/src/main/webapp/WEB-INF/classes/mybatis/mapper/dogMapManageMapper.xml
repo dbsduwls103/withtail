@@ -29,11 +29,11 @@
    </select>
   
    <insert id="insertDogMapPhoto" parameterType="com.sp.withtail.admin.dogMapManage.DogMapManage">
-       INSERT INTO dogmapPhoto(photoNum, placeNum, photoName) VALUES (dogmapphoto_seq.NEXTVAL, #{placeNum}, #{photoName})
+       INSERT INTO dogmapPhoto(photoNum, placeNum, photoName) VALUES (dogmapphotofile_seq.NEXTVAL, #{placeNum}, #{photoName})
    </insert>
    
    <delete id="deleteDogMapPhoto" parameterType="Long">
-		DELETE FROM dogmapPhoto WHERE placeNum = #{placeNum}
+		DELETE FROM dogmapPhoto WHERE photoNum = #{photoNum}
 	</delete>
 	
 	<select id="readDogMap" parameterType="long" resultType="com.sp.withtail.admin.dogMapManage.DogMapManage">
