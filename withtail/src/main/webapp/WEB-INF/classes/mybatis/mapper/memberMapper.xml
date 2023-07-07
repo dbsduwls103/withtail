@@ -33,6 +33,12 @@
 	    from member1 where nickName = #{nickName}
     </select>
     
+    <update id="updateMember" parameterType="com.sp.withtail.member.Member">
+    	UPDATE member1
+    	SET userPwd = #{userPwd}
+    	WHERE userId = #{userId}
+    </update>
+    
     
     
     

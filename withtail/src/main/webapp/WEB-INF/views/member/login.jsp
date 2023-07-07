@@ -103,7 +103,7 @@ function sendLogin() {
 	</form>
 	<div class="text-center mt-3">
 		<p>
-			<a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a>
+			<a href="#">아이디 찾기</a> | <a href="${pageContext.request.contextPath}/member/pwdFind">비밀번호 찾기</a>
 		</p>
 		<p>
 			계정이 없으세요? <a href="${pageContext.request.contextPath}/member/join">회원가입</a>

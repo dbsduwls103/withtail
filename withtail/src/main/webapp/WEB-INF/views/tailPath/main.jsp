@@ -160,8 +160,10 @@ $('.box button.close').click(function() {
 
     <div class="course_all">
      	<h1>현재 날씨 정보</h1>
- 		<div id="weatherInfo"></div>
+ 		<div id="weather"></div>
  		<div id="temperatureInfo"></div>
+ 		<div id="weatherInfo"></div>
+ 		<div id="icon"></div>
 			<div class="course_all_top">
 			    <h3 style="text-align: center; color: white; font-weight: bold;">
 			        Tail&amp;Path 검색
@@ -480,7 +482,7 @@ $(document).ready(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
     } else {
-        alert("Geolocation is not supported by this browser.");
+        alert("위치정보를 불러올 수 없습니다.");
     }
 });
 
@@ -489,7 +491,7 @@ function success(position) {
     var longitude = position.coords.longitude;
 
     var apiKey = "d3ab98ed62e86f1b01cefd84ef3b7f4b";
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&lang=kr";
 
     $.ajax({
         url: apiUrl,
@@ -498,9 +500,12 @@ function success(position) {
         success: function(data) {
             var weather = data.weather[0].main;
             var temperature = Math.round(data.main.temp - 273.15);
-
-            $("#weatherInfo").text("날씨: " + weather);
+			var weatherinfo = data.weather[0].description;
+			var weathericon = data.weather[0].icon;
+            $("#weather").text("날씨: " + weather);
+            $("#weatherInfo").text("날씨상세: " + weatherinfo);
             $("#temperatureInfo").text("온도: " + temperature + "°C");
+            $("#icon").html("<img src='https://openweathermap.org/img/wn/" + weathericon + "@2x.png' alt='날씨 이미지'>");
         },
         error: function(error) {
             console.log(error);
