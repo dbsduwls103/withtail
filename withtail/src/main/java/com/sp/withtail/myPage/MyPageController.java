@@ -501,4 +501,5 @@ public class MyPageController {
     	
     	return ".myPage.thankYou";
     }
+    
 }

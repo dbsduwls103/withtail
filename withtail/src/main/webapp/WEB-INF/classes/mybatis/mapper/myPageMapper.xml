@@ -205,7 +205,7 @@
 	</insert>
 	
 	<update id="increaseCart" parameterType="com.sp.withtail.myPage.MyPage">
-		UPDATE cart SET quantity = quantity + 1 
+		UPDATE cart SET quantity = quantity + 1, cartRegdate = SYSDATE
 		WHERE userId = #{userId} AND itemNum = #{itemNum} 
 		<if test="option2Num!=null">
 		  AND option2Num = #{option2Num}
