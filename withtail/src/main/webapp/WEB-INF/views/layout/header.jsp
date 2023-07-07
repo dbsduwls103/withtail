@@ -217,6 +217,72 @@
 	
 </style>
 
+<script>
+
+$(function(){
+	let dataSt = localStorage.getItem('animal');
+	console.log(dataSt);
+	if (dataSt !== '2'){
+		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_dog.png";
+	} else {
+		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_cat.png";
+	}
+});
+
+	function switchImg(num){
+		
+		if(num === 2){
+			$.ajax({
+					
+				  url: '${pageContext.request.contextPath}/resources/images/header/icon_cat.png',  
+				  
+			      method: 'GET',
+			      success: function(response) {
+			        // 이미지 요청이 성공
+			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_cat.png');
+			      },
+			      error: function() {
+			        // 이미지 요청이 실패
+			        console.log('이미지 요청에 실패했습니다.');
+			      }
+			});
+		} else {
+			$.ajax({
+				
+				  url: '${pageContext.request.contextPath}/resources/images/header/icon_dog.png',  
+				  
+			      method: 'GET',
+			      success: function(response) {
+			        // 이미지 요청이 성공
+			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_dog.png');
+			      },
+			      error: function() {
+			        // 이미지 요청이 실패
+			        console.log('이미지 요청에 실패했습니다.');
+			      }
+			});
+		}
+	}
+	
+	
+	function switchAnimal1(){
+		let data = 1;
+		localStorage.setItem('animal', data);
+		switchImg(1);
+	}
+	
+	function switchAnimal2(){
+		let data = 2;
+		localStorage.setItem('animal', data);
+		switchImg(2);
+	}
+	
+
+</script>
+
+
+
+
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="z-index: 99;">
 	    <div class="container">
 	      <a class="navbar-brand" href="${pageContext.request.contextPath}/">
@@ -255,13 +321,13 @@
 			
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;">
+					<img src="" alt="강아지" style="width: 34px;" id="animalImg">
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0;">
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" >
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;"> 강아지
 					</a>
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" onclick="return switchAnimal2();" data-value="2">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_cat.png" alt="고양이" style="width: 34px;"> 고양이
 					</a>
 				</div>
@@ -351,7 +417,7 @@
 				<li><a href="#" class="nav-bold">고객센터</a>
 					<ul class="main2">
 						<li><a href="${pageContext.request.contextPath}/inquiry/list">1:1문의</a></li>
-						<li><a href="${pageContext.request.contextPath}/faq/list">FAQ</a></li>
+						<li><a href="${pageContext.request.contextPath}/faq/main">FAQ</a></li>
 						<li><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
 					</ul>
 				</li>
@@ -360,3 +426,4 @@
 		</div>
 	</nav>
 <!-- //menu2 -->
+
