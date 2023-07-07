@@ -137,4 +137,19 @@ public class MemberServiceImpl implements MemberService {
 		// 10 자리 임시 패스워드 생성
 
 	}
+
+	@Override
+	public Member readMemberByNickname(String nickName) {
+		Member dto = null;
+
+		try {
+			dto = dao.selectOne("member.readMember1", nickName);
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
 }

@@ -42,7 +42,7 @@ public class MemberController {
 		} catch (DuplicateKeyException e) {
 			// 기본키 중복에 의한 제약 조건 위반
 			model.addAttribute("mode", "join");
-			model.addAttribute("message", "아이디 중복으로 회원가입이 실패했습니다.");
+			model.addAttribute("message", "아이디 혹은 닉네임 중복으로 회원가입이 실패했습니다.");
 			return ".member.join";
 		} catch (DataIntegrityViolationException e) {
 			// 데이터형식 오류, 참조키, NOT NULL 등의 제약조건 위반
@@ -93,8 +93,20 @@ public class MemberController {
 		return model;
 	}
 	
-	
-	
+	@RequestMapping(value = "userNicknameCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> nickNameCheck(@RequestParam String nickName) throws Exception {
+
+		String p = "true";
+		Member dto = service.readMemberByNickname(nickName);
+		if (dto != null) {
+			p = "false";
+		}
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("passed", p);
+		return model;
+	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String loginForm() {

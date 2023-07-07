@@ -28,6 +28,11 @@
 	    from member1 where userId = #{userId}
     </select>
     
+    <select id="readMember1" parameterType="String" resultType="com.sp.withtail.member.Member">
+	    select userId,num,userName,nickName,userPwd,enabled,regDate,modifyDate,lastLogin,failureCnt,point,email 
+	    from member1 where nickName = #{nickName}
+    </select>
+    
     
     
     
