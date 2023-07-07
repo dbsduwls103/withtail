@@ -305,7 +305,14 @@ function deleteOk() {
 						</div>
 					</div>
 					<div>
-						<button class="btn10" type="button" onclick="location.href='${pageContext.request.contextPath}/'">쇼핑하러 가기</button>
+						<c:choose>
+							<c:when test="${dto.whichPet == '강아지'}">	
+								<button class="btn10" type="button" onclick="location.href='${pageContext.request.contextPath}/shop/1'">쇼핑하러 가기</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn10" type="button" onclick="location.href='${pageContext.request.contextPath}/shop/2'">쇼핑하러 가기</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

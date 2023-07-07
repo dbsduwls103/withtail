@@ -88,7 +88,21 @@ public class MyPage {
 	private long salePrice1;
 	private int star;
 	private long itemNum;
+	private long savePoint;
+	private String orderStateDate;
 	
+	public String getOrderStateDate() {
+		return orderStateDate;
+	}
+	public void setOrderStateDate(String orderStateDate) {
+		this.orderStateDate = orderStateDate;
+	}
+	public long getSavePoint() {
+		return savePoint;
+	}
+	public void setSavePoint(long savePoint) {
+		this.savePoint = savePoint;
+	}
 	// 장바구니
 	private long cartNum;
 	private long quantity;

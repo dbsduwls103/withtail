@@ -417,6 +417,18 @@ a:hover, a:focus {
 function sendOk() {
 	const f = document.reviewForm;
 	
+	if(!f.rvContent.value) {
+        alert("내용을 입력해주세요");
+        f.rvContent.focus();
+        return;
+	}   
+	
+	if( !f.selectFile1.value) {
+        alert("이미지 파일을 추가 하세요. ");
+        f.selectFile1.focus();
+        return;
+	}   
+	
 	f.action = "${pageContext.request.contextPath}/myPage/writeReview";
 	f.submit();
 }

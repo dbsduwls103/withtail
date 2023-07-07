@@ -484,6 +484,54 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 
+	@Override
+	public void getPoint(MyPage dto) throws Exception {
+		try {
+			dao.insertData("myPage.getPoint", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public MyPage readPoint(String userId) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readPoint", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;	
+		
+	}
+
+	@Override
+	public void memberEdit(MyPage dto) throws Exception {
+		try {						
+			dao.updateData("myPage.memberEdit", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public MyPage readMember(String userId) {
+		MyPage dto = null;
+		
+		try {
+			dto = dao.selectOne("myPage.readMember", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 	
 	
 

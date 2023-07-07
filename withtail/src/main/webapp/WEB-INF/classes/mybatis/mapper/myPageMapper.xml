@@ -6,6 +6,7 @@
 		SELECT petName, breed, gender, whichPet, petsImageFilename, num
 		FROM animal
 		WHERE userId = #{userId}
+		ORDER BY num DESC
 	</select>
 	
 	
@@ -135,13 +136,13 @@
 	
 	<select id="readOrderList" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">		
 		SELECT m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState, totalOriPrice, deliveryCharge,usedPoint, usedCoupon,
-		       SUM((od.price - NVL(od.salePrice, 0)) * od.count) AS total_discount, totalPurchasePrice
+		       SUM((od.price - NVL(od.salePrice, 0)) * od.count) AS total_discount, totalPurchasePrice, SUM(savePoint) savePoint, TO_CHAR(orderStateDate,'YYYY-MM-DD') orderStateDate
 		FROM member1 m
 		JOIN orderList ol ON ol.userId = m.userId
 		JOIN orderAddress a ON ol.orderNum = a.orderNum
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum
 		WHERE od.orderNum=#{orderNum}
-		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice
+		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice, orderStateDate
 	</select>
 	
 	<update id="updateOrderState" parameterType="Long">
@@ -171,6 +172,7 @@
 		SELECT pointNum, userId, pointChk, amount, balance,pointRegDate
 		FROM point
 		WHERE userId=#{userId}
+		ORDER BY pointNum DESC
 	</select>
 	
 	<select id="pointDataCount" parameterType="String" resultType="Integer">
@@ -252,6 +254,31 @@
 		WHERE od.orderdetailNum = #{orderDetailNum}
 	</select>
 
+	<select id="readPoint" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT * FROM point where userId = #{userId}
+        order by pointNum DESC
+        FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<insert id="getPoint" parameterType="com.sp.withtail.myPage.MyPage">
+		INSERT INTO point(pointNum, userId, pointChk, amount, balance, pointRegDate)
+		VALUES(point_seq.nextval ,#{userId},0, #{amount}, #{balance}, #{pointRegDate})
+	</insert>
+	
+	<update id="memberEdit" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE member1 SET point = #{balance}
+		WHERE userId = #{userId}
+	</update>
+	
+	<select id="readMember" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
+		SELECT point
+		FROM member1
+		WHERE userId = #{userId}
+	</select>
+	
+	
+	
+	
 	
 </mapper>
 

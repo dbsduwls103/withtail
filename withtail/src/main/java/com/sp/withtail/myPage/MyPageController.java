@@ -48,7 +48,7 @@ public class MyPageController {
 		
 		MyPage dto3 = null;
 		if(list2.size() > 0)
-	        dto3 = list2.get(list2.size()-1);
+	        dto3 = list2.get(0);
 		
 		
 		    MyPage dto1 = null;
@@ -125,13 +125,19 @@ public class MyPageController {
     
     @GetMapping("orderDetail")
 	public String orderDetail(@RequestParam long orderNum, 
-			Model model) throws Exception {
+			Model model, HttpSession session) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	
     	MyPage dto = service.readOrderList(orderNum);
+    
+    	MyPage dto1 = service.readPoint(info.getUserId());
+    	
+    
     	
     	List<MyPage> list = service.listNumOrder(orderNum);
     	model.addAttribute("dto", dto);
     	model.addAttribute("list", list);
+    	model.addAttribute("dto1", dto1);
     	
 		return ".myPage.orderDetail";
 	}
@@ -152,6 +158,37 @@ public class MyPageController {
     	
     	return model;
     }
+    
+    @PostMapping("getPoint")
+    @ResponseBody
+    public Map<String, Object> getPoint(MyPage dto, HttpSession session) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
+    	String state = "true";
+    	try {
+    		
+    		MyPage dto1 = service.readPoint(info.getUserId());
+    		if(dto1 != null) {
+    			dto.setBalance(dto1.getBalance() + dto.getAmount());
+    		} else {
+    			dto.setBalance(dto.getAmount());
+    		}
+    		dto.setUserId(info.getUserId());
+    		
+    		service.getPoint(dto);
+    		
+    		service.memberEdit(dto);
+    		
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	
+    	return model;
+    }
+    
     
     @PostMapping("updateOrderCancel")
     @ResponseBody
@@ -253,7 +290,7 @@ public class MyPageController {
     	
     	 MyPage dto1 = null;
 		    if(list.size() > 0)
-		        dto1 = list.get(list.size()-1);
+		        dto1 = list.get(0);
     		
     	int pointDataCount = 0;
     	

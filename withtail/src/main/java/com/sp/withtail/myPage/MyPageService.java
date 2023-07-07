@@ -46,6 +46,11 @@ public interface MyPageService {
 	public MyPage readReviewItem(long orderDetailNum);
 	public void insertReviewPhoto(MyPage dto) throws Exception;
 
+	public void getPoint(MyPage dto) throws Exception;
+	public MyPage readPoint(String userId);
 	
+	public void memberEdit(MyPage dto) throws Exception;
+	
+	public MyPage readMember(String userId);
 	
 }

@@ -641,7 +641,11 @@ $(function() {
 
 		let orderState = $('#orderState').val();
 		let orderNum = ${dto.orderNum};
+		let amount = ${dto.savePoint};
+		let pointRegDate = '${dto.orderStateDate}';
+
 		updateOrderState(orderNum, orderState);
+		getPoint(amount, pointRegDate);
 		
 	});
 	
@@ -664,6 +668,27 @@ $(function() {
 		      }
 		    });
 	}
+	
+	function getPoint(amount, pointRegDate) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/getPoint",
+		      type: "POST", 
+		      data: { amount: amount, pointRegDate: pointRegDate },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("포인트 등록 성공");
+		        $('#orderGood').hide();
+		        $('.whatStatus').text('구매확정');
+		     
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error(" 포인트 등록 실패");
+		      
+		      }
+		    });
+	}
+	
 	
 });
 

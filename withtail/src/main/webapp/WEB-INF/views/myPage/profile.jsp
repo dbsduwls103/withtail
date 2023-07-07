@@ -327,7 +327,20 @@ $(function() {
 		let userName = $('#userName').val();
 		let nickName = $('#nickName').val();
 	
+		if(! userName || !/^[가-힣]+$/.test(userName)) {
+			$('#userName').focus();
+			return;
+		} 
+		
+		if(! nickName || nickName > 20) {
+			$('#nickName').focus();
+			return;			
+		}
+		
+		
 		updateName(userName, nickName);
+		
+		
 	});
 	
 	function updateName(userName, nickName) {

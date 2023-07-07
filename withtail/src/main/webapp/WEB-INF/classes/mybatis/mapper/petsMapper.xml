@@ -6,7 +6,4 @@
 		INSERT INTO animal(num, userId, petName, breed, weight, gender, birth, whichpet, petsImageFilename)
 		VALUES(animal_seq.NEXTVAL, #{userId}, #{petName}, #{breed}, #{weight}, #{gender}, #{birth}, #{whichpet}, #{petsImageFilename, jdbcType=VARCHAR})
 	</insert>
-	
-	
-
 </mapper>
