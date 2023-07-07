@@ -398,7 +398,7 @@ function deleteCartSelect() {
 		                              </button>
 		                            </span>
 		                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
-		                              <input type="text" id="quantity-${status.index}" name="quantity" class="form-control input-number" value="${dto.quantity}" 
+		                              <input type="text" id="quantity-${status.index}" name="qtys" class="form-control input-number" value="${dto.quantity}" 
 		                               min="1" max="100" readonly="readonly">
 		                            </span>
 		                            <span>
