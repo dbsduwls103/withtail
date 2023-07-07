@@ -142,7 +142,7 @@
 		WHERE (i.itemNum, op1.option2Num, op2.option2Num) IN
 		<foreach collection="list" item="item" index="index"
 			open="(" separator="," close=")">
-			(#{item.itemNum}, #{item.option2Num}, #{item.option2Num2})
+			(#{item.itemNum}, #{item.option2Num, jdbcType=INTEGER}, #{item.option2Num2, jdbcType=INTEGER})
 		</foreach>
 	</select>
 
