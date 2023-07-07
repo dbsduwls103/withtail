@@ -950,11 +950,24 @@ img {
     border: solid 1px #dadada;
     border-radius: 5px;
 	padding-left: 12px;
+	height: 34px;
 }
 
 .charCount {
 	text-align: right;
     font-size: 12px;
+}
+
+/*검색 버튼*/
+.search-btn {
+    border: none;
+    width: 15%;
+    max-width: 80px;
+    height: 34px;
+    font-size: 14px;
+    color: white;
+    background-color: #82ae46;
+    border-radius: 5px;
 }
 
 </style>
@@ -992,66 +1005,109 @@ img {
 								</div>
 							</a>
 
-							<!-- 기본 배송지 -->
-							<div class="address-box selected">
-								<div class="address-icon-bar">
-									<div class="icon">
-										<div class="registered-address-box">
-											<div class="registered-address-name">기본배송지</div>
+							<c:forEach var="vo" items="${listAddress}" varStatus="status">
+								<c:choose>
+									<c:when test="${vo.addDef == 1}">
+										<div class="address-box addBox${vo.addNum} selected">
+											<div class="address-icon-bar">
+												<div class="icon">
+													<div class="registered-address-box">
+														<div class="registered-address-name">기본배송지</div>
+													</div>
+												</div>
+												<div class="right-icon-layout">
+													<div class="minimal-text-btn">
+														<a href="#" class="text-2 valign-text-middle"> 수정 </a>
+													</div>
+													<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+													<div class="minimal-text-btn">
+														<a href="#" class="text-2 valign-text-middle" data-bs-toggle="modal" data-bs-target="#delAddrModal${vo.addNum}"> 삭제 </a>
+													</div>
+													<!-- 삭제 Modal -->
+													<div class="modal fade" id="delAddrModal${vo.addNum}" tabindex="-1" aria-labelledby="delAddrModalLabel${vo.addNum}" aria-hidden="true">
+													  <div class="modal-dialog modal-dialog-centered" style="width: 355px;">
+													    <div class="modal-content">
+													      <div class="modal-header" style="border-bottom: none;">
+													        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													      </div>
+													      <div class="modal-body" style="text-align: center; padding-bottom: 0px; font-size: 17px;">
+													        배송지를 삭제하시겠어요?
+													      </div>
+													      <div class="modal-footer" style="justify-content: center; border-top: none;">
+													        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 150px; height: 62px; border-radius: 5px; background-color: white; color: gray;">아니요</button>
+													        <button type="button" class="btn btn-primary" style="width: 150px; height: 62px; border-radius: 5px;" data-bs-dismiss="modal" onclick="deleteAdd(${vo.addNum});">예</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>
+													<!-- // 삭제 Modal -->
+												</div>
+											</div>
+			
+											<div class="address-text-wrap">
+												<div class="address-text-layout-1">
+													<div class="registered-address-name-1 valign-text-middle">${vo.addName}</div>
+													<p class="registered-address-1 valign-text-middle">
+														${vo.addr1}
+													</p>
+													<div class="phone-number-1 valign-text-middle">${vo.tel}</div>
+													<p class="message-1 valign-text-middle">${vo.memo}</p>
+												</div>
+												<div class="address-check-btn">
+													<button type="button" class="btn8">선택</button>
+												</div>
+											</div>
 										</div>
-									</div>
-									<div class="right-icon-layout">
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 수정 </a>
+									</c:when>
+									<c:otherwise>
+										<div class="address-box addBox${vo.addNum}">
+											<div class="address-icon-bar">
+												<div class="icon"></div>
+												<div class="right-icon-layout">
+													<div class="minimal-text-btn">
+														<a href="#" class="text-2 valign-text-middle"> 수정 </a>
+													</div>
+													<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+													<div class="minimal-text-btn">
+														<a href="#" class="text-2 valign-text-middle" data-bs-toggle="modal" data-bs-target="#delAddrModal${vo.addNum}"> 삭제 </a>
+													</div>
+													<!-- 삭제 Modal -->
+													<div class="modal fade" id="delAddrModal${vo.addNum}" tabindex="-1" aria-labelledby="delAddrModalLabel${vo.addNum}" aria-hidden="true">
+													  <div class="modal-dialog modal-dialog-centered" style="width: 355px;">
+													    <div class="modal-content">
+													      <div class="modal-header" style="border-bottom: none;">
+													        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													      </div>
+													      <div class="modal-body" style="text-align: center; padding-bottom: 0px; font-size: 17px;">
+													        배송지를 삭제하시겠어요?
+													      </div>
+													      <div class="modal-footer" style="justify-content: center; border-top: none;">
+													        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 150px; height: 62px; border-radius: 5px; background-color: white; color: gray;">아니요</button>
+													        <button type="button" class="btn btn-primary" style="width: 150px; height: 62px; border-radius: 5px;" data-bs-dismiss="modal" onclick="deleteAdd(${vo.addNum});">예</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>
+													<!-- // 삭제 Modal -->
+												</div>
+											</div>
+											<div class="address-text-wrap">
+												<div class="address-text-layout-1">
+													<div class="registered-address-name-1 valign-text-middle">${vo.addName}</div>
+													<p class="registered-address-1 valign-text-middle">
+														${vo.addr1}
+													</p>
+													<div class="phone-number-1 valign-text-middle">${vo.tel}</div>
+													<p class="message-1 valign-text-middle">${vo.memo}</p>
+												</div>
+												<div class="address-check-btn">
+													<button type="button" class="btn7">선택</button>
+												</div>
+											</div>
 										</div>
-										<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
-										</div>
-									</div>
-								</div>
-
-								<div class="address-text-wrap">
-									<div class="address-text-layout-1">
-										<div class="registered-address-name-1 valign-text-middle">최수징</div>
-										<p class="registered-address-1 valign-text-middle">경기도 고양시
-											일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
-										<div class="phone-number-1 valign-text-middle">010-1111-1111</div>
-										<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
-									</div>
-									<div class="address-check-btn">
-										<button type="button" class="btn8">선택</button>
-									</div>
-								</div>
-							</div>
-
-							<!-- 일반 배송지1 -->
-							<div class="address-box">
-								<div class="address-icon-bar">
-									<div class="icon"></div>
-									<div class="right-icon-layout">
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 수정 </a>
-										</div>
-										<span>&nbsp;&nbsp;|&nbsp;&nbsp; </span>
-										<div class="minimal-text-btn">
-											<a href="#" class="text-2 valign-text-middle"> 삭제 </a>
-										</div>
-									</div>
-								</div>
-								<div class="address-text-wrap">
-									<div class="address-text-layout-1">
-										<div class="registered-address-name-1 valign-text-middle">김성훈</div>
-										<p class="registered-address-1 valign-text-middle">경기도 화성시
-											일산서구 무슨로123 무슨아프트 110동 404호 10371</p>
-										<div class="phone-number-1 valign-text-middle">010-2222-2222</div>
-										<p class="message-1 valign-text-middle">택배함에 넣어주세요.</p>
-									</div>
-									<div class="address-check-btn">
-										<button type="button" class="btn7">선택</button>
-									</div>
-								</div>
-							</div>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</div>
 
 						<!-- 선택된 배송지 -->
@@ -1059,22 +1115,39 @@ img {
 							<div class="x-layout">
 								<div class="list valign-text-middle">받는 사람</div>
 								<div class="text-1 valign-text-middle" id="recipientValue">
-									최수징</div>
+									<input type="text" class="inp1" id="addName" name="addName"
+										onkeyup="checkUsernameValidity();"
+										value="${not empty defAddrDto ? defAddrDto.addName : lastAddrDto.addName}">
+								</div>
 							</div>
 							<div class="x-layout"  style="margin-bottom: -14px;">
-								<div class="list valign-text-middle">배송지</div>
-								<p class="text-1 valign-text-middle" id="addressValue">무슨도
-									무슨시 무슨무슨로 120(무슨종, 무슨아티플 2차 아파트) 111동 111호</p>
+								<div class="list valign-text-middle">받는 주소</div>
+								<p class="text-1 d-flex gap-2 align-items-center" id="addressValue">
+									<input type="text" class="inp1" id="addr1" name="addr1" value="${not empty defAddrDto ? defAddrDto.addr1 : lastAddrDto.addr1}" readonly="readonly">
+									<button type="button" class="search-btn" onclick="daumPostcode();">검색</button>
+								</p>
+							</div>
+							<div class="x-layout"  style="margin-bottom: -14px;">
+								<div class="list valign-text-middle">상세 주소</div>
+								<p class="text-1 valign-text-middle" id="addressValue2">
+									<input type="text" class="inp1" id="addr2" name="addr2" value="${not empty defAddrDto ? defAddrDto.addr2 : lastAddrDto.addr2}">
+								</p>
 							</div>
 							<div class="x-layout">
 								<div class="list valign-text-middle">연락처</div>
 								<div class="text-1 valign-text-middle" id="contactValue">
-									010-1111-1111</div>
+									<input type="text" class="inp1" id="phone" name="addTel"
+										onkeyup="checkPhoneNumberValidity();"
+										value="${not empty defAddrDto ? defAddrDto.tel : lastAddrDto.tel}">
+								</div>
 							</div>
 							<div class="x-layout">
 								<div class="list valign-text-middle">요청사항</div>
 								<div style="position: relative; width: 100%; flex: 1;">
-									<input class="inp1" type="text" list="request_options" id="myInput" maxlength="100" oninput="updateCharacterCount(this)" placeholder="배송 요청 사항을 직접 입력하거나 선택해주세요.">
+									<input class="inp1" type="text" list="request_options" id="myInput" name="memo" maxlength="100" 
+										oninput="updateCharacterCount(this); checkRequestValidity();" 
+										placeholder="배송 요청 사항을 직접 입력하거나 선택해주세요."
+										value="${not empty defAddrDto ? defAddrDto.memo : lastAddrDto.memo}">
 									<datalist id="request_options">
 									    <option value="대문 앞에 놓아주세요"></option>
 									    <option value="택배함에 넣어주세요"></option>
@@ -1085,8 +1158,8 @@ img {
 								</div>
 							</div>
 						</div>
-
-
+						<input type="hidden" id="zip" name="zip" value="${not empty defAddrDto ? defAddrDto.zip : lastAddrDto.zip}">
+						<!--<input type="hidden" name="addNum" value="${not empty defAddrDto ? defAddrDto.addNum : lastAddrDto.addNum}">-->
 
 					</div>
 					<hr
@@ -1102,7 +1175,7 @@ img {
 									data-bs-target="#flush-collapseOne" aria-expanded="false"
 									aria-controls="flush-collapseOne">
 									<div class="information-title valign-text-middle">쿠폰</div>
-									<div class="valign-text-middle count1">보유 쿠폰 2장</div>
+									<div class="valign-text-middle count1">보유 쿠폰 ${dto.couponCount}장</div>
 								</button>
 							</h2>
 							<div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -1110,49 +1183,33 @@ img {
 								data-bs-parent="#accordionFlushExample">
 								<div class="accordion-body pl-0">
 									<div class="coupon-layout">
-										<div class="coupon" style="cursor: pointer;">
-											<div class="coupon-upper">
-												<div class="coupon-text-layout">
-													<div class="coupon-title valign-text-middle">위드테일과
-														첫만남★ 5,000원 할인 쿠폰</div>
-													<div class="coupon-text valign-text-middle">5,000원</div>
+										<!-- 쿠폰 foreach -->
+										<c:forEach var="vo" items="${listCoupon}" varStatus="status">
+											<div class="coupon" style="cursor: pointer;">
+												<div class="coupon-upper">
+													<div class="coupon-text-layout">
+														<div class="coupon-title valign-text-middle">${vo.couponName}</div>
+														<div class="coupon-text valign-text-middle">${vo.couponPrice}원</div>
+													</div>
+													<input type="checkbox">
 												</div>
-												<input type="checkbox">
-											</div>
-											<div class="coupon-lower">
-												<div class="restriction">
-													<p class="restriction-text valign-text-middle">
-														<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-															8:30:57</span> <span>까지</span>
-													</p>
-													<p class="restriction-text valign-text-middle">
-														<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-													</p>
-												</div>
-											</div>
-										</div>
-										<!-- 2번쨰 쿠폰 -->
-										<div class="coupon" style="cursor: pointer;">
-											<div class="coupon-upper">
-												<div class="coupon-text-layout">
-													<div class="coupon-title valign-text-middle">위드테일과
-														첫만남★ 5,000원 할인 쿠폰</div>
-													<div class="coupon-text valign-text-middle">5,000원</div>
-												</div>
-												<input type="checkbox">
-											</div>
-											<div class="coupon-lower">
-												<div class="restriction">
-													<p class="restriction-text valign-text-middle">
-														<span>- 사용기간 : ~</span> <span>2023. 6. 16 오전
-															8:30:57</span> <span>까지</span>
-													</p>
-													<p class="restriction-text valign-text-middle">
-														<span>- 최소주문금액</span> <span>30,000</span><span>원</span>
-													</p>
+												<div class="coupon-lower">
+													<div class="restriction">
+														<p class="restriction-text valign-text-middle">
+															<span>
+																- 사용기간 : ~</span> <span>${vo.endDate}</span> <span>까지
+															</span>
+														</p>
+														<p class="restriction-text valign-text-middle">
+															<span>
+																- 최소주문금액</span> <span>${vo.couponMinPrice}</span><span>원
+															</span>
+														</p>
+													</div>
 												</div>
 											</div>
-										</div>
+										</c:forEach>
+										<!-- //쿠폰 foreach -->									
 									</div>
 								</div>
 							</div>
@@ -1167,14 +1224,14 @@ img {
 								<div class="mud-input-control">
 									<div class="mud-input-control-input-container">
 										<div class="mud-input mud-input-outlined">
-											<input class="inp" type="text" placeholder="0원">
+											<input class="inp point-inp" type="text" name="point" placeholder="0원">
 										</div>
 										<div>
-											<p style="font-size: 11px; color: gray;">잔여 적립금: 0원</p>
+											<p style="font-size: 11px; color: gray;">잔여 적립금: ${dto.point}원</p>
 										</div>
 									</div>
 								</div>
-								<button type="button" class="btn4">전액 사용</button>
+								<button type="button" class="btn4 point-btn" onclick="allUsePoint();">전액 사용</button>
 							</div>
 						</div>
 					</div>
@@ -1348,6 +1405,123 @@ img {
 	</div>
 </div>
 
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function daumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = ''; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                fullAddr = data.roadAddress;
+
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                fullAddr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+            if(data.userSelectedType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zip').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('addr1').value = fullAddr;
+
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById('addr2').focus();
+        }
+    }).open();
+}
+
+//이름 유효성 검사 및 이벤트 효과
+function checkUsernameValidity() {
+    var input = document.getElementById("addName");
+    var errorDiv = document.getElementById("usernameError");
+    var regex = /^[가-힣]+$/; // 정규식을 사용하여 한글 입력 패턴을 확인합니다.
+    
+    if (!regex.test(input.value)) { // 입력값이 한글 패턴과 일치하지 않을 경우
+        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
+        errorDiv.textContent = "한글만 입력 가능합니다."; // 에러 메시지를 표시합니다.
+    } else {
+        input.style.borderColor = ""; // 유효성 검사를 통과하면 테두리 색상을 초기화합니다.
+        errorDiv.textContent = ""; // 에러 메시지를 초기화합니다.
+    }
+}
+
+// 폰번호 유효성 검사
+function checkPhoneNumberValidity() {
+    var input = document.getElementById("phone");
+    var errorDiv = document.getElementById("phoneError");
+    var regex = /^\d{3}-\d{3,4}-\d{4}$/; // 핸드폰 번호 형식을 정규식으로 지정합니다.
+
+    if (!regex.test(input.value)) { // 입력값이 형식에 맞지 않을 경우
+        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
+        errorDiv.textContent = "올바른 핸드폰 번호를 입력해주세요."; // 오류 메시지를 표시합니다.
+    } else { // 입력값이 형식에 맞을 경우
+        input.style.borderColor = "#ced4da"; // 테두리 색상을 기본값으로 변경합니다.
+        errorDiv.textContent = ""; // 오류 메시지를 초기화합니다.
+    }
+}
+
+// 글자수 이벤트
+function checkRequestValidity() {
+    var input = document.getElementById("myInput");
+    var errorDiv = document.getElementById("requestError");
+
+    if (input.value.length > 100) { // 입력값이 최대 글자 수를 초과할 경우
+        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
+        errorDiv.textContent = "최대 100자까지 입력 가능합니다."; // 오류 메시지를 표시합니다.
+    } else { // 입력값이 최대 글자 수를 초과하지 않을 경우
+        input.style.borderColor = "#ced4da"; // 테두리 색상을 기본값으로 변경합니다.
+        errorDiv.textContent = ""; // 오류 메시지를 초기화합니다.
+    }
+}
+</script>
+
+<script>
+	//선택한 배송지 삭제
+	function deleteAdd(addNum) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/order/deleteAdd",
+		      type: "POST", 
+		      data: { addNum : addNum },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("삭제 성공");
+		        $('.addBox' + addNum).remove();
+		        //$('.modal-backdrop').removeClass("show");
+		      },
+		      error: function(xhr, status, error) {
+		        console.error("삭제 실패");
+		      }
+		 });
+	}
+</script>
+
+<script>
+// 포인트 전액 사용
+function allUsePoint() {
+	let userPoint = ${dto.point};
+	$(".point-inp").val(userPoint);
+}
+</script>
+
 
 <script>	
 	// 쿠폰 선택 이벤트
@@ -1445,8 +1619,4 @@ img {
 
 	    characterCountElement.textContent = currentLength + "/" + maxLength;
 	  }
-	
-
-
-
 </script>

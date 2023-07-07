@@ -693,8 +693,8 @@
   </script>
   
   <script type="text/javascript">
-  	// 장바구니 담기
-  	function sendCart() {
+  	// 장바구니 담기 or 결제하기
+  	function sendOk(mode) {
 		let totalQty = 0;
 		$(".order-group").each(function(){
 			let qty = parseInt($(this).find("input[name=qtys]").val());
@@ -704,39 +704,38 @@
 		
 		if(totalQty <= 0) {
 			alert("구매 상품의 수량을 선택하세요 !!! ");
+			if(mode === "cart") {
+				$(".offcanvas-title").text("장바구니에 상품을 담지 못했습니다.");
+			} else if(mode === "buy") {
+			}
 			return;
 		}
 
-		let qs = $('form[name=buyForm]').serialize();
+		// 장바구니 담기
+		if(mode === "cart") {
+			let qs = $('form[name=buyForm]').serialize();
+			
+			let url = "${pageContext.request.contextPath}/order/saveCart";
+			
+			const fn = function(data) {
+				if(data.state === "true") {
+					$(".offcanvas-title").text("장바구니에 추가되었습니다.");
+				} else {
+					alert("장바구니에 상품을 담지 못했습니다.");
+					$(".offcanvas-title").text("장바구니에 상품을 담지 못했습니다.");
+					return false;
+				}
+			};
+			
+			ajaxProd(url, "post", qs, "json", fn);
+		} else if(mode === "buy") {
+			// 결제하기
+			const f = document.buyForm;
+			f.method = "get";
+			f.action = "${pageContext.request.contextPath}/order/payment";
+			f.submit();
+		}
 		
-		/*
-		let itemNums = [];
-		let subNums = [];
-		let subNums2 = [];
-		let qtys = [];
-	    $(".order-group").each(function(i) {
-	        itemNums.push($(this).find("input[name=itemNums]").val());
-	        subNums.push($(this).find("input[name=subNums]").val());
-	        subNums2.push($(this).find("input[name=subNums2]").val());
-	        qtys.push($(this).find("input[name=qtys]").val());
-	    });
-	    
-	    let qs = {"itemNums": itemNums, "subNums": subNums, "subNums2": subNums2, "qtys": qtys};
-	    */
-    
-		let url = "${pageContext.request.contextPath}/order/saveCart";
-		
-		const fn = function(data) {
-			if(data.state === "true") {
-				$(".offcanvas-title").text = "장바구니에 추가되었습니다.";
-			} else {
-				alert("장바구니에 상품을 담지 못했습니다.");
-				$(".offcanvas-title").text = "장바구니에 상품을 담지 못했습니다.";
-				return false;
-			}
-		};
-		
-		ajaxProd(url, "post", qs, "json", fn);
   	}
   </script>
   
@@ -964,9 +963,11 @@
 						</c:when>
 						<c:otherwise>
 							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success info-btn px-5 mr-2" style="box-shadow: none;" onclick="sendOk('buy');">구매하기</button>
+								
 								<p class="mr-2">
 									<button data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" type="button" 
-										class="btn btn-outline-success info-btn px-5 btn-cart" style="box-shadow: none;" onclick="sendCart();">
+										class="btn btn-outline-success info-btn px-5 btn-cart" style="box-shadow: none;" onclick="sendOk('cart');">
 										장바구니
 									</button>
 								</p>
@@ -1224,8 +1225,7 @@
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1"
 	id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	<div class="offcanvas-header my-4">
-		<h6 class="offcanvas-title" id="offcanvasExampleLabel">장바구니에
-			추가되었습니다.</h6>
+		<h6 class="offcanvas-title" id="offcanvasExampleLabel">장바구니에 추가되었습니다.</h6>
 		<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 			aria-label="Close"></button>
 	</div>
@@ -1249,9 +1249,6 @@
 				style="background: #82ae46; width: 25%;" aria-valuenow="25"
 				aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-		<span> <span> 주문합계(5개의 제품): </span> <span> &nbsp;
-				35,000원 </span>
-		</span>
 
 		<div class="buttons my-3">
 			<button type="button" class="btn btn-outline-success info-btn px-5">장바구니</button>
