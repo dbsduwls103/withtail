@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.MyUtil;
+import com.sp.withtail.member.SessionInfo;
+import com.sp.withtail.order.Order;
+import com.sp.withtail.order.OrderService;
 
 @Controller("shop.shopController")
 @RequestMapping("/shop/*")
 public class ShopController {
 	@Autowired
 	private ShopService service;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -137,10 +144,15 @@ public class ShopController {
 			listOptionDetail = service.listOptionDetail(listOption.get(0).getOption1Num());
 		}
 		
+		//SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		//Order orderDto = orderService.readUserCart(info.getUserId());
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("listProdImage", listProdImage);
 		model.addAttribute("listOption", listOption);
 		model.addAttribute("listOptionDetail", listOptionDetail);
+		//model.addAttribute("orderDto", orderDto);
 		
 		return ".shop.info";
 	}

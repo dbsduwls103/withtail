@@ -155,13 +155,13 @@
 		<table class="table">
 			<tr>
 				<td width="50%" align="left">
-			    	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/dogmapManage/write';">수정</button>
+			    	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/dogMapManage/write';">수정</button>
 
 	    			<button type="button" class="btn" onclick="deleteOk();">삭제</button>
 				</td>
 			
 				<td align="right">
-					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/dogmapManage/list?${query}';">리스트</button>
+					<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/dogMapManage/list?${query}';">리스트</button>
 				</td>
 			</tr>
 		</table>

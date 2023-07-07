@@ -144,6 +144,30 @@ input {
 <script>
 function deliveryOk() {
 	const f = document.deliveryForm;
+	
+	let str;
+
+	str = f.addName.value;
+    if( !/^[가-힣]{2,5}$/.test(str) || str.length > 20) {
+    	f.addName.focus();
+        return;
+    }
+    
+    str = f.tel.value;
+    if( !/^\d{3}-\d{3,4}-\d{4}$/.test(str) ) {
+        f.tel.focus();
+        return;
+    }
+    
+    
+    str = f.memo.value;
+    if(str.length > 100) {
+    	f.memo.focus();
+    	return;
+    }
+    
+	
+	
 	f.action = "${pageContext.request.contextPath}/myPage/${mode}";
 	f.submit();
 } 
@@ -298,41 +322,48 @@ function daumPostcode() {
 function checkUsernameValidity() {
     var input = document.getElementById("addName");
     var errorDiv = document.getElementById("usernameError");
-    var regex = /^[가-힣]+$/; // 정규식을 사용하여 한글 입력 패턴을 확인합니다.
+    var regex = /^[가-힣]+$/; 
     
-    if (!regex.test(input.value)) { // 입력값이 한글 패턴과 일치하지 않을 경우
-        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
-        errorDiv.textContent = "한글만 입력 가능합니다."; // 에러 메시지를 표시합니다.
+    if (!regex.test(input.value)) { 
+        input.style.borderColor = "#da1e28"; 
+        errorDiv.textContent = "한글만 입력 가능합니다.";
+        
+    } else if(input.value.length > 20) {
+        input.style.borderColor = "#da1e28"; 
+        errorDiv.textContent = "20자 이내로 입력하십시오.";
+ 	
     } else {
-        input.style.borderColor = ""; // 유효성 검사를 통과하면 테두리 색상을 초기화합니다.
-        errorDiv.textContent = ""; // 에러 메시지를 초기화합니다.
-    }
+        input.style.borderColor = ""; 
+        errorDiv.textContent = ""; 
+    }    
 }
 
 function checkPhoneNumberValidity() {
     var input = document.getElementById("phone");
     var errorDiv = document.getElementById("phoneError");
-    var regex = /^\d{3}-\d{3,4}-\d{4}$/; // 핸드폰 번호 형식을 정규식으로 지정합니다.
+    var regex = /^\d{3}-\d{3,4}-\d{4}$/; 
 
-    if (!regex.test(input.value)) { // 입력값이 형식에 맞지 않을 경우
-        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
-        errorDiv.textContent = "올바른 핸드폰 번호를 입력해주세요."; // 오류 메시지를 표시합니다.
-    } else { // 입력값이 형식에 맞을 경우
-        input.style.borderColor = "#ced4da"; // 테두리 색상을 기본값으로 변경합니다.
-        errorDiv.textContent = ""; // 오류 메시지를 초기화합니다.
+    if (!regex.test(input.value)) { 
+        input.style.borderColor = "#da1e28";
+        errorDiv.textContent = "올바른 핸드폰 번호를 입력해주세요."; 
+    } else { 
+        input.style.borderColor = "#ced4da"; 
+        errorDiv.textContent = "";
     }
 }
-	
+
 function checkRequestValidity() {
     var input = document.getElementById("request");
     var errorDiv = document.getElementById("requestError");
 
-    if (input.value.length > 100) { // 입력값이 최대 글자 수를 초과할 경우
-        input.style.borderColor = "#da1e28"; // 테두리 색상을 빨간색으로 변경합니다.
-        errorDiv.textContent = "최대 100자까지 입력 가능합니다."; // 오류 메시지를 표시합니다.
-    } else { // 입력값이 최대 글자 수를 초과하지 않을 경우
-        input.style.borderColor = "#ced4da"; // 테두리 색상을 기본값으로 변경합니다.
-        errorDiv.textContent = ""; // 오류 메시지를 초기화합니다.
+    if (input.value.length > 100) { 
+        input.style.borderColor = "#da1e28"; 
+        errorDiv.textContent = "최대 100자까지 입력 가능합니다."; 
+        
+        
+    } else { 
+        input.style.borderColor = "#ced4da"; 
+        errorDiv.textContent = "";
     }
 }
 	

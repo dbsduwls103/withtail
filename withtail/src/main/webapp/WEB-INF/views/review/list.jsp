@@ -37,11 +37,11 @@
 										<span style="float: left; color: #000; font-weight: 600;">${dto.nickName}</span>
 										<span style="float: right;">${dto.regDate}</span>
 									</div>
-									<c:if test="${not empty dto.option2Num}">
+									<c:if test="${dto.option2Num == null && dto.option2Num2 == null}">
 										<div class="rv-op-div d-flex gap-3">
 											<span style="color: rgb(123, 132, 141);">구매옵션</span>
 											<span style="color: rgb(23, 24, 26);">
-												${dto.option2Name}<c:if test="${not empty dto.option2Num2}"> / ${dto.option2Name2}</c:if>
+												${dto.option2Name}<c:if test="${not empty dto.option2Name2}"> / ${dto.option2Name2}</c:if>
 											</span>
 										</div>
 									</c:if>
@@ -68,13 +68,15 @@
 									</div>
 									<ul class="d-flex gap-2">
 										<!-- 이미지 출력 foreach -->
-										<c:forEach var="vo" items="${fn:split(dto.saveName, ',') }">
-											<li style="width: 100px; height: 100px;">
-												<a href="${pageContext.request.contextPath}/uploads/review/${vo}" class="image-popup" target="_blank">
-													<img src="${pageContext.request.contextPath}/uploads/review/${vo}" class="img-fluid">
-												</a>
-											</li>
-										</c:forEach>
+										<c:if test="${not empty dto.saveName}">
+											<c:forEach var="vo" items="${fn:split(dto.saveName, ',') }">
+												<li style="width: 100px; height: 100px;">
+													<a href="${pageContext.request.contextPath}/uploads/review/${vo}" class="image-popup" target="_blank">
+														<img src="${pageContext.request.contextPath}/uploads/review/${vo}" class="img-fluid">
+													</a>
+												</li>
+											</c:forEach>
+										</c:if>
 										<!-- //이미지 출력 foreach -->
 									</ul>
 									<div>

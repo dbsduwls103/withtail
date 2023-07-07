@@ -16,15 +16,20 @@ public class Order {
 	private int showNotice;
 	private int itemPoint;
 	private String mainImage;
-	private int dcPrice;
+	
+	private int saleAmount; // 할인돼서 빠지는 가격
+	private int dcPrice; // 할인된 가격
 	
 	/*옵션*/
 	private Long option1Num;
 	private String option1Name;
 	private Long parent;
+	private Long option1Num2;
+	private String option1Name2;
 	
 	private Long option2Num;
 	private String option2Name;
+	
 	private int extraPrice;
 	private int coupon;
 	
@@ -45,6 +50,10 @@ public class Order {
 	private List<Long> subNums;
 	private List<Long> subNums2;
 	private List<Integer> qtys;
+	
+	/*장바구니 토탈*/
+	private int cartTotalQty;
+	private int cartTotalPrice;
 	
 	public long getItemNum() {
 		return itemNum;
@@ -118,6 +127,12 @@ public class Order {
 	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
+	public int getSaleAmount() {
+		return saleAmount;
+	}
+	public void setSaleAmount(int saleAmount) {
+		this.saleAmount = saleAmount;
+	}
 	public int getDcPrice() {
 		return dcPrice;
 	}
@@ -141,6 +156,18 @@ public class Order {
 	}
 	public void setParent(Long parent) {
 		this.parent = parent;
+	}
+	public Long getOption1Num2() {
+		return option1Num2;
+	}
+	public void setOption1Num2(Long option1Num2) {
+		this.option1Num2 = option1Num2;
+	}
+	public String getOption1Name2() {
+		return option1Name2;
+	}
+	public void setOption1Name2(String option1Name2) {
+		this.option1Name2 = option1Name2;
 	}
 	public Long getOption2Num() {
 		return option2Num;
@@ -238,6 +265,21 @@ public class Order {
 	public void setQtys(List<Integer> qtys) {
 		this.qtys = qtys;
 	}
+	public int getCartTotalQty() {
+		return cartTotalQty;
+	}
+	public void setCartTotalQty(int cartTotalQty) {
+		this.cartTotalQty = cartTotalQty;
+	}
+	public int getCartTotalPrice() {
+		return cartTotalPrice;
+	}
+	public void setCartTotalPrice(int cartTotalPrice) {
+		this.cartTotalPrice = cartTotalPrice;
+	}
+	
+	
+	
 	
 	
 }

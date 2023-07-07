@@ -100,7 +100,7 @@
 								src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
 								alt="Colorlib Template"> 
 							<c:if test="${dto.discount != 0}">
-								<span class="status">${dto.discount}%</span>
+								<span class="status">${dto.discount}%</span> 
 							</c:if>
 							</a>
 
@@ -111,8 +111,11 @@
 							<div class="d-flex">
 								<div class="pricing">
 									<p class="price">
-										<span class="mr-2 price-dc ${dto.discount==0 ? 'hidden' : ''}"><fmt:formatNumber value="${dto.itemPrice}" type="currency"/></span>
-										<span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span>
+										<c:if test="${dto.discount != 0}">
+											<span class="mr-2 price-dc "><fmt:formatNumber value="${dto.itemPrice}" type="currency"/></span>
+										</c:if>
+											<span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span>
+
 									</p>
 								</div>
 							</div>

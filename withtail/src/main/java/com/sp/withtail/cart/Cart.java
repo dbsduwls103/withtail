@@ -13,6 +13,7 @@ public class Cart {
 	private Long itemNum; //물품번호
 	private String itemName; // 물품명
 	private int deliveryFee; //배달비
+	private int deliveryFeeMax; //가장 비싼 배달비
 	private int itemPrice; //가격
 	private int disPrice; //할인가
 	private int discount; //할인율
@@ -20,6 +21,7 @@ public class Cart {
 	private int itemPoint; //포인트
 	private int extraPrice; //추가금
 	private int totalStock; //재고량
+	private int nullCheck; //널 체크
 	
 	public String getUserId() {
 		return userId;
@@ -147,4 +149,17 @@ public class Cart {
 	public void setTotalStock(int totalStock) {
 		this.totalStock = totalStock;
 	}
+	public int getDeliveryFeeMax() {
+		return deliveryFeeMax;
+	}
+	public void setDeliveryFeeMax(int deliveryFeeMax) {
+		this.deliveryFeeMax = deliveryFeeMax;
+	}
+	public int getNullCheck() {
+		return nullCheck;
+	}
+	public void setNullCheck(int nullCheck) {
+		this.nullCheck = nullCheck;
+	}
+	
 }

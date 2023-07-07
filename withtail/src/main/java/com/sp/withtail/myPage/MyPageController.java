@@ -108,13 +108,15 @@ public class MyPageController {
 			Model model) throws Exception {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	int orderDataCount;
+
     	
     	dto.setUserId(info.getUserId());
     	orderDataCount = service.orderDataCount(info.getUserId());
-		
+   		
 		
 		List<MyPage> list = service.listOrder(dto);
-	
+		
+		
     	model.addAttribute("list", list);
     	model.addAttribute("orderDataCount", orderDataCount);
     	
@@ -476,7 +478,7 @@ public class MyPageController {
     	SessionInfo info = (SessionInfo) session.getAttribute("member");
     	
     	String root = session.getServletContext().getRealPath("/");
-    	String pathname = root + "uploads" + File.separator + "writeReview";
+    	String pathname = root + "uploads" + File.separator + "review";
     	
     	try {
     	
@@ -499,4 +501,5 @@ public class MyPageController {
     	
     	return ".myPage.thankYou";
     }
+    
 }

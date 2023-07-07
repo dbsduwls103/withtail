@@ -111,16 +111,20 @@
 	</select>
 
 	<select id="listOrder" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState, salePrice
-		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2, od.orderDetailNum
-		FROM member1 m
-		JOIN orderList ol ON m.userId = ol.userId
+		SELECT ol.orderNum, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState, salePrice
+		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2, od.orderDetailNum, NVL(reviewWrite, 0) reviewWrite
+		FROM orderList ol
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum
 		JOIN item i ON i.itemNum = od.itemNum
 		LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
 		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
-		WHERE m.userId = #{userId}
-		ORDER BY ol.orderNum DESC
+        LEFT OUTER JOIN (
+			SELECT orderDetailNum, 1 reviewWrite
+			FROM review
+            WHERE userId = #{userId}
+		) r ON od.orderDetailNum = r.orderDetailNum
+	    WHERE userId = #{userId}
+    	ORDER BY ol.orderNum DESC
 	</select>
 	
 	<select id="orderDataCount" parameterType="String" resultType="Integer">
@@ -176,11 +180,13 @@
 	</select>
 	
 	<select id="listFavorite" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice) AS salePrice1, star
+		SELECT ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice) AS salePrice1, ROUND(avg(star)) as star
 		FROM itemJjim ij
 		JOIN item i ON ij.itemNum = i.itemNum
 		LEFT OUTER JOIN review r ON r.itemNum = i.itemNum
-		WHERE ij.userId = #{userId}
+        WHERE ij.userId = #{userId}
+        GROUP BY ij.userId, i.itemNum, itemName, madeBy, mainImage, itemPrice, TRUNC((1-(discount/100))*itemPrice)
+		
 	</select>
 	
 	<select id="favoriteDataCount" parameterType="String" resultType="Integer">
@@ -199,7 +205,7 @@
 	</insert>
 	
 	<update id="increaseCart" parameterType="com.sp.withtail.myPage.MyPage">
-		UPDATE cart SET quantity = quantity + 1 
+		UPDATE cart SET quantity = quantity + 1, cartRegdate = SYSDATE
 		WHERE userId = #{userId} AND itemNum = #{itemNum} 
 		<if test="option2Num!=null">
 		  AND option2Num = #{option2Num}

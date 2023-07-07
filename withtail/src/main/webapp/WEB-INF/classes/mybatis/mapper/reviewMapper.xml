@@ -17,20 +17,20 @@
 	
 	<!-- 리뷰 리스트 -->
 	<select id="listReview" parameterType="map" resultType="com.sp.withtail.review.Review">
-		SELECT DISTINCT r.rvNum, TO_CHAR(r.rvContent) rvContent, r.star, r.itemNum, 
+		SELECT DISTINCT r.rvNum, TO_CHAR(r.rvContent) rvContent, r.star, r.itemNum,
 		    r.userId, m.userName, m.nickName, i.itemName, saveName,
 		    TO_CHAR(r.regDate,'YYYY-MM-DD') regDate,
 		    op.option2Num, op.option2Name,
 		    op2.option2Num AS option2Num2, op2.option2Name AS option2Name2,
 			NVL(rvLikeCount, 0) rvLikeCount,
-			r.replyId, r.replyContent, r.replyDate, rm.nickName AS replyName
+		    r.replyId, r.replyContent, r.replyDate, rm.nickName AS replyName
 		FROM review r
 		JOIN item i ON r.itemNum = i.itemNum
 		JOIN member1 m ON r.userId = m.userId
 		JOIN orderDetail od ON r.orderDetailNum = od.orderDetailNum
-		JOIN option2 op ON od.option2Num = op.option2Num
-		JOIN option2 op2 ON od.option2Num2 = op2.option2Num
-		JOIN member1 rm ON r.replyId = rm.userId
+		LEFT OUTER JOIN option2 op ON NVL(od.option2Num, 0) = NVL(op.option2Num, 0)
+		LEFT OUTER JOIN option2 op2 ON NVL(od.option2Num2, 0) = NVL(op2.option2Num, 0)
+		LEFT OUTER JOIN member1 rm ON r.replyId = rm.userId
 		LEFT OUTER JOIN (
 		    SELECT rvNum, LISTAGG(saveName, ',') WITHIN GROUP(ORDER BY rvPhotoNum) saveName
 		    FROM reviewPhoto

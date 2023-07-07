@@ -67,4 +67,151 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Order readUserCart(String userId) {
+		Order dto = null;
+		
+		try {
+			dto = dao.selectOne("order.readUserCart", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public OrderMember readMember(String userId) {
+		OrderMember dto = null;
+		
+		try {
+			dto = dao.selectOne("order.readMember", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public List<OrderMember> listAddress(String userId) {
+		List<OrderMember> list = null;
+		
+		try {
+			list = dao.selectList("order.listAddress", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<OrderMember> listCoupon(String userId) {
+		List<OrderMember> list = null;
+		
+		try {
+			list = dao.selectList("order.listCoupon", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public OrderMember readDefAddress(String userId) {
+		OrderMember dto = null;
+		
+		try {
+			dto = dao.selectOne("order.readDefAddress", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public OrderMember readLastAddress(String userId) {
+		OrderMember dto = null;
+		
+		try {
+			dto = dao.selectOne("order.readLastAddress", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void insertAdd(OrderMember dto) throws Exception {
+		try {
+			dao.insertData("order.insertAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void updateAdd(OrderMember dto) throws Exception {
+		try {
+			dao.updateData("order.updateAdd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public OrderMember readAdd(Long addNum) {
+		OrderMember dto = null;
+		
+		try {
+			dto = dao.selectOne("order.readAdd", addNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void deleteAdd(Long addNum) throws Exception {
+		try {
+			dao.deleteData("order.deleteAdd", addNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public int addDataCount(String userId) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("order.addDataCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Order> listProduct(List<Map<String, Long>> list) {
+		List<Order> listProduct = null;
+		
+		try {
+			listProduct = dao.selectList("order.listProduct", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listProduct;
+	}
 }

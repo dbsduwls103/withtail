@@ -360,8 +360,10 @@ $(function() {
 		        console.log("삭제 성공");
 		        $('.favoriteList' + itemNum).remove();
 		        
-		        let cnt = $('.favoriteList' + itemNum).length;
+		        let cnt = $('.favorite-list').length;
 		       
+		        console.log(cnt);
+		        
 		      if(cnt == 0) {
 		        	$('.orderhistory-layout').show();
 		       }
