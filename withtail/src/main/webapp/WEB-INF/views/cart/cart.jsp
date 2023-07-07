@@ -197,6 +197,7 @@
 
 <script type="text/javascript">
 $(function(){
+	
 	let cartSize = "${list.size()}";
 
 	if(cartSize!=="" && cartSize!=="0") {
@@ -211,12 +212,33 @@ $(function(){
     });
 });
 
+function refer() {
+	let referrer = document.referrer;
+	location.href = referrer;
+}
 
 function SelectSendOk() {
+	let cartSize = "${list.size()}";
+	
+	if (cartSize=="0"){
+		alert('장바구니가 비었습니다.');
+		return;
+	}
+	
+	
+	if('${nullCheck.cartNum}' != '0') {
+		alert('품절 상품을 먼저 삭제해주세요.');
+		return;
+	}
+
+	
 	//  선택 구매하기
 	const f = document.cartForm;
+
+	
 	
 	let cnt = $("input[name=nums]:checked").length;
+	
     if (cnt === 0) {
 		alert("구매할 상품을 먼저 선택 하세요 !!!");
 		return;
@@ -233,6 +255,19 @@ function SelectSendOk() {
 }
 
 function sendOk() {
+	let cartSize = "${list.size()}";
+	
+	if (cartSize=="0"){
+		alert('장바구니가 비었습니다.');
+		return;
+	}
+	
+	
+	if('${nullCheck.cartNum}' != '0' ) {
+		alert('품절 상품을 먼저 삭제해주세요.');
+		return;
+	}
+
 	// 전부 구매하기
 	const f = document.cartForm;
 	
@@ -310,34 +345,48 @@ function deleteCartSelect() {
 	                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
 	                          
 	                          <td class="product-name">
-	                             <c:if test="${dto.totalStock == 0}">
-	                             <h3>품절된 상품입니다.</h3>
-	                             </c:if>
-	                             <h3>${dto.itemName}</h3>                        
-	                             <p>${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
-
+	                          	<c:choose>
+	                             <c:when test="${dto.totalStock != 0}">
+	                             <div onclick="location.href ='${pageContext.request.contextPath}/shop/info/${dto.itemNum}';" style="cursor:pointer;"> 
+		                             <h3>${dto.itemName}</h3>                        
+		                             <p>${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
+		                          </div>
+	                             </c:when>
+	                             <c:otherwise>
+	                             <div onclick="location.href ='${pageContext.request.contextPath}/shop/info/${dto.itemNum}';" style="cursor:pointer;"> 
+	                             	<h3>품절된 상품입니다.</h3>
+		                            <h3 style="color:#808080; text-decoration:line-through;">${dto.itemName}</h3>                        
+		                            <p style="color:#808080; text-decoration:line-through;">${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
+		                         </div>
+	                             </c:otherwise>
+								</c:choose>
 	                          </td>
 	                          
-	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
-	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
-
-	                          </td>
-	                          
-	                          
+	                          	                          
 	                          <c:choose>
 	                          <c:when test="${dto.totalStock == 0 }">
 	                          <td>품절</td>
 	                          <td>품절</td>
 	                          <td>품절</td>
 	                          <td>품절</td>
-	                          <td>
-	                          	<input type="text" value="0" name="totalStock-${status.index}">
-		                         <input type="text" value="0" name="disPrice-${status.index}">
-		                         <input type="text" value="0" name="price1-${status.index}">
-		                         <input type="text" name="totalPrice-${status.index}" value="0">
+	                          <td>품절
+	                             <input type="hidden" value="0" name="itemPoint-${status.index}">
+	                          	 <input type="hidden" value="0" name="totalStock-${status.index}">
+		                         <input type="hidden" value="0" name="disPrice-${status.index}">
+		                         <input type="hidden" value="0" name="price1-${status.index}">
+		                         <input type="hidden" name="totalPrice-${status.index}" value="0">
+		                         <span id="totalPrice-${status.index}" style="display:none">0</span>
 	                          </td>
+
 	                          </c:when>
 	                          <c:otherwise>
+	                          
+	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
+	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
+
+	                          </td>
+	                          
+
 		                         <td class="quantity">
 		                          <div style="display: flex; justify-content: space-between;">
 		                            <span>
@@ -347,7 +396,7 @@ function deleteCartSelect() {
 		                            </span>
 		                            <span style="margin: 0 10px;"> <!-- 간격을 띄우기 위해 마진을 추가 -->
 		                              <input type="text" id="quantity-${status.index}" name="quantity" class="form-control input-number" value="${dto.quantity}" 
-		                              maxlength = "3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" min="1" max="100">
+		                               min="1" max="100" readonly="readonly">
 		                            </span>
 		                            <span>
 		                              <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="" id="plus-${status.index}">
@@ -362,18 +411,21 @@ function deleteCartSelect() {
 		                          <td class="total"><span id="totalPrice-${status.index}">${dto.finalPrice * dto.quantity}</span>
 		                          
 		                          <!-- hidden 처리 -->
-		                         <input type="text" value="${dto.totalStock}" name="totalStock-${status.index}">
-		                         <input type="text" value="${dto.disPrice}" name="disPrice-${status.index}">
-		                         <input type="text" value="${dto.itemPrice}" name="price1-${status.index}">
-		                         <input type="text" name="totalPrice-${status.index}" value="${dto.finalPrice * dto.quantity}">
+		                          <input type="hidden" value="${dto.itemPoint * dto.quantity}" name="itemPoint-${status.index}">
+		                         <input type="hidden" value="${dto.totalStock}" name="totalStock-${status.index}">
+		                         <input type="hidden" value="${dto.disPrice}" name="disPrice-${status.index}">
+		                         <input type="hidden" value="${dto.itemPrice}" name="price1-${status.index}">
+		                         <input type="hidden" name="totalPrice-${status.index}" value="${dto.finalPrice * dto.quantity}">
 		                          </td>
-		                      </c:otherwise>
-	                          </c:choose>
-	                        </tr>
-	                        <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
+		                    <c:set var="all" value="${all + (dto.itemPrice * dto.quantity)}"/>
 	                        <c:set var="poi" value="${poi + (dto.itemPoint * dto.quantity)}"/>
 	                        <c:set var="dis" value="${dis + (dto.disPrice * dto.quantity)}"/>
-	                        <c:set var="fin" value="${fin + (dto.finalPrice * dto.quantity)}"/>    
+	                        <c:set var="fin" value="${fin + (dto.finalPrice * dto.quantity)}"/>  
+	                        	</c:otherwise>
+	                          </c:choose> 
+	                        </tr>
+
+
 						</c:forEach>
 			
                         <tr>
@@ -381,21 +433,11 @@ function deleteCartSelect() {
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                               <span style="float: left; margin-right: auto;"></span>
                               <div style="float: right;">
-                                <span>상품구매금액</span>
-                                <span style="font-weight: 1000; font-size: 14px;" id="allPrice">${all}</span>
-
-                                
-                                
-                                + 배송비<span id="deliveryFee"></span>
-                                <input type="hidden" name="deliveryFee" value="">
- 
-                                - 상품할인금액 <span id="allDisPrice">${dis}</span>
-                                <input type="hidden" name="allDisPrice" value="">
-                                
-                                <span>= 합계:</span>
-                                <span style="font-weight: 1000; font-size: 17px; color: black;" id="finalPrice"></span>
+                                <input type="hidden" name="allPoint" value="${poi}">    
+								<input type="hidden" name="allPrice" value="${all}">
+								<input type="hidden" name="deliveryFee" value="">
+                                <input type="hidden" name="allDisPrice" value="${dis}">
                                 <input type="hidden" name="finalPrice" value="${all}">
-                                <span> 원</span>
                               </div>
                             </div>
                           </td>
@@ -430,36 +472,29 @@ function deleteCartSelect() {
              <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 상품금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">29,000 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 배송비</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+ 5,000 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+<a id="deliveryFee"></a> 원</li>
                 </ul>
                 <ul class="-ul">
-                   <li style="display: inline-block;"><button type="button" style="border: 1px solid #008e61 !important;
-                background: #fff;
-                  color: #008e61 !important;
-                  text-shadow: none;
-                   font-size: 13px;
-                   padding: 0px 7px;
-                   height: 21px !important;
-                   margin-right: 35px;">총 할인금액 내역보기</button></li>
+
                    <li class="-head" style="display: inline-block; ">총 할인금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- 5,800 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">결제 예정금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= 28,200 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"></a> 원</li>
                 </ul>            
              </div>
              <div style="margin-top: 30px;">
                 <p style="display: inline-block;">
-                <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button>
+                <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;" onclick="refer()">쇼핑계속하기</button>
                </p> 
                <p style="display: inline-block; float: right;"> 
-                   <button type="button" class="-btn1" onclick="SelectSendOk" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
-                   <button type="button" class="-btn1" onclick="sendOk" style="padding: 0 18px; height: 41px !important; ">전체상품 주문</button>
+                   <button type="button" class="-btn1" onclick="SelectSendOk()" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
+                   <button type="button" class="-btn1" onclick="sendOk()" style="padding: 0 18px; height: 41px !important; ">전체상품 주문</button>
                 </p>
              </div>
              
@@ -486,21 +521,30 @@ function deleteCartSelect() {
 
 	<script>
       $(document).ready(function(){
+
     	  
+    	  
+    	  
+    	  
+    	  
+    	  document.getElementById('allPrice').innerHTML = '<c:out value="${all}"/>';
+    	  document.getElementById('allDisPrice').innerHTML = '<c:out value="${dis}"/>';
+    	  document.getElementById('finalPrice').innerHTML = '<c:out value="${fin}"/>';
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
 	   	 	
 	  	<c:if test="${dto.totalStock != 0}">	
 	   	 //10만원 이상시 배달비 무료
 			if(parseInt('<c:out value="${all}"/>') >= 100000){
 				document.getElementById('deliveryFee').innerHTML = 0;
+				document.getElementsByName('deliveryFee')[0].value = 0;
+				document.getElementsByName('finalPrice')[0].value = parseInt('<c:out value="${fin}"/>');
 				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>');
 			} else {
-				document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
-				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>') + parseInt('${dto.deliveryFee}'); 
+				document.getElementById('deliveryFee').innerHTML = '${deliveryFeeMax.deliveryFeeMax}';
+				document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
+				document.getElementsByName('finalPrice')[0].value = parseInt('<c:out value="${fin}"/>') + parseInt('${deliveryFeeMax.deliveryFeeMax}');
+				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>') + parseInt('${deliveryFeeMax.deliveryFeeMax}'); 
 			} 
-			
-			
-			
 			
 			  var size = '${fn:length(list)}';
 		   	  var totalPrice = document.getElementById('totalPrice-${status.index}').innerHTML; //할인 적용 총 합계
@@ -509,43 +553,67 @@ function deleteCartSelect() {
 
 
 	         $('#plus-${status.index}').click(function(e){
-	              e.preventDefault();
+
 
 	              
 	              let quantity = parseInt($('#quantity-${status.index}').val());
+				
 
 	               $('#quantity-${status.index}').val(quantity + 1);
 	               quantity = quantity + 1;
 
-	               document.getElementsByName('price1-${status.index}')[0].value = '${dto.itemPrice}' * quantity;
-	               document.getElementsByName('disPrice-${status.index}')[0].value = '${dto.disPrice}' * quantity;
-	               document.getElementById('itemPoint-${status.index}').innerHTML = '${dto.itemPoint}' * quantity;
-	               document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
-	               document.getElementsByName('totalPrice-${status.index}')[0].value = '${dto.finalPrice}' * quantity;
+	               
+					if(quantity > 100){
+			              alert('한 번에 100개까지 구매 가능합니다.');
+			              $('#quantity-${status.index}').val(quantity - 1);	
+			              return;
+					}
+	               
+	               
+					if(${dto.totalStock} < quantity){
+		              alert('재고의 최대 수량입니다.');
+		              $('#quantity-${status.index}').val(quantity - 1);	
+		              return;
+					}
 
-	   			
+	               
+		              document.getElementsByName('price1-${status.index}')[0].value = '${dto.itemPrice}' * quantity;
+		              document.getElementsByName('disPrice-${status.index}')[0].value = '${dto.disPrice}' * quantity;
+		              document.getElementById('itemPoint-${status.index}').innerHTML = '${dto.itemPoint}' * quantity;
+		              document.getElementsByName('itemPoint-${status.index}')[0].value  = '${dto.itemPoint}' * quantity;
+	                  document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
+	                  document.getElementsByName('totalPrice-${status.index}')[0].value = '${dto.finalPrice}' * quantity;
+			
 					let allPrice = 0; //정가 총합
 					let allDisPrice = 0; //할인금액 총합
-					
+					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
 		            	   allPrice = allPrice + parseInt(document.getElementsByName('price1-' + i)[0].value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementsByName('disPrice-' + i)[0].value);
+		            	   allPoint =  allPoint + parseInt(document.getElementsByName('itemPoint-' + i)[0].value);
 		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
 		               }
+					
+
+		               document.getElementsByName('allPoint')[0].value = allPoint;
 		               document.getElementById('allPrice').innerHTML = allPrice;
+		               document.getElementsByName('allPrice')[0].value = allPrice;
 		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               document.getElementsByName('allDisPrice')[0].value = allDisPrice;
 		               
 		               
 		               if(allTotalPrice >= 100000){
+		            	   document.getElementsByName('deliveryFee')[0].value = 0;
 		            	   document.getElementById('deliveryFee').innerHTML = 0;
 		               } else {
-		            	   document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
-		            	   allTotalPrice += parseInt('${dto.deliveryFee}');
+		            	   document.getElementById('deliveryFee').innerHTML ='${deliveryFeeMax.deliveryFeeMax}';
+		            	   document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
+		            	   allTotalPrice += parseInt('${deliveryFeeMax.deliveryFeeMax}');
 		               }
 		               
 		               
-		               
+		               document.getElementsByName('finalPrice')[0].value = allTotalPrice;
 		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
 
 	          });
@@ -566,42 +634,41 @@ function deleteCartSelect() {
 		              document.getElementsByName('price1-${status.index}')[0].value = '${dto.itemPrice}' * quantity;
 		              document.getElementsByName('disPrice-${status.index}')[0].value = '${dto.disPrice}' * quantity;
 		              document.getElementById('itemPoint-${status.index}').innerHTML = '${dto.itemPoint}' * quantity;
+		              document.getElementsByName('itemPoint-${status.index}')[0].value  = '${dto.itemPoint}' * quantity;
 	                  document.getElementById('totalPrice-${status.index}').innerHTML = '${dto.finalPrice}' * quantity;
 	                  document.getElementsByName('totalPrice-${status.index}')[0].value = '${dto.finalPrice}' * quantity;
 			
 					let allPrice = 0; //정가 총합
 					let allDisPrice = 0; //할인금액 총합
+					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
 		            	   allPrice = allPrice + parseInt(document.getElementsByName('price1-' + i)[0].value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementsByName('disPrice-' + i)[0].value);
+		            	   allPoint =  allPoint + parseInt(document.getElementsByName('itemPoint-' + i)[0].value);
 		            	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPrice-' + i).innerHTML);
 		               }
+
+		               document.getElementsByName('allPoint')[0].value = allPoint;
 		               document.getElementById('allPrice').innerHTML = allPrice;
+		               document.getElementsByName('allPrice')[0].value = allPrice;
 		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               document.getElementsByName('allDisPrice')[0].value = allDisPrice;
 		               
 		               if(allTotalPrice >= 100000){
+		            	   document.getElementsByName('deliveryFee')[0].value = 0;
 		            	   document.getElementById('deliveryFee').innerHTML = 0;
 		               } else {
-		            	   document.getElementById('deliveryFee').innerHTML = '${dto.deliveryFee}';
-		            	   allTotalPrice += parseInt('${dto.deliveryFee}');
+		            	   document.getElementById('deliveryFee').innerHTML ='${deliveryFeeMax.deliveryFeeMax}';
+		            	   document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
+		            	   allTotalPrice += parseInt('${deliveryFeeMax.deliveryFeeMax}');
 		               }
 		               
-		               
-		               
+		               document.getElementsByName('finalPrice')[0].value = allTotalPrice;
 		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
 	              }
 	
 	          });
-	           
-	           $('#quantity-${status.index}').keyup(function(e){       	   
-	        	   var quantity = parseInt($('#quantity-${status.index}').val());
-	        	   
-	        	   if( ! quantity){
-	        		   quantity = 0;
-	        	   }
-	        	   document.getElementById('totalPrice-${status.index}').innerHTML = price * quantity;
-	           });
 	           </c:if>
 	           </c:forEach>
 	           

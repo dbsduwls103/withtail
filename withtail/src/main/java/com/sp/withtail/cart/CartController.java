@@ -27,8 +27,13 @@ public class CartController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		List<Cart> list = service.listCart(info.getUserId());
+		Cart nullCheck = service.listNullCheck(info.getUserId());
+		Cart deliveryFeeMax = service.deliveryFee(info.getUserId());
+	
 		
 		model.addAttribute("list", list);
+		model.addAttribute("nullCheck", nullCheck);
+		model.addAttribute("deliveryFeeMax", deliveryFeeMax);
 		return ".cart.cart";
 	}
 	
@@ -71,10 +76,10 @@ public class CartController {
 	
 
 	
-	/*
+	
 	@GetMapping("checkout")
 	public String execute() throws Exception {
 	
 		return ".cart.checkout";
-	}*/
+	}
 }

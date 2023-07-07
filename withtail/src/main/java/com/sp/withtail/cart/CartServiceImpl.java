@@ -29,6 +29,35 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
+	public Cart deliveryFee(String userId) {
+		Cart dto = null;
+
+		// 게시물 가져오기
+		try {
+			dto = dao.selectOne("cart.deliveryFeeMax", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+	
+	
+	@Override
+	public Cart listNullCheck(String userId) {
+		Cart dto = null;
+		
+		try {
+			dto = dao.selectOne("cart.listNullCheck", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+	
+	@Override
 	public void deleteCart(Map<String, Object> map) throws Exception {
 		try {
 			dao.deleteData("cart.deleteCart", map);
@@ -37,5 +66,6 @@ public class CartServiceImpl implements CartService {
 			throw e;
 		}
 	}
-	
+
+
 }
