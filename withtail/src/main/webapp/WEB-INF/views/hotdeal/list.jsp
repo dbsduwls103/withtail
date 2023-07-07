@@ -100,7 +100,7 @@
 								src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
 								alt="Colorlib Template"> 
 							<c:if test="${dto.discount != 0}">
-								<span class="status">${dto.discount}%</span>
+								<span class="status">${dto.discount}%</span> 
 							</c:if>
 							</a>
 
