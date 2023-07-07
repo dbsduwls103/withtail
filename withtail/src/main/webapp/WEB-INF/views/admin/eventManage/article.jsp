@@ -42,6 +42,19 @@
    align-items: center;
    justify-content: center;
 }
+
+.btn {
+    color: #333;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+    vertical-align: baseline;
+}
 </style>
 
 <script type="text/javascript">
@@ -154,23 +167,6 @@ $(function(){
 						</td>
 					</tr>
 					
-					<tr>
-						<td colspan="2">
-							이전글 :
-							<c:if test="${not empty preReadDto}">
-								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
-							</c:if>
-						</td>
-					</tr>
-					
-					<tr>
-						<td colspan="2">
-							다음글 :
-							<c:if test="${not empty nextReadDto}">
-								<a href="${pageContext.request.contextPath}/admin/eventManage/${category}/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
-							</c:if>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 				

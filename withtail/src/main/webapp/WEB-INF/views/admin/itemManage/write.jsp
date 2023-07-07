@@ -13,6 +13,19 @@
 .body-main {
 	width: 960px;
 }
+
+.btn {
+    color: #333;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+    vertical-align: baseline;
+}
 </style>
 
 <style type="text/css">

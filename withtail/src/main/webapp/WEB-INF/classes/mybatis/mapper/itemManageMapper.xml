@@ -249,8 +249,8 @@
 		select st.itemNum, i.itemName, stockNum, op2.option2Name option2Name, op22.option2Name option2Name2
 		from itemStock st
 		JOIN item i on i.itemNum = st.itemNum
-		JOIN option2 op2 ON st.option2Num = op2.option2Num
-		JOIN option2 op22 ON st.option2Num2 = op22.option2Num
+		LEFT OUTER JOIN option2 op2 ON st.option2Num = op2.option2Num
+		LEFT OUTER JOIN option2 op22 ON st.option2Num2 = op22.option2Num
 		where st.itemNum = #{itemNum}
 		order by stockNum asc
 	   ) stcnt
