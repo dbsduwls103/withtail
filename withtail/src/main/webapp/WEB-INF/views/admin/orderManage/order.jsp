@@ -405,6 +405,22 @@ $(function() {
 	});
 	
 });
+
+$(function() {
+	$(".makeInvoiceNumber").click(function(){
+		var now = new Date();
+		var ny = (String)(now.getFullYear());
+		var nm1 = (String)(now.getMonth() + 1);
+		var nd = (String)(now.getDate());
+		var nh = (String)(now.getHours()); 
+		var nm2 = (String)(now.getMinutes());
+		var ns = (String)(now.getSeconds());
+		var orderNum = $("form[name=invoiceNumberForm] input[name=orderNum]").val();
+		let query = ny+nm1+nd+nh+nm2+ns+orderNum;
+		$("#invoiceNumber").val(query);
+	});
+	
+});
 </script>
  
 <div class="out">
@@ -518,7 +534,7 @@ $(function() {
 
 	 <form name="invoiceNumberForm" method="post">
             <div class="content">송장 번호 : 
-                    <input type="text" name="invoiceNumber" class="modalinput"> 
+                    <input type="text" id="invoiceNumber" name="invoiceNumber" class="modalinput"> 
             </div>
             <div class="content">택배 업체 : 
                 <select class="modalinput" name="companyNum">
@@ -530,6 +546,7 @@ $(function() {
             <input type="hidden" name="orderNum" value="">
             <input type="hidden" name="orderState" value="2">
             <div style="text-align: center; margin: 10px;">
+             <button type="button" class="btn makeInvoiceNumber" style="margin-top: 20px;" data-orderNum="${dto.orderNum}" >운송장 생성</button>
              <button type="button" class="btn btnInvoiceNumberOk" style="margin-top: 20px;" data-orderNum="${dto.orderNum}" data-orderState="${dto.orderState}">배송등록</button>
             </div>
         </form> 

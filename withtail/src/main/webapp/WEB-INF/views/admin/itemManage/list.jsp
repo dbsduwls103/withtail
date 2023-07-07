@@ -14,16 +14,16 @@
 	width: 960px;
 }
 .btn {
-color: #333;
-border: 1px solid #999;
-background-color: #fff;
-padding: 3px;
-border-radius: 4px;
-font-weight: 500;
-font-size: 12px;
-cursor: pointer;
-font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
-vertical-align: baseline;
+    color: #333;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+    vertical-align: baseline;
 }
 
 .imgbox {
@@ -229,8 +229,8 @@ $(function(){
 		<form name="itemForm" method="post">
 		<table class="table table-border table-list">
 			<thead>
-				<tr>
-					<th class="wx-50"><input type="checkbox" class="chkAll"></th>
+				<tr style="border-bottom: 1px solid #ced4da; border-top: 1px solid #ced4da; color: #333;">
+					<th class="wx-50" ><input type="checkbox" class="chkAll"></th>
 					<th class="wx-70">상품 코드</th>
 					<th class="wx-130">상품 사진</th>
 					<th class="wx-150">상품명</th>
@@ -324,7 +324,7 @@ $(function(){
 				</td>
 				<td align="right" width="150">
 					<div class="col text-end" style="display: inline-block;">
-					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/write';">글올리기</button>
+					    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/itemManage/write';">상품 등록</button>
 				    </div>
 				</td>
 			</tr>

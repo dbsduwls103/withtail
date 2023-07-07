@@ -93,7 +93,7 @@ function check() {
     
     <div class="body-main">
     <div class="body-title">
-		<h2><i class="fa-solid fa-democrat" ></i> Tail & Path </h2>
+		<h2><i class="fa-solid fa-democrat" ></i> Tail  &amp; Path </h2>
     </div>
     	
 		<form name="dogmapForm" method="post" enctype="multipart/form-data">

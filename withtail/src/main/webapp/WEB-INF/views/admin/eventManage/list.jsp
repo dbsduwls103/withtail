@@ -13,6 +13,34 @@
 .body-main {
 	width: 960px;
 }
+.btn {
+    color: #333;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+    vertical-align: baseline;
+}
+
+ul.tabs li.active {
+    font-weight: 700;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    background: #82ae46;
+}
+
+
+ul.tabs li {
+    font-weight: 700;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    background: #f2f2f2;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -51,7 +79,7 @@ $(function(){
 		<div id="tab-content" style="padding: 15px 10px 5px; clear: both;">
 			<table class="table">
 				<tr>
-					<td align="left" width="50%">
+					<td style="text-align: right;margin-top: 15px;">
 						${dataCount}개(${page}/${total_page} 페이지)
 					</td>
 					<td align="right">
@@ -62,7 +90,7 @@ $(function(){
 			
 			<table class="table table-border table-list">
 				<thead>
-					<tr>
+					<tr style="border-bottom: 1px solid #ced4da; border-top: 1px solid #ced4da; color: #333;">
 						<th class="wx-60">번호</th>
 						<th>제목</th>
 						<th class="wx-150">이벤트 시작일</th>

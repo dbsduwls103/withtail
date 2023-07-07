@@ -39,6 +39,19 @@ vertical-align: baseline;
     background-color: #fff;
     border-radius: 4px;
 }
+
+.btn {
+    color: #333;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: "맑은 고딕", 나눔고딕, 돋움, sans-serif;
+    vertical-align: baseline;
+}
 </style>
 
 <script type="text/javascript">
@@ -69,7 +82,7 @@ function searchList() {
 		
 		<table class="table table-border table-list">
 			<thead>
-				<tr>
+				<tr style="border-bottom: 1px solid #ced4da; border-top: 1px solid #ced4da; color: #333;">
 					<th class="wx-60">번호</th>
 					<th class="wx-100">대표사진</th>
 					<th class="wx-100">시설명</th>
