@@ -184,7 +184,7 @@ function sendAnswerOk() {
 					<!-- 상품상세페이지로 연결 -->
 					<tr class="">
 						<td style="width: 60px; padding-bottom: 0px;"><img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"></td>
-						<td style="padding: 0px;">${dto.madeby }<br>${dto.itemName }</td>
+						<td style="padding: 0px;">${dto.madeby }<br>${dto.itemName }<c:if test="${not empty dto.option1 and not empty dto.option2 }"><div style="color: #9e9e9e; font-size: 12px; font-weight: normal;">${dto.option1 }/${dto.option2 }</div></c:if></td>
 					</tr>
 					<tr >
 						<td style="width: 60px;"></td>
