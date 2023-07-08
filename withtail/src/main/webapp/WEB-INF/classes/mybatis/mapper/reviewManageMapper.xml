@@ -38,8 +38,8 @@
 		<where>
 			<if test="keyword!=null and keyword!='' ">
 				<include refid="where-list"/>
-				AND replyContent is not null
 			</if>
+				AND replyContent is not null
 		</where>   
 	</select>
 	

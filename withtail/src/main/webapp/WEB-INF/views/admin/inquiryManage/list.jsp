@@ -35,7 +35,7 @@ function searchList() {
     
 <div class="body-main">
     <div class="body-title">
-		<h2>1:1 문의 </h2>
+		<h2><i class="fa-solid fa-person-circle-question"></i> 1:1 문의 </h2>
     </div>
 
 		<table class="table">

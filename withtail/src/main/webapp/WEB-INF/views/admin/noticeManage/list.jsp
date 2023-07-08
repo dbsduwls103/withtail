@@ -37,7 +37,7 @@ function searchList() {
     <div class="out" >
     <div class="body-main" style="padding: 0 auto;">
     <div class="body-title">
-		<h2>공지사항 </h2>
+		<h2><i class="fa-solid fa-circle-exclamation"></i> 공지사항 </h2>
     </div>
 
 		<table class="table">
@@ -90,7 +90,7 @@ function searchList() {
 						<td>
 							<a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
 							<c:if test="${dto.gap < 1}">
-								<img src='${pageContext.request.contextPath}/resources/images/new.gif'>
+								<span style="color:#82ae46; font-size: 12px; font-weight:900; ">new</span>
 							</c:if>
 						</td>
 						<td>${dto.userName}</td>

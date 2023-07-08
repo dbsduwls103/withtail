@@ -62,6 +62,7 @@
 	min-height: 50px;
 	padding: 3px 10px 10px;
 	display: none;
+	background: #eeeeee85;
 }
 
 .accordion div.answer > .category {
@@ -89,7 +90,7 @@
 
 .accordion h3.active {
 	font-weight: 600;
-	background-color: #f8f9fa;
+	background-color: #82ae46cf;
 }
 </style>
 
@@ -220,7 +221,7 @@ function deleteFaq(num, page) {
     
     <div class="body-main">
     <div class="body-title">
-		<h2> 자주하는 질문 </h2>
+		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
     </div>
 
 		<div>

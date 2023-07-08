@@ -358,7 +358,7 @@ function searchList() {
  <div class="out">
 <div class="body-main">
  	 <div class="body-title">
-		<h2>리뷰 관리 </h2>
+		<h2><i class="fas fa-clipboard-list"></i> 리뷰 관리 </h2>
     </div>
  	<br><br>
  	
