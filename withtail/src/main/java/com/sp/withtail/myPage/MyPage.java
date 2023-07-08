@@ -91,6 +91,22 @@ public class MyPage {
 	private long savePoint;
 	private String orderStateDate;
 	
+	// 택배
+	private long invoiceNumber;
+	private String companyName;
+	
+	public long getInvoiceNumber() {
+		return invoiceNumber;
+	}
+	public void setInvoiceNumber(long invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	public String getOrderStateDate() {
 		return orderStateDate;
 	}

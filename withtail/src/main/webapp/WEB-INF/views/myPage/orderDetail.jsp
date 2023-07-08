@@ -641,11 +641,16 @@ $(function() {
 
 		let orderState = $('#orderState').val();
 		let orderNum = ${dto.orderNum};
-		let amount = ${dto.savePoint};
-		let pointRegDate = '${dto.orderStateDate}';
-
+		
+		
 		updateOrderState(orderNum, orderState);
-		getPoint(amount, pointRegDate);
+		
+		
+	
+		let amount = ${dto.savePoint};
+	
+		
+		getPoint(amount);
 		
 	});
 	
@@ -669,11 +674,11 @@ $(function() {
 		    });
 	}
 	
-	function getPoint(amount, pointRegDate) {
+	function getPoint(amount) {
 		$.ajax({
 		      url: "${pageContext.request.contextPath}/myPage/getPoint",
 		      type: "POST", 
-		      data: { amount: amount, pointRegDate: pointRegDate },
+		      data: { amount: amount },
 		      dataType: "JSON",
 		      success: function(data) {
 		        console.log("포인트 등록 성공");
@@ -716,7 +721,7 @@ $(function() {
 							주문일
 						</div>
 						<div class="od-date-text-med">
-							2023. 6. 15. 오전 11:01:36&nbsp;&nbsp;|&nbsp;&nbsp;
+							${dto.purchaseDate}&nbsp;&nbsp;|&nbsp;&nbsp;
 						</div>
 						<div class="od-number">
 							<div class="od-num-reg valign-text-middle">
@@ -741,7 +746,9 @@ $(function() {
 							</div>
 							<c:if test="${dto.orderState >= 2}">
 								<div class="od-delivery-invoice valign-text-middle">
-									한진택배 453229651976
+									<c:if test="${dto.invoiceNumber != 0}">
+										${dto.companyName}&nbsp;&nbsp;${dto.invoiceNumber}
+									</c:if>
 								</div>
 							</c:if>
 						</div>
@@ -783,7 +790,7 @@ $(function() {
 						<div class="od-product">
 							<div class="od-product-info">
 								<div class="od-product-image-layout">
-									<img class="od-product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+									<img class="od-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto1.mainImage}">
 								</div>
 								<div class="od-product-detail-wrap">
 									<a href="#" class="od-product-name">

@@ -134,27 +134,30 @@
 		WHERE userId = #{usreId}		
 	</select>
 	
-	<select id="readOrderList" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">		
-		SELECT m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState, totalOriPrice, deliveryCharge,usedPoint, usedCoupon,
-		       SUM((od.price - NVL(od.salePrice, 0)) * od.count) AS total_discount, totalPurchasePrice, SUM(savePoint) savePoint, TO_CHAR(orderStateDate,'YYYY-MM-DD') orderStateDate
-		FROM member1 m
+	<select id="readOrderList" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">				       
+        SELECT m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState, totalOriPrice, deliveryCharge,usedPoint, usedCoupon,
+		       SUM((od.price - NVL(od.salePrice, 0)) * od.count) AS total_discount, totalPurchasePrice, (totalPurchasePrice * 0.01) savePoint,  TO_CHAR(orderStateDate, 'YYYY-MM-DD HH24:MI:SS') orderStateDate
+               , companyName, invoiceNumber
+    	FROM member1 m
 		JOIN orderList ol ON ol.userId = m.userId
 		JOIN orderAddress a ON ol.orderNum = a.orderNum
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum
+        LEFT OUTER JOIN delivery d ON d.orderNum = ol.orderNum
+        LEFT OUTER JOIN deliveryCompany dc ON dc.companyNum = d.companyNum
 		WHERE od.orderNum=#{orderNum}
-		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice, orderStateDate
+		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice, orderStateDate , companyName, invoiceNumber
 	</select>
 	
 	<update id="updateOrderState" parameterType="Long">
-		update orderList set orderState=5 where orderNum=#{orderNum}
+		update orderList set orderState=5, orderStateDate = SYSDATE where orderNum=#{orderNum}
 	</update>
 	
 	<update id="updateOrderCancel" parameterType="Long">
-		update orderList set orderState=6 where orderNum=#{orderNum}
+		update orderList set orderState=6, orderStateDate = SYSDATE where orderNum=#{orderNum}
 	</update>
 	
 	<update id="updateOrderRefund" parameterType="Long">
-		update orderList set orderState=7 where orderNum=#{orderNum}
+		update orderList set orderState=7, orderStateDate = SYSDATE where orderNum=#{orderNum}
 	</update>
 	<select id="listNumOrder" parameterType="Long" resultType="com.sp.withtail.myPage.MyPage">
 		SELECT ol.orderNum, m.userId, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2,
@@ -262,7 +265,7 @@
 
 	<insert id="getPoint" parameterType="com.sp.withtail.myPage.MyPage">
 		INSERT INTO point(pointNum, userId, pointChk, amount, balance, pointRegDate)
-		VALUES(point_seq.nextval ,#{userId},0, #{amount}, #{balance}, #{pointRegDate})
+		VALUES(point_seq.nextval ,#{userId},0, #{amount}, #{balance}, SYSDATE)
 	</insert>
 	
 	<update id="memberEdit" parameterType="com.sp.withtail.myPage.MyPage">

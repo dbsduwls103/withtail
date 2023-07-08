@@ -545,7 +545,7 @@ $(function(){
 			<div class="rw-product-info-wrap">
 				<div class="rw-product-info">
 					<div class="rw-product-image-layout">
-						<img class="rw-product-image" alt="" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+						<img class="rw-product-image" alt="" src="${pageContext.request.contextPath}/uploads/item/${dto1.mainImage}">
 					</div>
 					<div class="rw-product-name" style="margin-top: 30px;">
 						<p class="rw-product-text valign-text-middle">${dto.madeBy} | ${dto.itemName}<c:if test="${not empty dto.option2Name2}">(${dto.option2Name}/${dto.option2Name2})</c:if>

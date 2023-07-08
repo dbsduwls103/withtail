@@ -626,7 +626,7 @@ $(function() {
 				                    <div class="product-info">
 				                        <div class="product-image-layout">
 				                            <div class="product-image">
-				                                <img alt="product-image" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" class="product-image">
+				                                <img alt="product-image" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}" class="product-image">
 				                            </div>
 				                        </div>
 				                        <div class="product-name">
