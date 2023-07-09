@@ -532,6 +532,17 @@ public class MyPageServiceImpl implements MyPageService {
 		return dto;
 	}
 
+	@Override
+	public void updatePwd(MyPage dto) throws Exception {
+		try {
+			dao.updateData("myPage.updatePwd", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 	
 	
 

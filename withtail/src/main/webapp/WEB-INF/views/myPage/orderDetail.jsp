@@ -697,6 +697,41 @@ $(function() {
 	
 });
 
+
+$(function() {
+	$('#insertCart').click(function() {
+		const $btn = $(this);
+		let itemNum = $(this).attr('data-itemNum');
+		let option2Num = $(this).attr('data-option2Num');
+		let option2Num2 = $(this).attr('data-option2Num2');
+		
+		console.log(option2Num);
+		console.log(option2Num2);
+		
+		insertCart($btn, itemNum,option2Num,option2Num2);
+		
+	});
+	
+	function insertCart($btn, itemNum,option2Num,option2Num2) {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/myPage/insertCart",
+			type: "POST",
+			data: { itemNum : itemNum, option2Num : option2Num, option2Num2 : option2Num2 },
+			dataType : "JSON",
+			success:function(data) {
+				console.log("성공");
+			},
+			error: function(xhr, status, error) {
+				
+				console.error("실패");
+			}
+		});
+	}
+});
+
+
+
+
 </script>
 
   <div class="container -min">
@@ -837,7 +872,7 @@ $(function() {
 								</div>
 							</div>
 							<div class="od-text-btn-layout">
-								<button type="button" class="btn3">장바구니 담기</button>
+								<button type="button" class="btn3" id="insertCart" data-itemNum="${dto1.itemNum}" data-option2Num2="${dto1.option2Num2}" data-option2Num="${dto1.option2Num}">장바구니 담기</button>
 							</div>
 						</div>
 						</c:forEach>

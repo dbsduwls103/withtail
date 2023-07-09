@@ -35,6 +35,7 @@ public interface MyPageService {
 	
 	public void updateOrderCancel(long orderNum) throws Exception;
 	public void updateOrderRefund(long orderNum) throws Exception;
+	public void updatePwd(MyPage dto) throws Exception;
 	
 	public List<MyPage> listFavorite(String userId) throws Exception;
 	public int favoriteDataCount(String userId);

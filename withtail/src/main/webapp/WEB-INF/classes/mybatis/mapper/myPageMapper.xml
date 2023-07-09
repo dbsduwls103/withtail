@@ -71,13 +71,18 @@
 	</select>
 	
 	<select id="readProfile" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT num, userId, userName, nickname, email, enabled
+		SELECT num, userId, userName, nickname, email, enabled, userPwd
 		FROM member1
 		WHERE userId = #{userId}
 	</select>
 	
 	<update id="updateProfileName" parameterType="com.sp.withtail.myPage.MyPage">
-		UPDATE member1 SET userName=#{userName}, nickName=#{nickName}
+		UPDATE member1 SET userName=#{userName}, nickName=#{nickName}, email=#{email}
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="updatePwd" parameterType="com.sp.withtail.myPage.MyPage">
+		UPDATE member1 SET userPwd = #{userPwd}
 		WHERE userId = #{userId}
 	</update>
 	

@@ -397,6 +397,24 @@ public class MyPageController {
     	return model;
     }
     
+    @PostMapping("updatePwd")
+    @ResponseBody
+    public Map<String, Object> updatePwdSubmit(MyPage dto, HttpSession session) throws Exception {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	
+    	String state = "true";
+    	try {
+    		dto.setUserId(info.getUserId());
+			service.updatePwd(dto);
+		} catch (Exception e) {
+			state = "false";
+		}
+    	
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	model.put("state", state);
+    	return model;
+    }
+    
     @GetMapping("profile")
   	public String profile(MyPage dto, HttpSession session, 
   			Model model) throws Exception {

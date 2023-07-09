@@ -273,6 +273,18 @@ input:focus {
 	outline: solid 1px #82ae46;
 }
 
+input::placeholder {
+	padding-left: 10px;
+}
+
+.inp7 {
+	margin: 13px;
+    border-radius: 5px;
+    border: solid 1px #b0a8a8;
+    height: 41px;
+}
+
+
 </style>
 
 <script>
@@ -321,11 +333,30 @@ $(function() {
 	});
 	
 	
-	
-	
-	$('#btn20-1, #btn20-2').click(function() {
+	$('#edit2').click(function(e) {
+		preEmail = $("#email").val();
+		
+		$('#profile2').hide();
+		$('#editbutton2').hide();
+ 
+	    $('#profile-edit2').show();
+	});
+	  
+	$('#btn22-3').click(function() {
+		// 프로필 값 표시(취소)
+		$("#email").val(preEmail);
+		
+		$('#profile2').show();
+		$('#editbutton2').show();
+		
+		$('#profile-edit2').hide();
+	});
+
+
+	$('#btn20-1, #btn20-2, #btn20-3').click(function() {
 		let userName = $('#userName').val();
 		let nickName = $('#nickName').val();
+		let email = $('#email').val();
 	
 		if(! userName || !/^[가-힣]+$/.test(userName)) {
 			$('#userName').focus();
@@ -338,22 +369,23 @@ $(function() {
 		}
 		
 		
-		updateName(userName, nickName);
+		updateName(userName, nickName, email);
 		
 		
 	});
 	
-	function updateName(userName, nickName) {
+	function updateName(userName, nickName, email) {
 		$.ajax({
 			url: '${pageContext.request.contextPath}/myPage/updateProfileName',
 	        type: 'POST',
-	        data: { userName: userName,  nickName: nickName}, 
+	        data: { userName: userName,  nickName: nickName, email : email}, 
 	        dataType: 'JSON',
 	        success: function(data) {
 	  		
 	        	$(".profile-userName").text(userName);
 	        	$(".profile-nickName").text(nickName);
-	        	
+	        	$(".profile-email").text(email);
+	   	
 	        	
 	    		$('#profile').show();
 	    		$('#editbutton').show();
@@ -363,6 +395,10 @@ $(function() {
 	    		$('#editbutton1').show();
 	    		$('#profile-edit1').hide();		    		
         	
+	    		$('#profile2').show();
+	    		$('#editbutton2').show();
+	    		$('#profile-edit2').hide();	
+	      	
 	        },
 	        error: function(xhr, status, error) {
 	  
@@ -371,6 +407,63 @@ $(function() {
 	      });
 	}
 });
+
+
+$(function() {
+	$('#updatePwd').click(function() {
+		var currentPwd = $('#currentPwd').val();	
+		var currentPwd1 = $('#currentPwd1').val();
+		var confirmPasswordError = $('#confirmPasswordError');
+		var userPwd = $('#newPwd').val();
+		var confirmPwd = $('#confirmPwd').val();
+		var confirmPasswordError1 =$('#confirmPasswordError1');
+		
+		
+		if(currentPwd != currentPwd1) {
+			confirmPasswordError.text("비밀번호가 일치하지 않습니다.");
+			return;
+		}
+		
+		if(userPwd != confirmPwd) {
+			confirmPasswordError1.text("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
+			return;
+		}
+		
+		updatePwd(userPwd);
+	});
+	
+	function updatePwd(userPwd) {
+		$.ajax({
+		      url: "${pageContext.request.contextPath}/myPage/updatePwd",
+		      type: "POST", 
+		      data: { userPwd : userPwd },
+		      dataType: "JSON",
+		      success: function(data) {
+		        console.log("비밀번호 변경 성공");
+		        $('#exampleModal').modal('hide'); // 모달 숨기기
+		        window.location.reload(); 
+		      },
+		      error: function(xhr, status, error) {
+		       
+		        console.error("비밀번호 변경 실패");
+		      
+		      }
+		    });
+	}
+	
+});
+
+$(function() {
+    $('#exampleModal').on('hidden.bs.modal', function () {
+ 
+        $('#currentPwd').val('');
+        $('#newPwd').val('');
+        $('#confirmPwd').val('');
+        $('#confirmPasswordError').text('');
+        $('#confirmPasswordError1').text('');
+    });
+});
+
 
 </script>
 
@@ -474,12 +567,32 @@ $(function() {
 							이메일
 						</div>
 					</div>
-					<div class="profile-edit-value ">
-						<div class="profile-edit-value-text valign-text-middle">
+					<div class="profile-edit-value" id="profile2">
+						<div class="profile-edit-value-text valign-text-middle profile-email">
 							${dto1.email}
 						</div>
 					</div>
+					
+					<form name="emailForm" class="profile-edit-value expanded" >
+						<div class="shcus" style="display: none;" id="profile-edit2">
+							<div class="text-input">
+								<input type="text" class="inp5" id="email" name="email" value="${dto1.email}">
+							</div>
+							<div class="profile-edit-button-layout">
+								<button type="button" class="btn20" id="btn20-3">수정</button>
+								<button type="button" class="btn22" id="btn22-3">취소</button>
+							</div>
+						</div>
+					</form>
+					
 				</div>
+				
+				<div class="icon1-edit-layout" id="editbutton2">
+					<div class="minimal-text-btn">
+						<a class="text valign-text-middle" href="#" id="edit2">수정</a>
+					</div>
+				</div>
+				
 			</div>	
 			<hr>
 			<div class="profile-edit-list">
@@ -489,12 +602,47 @@ $(function() {
 							비밀번호
 						</div>
 					</div>
-					<div class="profile-edit-value ">
-						<div class="profile-edit-value-text valign-text-middle">
-							*********
+					<div class="profile-edit-value" id="profile3">
+						<div class="profile-edit-value-text valign-text-middle ">
+							**********
 						</div>
+					</div>					
+				</div>
+				
+				<div class="icon1-edit-layout">
+					<div class="minimal-text-btn">
+						<a class="text valign-text-middle" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
+						  수정
+						</a>
 					</div>
 				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" style="width: 355px;">
+				    <div class="modal-content">
+				      <div class="modal-header" style="border-bottom: none;">
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body" style="text-align: center; padding-bottom: 0px; font-size: 17px;">
+				        비밀번호를 수정하시겠어요?
+				      </div>
+				      <input type="hidden" id="currentPwd1" value="${dto1.userPwd}">				     
+				      <input type="text" placeholder="현재 비밀번호" class="inp7" id="currentPwd">
+				      <div id="confirmPasswordError" style="color: #da1e28; margin-left: 17px;"></div>
+				     
+				      <input type="text" placeholder="새 비밀번호" class="inp7" id="newPwd">
+				     
+				      <input type="text" placeholder="새 비밀번호 확인" class="inp7" id="confirmPwd">			
+				   	  <div id="confirmPasswordError1" style="color: #da1e28; margin-left: 17px;"></div>
+				     
+				      <div class="modal-footer" style="justify-content: center; border-top: none;">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 150px; height: 62px; border-radius: 5px; background-color: white; color: gray;">아니요</button>
+				        <button type="button" class="btn btn-primary" style="width: 150px; height: 62px; border-radius: 5px;" id="updatePwd">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+											
 			</div>
 			
 		</div>

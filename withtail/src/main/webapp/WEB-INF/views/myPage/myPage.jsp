@@ -427,8 +427,7 @@
 						<p class="title-two" style="margin-bottom: 0px" >프로필</p>
 						<div class="text-layout">
 							<p style="margin-bottom: -5px; font-size: 13px;">${dto2.userName}</p>
-							<p style="margin-bottom: -5px; font-size: 13px;">${dto2.email}</p>
-							<p style="margin-bottom: -5px; font-size: 13px;">비밀번호 : ********</p>						
+							<p style="margin-bottom: -5px; font-size: 13px;">${dto2.email}</p>					
 						</div>
 					</div>
 				</div>  
