@@ -402,6 +402,11 @@ $(function() {
 						</c:forEach>
 					</tbody>
 				</table>
+				<div style="width: 100%">
+					<div style="text-align: center;" class="page-navigation">
+						${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
+					</div>
+				</div>				
 			</div>
 			
 	        <div style="margin-top: 50px;">
@@ -415,7 +420,6 @@ $(function() {
 							    <th class="wx-50"><input type="checkbox" class="chkAll"></th>
 								<th class="wx-80">회원 코드</th>
 								<th class="wx-100">회원 아이디</th>
-								<th class="wx-80">보유</th>
 							</tr>
 						</thead>
 		
@@ -425,16 +429,13 @@ $(function() {
 							    <td class="item-remove"><input type="checkbox" name="nums" value="${dto.userId}"></td>
 								<td>${dto.memberNum}</td>
 								<td>${dto.userId }</td>
-								<td>
-								   <button type="button" class="btn insertOne" data-memberNum = "${dto.memberNum}" data-couponNum = "${couponNum}">지급하기</button>
-								</td>
 							</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 					<div style="width: 100%; text-align: right; margin: 15px;" >
 					   <input type="hidden" name="couponNum" value="${dto.couponNum}">
-					   <button type="button" class="btn insertAll" style="margin-right: 30px;">일괄지급</button>
+					   <button type="button" class="btn insertAll" style="margin-right: 30px;">지급하기</button>
 					</div>
 				</form>
 			</div>

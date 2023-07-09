@@ -83,7 +83,6 @@ public class ItemManageServiceImpl implements ItemManageService {
 					dto.getOption2Nums2().add(option2Num2);
 				}
 
-
 				for(long op2Num : dto.getOption2Nums()) {
 					for(long op2Num2 : dto.getOption2Nums2()) {
 						stock.setOption2Num(op2Num);
@@ -160,16 +159,19 @@ public class ItemManageServiceImpl implements ItemManageService {
 				}
 			}
 
+			// 상위 옵션 하위 옵션 모두 작성된 경우
 			if((dto.getOption1Name() != null && ! dto.getOption1Name().equals("")) &&
-					(dto.getOption1Name2() != null && ! dto.getOption1Name2().equals(""))){
+					(dto.getOption1Name2() != null && ! dto.getOption1Name2().equals(""))) {
 
-				if(dto.getOption1Num() == null || dto.getOption1Num() == 0) {
+				// 상위 옵션과 하위옵션이 모두 새로 작성된 경우
+				if((dto.getOption1Num() == null || dto.getOption1Num() == 0)) {
+
 					long option1Num = dao.selectOne("itemManage.option1Seq");
 					dto.setOption1Num(option1Num);
 					dto.setParent(null);
 					dao.insertData("itemManage.insertOption1", dto);
-					
-					
+
+
 					long option2Num;
 					dto.setOption2Nums(new ArrayList<Long>());
 					for(int i = 0; i < dto.getOption2Names().size(); i++) {
@@ -182,15 +184,46 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 						dto.getOption2Nums().add(option2Num);
 					}
-					
-					
-				}else if(dto.getOption1Num() != null || dto.getOption1Num() != 0) {
+
+					long option1Num2 = dao.selectOne("itemManage.option1Seq");
+					dto.setOption1Num(option1Num2);
+					dto.setOption1Name(dto.getOption1Name2());
+					dto.setParent(option1Num);
+					dao.insertData("itemManage.insertOption1", dto);
+
+					long option2Num2;
+					dto.setOption2Nums2(new ArrayList<Long>());
+					for(int i =0; i<dto.getOption2Names2().size(); i++) {
+						option2Num2= dao.selectOne("itemManage.option2Seq");
+						dto.setOption2Num(option2Num2);
+						dto.setOption2Name(dto.getOption2Names2().get(i));
+						dto.setExtraPrice(dto.getExtraPrices2().get(i));
+						dao.insertData("itemManage.insertOption2",dto);
+
+						dto.getOption2Nums2().add(option2Num2);
+					}
+
+					ItemStock stock = new ItemStock();
+					stock.setItemNum(dto.getItemNum());
+					for(long op2Num : dto.getOption2Nums()) {
+						for(long op2Num2 : dto.getOption2Nums2()) {
+							stock.setOption2Num(op2Num);
+							stock.setOption2Num2(op2Num2);
+
+							dao.insertData("itemManage.insertItemStock", stock);
+						}
+					}
+
+
+					// 상위 옵셥은 수정, 하위옵션은 새로 등록하는 경우
+				} else if((dto.getOption1Num() != null || dto.getOption1Num() != 0)) {
+
+					// 상위옵션 업데이트
 					dao.updateData("itemManage.updateOption1",dto);
-					
+
 					int size = dto.getOption2Nums().size();
 
 					if(size != 0) {
-
 						for(int i = 0; i< size; i++) {
 							dto.setOption2Num(dto.getOption2Nums().get(i));
 							dto.setOption2Name(dto.getOption2Names().get(i));
@@ -198,18 +231,27 @@ public class ItemManageServiceImpl implements ItemManageService {
 							dto.setExtraPrice(dto.getExtraPrices().get(i));
 							dao.updateData("itemManage.updateOption2", dto);
 						}
+					} else if(size == 0) {
+						long option2Num;
+						dto.setOption2Nums(new ArrayList<Long>());
+						for(int i = 0; i < dto.getOption2Names().size(); i++) {
+							option2Num = dao.selectOne("itemManage.option2Seq");
+							dto.setOption2Num(option2Num);
+							dto.setOption2Name(dto.getOption2Names().get(i));
+							dto.setOption1Num(dto.getOption1Num());
+							dto.setExtraPrice(dto.getExtraPrices().get(i));
+							dao.insertData("itemManage.insertOption2", dto);
 
+							dto.getOption2Nums().add(option2Num);
+						}
 					}
-					
-				}
 
-
-				if(dto.getOption1Num2() == null || dto.getOption1Num2() == 0) {
+					// 하위 옵션 인서트
 					long option1Num2 = dao.selectOne("itemManage.option1Seq");
 					dto.setOption1Num(option1Num2);
 					dto.setParent(dto.getOption1Num());
 					dao.insertData("itemManage.insertOption1", dto);
-					
+
 					long option2Num;
 					dto.setOption2Nums2(new ArrayList<Long>());
 					for(int i = 0; i < dto.getOption2Names2().size(); i++) {
@@ -223,36 +265,35 @@ public class ItemManageServiceImpl implements ItemManageService {
 						dto.getOption2Nums2().add(option2Num);
 					}
 
-				}else if(dto.getOption1Num2() != null || dto.getOption1Num2() != 0){
-					dto.setOption1Num(dto.getOption1Num2());
-					dto.setOption1Name(dto.getOption1Name2());
-					dao.updateData("itemManage.updateOption1",dto);
-					
-					int size2 = dto.getOption2Nums2().size();
+					// 기존 재고 삭제
+					dao.deleteData("itemManage.deleteStock", dto.getItemNum());
 
-					if(size2 != 0) {
+					// 새로 등록된 옵션에 따라 새로운 재고 등록
+					ItemStock stock = new ItemStock();
+					stock.setItemNum(dto.getItemNum());
+					for(long op2Num : dto.getOption2Nums()) {
+						for(long op2Num2 : dto.getOption2Nums2()) {
+							stock.setOption2Num(op2Num);
+							stock.setOption2Num2(op2Num2);
 
-						for(int i = 0; i < size2; i++) {
-							dto.setOption1Num(dto.getOption1Num());
-							dto.setOption2Num(dto.getOption2Nums2().get(i));
-							dto.setOption2Name(dto.getOption2Names2().get(i));
-							dto.setExtraPrice(dto.getExtraPrices2().get(i));
-							dao.updateData("itemManage.updateOption2",dto);
+							dao.insertData("itemManage.insertItemStock", stock);
 						}
-
 					}
+
 				}
 
+				// 상위 옵션만 입력하고 하위 옵션은 입력하지 않았을 때	
 			} else if((dto.getOption1Name() != null || ! dto.getOption1Name().equals("")) &&
 					(dto.getOption1Name2() == null || dto.getOption1Name2().equals(""))) {
 
-
+				// 상위 옵션 insert 일때
 				if(dto.getOption1Num() == null || dto.getOption1Num() == 0) {
+
 					long option1Num = dao.selectOne("itemManage.option1Seq");
 					dto.setOption1Num(option1Num);
 					dto.setParent(null);
 					dao.insertData("itemManage.insertOption1", dto);
-					
+
 					long option2Num;
 					dto.setOption2Nums(new ArrayList<Long>());
 					for(int i = 0; i < dto.getOption2Names().size(); i++) {
@@ -264,27 +305,59 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 						dto.getOption2Nums().add(option2Num);
 					}
-					
+
+					// 재고 등록
+					ItemStock stock = new ItemStock();
+					stock.setItemNum(dto.getItemNum());
+					for(long op2Num : dto.getOption2Nums()) {
+						stock.setOption2Num(op2Num);
+
+						dao.insertData("itemManage.insertItemStock", stock);
+					}
+
 				} else if(dto.getOption1Num() != null && dto.getOption1Num() != 0) {
 					dao.updateData("itemManage.updateOption1",dto);
-					
+
 					int size = dto.getOption2Nums().size();
-					
+
 					if(size != 0) {
-						
+
 						for(int i = 0; i< size; i++) {
 							dto.setOption2Num(dto.getOption2Nums().get(i));
 							dto.setOption2Name(dto.getOption2Names().get(i));
 							dto.setOption1Num(dto.getOption1Num());
 							dto.setExtraPrice(dto.getExtraPrices().get(i));
 							dao.updateData("itemManage.updateOption2", dto);
+
 						}
-						
-					} 
+					} else if(size == 0) {
+						long option2Num;
+						dto.setOption2Nums(new ArrayList<Long>());
+						for(int i = 0; i < dto.getOption2Names().size(); i++) {
+							option2Num = dao.selectOne("itemManage.option2Seq");
+							dto.setOption2Num(option2Num);
+							dto.setOption2Name(dto.getOption2Names().get(i));
+							dto.setOption1Num(dto.getOption1Num());
+							dto.setExtraPrice(dto.getExtraPrices().get(i));
+							dao.insertData("itemManage.insertOption2", dto);
+
+							dto.getOption2Nums().add(option2Num);
+						}
+					}
+
+					// 기존 재고 삭제
+					dao.deleteData("itemManage.deleteStock", dto.getItemNum());
+
+					// 새로 등록된 옵션에 따라 새로운 재고 등록
+					ItemStock stock = new ItemStock();
+					stock.setItemNum(dto.getItemNum());
+					for(long op2Num : dto.getOption2Nums()) {
+						stock.setOption2Num(op2Num);
+
+						dao.insertData("itemManage.insertItemStock", stock);
+					}
 				}
-
 			}
-
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -125,9 +125,10 @@
 	</select>
 	
 	<select id="listItem"  parameterType="map" resultType="com.sp.withtail.admin.itemManage.ItemManage">
-       select itemName, discount, i.itemNum, itemPrice,
+       select itemName, discount, i.itemNum, itemPrice, SUM(totalStock) totalStock,
 	          mainImage, TO_CHAR(upddate,'YYYY-MM-DD')upddate, showNotice, TO_CHAR(regDate,'YYYY-MM-DD')regDate, count(orderNum) orderNum
 	   from item i
+	   LEFT OUTER JOIN itemstock st on i.itemNum = st.itemNum
        LEFT OUTER JOIN orderDetail od ON od.itemNum = i.itemNum 
        <if test="lastCtNum == 0 and subCtNum == 0 and parentCt != 0">
         JOIN (
