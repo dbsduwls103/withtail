@@ -33,6 +33,11 @@
 	    from member1 where nickName = #{nickName}
     </select>
     
+    <select id="readMemberByEmail" parameterType="String" resultType="com.sp.withtail.member.Member">
+	    select userId,num,userName,nickName,userPwd,enabled,regDate,modifyDate,lastLogin,failureCnt,point,email 
+	    from member1 where email = #{email}
+    </select>
+    
     <update id="updateMember" parameterType="com.sp.withtail.member.Member">
     	UPDATE member1
     	SET userPwd = #{userPwd}

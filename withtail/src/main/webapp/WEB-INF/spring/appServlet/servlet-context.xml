@@ -87,6 +87,7 @@
 			<exclude-mapping path="/member/userNicknameCheck"/>
 			<exclude-mapping path="/member/complete"/>
 			<exclude-mapping path="/member/pwdFind"/>
+			<exclude-mapping path="/member/idFind"/>
 
 			<exclude-mapping path="/shop/**"/>
 			<exclude-mapping path="/newest/**"/>

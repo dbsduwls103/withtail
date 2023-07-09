@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+ 
 		return dto;
 	}
 
@@ -87,6 +87,20 @@ public class MemberServiceImpl implements MemberService {
 		return dto;
 	}
 
+	@Override
+	public Member readMemberByEmail(String email) {
+		Member dto = null;
+
+		try {
+			dto = dao.selectOne("member.readMemberByEmail", email);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+	
 	@Override
 	public void updateMembership(Map<String, Object> map) throws Exception {
 		try {

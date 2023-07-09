@@ -201,4 +201,40 @@ public class MemberController {
 		return "redirect:/member/complete";
 	}
 
+	// 아이디 찾기
+	@RequestMapping(value="idFind", method=RequestMethod.GET)
+	public String idFindForm(HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		if(info != null) {
+			return "redirect:/";
+		}
+		
+		return ".member.idFind";
+	}
+	
+	@RequestMapping(value = "idFind", method = RequestMethod.POST)
+	public String idFindSubmit(@RequestParam String userEmail,
+			RedirectAttributes reAttr,
+			Model model) throws Exception {
+		
+		Member dto = service.readMemberByEmail(userEmail);
+		if(dto == null || dto.getEmail() == null || dto.getEnabled() == 0) {
+			model.addAttribute("message", "등록된 이메일이 아닙니다.");
+			return ".member.idFind";
+		}
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append("회원님의 아이디는");
+		sb.append(" ***");
+		sb.append(dto.getUserId().substring(3));
+		sb.append("입니다.");
+		
+
+		
+		reAttr.addFlashAttribute("title", "아이디 찾기");
+		reAttr.addFlashAttribute("message", sb.toString());
+		
+		return "redirect:/member/complete";
+	}
+
 }
