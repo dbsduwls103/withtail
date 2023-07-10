@@ -13,7 +13,7 @@
       border-radius: 75px;
       display: flex;
       align-items: center;
-      width: 29%;
+      width: 22%;
       max-width: 800px;
       margin-top: 80px;
       overflow-x: auto;
@@ -560,7 +560,6 @@ $(function() {
 	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/myPage">내 계정</a></li>
 	    <li><a class="submenu active" href="${pageContext.request.contextPath}/myPage/orders">주문조회</a></li>
 	    <li><a class="submenu" href="${pageContext.request.contextPath}/myPage/favorite">즐겨찾기</a></li>
-	    <li><a class="submenu" href="#">놀이터</a></li>
 	  </ul>
 	</div>
 	<div class="order-view">
