@@ -43,4 +43,16 @@ public interface OrderService {
 	
 	// 결제할 상품 목록 가져오기
 	public List<Order> listProduct(List<Map<String, Long>> list);
+	
+	// 주문번호 생성
+	public Long productOrderNumber();
+	
+	//주문 인서트(주문, 주문상세, 결제내역, 주문배송지까지)
+	public void insertOrder(Order dto) throws Exception;
+	
+	// 멤버 포인트 업데이트
+	public void updateMemberPoint(Order dto) throws Exception;
+	
+	// 포인트 기록 인서트
+	public void insertPointDetail(Order dto) throws Exception;
 }

@@ -544,12 +544,12 @@
 				return false;
 			}
 			
-			let subNum2 = $(this).val();
+			let subNum = $(this).val();
 			
 			let b = true;
-			$(".order-area input[name=subNums2]").each(function(){
-				let snum2 = $(this).val();
-				if(subNum2 === snum2) {
+			$(".order-area input[name=subNums]").each(function(){
+				let snum = $(this).val();
+				if(subNum === snum) {
 					alert("선택된 옵션입니다.");
 					$(".option1").val("");
 					$(".option1").trigger("change");
@@ -586,7 +586,7 @@
 			out += '			</span>';
 			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
 			out += '			<input type="hidden" name="itemNums" value="'+itemNum+'">';
-			out += '			<input type="hidden" name="subNums2" value="'+subNum2+'">';
+			out += '			<input type="hidden" name="subNums" value="'+subNum+'">';
 			out += '			<span class="input-group-btn ml-2">';
 			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
 			out += '					<i class="ion-ios-add"></i>';
@@ -634,7 +634,7 @@
   			$order.find("input[name=qtys]").val(qty);
   			let opPrice = $order.find(".op-price").attr("data-optionPrice");
   			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
-  			let itemPrice = parseInt(oriPrice) * qty;
+  			let itemPrice = parseInt(opPrice) * qty;
   			let totalPrice = itemPrice.toLocaleString();
   			
   			//let $total = $(this).closest(".order-area");
@@ -664,7 +664,7 @@
   			$order.find("input[name=qtys]").val(qty);
   			let opPrice = $order.find(".op-price").attr("data-optionPrice");
   			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
-  			let itemPrice = parseInt(oriPrice) * qty;
+  			let itemPrice = parseInt(opPrice) * qty;
   			let totalPrice = itemPrice.toLocaleString();
   			
   			//let $total = $(this).closest(".order-area");

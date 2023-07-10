@@ -538,7 +538,7 @@ main {
 }
 
 .inp {
-	height: 38px;
+	height: 34px;
 	border-radius: 5px;
 	border: solid 1px #d9d9d9;
 	padding-left: 22px;
@@ -856,7 +856,7 @@ img {
 	align-items: center;
 	border: 1px none;
 	display: flex;
-	gap: 243px;
+	gap: 200px;
 	width: fit-content;
 }
 
@@ -975,6 +975,7 @@ img {
 
 
 <div class="container -min">
+	<form name="orderForm" method="post">
 	<div class="order">
 		<div class="order-title-layout">
 			<div class="order-title">주문 / 결제</div>
@@ -987,9 +988,9 @@ img {
 							<div class="information-title valign-text-middle">배송지 정보</div>
 							<div class="minimal-text-btn">
 								<a href="#" class="text valign-text-middle change-button"
-									onclick="toggleElements()">변경</a> <a href="#"
-									class="text valign-text-middle back-button"
-									onclick="toggleElements()" style="display: none;">돌아오기</a>
+									onclick="toggleElements();">배송지 목록</a>
+								<a href="#" class="text valign-text-middle back-button"
+									onclick="toggleElements();" style="display: none;">직접입력</a>
 							</div>
 						</div>
 
@@ -1115,7 +1116,7 @@ img {
 							<div class="x-layout">
 								<div class="list valign-text-middle">받는 사람</div>
 								<div class="text-1 valign-text-middle" id="recipientValue">
-									<input type="text" class="inp1" id="addName" name="addName"
+									<input type="text" class="inp1" id="addName" name="orderName"
 										onkeyup="checkUsernameValidity();"
 										value="${not empty defAddrDto ? defAddrDto.addName : lastAddrDto.addName}">
 								</div>
@@ -1123,20 +1124,24 @@ img {
 							<div class="x-layout"  style="margin-bottom: -14px;">
 								<div class="list valign-text-middle">받는 주소</div>
 								<p class="text-1 d-flex gap-2 align-items-center" id="addressValue">
-									<input type="text" class="inp1" id="addr1" name="addr1" value="${not empty defAddrDto ? defAddrDto.addr1 : lastAddrDto.addr1}" readonly="readonly">
+									<input type="text" class="inp1" id="addr1" name="addr1" 
+										value="${not empty defAddrDto ? defAddrDto.addr1 : lastAddrDto.addr1}"
+										readonly="readonly" style="background: #f5f5f5; color: #666;">
 									<button type="button" class="search-btn" onclick="daumPostcode();">검색</button>
 								</p>
 							</div>
 							<div class="x-layout"  style="margin-bottom: -14px;">
 								<div class="list valign-text-middle">상세 주소</div>
-								<p class="text-1 valign-text-middle" id="addressValue2">
+								<p class="text-1 d-flex align-items-center gap-2" id="addressValue2">
 									<input type="text" class="inp1" id="addr2" name="addr2" value="${not empty defAddrDto ? defAddrDto.addr2 : lastAddrDto.addr2}">
+									<input type="text" class="inp1" id="zip" name="zip" value="${not empty defAddrDto ? defAddrDto.zip : lastAddrDto.zip}" 
+										readonly="readonly" style="background: #f5f5f5; width: 100px; color: #666;">
 								</p>
 							</div>
 							<div class="x-layout">
 								<div class="list valign-text-middle">연락처</div>
 								<div class="text-1 valign-text-middle" id="contactValue">
-									<input type="text" class="inp1" id="phone" name="addTel"
+									<input type="text" class="inp1" id="phone" name="tel"
 										onkeyup="checkPhoneNumberValidity();"
 										value="${not empty defAddrDto ? defAddrDto.tel : lastAddrDto.tel}">
 								</div>
@@ -1158,8 +1163,6 @@ img {
 								</div>
 							</div>
 						</div>
-						<input type="hidden" id="zip" name="zip" value="${not empty defAddrDto ? defAddrDto.zip : lastAddrDto.zip}">
-						<!--<input type="hidden" name="addNum" value="${not empty defAddrDto ? defAddrDto.addNum : lastAddrDto.addNum}">-->
 
 					</div>
 					<hr
@@ -1175,7 +1178,7 @@ img {
 									data-bs-target="#flush-collapseOne" aria-expanded="false"
 									aria-controls="flush-collapseOne">
 									<div class="information-title valign-text-middle">쿠폰</div>
-									<div class="valign-text-middle count1">보유 쿠폰 ${dto.couponCount}장</div>
+									<div class="valign-text-middle count1">보유 쿠폰 ${memberDto.couponCount}장</div>
 								</button>
 							</h2>
 							<div id="flush-collapseOne" class="accordion-collapse collapse"
@@ -1189,9 +1192,20 @@ img {
 												<div class="coupon-upper">
 													<div class="coupon-text-layout">
 														<div class="coupon-title valign-text-middle">${vo.couponName}</div>
-														<div class="coupon-text valign-text-middle">${vo.couponPrice}원</div>
+														<div class="coupon-text valign-text-middle">
+															<c:choose>
+																<c:when test="${vo.couponCategory==0}">
+																	<fmt:formatNumber value="${vo.couponPrice}" pattern="#,###" />원
+																</c:when>
+																<c:otherwise>
+																	${vo.couponPrice}%
+																</c:otherwise>
+															</c:choose>
+														</div>
 													</div>
-													<input type="checkbox">
+													<input type="radio" class="cp-radio" 
+														data-min="${vo.couponMinPrice}" data-category="${vo.couponCategory}" data-cpPrice="${vo.couponPrice}"
+														data-num="${vo.couponNum}">
 												</div>
 												<div class="coupon-lower">
 													<div class="restriction">
@@ -1201,15 +1215,16 @@ img {
 															</span>
 														</p>
 														<p class="restriction-text valign-text-middle">
-															<span>
-																- 최소주문금액</span> <span>${vo.couponMinPrice}</span><span>원
-															</span>
+															<span>- 최소주문금액</span>&nbsp;
+															<span><fmt:formatNumber value="${vo.couponMinPrice}" pattern="#,###" /></span>
+															<span>원</span>
 														</p>
 													</div>
 												</div>
 											</div>
 										</c:forEach>
-										<!-- //쿠폰 foreach -->									
+										<!-- //쿠폰 foreach -->
+										<input type="hidden" name="usedCoupon" value="">									
 									</div>
 								</div>
 							</div>
@@ -1224,13 +1239,17 @@ img {
 								<div class="mud-input-control">
 									<div class="mud-input-control-input-container">
 										<div class="mud-input mud-input-outlined">
-											<input class="inp point-inp" type="text" name="point" placeholder="0원">
+											<input class="inp point-inp" type="number" name="usedPoint" min="0" max="${payment}" value="0"
+												onchange="changePoint();">
 										</div>
 										<div>
-											<p style="font-size: 11px; color: gray;">잔여 적립금: ${dto.point}원</p>
+											<p style="font-size: 11px; color: gray;" class="leftPoint" data-left="${memberDto.point}">
+												잔여 적립금: <fmt:formatNumber value="${memberDto.point}" pattern="#,###" />원
+											</p>
 										</div>
 									</div>
 								</div>
+								<!--<input type="hidden" name="point" value="">-->
 								<button type="button" class="btn4 point-btn" onclick="allUsePoint();">전액 사용</button>
 							</div>
 						</div>
@@ -1240,16 +1259,18 @@ img {
 					<div class="x-layout1">
 						<div class="information-title-2 valign-text-middle">결제수단</div>
 						<div class="component">
-							<div class="payment-information">
+							<div class="payment-information d-flex gap-2" style="flex-direction: row;">
 								<button class="btn6" type="button" onclick="toggleButtons() ">신용카드</button>
+								<!--<button class="btn6" type="button" onclick="toggleButtons() ">카카오페이</button>-->
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- 아래쪽 주문하기 버튼 -->
 				<div class="order-button-wrap">
-					<button class="btn5" type="button" id="orderButton1" disabled>48,830원
-						주문하기</button>
+					<button class="btn5 paymentPrice2" type="button" id="orderButton1" disabled data-payment="${payment}" onclick="sendOk('card');">
+						<fmt:formatNumber value="${payment}" pattern="#,###" />원 주문하기
+					</button>
 					<p class="agreement-text valign-text-middle">
 						<span> <span class="normal">주문 내용을 확인했으며 결제 및 서비스
 								이용약관에 </span> <span class="bold" style="cursor: pointer;">동의</span> <span
@@ -1262,8 +1283,10 @@ img {
 			<!-- 오른쪽 바 -->
 			<div class="order-details-container">
 				<div class="order-button-wrap">
-					<button class="btn5" type="button" id="orderButton2" disabled
-						style="width: 345px;">48,830원 주문하기</button>
+					<button class="btn5 paymentPrice2" type="button" id="orderButton2" disabled
+						style="width: 345px;" data-payment="${payment}" onclick="sendOk();">
+						<fmt:formatNumber value="${payment}" pattern="#,###" />원 주문하기
+					</button>
 					<p class="agreement-text valign-text-middle">
 						<span> <span class="normal">주문 내용을 확인했으며 결제 및 서비스
 								이용약관에 </span> <span class="bold" style="cursor: pointer;">동의</span> <span
@@ -1274,67 +1297,80 @@ img {
 				<div class="order-details-wrap">
 					<div class="order-details-layout">
 						<div class="product1">
-							<div class="product-text valign-text-middle">주문상품 : 6개</div>
+							<div class="product-text valign-text-middle">주문상품 : ${totalQty}개</div>
 							<a href="${pageContext.request.contextPath}/cart/cart"
 								class="x-text valign-text-middle"> 장바구니 수정 </a>
 						</div>
-						<!-- 상품	1 -->
-						<hr
-							style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
-						<div class="product-list">
-							<div class="product-5">
-								<div class="product-image-box">
-									<div style="position: relative;">
-										<img width="40" height="40" class="product-image"
-											alt="product-image"
-											src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+						<!-- 상품1 -->
+						<c:forEach var="vo" items="${listProduct}" varStatus="status">
+							<hr
+								style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
+							<div class="product-list">
+								<div class="product-5">
+									<div class="product-image-box">
+										<div style="position: relative;">
+											<img width="40" height="40" class="product-image"
+												alt="product-image"
+												src="${pageContext.request.contextPath}/uploads/item/${vo.mainImage}">
+										</div>
 									</div>
-								</div>
-								<div class="product-text-3">
-									<div class="product-4">
-										<p style="margin-bottom: -5px; font-size: 11px;">KONG
-											&nbsp;&nbsp;|&nbsp;&nbsp;테니스공 장난감(대)
-									</div>
-									<div class="product-price-10">
-										<div class="price-text valign-text-middle">9,740원</div>
-										<div class="x-text valign-text-middle">(수량 : 3)</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 상품2 -->
-						<hr
-							style="width: 100%; border-color: #a2a2a2; margin-bottom: 0px; margin-top: 0px; border-width: 1px;">
-						<div class="product-list">
-							<div class="product-5">
-								<div class="product-image-box">
-									<div style="position: relative;">
-										<img width="40" height="40" class="product-image"
-											alt="product-image"
-											src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
-									</div>
-								</div>
-								<div class="product-text-3">
-									<div class="product-4">
-										<p style="margin-bottom: -5px; font-size: 11px;">KONG
-											&nbsp;&nbsp;|&nbsp;&nbsp;테니스공 장난감(대)
-									</div>
-									<div class="product-price-10">
-										<div class="price-text valign-text-middle">9,740원</div>
-										<div class="x-text valign-text-middle">(수량 : 3)</div>
+									<div class="product-text-3">
+										<div class="product-4">
+											<p style="margin-bottom: -5px; font-size: 11px;">${vo.madeby}
+												&nbsp;&nbsp;|&nbsp;&nbsp;${vo.itemName}
+												<c:if test="${not empty vo.option2Name}">
+													&nbsp;(${vo.option2Name} <c:if test="${vo.option2Num!=vo.option2Num2}">/ ${vo.option2Name2}</c:if>)
+												</c:if>
+											</p>
+											<input type="hidden" name="itemNums" value="${vo.itemNum}">
+											<c:if test="${not empty vo.option2Num}">
+												<input type="hidden" name="subNums" value="${vo.option2Num}">
+											</c:if>
+											<c:if test="${not empty vo.option2Num2 && (vo.option2Num!=vo.option2Num2)}">
+												<input type="hidden" name="subNums2" value="${vo.option2Num2}">
+											</c:if>
+											<input type="hidden" name="qtys" value="${vo.count}">
+											<input type="hidden" name="purchaseMoneys" value="${(vo.dcPrice+vo.extraPrice+vo.extraPrice2)*vo.count}">
+											<input type="hidden" name="prices" value="${vo.itemPrice+vo.extraPrice+vo.extraPrice2}">
+											<input type="hidden" name="salePrices" value="${vo.dcPrice+vo.extraPrice+vo.extraPrice2}">
+											<input type="hidden" name="savePoints" value="${vo.itemPoint}">
+										</div>
+										<div class="product-price-10">
+											<div class="price-text valign-text-middle">
+												<fmt:formatNumber value="${vo.dcPrice+vo.extraPrice+vo.extraPrice2}" pattern="#,###" />원
+											</div>
+											<div class="x-text valign-text-middle">(수량 : ${vo.count})</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</c:forEach>
+						<!-- //상품1 -->
+						<input type="hidden" name="orderNum" value="${productOrderNumber}">
+						<input type="hidden" name="totalOriPrice" value="${totalMoney}">
+						<input type="hidden" name="deliveryCharge" value="${deliveryCharge}">
+						<input type="hidden" name="totalPurchasePrice" value="${payment}">
+						<input type="hidden" name="point" value="${memberDto.point}">
+						
+						<input type="hidden" name="mode" value="${mode}">
+						
+						<input type="hidden" name="usedCoupon" value="0">
+						<input type="hidden" name="usedCouponNum" value="">
+		
+						<input type="hidden" name="payMethod" value="">
+						<input type="hidden" name="cardName" value="">
+						<input type="hidden" name="authNumber" value="">
+						<input type="hidden" name="authDate" value="">
 					</div>
 					<hr
 						style="width: 100%; color: #5c5858; border-width: 1px; margin-bottom: 0px; margin-top: 0px; border-style: solid">
 					<div class="details-price-layout">
 						<div class="o-details-component">
 							<div class="o-details-small-dt-layout">
-								<div class="o-details-small-dt valign-text-middle">상품 금액</div>
-								<div class="o-details-small-dd valign-text-middle">
-									14,000원</div>
+								<div class="o-details-small-dt valign-text-middle" style="min-width: 80px;">상품 금액</div>
+								<div class="o-details-small-dd valign-text-middle" style="min-width: 80px;">
+									<fmt:formatNumber value="${totalMoney}" pattern="#,###" />원
+								</div>
 							</div>
 						</div>
 						<div class="total-d">
@@ -1343,14 +1379,16 @@ img {
 									<div class="o-details-small-dt valign-text-middle">할인 금액
 									</div>
 								</div>
-								<div class="o-details-small-dd valign-text-middle">-
-									4,260원</div>
+								<div class="o-details-small-dd valign-text-middle">
+									- <fmt:formatNumber value="${totalDiscountPrice}" pattern="#,###" />원
+								</div>
 							</div>
 							<div class="o-details-component">
 								<div class="o-details-minimal-dt valign-text-middle">상품 할인
 								</div>
-								<div class="o-details-minimal-dd valign-text-middle">-
-									4,260원</div>
+								<div class="o-details-minimal-dd valign-text-middle">
+									- <fmt:formatNumber value="${totalDiscountPrice}" pattern="#,###" />원
+								</div>
 							</div>
 						</div>
 						<div class="total-d">
@@ -1358,13 +1396,15 @@ img {
 								<div class="o-details-small-dt-layout">
 									<div class="o-details-small-dt valign-text-middle">배송비</div>
 								</div>
-								<div class="o-details-small-dd valign-text-middle">3,000원
+								<div class="o-details-small-dd valign-text-middle">
+									+ <fmt:formatNumber value="${deliveryCharge}" pattern="#,###" />원
 								</div>
 							</div>
 							<div class="o-details-component">
 								<div class="o-details-minimal-dt valign-text-middle">배송비</div>
 								<div class="o-details-minimal-dd valign-text-middle">
-									3,000원</div>
+									<fmt:formatNumber value="${deliveryCharge}" pattern="#,###" />원
+								</div>
 							</div>
 						</div>
 						<hr
@@ -1376,14 +1416,14 @@ img {
 									<div class="o-details-small-dt valign-text-middle">쿠폰 할인
 									</div>
 								</div>
-								<div class="o-details-small-dd valign-text-middle">- 0원</div>
+								<div class="o-details-small-dd valign-text-middle dc-coupon" data-dcCoupon="0">- 0원</div>
 							</div>
 							<div class="o-details-component">
 								<div class="o-details-small-dt-layout">
 									<div class="o-details-small-dt valign-text-middle">적립금 사용
 									</div>
 								</div>
-								<div class="o-details-small-dd valign-text-middle">- 0원</div>
+								<div class="o-details-small-dd valign-text-middle used-point" data-usedPoint="0">- 0원</div>
 							</div>
 						</div>
 						<hr
@@ -1393,8 +1433,11 @@ img {
 							<div class="o-details-main-text-dt valign-text-middle">결제
 								금액</div>
 							<div class="o-details-main-dd valign-text-middle">
-								<span> <span class="span0">12,740</span> <span
-									class="span1">원</span>
+								<span>
+									<span class="span0 paymentPrice" data-payment="${payment}">
+										<fmt:formatNumber value="${payment}" pattern="#,###" />
+									</span>
+									<span class="span1">원</span>
 								</span>
 							</div>
 						</div>
@@ -1403,6 +1446,7 @@ img {
 			</div>
 		</div>
 	</div>
+	</form>
 </div>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -1517,23 +1561,218 @@ function checkRequestValidity() {
 <script>
 // 포인트 전액 사용
 function allUsePoint() {
-	let userPoint = ${dto.point};
-	$(".point-inp").val(userPoint);
+	let userPoint = parseInt(${memberDto.point});
+	let payment = parseInt($(".payment-price").attr("data-payment"));
+	
+	if(userPoint > payment) {
+		$("input[name=usedPoint]").val(payment);
+	} else {
+		$("input[name=usedPoint]").val(userPoint);
+	}
+	
+	changePoint();
+}
+
+// 포인트 입력
+function changePoint() {
+	let userPoint = parseInt(${memberDto.point}); // 회원이 가지고 있는 포인트
+	let pointVal = $("input[name=usedPoint]").val();
+	let $point = parseInt(pointVal); // 포인트 입력값
+	let $payment = parseInt($(".paymentPrice").attr("data-payment")); // 결제금액
+	
+	if($point > userPoint) {
+		$point = userPoint;
+		$("input[name=usedPoint]").val(userPoint);
+	}
+	if($point > $payment) {
+		$point = $payment;
+		$("input[name=usedPoint]").val($payment);
+	}
+	if(pointVal == "") {
+		$point = 0;
+		$("input[name=usedPoint]").val(0);
+	}
+	
+	let left = $(".leftPoint").attr("data-left");
+	let $left = parseInt(left);
+	$left = left - $point;
+	let leftVal = $left.toLocaleString();
+	$(".leftPoint").text("잔여 적립금: " + leftVal + "원");
+
+	let $pointVal = $point.toLocaleString();
+	
+	let usedPoint = $(".used-point").text("- " + $pointVal + "원");
+	
+	changePurchase();
+}
+
+$("body").on("click", ".coupon", function(){
+	let radio = $(this).find(".cp-radio");
+	let checked = radio.is(":checked");
+	
+	let minPrice = radio.attr("data-min");
+	let $minPrice = parseInt(minPrice);
+	let cpCategory = radio.attr("data-category");
+	let cpPrice = radio.attr("data-cpPrice");
+	let $cpPrice = 0;
+	
+	let payment = parseInt(${payment});
+	
+	if(cpCategory === "0") {
+		$cpPrice = parseInt(cpPrice);
+	} else {
+		$cpPrice = payment * (parseInt(cpPrice) / 100);
+	}
+	
+	let cpPriceVal = $cpPrice.toLocaleString();
+	let dcCoupon = $(".dc-coupon").attr("data-dcCoupon");
+	let $dcCoupon = parseInt(dcCoupon);
+	
+	let couponNum = radio.attr("data-num");
+	
+	if(checked) {
+		$(".dc-coupon").text("- " + cpPriceVal +"원");
+		$(".dc-coupon").attr("data-dcCoupon", $cpPrice);
+		$("input[name=usedCouponNum]").val(couponNum);
+		changePurchase();
+	} else {
+		$(".dc-coupon").text("- 0원");
+		$(".dc-coupon").attr("data-dcCoupon", 0);
+		$("input[name=usedCouponNum]").val("");
+		changePurchase();
+	}
+});
+
+function changePurchase() {
+	let dcCoupon = $(".dc-coupon").attr("data-dcCoupon");
+	let $dcCoupon = parseInt(dcCoupon);
+	let point = $("input[name=usedPoint]").val();
+	let $point = parseInt(point);
+	
+	let payment = $(".paymentPrice").attr("data-payment");
+	let $payment = parseInt(payment);
+	
+	let total = $payment - $dcCoupon - $point;
+	if(total < 0) {
+		total = 0;
+		$point = $payment - $dcCoupon;
+		$("input[name=usedPoint]").val($point);
+	}
+	let totalVal = total.toLocaleString();
+	
+	$(".paymentPrice").text(totalVal);
+	$(".paymentPrice2").text(totalVal + "원 주문하기");
+	$("input[name=totalPurchasePrice]").val(total);
+	
+	$("input[name=usedCoupon]").val($dcCoupon);
 }
 </script>
 
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+function sendOk(payMethod) {
+	const f = document.orderForm;
+	
+	if(! f.orderName.value) {
+		alert("받는 사람을 입력해주세요.");
+		f.orderName.focus();
+		return;
+	} else if(!f.addr1.value || !f.zip.value) {
+		alert("주소를 입력해주세요.");
+		f.addr2.focus();
+		return;
+	} else if(!f.tel.value) {
+		alert("전화번호를 입력해주세요.");
+		f.tel.focus();
+		return;
+	}
+	
+	let creditCardButton = document.querySelector(".btn6");
+	if (! creditCardButton.classList.contains("clicked")) {
+		alert("결제방식을 선택해주세요.");
+		return;
+	}
+	
+	const IMP = window.IMP;
+	IMP.init("imp38443618");
+	
+	// 결제 API에서 응답 받을 파라미터
+	//let payMethod = "card"; // 결제유형
+	var cardName = "KG이니시스";  // 카드 이름
+	var authNumber = "1234567890"; // 승인번호
+	let authDate = ""; // 승인 날짜
+	// toISOString() : "YYYY-MM-DDTHH:mm:ss.sssZ" 형식
+	authDate = new Date().toISOString().replace('T', ' ').slice(0, -5); // YYYY-MM-DD HH:mm:ss
+
+	// 결제 API에 요청할 파라미터
+	let payment = f.totalPurchasePrice.value; // 결제할 금액
+	let merchant_uid = "${productOrderNumber}";  // 고유 주문번호
+	let productName = "${productOrderName}";  // 주문상품명
+	let buyer_email = "${memberDto.email}";  // 구매자 이메일
+	let buyer_name = f.orderName.value;  // 구매자 이름
+	let buyer_tel = f.orderName.tel;   // 구매자 전화번호(필수)
+	let buyer_addr = f.addr1.value + " " + f.addr2.value;  // 구매자 주소
+	buyer_addr = buyer_addr.trim();
+	let buyer_postcode = f.zip.value; // 구매자 우편번호
+	
+	var msg = "";
+	
+	// 결제 API로 결제 진행
+	IMP.request_pay({
+		  pg: "html5_inicis.INIpayTest",
+		  pay_method: payMethod, // 생략가
+		  merchant_uid: merchant_uid, // 상점에서 생성한 고유 주문번호
+		  name: productName,
+		  amount: payment,
+		  buyer_email: buyer_email,
+		  buyer_name: buyer_name,
+		  buyer_tel: buyer_tel,
+		  buyer_addr: buyer_addr,
+		  buyer_postcode: buyer_postcode,
+		}, function (data) { // callback 로직
+			if(data.success){
+				msg = "결제 완료 : ";
+				authNumber = data.apply_num;
+				cardName = data.card_name;
+				msg += cardName + "/" + authNumber;
+				
+				// 결제 방식, 카드번호, 승인번호, 결제 날짜
+				f.payMethod.value = payMethod;
+				f.cardName.value = cardName;
+				f.authNumber.value = authNumber;
+				f.authDate.value = authDate;
+				
+				f.action = "${pageContext.request.contextPath}/order/paymentOk";
+				f.submit();
+	        } else{
+	        	msg = "결제 실패 : ";
+	        	msg += data.error_msg;
+	        }
+			alert(msg);
+	});
+	
+	
+	// 결제가 성공한 경우 ------------------------
+	//f.action = "${pageContext.request.contextPath}/order/paymentOk";
+	//f.submit();
+	
+
+	
+	
+}
+</script>
 
 <script>	
 	// 쿠폰 선택 이벤트
 	const coupons = document.querySelectorAll('.coupon');
 
 	coupons.forEach(coupon => {
-	  const checkbox = coupon.querySelector('input[type="checkbox"]');
+	  const radio = coupon.querySelector('input[type="radio"]');
 	  
 	  coupon.addEventListener('click', () => {
-	    checkbox.checked = !checkbox.checked;
-
-	    if (checkbox.checked) {
+	    radio.checked = !radio.checked;
+	    
+	    if (radio.checked) {
 	      coupon.style.backgroundColor = '#f5fbff';
 	    } else {
 	      coupon.style.backgroundColor = '';
