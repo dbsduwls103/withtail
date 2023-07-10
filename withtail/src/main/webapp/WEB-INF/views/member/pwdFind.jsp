@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
-.body-container {
-	max-width: 800px;
+.-min {
+	min-height: 390px;
 }
 </style>
 
@@ -25,12 +25,10 @@ function sendOk() {
 }
 </script>
 
-<div class="container">
-	<div class="body-container">	
-
+<div class="container -min">
         <div class="row justify-content-md-center">
             <div class="col-md-7">
-                <div class="border mt-5 p-4">
+                <div class="border mt-5 p-4" style="width: 500px; margin-left: 72px;">
                     <form name="pwdForm" method="post" class="row g-3">
                         <h3 class="text-center fw-bold">패스워드 찾기</h3>
                         
@@ -53,6 +51,4 @@ function sendOk() {
 
             </div>
         </div>
-	        
-	</div>
 </div>

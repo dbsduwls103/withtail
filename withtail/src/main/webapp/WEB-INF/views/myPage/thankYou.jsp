@@ -153,7 +153,7 @@ img {
 
 <div class="container -min">
 	<div class="rw-completed-container">
-		<div class="rw-completed-text-layout">
+		<div class="rw-completed-container">
 			<h1 class="rw-completed-title">
 				소중한 후기 감사드려요~!
 			</h1>
