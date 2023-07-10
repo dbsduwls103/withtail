@@ -46,7 +46,14 @@ public class MyPage {
 	private int stateCode;
 	private String stateMemo;
 	private String stRegDate;
+	private long extraPrice;
 	
+	public long getExtraPrice() {
+		return extraPrice;
+	}
+	public void setExtraPrice(long extraPrice) {
+		this.extraPrice = extraPrice;
+	}
 	//쿠폰
 	private long couponNum;
 	private String startDate;
@@ -70,6 +77,20 @@ public class MyPage {
 	private String purchaseDate;
 	private int orderState;
 	private long totalPurchasePrice;
+	private long totalPurchasePrice1;
+	private String cardName;
+	public long getTotalPurchasePrice1() {
+		return totalPurchasePrice1;
+	}
+	public void setTotalPurchasePrice1(long totalPurchasePrice1) {
+		this.totalPurchasePrice1 = totalPurchasePrice1;
+	}
+	public String getCardName() {
+		return cardName;
+	}
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
 	private long total_discount;
 	private long totalOriPrice;
 	private long deliveryCharge;

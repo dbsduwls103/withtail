@@ -109,6 +109,8 @@
 			<exclude-mapping path="/uploads/notice/**"/>
 			<exclude-mapping path="/uploads/dogmap/**"/>
 			
+			<exclude-mapping path="/switchImage"/>
+			
 			<beans:bean class="com.sp.withtail.member.LoginCheckInterceptor"/>
 		</interceptor>
 	</interceptors>

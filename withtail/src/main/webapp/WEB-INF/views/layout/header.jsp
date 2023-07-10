@@ -221,8 +221,6 @@
 <script>
 
 $(function(){
-	
-	
 	let dataSt = localStorage.getItem('animal');
 	console.log(dataSt);
 	if (dataSt !== '2'){
@@ -232,17 +230,67 @@ $(function(){
 	}
 });
 
+
+function switchImg(num){
+	if(num === 2){
+		$.ajax({
+			  
+			  url: '${pageContext.request.contextPath}/switchImage',  
+		      method: 'POST',
+		      data: {animal: num },
+		      success: function(response) {
+		        // 이미지 요청이 성공
+		        $('#animalImg').attr('src', response.imgUrl);
+		        console.log(response.imgUrl);
+		        console.log(response.animal);
+		        console.log("성공2");
+		      },
+		      error: function() {
+		        // 이미지 요청이 실패
+		        console.log('이미지 요청에 실패했습니다.');
+		      }
+		});
+	} else {
+		$.ajax({
+			
+			  url: '${pageContext.request.contextPath}/switchImage',  
+		      method: 'POST',
+		      data: {animal: num },
+		      success: function(response) {
+		        // 이미지 요청이 성공
+		        $('#animalImg').attr('src', response.imgUrl);
+		        console.log(response.imgUrl);
+		        console.log(response.animal);
+		        console.log("성공1");
+		      },
+		      error: function() {
+		        // 이미지 요청이 실패
+		        console.log('이미지 요청에 실패했습니다.');
+		      }
+		});
+	}
+	
+}
+
+
+
+
+
+
+
+/*
 	function switchImg(num){
 		
 		if(num === 2){
 			$.ajax({
 				  
 				  url: '${pageContext.request.contextPath}/resources/images/header/icon_cat.png',  
-			      method: 'GET',
+			      method: 'POST',
+			      data: {dataSt: dataSt },
 			      success: function(response) {
-			    	
 			        // 이미지 요청이 성공
 			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_cat.png');
+			        console.log("성공2");
 			      },
 			      error: function() {
 			        // 이미지 요청이 실패
@@ -253,10 +301,12 @@ $(function(){
 			$.ajax({
 				
 				  url: '${pageContext.request.contextPath}/resources/images/header/icon_dog.png',  
-			      method: 'GET',
+			      method: 'POST',
+			      data: {dataSt: dataSt },
 			      success: function(response) {
 			        // 이미지 요청이 성공
 			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_dog.png');
+			        console.log("성공1");
 			      },
 			      error: function() {
 			        // 이미지 요청이 실패
@@ -266,7 +316,7 @@ $(function(){
 		}
 		
 	}
-	
+*/	
 	
 	function switchAnimal1(){
 		let data = 1;
