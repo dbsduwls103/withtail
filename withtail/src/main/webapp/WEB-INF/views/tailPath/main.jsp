@@ -32,10 +32,9 @@
 .course_all{
 	width: 300px; 
 	height: 400px; 
-	box-shadow: 4px 4px 3px rgba(0,0,0,.3); 
-	position: absolute; 
+	position: relative;
 	z-index: 10; 
-	top: 300px;
+	top: 100px;
 	transition: transform 0.3s ease-in-out;
 }
 
@@ -63,16 +62,17 @@ a{
 .btn_close {
     position: relative;
     width: 20px;
-    height: 50px;
+    height: 60px;
     background: #fff;
     opacity: .9;
     box-shadow: 2px 1px 4px rgb(0 0 0 / 40%);
     border: none;
     font-size: 8px;
     color: #82ae46;
-    left:300px; bottom: 200px;
+    left: 300px;
+    bottom: 270px;
     transition: transform 0.3s ease-in-out;
-   }
+}
    
 .btn_close.flipped {
     transform: rotate(180deg);
@@ -87,7 +87,7 @@ a{
 .choose-filed{
 	padding: 15px 0px 15px 25px ; 
 	background: white; 
-	height: 250px; 
+	height: 400px; 
 	position: relative;
 }
 
@@ -127,6 +127,7 @@ a{
 .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
 
+
 </style>
 
 
@@ -159,11 +160,6 @@ $('.box button.close').click(function() {
 
 
     <div class="course_all">
-     	<h1>현재 날씨 정보</h1>
- 		<div id="weather"></div>
- 		<div id="temperatureInfo"></div>
- 		<div id="weatherInfo"></div>
- 		<div id="icon"></div>
 			<div class="course_all_top">
 			    <h3 style="text-align: center; color: white; font-weight: bold;">
 			        Tail&amp;Path 검색
@@ -175,7 +171,21 @@ $('.box button.close').click(function() {
 			</div>
 
         <div class="course_all_box choose-filed">
-            <h5>주변 탐색</h5>
+	        <h5>현재 날씨 정보</h5>
+	 		<div style="display: inline-block;">
+		 		<div id="weather"></div>
+		 		<div id="temperatureInfo"></div>
+		 		<div id="weatherInfo"></div>
+		 	</div>
+	 		<div style="display: inline-block;">
+	 			<div id="icon"></div>
+			</div>		
+	          
+	        <hr class="hr1" style="width: 85%; margin-top: -40px; margin-bottom: 40px; border: solid 1px #4CAF50;"> 
+	          
+	        <div style="margin-top: -24px;">
+	            <h5>주변 탐색</h5>
+
             <ul>
                 <li>
                     <input type="checkbox" id="tourist_destination" name="partCode" value="반려동반여행" checked>
@@ -195,6 +205,7 @@ $('.box button.close').click(function() {
                 </li>
             </ul>
         </div>
+        </div>
 		
 		<div class="box">
 		<button class="btn_close" >◀</button>
@@ -203,7 +214,7 @@ $('.box button.close').click(function() {
     </div>
 
 
-	<div style="min-height: 900px; overflow: hidden; position: relative;">
+	<div style="min-height: 805px; overflow: hidden; position: relative; margin-top: -400px">
 		<div id="map" class="map"></div>
 	</div>
 
@@ -505,7 +516,7 @@ function success(position) {
             $("#weather").text("날씨: " + weather);
             $("#weatherInfo").text("날씨상세: " + weatherinfo);
             $("#temperatureInfo").text("온도: " + temperature + "°C");
-            $("#icon").html("<img src='https://openweathermap.org/img/wn/" + weathericon + "@2x.png' alt='날씨 이미지'>");
+            $("#icon").html("<img src='https://openweathermap.org/img/wn/" + weathericon + "@2x.png' alt='날씨 이미지' style='margin-left: 24px; margin-bottom: 67px; border: solid 1px gray; border-radius: 33px;'>");
         },
         error: function(error) {
             console.log(error);
