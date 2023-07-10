@@ -811,13 +811,6 @@ $(function() {
 						<div class="od-pd-title valign-text-middle">
 							주문 상품
 						</div>
-						<div class="od-title-btn-layout-1">
-							<div class="minimal-text-btn">
-								<a class="text-1 valign-text-middle" style="cursor:pointer; color: rgb(68 148 241);">
-									전체 장바구니 담기
-								</a>
-							</div>
-						</div>
 					</div>
 					<div class="od-product-layout">
 						<c:forEach var="dto1" items="${list}" varStatus="status">
