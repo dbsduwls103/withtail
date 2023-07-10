@@ -99,16 +99,30 @@ public class OrderController {
 				//map.put("itemNum", Long.parseLong(itemNum[i]) );
 				map.put("itemNum", itemNums.get(i));
 				
+				/*
+				if(subNums != null && subNums.get(i) != 0) {
+					map.put("option2Num", subNums.get(i));
+				} else if(subNums == null || subNums.get(i) == 0) {
+					map.put("option2Num", Long.valueOf(0));
+				}
+				
+				if(subNums2 != null && subNums2.get(i) != 0) {
+					map.put("option2Num2", subNums2.get(i));
+				} else if(subNums2 == null || subNums2.get(i) == 0) {
+					map.put("option2Num2", Long.valueOf(0));
+				}
+				*/
+				
 				if(subNums != null && subNums2 != null) {
 					map.put("option2Num", subNums.get(i));
 					map.put("option2Num2", subNums2.get(i));
-				} else if(subNums == null && subNums2 == null) {
+				} if(subNums == null && subNums2 == null) {
 					map.put("option2Num", Long.valueOf(0));
 					map.put("option2Num2", Long.valueOf(0));
-				} else if(subNums == null && subNums2 != null) {
+				} if(subNums == null && subNums2 != null) {
 					map.put("option2Num", subNums2.get(i));
 					map.put("option2Num2", subNums2.get(i));
-				} else if(subNums != null && subNums2 == null) {
+				} if(subNums != null && subNums2 == null) {
 					map.put("option2Num", subNums.get(i));
 					map.put("option2Num2", subNums.get(i));
 				}
