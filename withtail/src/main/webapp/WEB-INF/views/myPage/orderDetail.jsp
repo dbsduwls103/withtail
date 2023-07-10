@@ -811,13 +811,6 @@ $(function() {
 						<div class="od-pd-title valign-text-middle">
 							주문 상품
 						</div>
-						<div class="od-title-btn-layout-1">
-							<div class="minimal-text-btn">
-								<a class="text-1 valign-text-middle" style="cursor:pointer; color: rgb(68 148 241);">
-									전체 장바구니 담기
-								</a>
-							</div>
-						</div>
 					</div>
 					<div class="od-product-layout">
 						<c:forEach var="dto1" items="${list}" varStatus="status">
@@ -834,7 +827,7 @@ $(function() {
 										<p class="x-text valign-text-middle">${dto1.madeBy} ${dto1.itemName}<c:if test="${not empty dto1.option2Name}">(${dto1.option2Name}/${dto1.option2Name2})</c:if></p>
 										<div class="od-price-layout">
 											<div class="od-price-text valign-text-middle">
-												<fmt:formatNumber value="${dto1.salePrice}" pattern="#,###" />원
+												<fmt:formatNumber value="${dto1.salePrice}" pattern="#,###" />원 
 											</div>
 											<div class="od-retail-price valign-text-middle">
 												<fmt:formatNumber value="${dto1.price}" pattern="#,###" />원
@@ -895,7 +888,7 @@ $(function() {
 											상품 금액
 										</div>
 										<div class="o-details-small-dd valign-text-middle">
-											<fmt:formatNumber value="${dto.totalOriPrice}" pattern="#,###" />원
+											<fmt:formatNumber value="${dto.totalPurchasePrice1}" pattern="#,###" />원
 										</div>
 									</div>
 								</div>	
@@ -985,7 +978,7 @@ $(function() {
 											신용카드
 										</div>
 										<div class="o-details-main-text-min valign-text-middle">
-											삼성
+											${dto.cardName}
 										</div>
 									</div>
 								</div>
