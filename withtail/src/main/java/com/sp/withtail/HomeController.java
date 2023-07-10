@@ -38,7 +38,7 @@ public class HomeController {
 	@PostMapping(value = "/checkAnimal")
 	@ResponseBody
 	public int chkechAnimal(
-			@RequestParam(value="animal") int animal,
+			@RequestParam(value="animal", defaultValue = "1") int animal ,
 			Model model) {
 		
 		System.out.println("테스트 : " + animal);

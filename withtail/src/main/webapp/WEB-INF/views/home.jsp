@@ -138,7 +138,7 @@ $(function(){
 	
 	//console.log(animal);
 
-	
+/*	
 	$.ajax({
 		url : '${pageContext.request.contextPath}/checkAnimal',
 		method : 'POST',
@@ -151,7 +151,7 @@ $(function(){
 			console.log("실패");
 		}
 	});
-	
+	*/
 	
 	if(animal !== 1){
 		document.getElementById('iconText4').innerHTML = '장난감';
