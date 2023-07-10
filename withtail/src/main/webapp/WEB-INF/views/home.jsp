@@ -161,7 +161,7 @@ $(function(){
 		document.getElementById('iconText8').innerHTML = '건강보조제';
 	}
 	
-	
+	/*
 	
 	for(let item of product){
 		let itemNum = item.pnum;
@@ -180,7 +180,7 @@ $(function(){
 	  } else {
 	    $(".ulclass").html(out);
 	  }
-	
+	*/
 });
 </script>
 
