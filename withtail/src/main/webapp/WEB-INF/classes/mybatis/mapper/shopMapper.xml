@@ -114,5 +114,23 @@
 		WHERE option1Num = #{option1Num}
 		ORDER BY option2Num
 	</select>
+	
+	<!-- 상품 찜 추가 -->
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO itemJjim(userId, itemNum)
+		VALUES(#{userId}, #{itemNum})
+	</insert>
+	
+	<!-- 상품 찜 삭제 -->
+	<delete id="deleteLike" parameterType="map">
+		DELETE itemJjim
+		WHERE userId=#{userId} AND itemNum=#{itemNum}
+	</delete>
+	
+	<!-- 상품 찜 여부 -->
+	<select id="userLiked" parameterType="map" resultType="com.sp.withtail.shop.Product">
+		SELECT userId, itemNum
+		WHERE userID = #{userId} AND itemNum = #{itemNum}
+	</select>
 
 </mapper>

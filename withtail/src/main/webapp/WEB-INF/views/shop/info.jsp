@@ -367,6 +367,16 @@
     	display: none;
 	}
 	
+	/* 찜 버튼 */
+	.product-details button i {
+    	color: #82ae46;
+	}
+	
+	.product-details button:hover {
+		background: #fff !important;
+		color: #82ae46 !important;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -958,7 +968,7 @@
 									<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">장바구니</button>
 								</p>
 									
-								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜</button>
+								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜 <i class="bi bi-heart"></i></button>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -972,7 +982,7 @@
 									</button>
 								</p>
 									
-								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
+								<button type="button" class="btn btn-outline-success info-btn px-5 btn-wish" style="box-shadow: none;">찜 <i class="bi bi-heart"></i></button>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -1300,6 +1310,41 @@ $(function(){
 		}
 	});
 });
+</script>
+
+<script>
+// 상품 찜 여부
+$(function(){
+	$(".btn-wish").click(function(){
+		const $i = $(this).find("i");
+		let userLiked = $i.hasClass("bi bi-heart-fill");
+		let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
+		
+		if(! confirm( msg )) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/shop/insertLike";
+		let num = "${dto.itemNum}";
+		let query = "itemNum="+num+"&userLiked="+userLiked;
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === "true") {
+				if( userLiked ) {
+					$i.removeClass("bi bi-heart-fill").addClass("bi bi-heart");
+				} else {
+					$i.removeClass("bi bi-heart").addClass("bi bi-heart-fill");
+				}
+			} else if(state === "false") {
+				alert("찜 처리가 실패했습니다. !!!");
+			}
+		};
+		
+		ajaxProd(url, "post", query, "json", fn);
+	});
+});
+
 </script>
 
 <script>
