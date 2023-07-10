@@ -64,6 +64,18 @@
 		.color-bk {
 			color: #000;
 		}
+		
+				
+/*페이징*/
+.block-27 ul li a, .block-27 ul li span {
+    color: #666;
+    vertical-align: middle;
+}
+
+.block-27 ul li span.disabled {
+	color: #999;
+}
+		}
 	</style>
 
 	<section class="ftco-section" style="padding-top: 0;">
@@ -80,57 +92,50 @@
 			<div class="row justify-content-center mb-3 pb-3">
 	          <div class="col-md-12 ftco-animate">
 	            <h3 class="hotdeal-tit-h3">신상</h3>
-	            <div class="hotdeal-sort">
-	            	<ul class="d-flex">
-	            		<li class="col-lg-6 col-md-6">
-	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">신상</span><span class="li-span">&gt;</span>총 <span class="color-bk">98</span> 제품
-	            		</li>
-	            		<li class="col-lg-6 col-md-6 sort-list text-right" style="padding-right: 0;">
-	            			<a href="#">신상품</a>
-	            			<a href="#">상품명</a>
-	            			<a href="#">낮은가격</a>
-	            			<a href="#">높은가격</a>
-	            			<a href="#">인기상품</a>
-	            			<a href="#">사용후기</a>
-	            		</li>
-	            	</ul>
-	            </div>
 	          </div>
         	</div>   		
     	</div>
     	
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png" alt="Colorlib Template">
-    						<span class="status">30%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Bell Pepper</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
+    			<c:forEach var="dto" items="${list}" varStatus="status">
+	    			<div class="col-md-6 col-lg-3 ftco-animate">
+	    				<div class="product">
+	    					<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="img-prod">
+	    					<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}" alt="${dto.itemName}">
+	    					<c:if test="${dto.discount != 0}">
+								<span class="status">${dto.discount}%</span> 
+							</c:if>
+	    					</a>
+	    					<div class="text py-3 pb-4 px-3 text-center">
+	    						<h3><a href="#">${dto.itemName}</a></h3>
+	    						<div class="d-flex">
+	    							<div class="pricing">
+			    						<p class="price">
+				    						<c:if test="${dto.discount != 0}">
+												<span class="mr-2 price-dc "><fmt:formatNumber value="${dto.itemPrice}" type="currency"/></span>
+											</c:if>
+												<span class="price-sale"><fmt:formatNumber value="${dto.finalPrice}" type="currency"/></span>
+			    						</p>
+			    					</div>
 		    					</div>
+		    					<div class="bottom-area d-flex px-3">
+		    						<div class="m-auto d-flex">
+		    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+		    								<span><i class="ion-ios-menu"></i></span>
+		    							</a>
+		    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+		    								<span><i class="ion-ios-cart"></i></span>
+		    							</a>
+		    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+		    								<span><i class="ion-ios-heart"></i></span>
+		    							</a>
+	    							</div>
+	    						</div>
 	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-
+	    				</div>
+	    			</div>
+				</c:forEach>
 		</div>
 		
 		<div class="row mt-5">
@@ -139,25 +144,6 @@
 	              ${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
             	</div>
           	</div>
-          </div>
-          
-          <div class="col-md-12 d-flex mt-5 mb-5" style="align-items: center; padding-left: 0; padding-right: 0;">
-			<div class="col col-md-2 d-flex" style="align-items: center;">
-				&nbsp;
-			</div>
-			<div class="col col-md-8 text-center">
-				<form name="prodForm" class="d-flex gap-2 align-items-center justify-content-center">
-					<select name="condition" class="form-select" style="width: auto !important;">
-						<option value="itemName">상품명</option>
-					</select>
-					<input type="text" name="keyword" class="form-control" style="border-radius: 0.375rem; width: 200px;">
-					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;">검색</button>
-				</form>
-			</div>
-			<div class="col col-md-2 text-right">
-				&nbsp;
-			</div>
-		</div>
-		
+          </div>		
     	</div>
     </section>
