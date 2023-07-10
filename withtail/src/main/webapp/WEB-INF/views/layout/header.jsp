@@ -230,11 +230,12 @@ $(function(){
 	}
 });
 
+/*
 function switchImg(num){
 	if(num === 2){
 		$.ajax({
 			  
-			  url: '/switchImage',  
+			  url: '${pageContext.request.contextPath}/switchImage',  
 		      method: 'POST',
 		      data: {animal: num },
 		      success: function(response) {
@@ -252,7 +253,7 @@ function switchImg(num){
 	} else {
 		$.ajax({
 			
-			  url: '/switchImage',  
+			  url: '${pageContext.request.contextPath}/switchImage',  
 		      method: 'POST',
 		      data: {animal: num },
 		      success: function(response) {
@@ -270,7 +271,7 @@ function switchImg(num){
 	}
 	
 }
-
+*/
 
 
 
