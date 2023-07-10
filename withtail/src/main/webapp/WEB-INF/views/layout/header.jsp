@@ -230,7 +230,7 @@ $(function(){
 	}
 });
 
-/*
+
 function switchImg(num){
 	if(num === 2){
 		$.ajax({
@@ -271,7 +271,7 @@ function switchImg(num){
 	}
 	
 }
-*/
+
 
 
 
