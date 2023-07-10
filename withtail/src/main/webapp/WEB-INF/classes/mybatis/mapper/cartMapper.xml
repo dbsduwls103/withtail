@@ -16,7 +16,7 @@
         AND NVL(it.option2Num, 0) = NVL(op1.option2Num, 0) 
         AND NVL(it.option2Num2, 0) = NVL(op2.option2Num, 0)
         WHERE userId = #{userId} AND showNotice = 0
-		ORDER BY ct.cartNum DESC
+		ORDER BY cartRegDate DESC, ct.cartNum DESC
 	</select>
 	
 	<select id="deliveryFeeMax" parameterType="String" resultType="com.sp.withtail.cart.Cart">               

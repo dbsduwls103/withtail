@@ -271,12 +271,6 @@ function sendOk() {
 	// 전부 구매하기
 	const f = document.cartForm;
 	
-	let cnt = $("input[name=nums]:checked").length;
-    if (cnt === 0) {
-		alert("구매할 상품을 먼저 선택 하세요 !!!");
-		return;
-    }
-	
 	f.action = "${pageContext.request.contextPath}/cart/checkout";
 	f.submit();
 }
@@ -342,7 +336,12 @@ function deleteCartSelect() {
                         	<tr class="text-center">
 	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.cartNum}"></td>
 	                          
-	                          <td class="image-prod"><div class="img" style="background-image:url(${pageContext.request.contextPath}/resources/images/main/product_sample.png);"></div></td>
+	                          <td class="image-prod">
+	                          	  <div onclick="location.href ='${pageContext.request.contextPath}/shop/info/${dto.itemNum}';">
+			                          <div class="img" style="background-image:url(${pageContext.request.contextPath}/uploads/item/${dto.mainImage});">
+			                          </div>
+		                          </div>
+	                          </td>
 	                          
 	                          <td class="product-name">
 	                          	<c:choose>
@@ -565,17 +564,17 @@ function deleteCartSelect() {
 
 	               
 					if(quantity > 100){
-			              alert('한 번에 100개까지 구매 가능합니다.');
+			              //alert('한 번에 100개까지 구매 가능합니다.');
 			              $('#quantity-${status.index}').val(quantity - 1);	
 			              return;
 					}
 	               
-	               
+	               /*
 					if(${dto.totalStock} < quantity){
 		              alert('재고의 최대 수량입니다.');
 		              $('#quantity-${status.index}').val(quantity - 1);	
 		              return;
-					}
+					}*/
 
 	               
 		              document.getElementById('price1N-${status.index}').value = '${dto.itemPrice}' * quantity;
