@@ -5,7 +5,7 @@
 	<select id="hotdealList" parameterType="map" resultType="com.sp.withtail.hotdeal.HotDeal">
 	
 	    SELECT i.itemNum, i.ctNum, itemName, i.itemPrice,  i.itemPrice * (100-NVL(discount,0)) * 0.01 finalPrice,
-	           discount
+	           discount, mainImage
 	    FROM item i
 	    JOIN (
 	        SELECT ctNum

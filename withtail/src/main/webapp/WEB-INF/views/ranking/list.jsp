@@ -96,9 +96,9 @@
 
 					<div class="product">
 			
-							<a href="#" class="img-prod"><img class="img-fluid"
-								src="${pageContext.request.contextPath}/resources/images/main/product_sample.png"
-								alt="Colorlib Template"> 
+							<a href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}" class="img-prod"><img class="img-fluid"
+								src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"
+								alt="${dto.itemName}"> 
 							<c:if test="${dto.discount != 0}">
 								<span class="status">${dto.discount}%</span>
 							</c:if>

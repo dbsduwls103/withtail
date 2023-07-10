@@ -217,9 +217,12 @@
 	
 </style>
 
+
 <script>
 
 $(function(){
+	
+	
 	let dataSt = localStorage.getItem('animal');
 	console.log(dataSt);
 	if (dataSt !== '2'){
@@ -233,11 +236,11 @@ $(function(){
 		
 		if(num === 2){
 			$.ajax({
-					
-				  url: '${pageContext.request.contextPath}/resources/images/header/icon_cat.png',  
 				  
+				  url: '${pageContext.request.contextPath}/resources/images/header/icon_cat.png',  
 			      method: 'GET',
 			      success: function(response) {
+			    	
 			        // 이미지 요청이 성공
 			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_cat.png');
 			      },
@@ -250,7 +253,6 @@ $(function(){
 			$.ajax({
 				
 				  url: '${pageContext.request.contextPath}/resources/images/header/icon_dog.png',  
-				  
 			      method: 'GET',
 			      success: function(response) {
 			        // 이미지 요청이 성공
@@ -262,6 +264,7 @@ $(function(){
 			      }
 			});
 		}
+		
 	}
 	
 	

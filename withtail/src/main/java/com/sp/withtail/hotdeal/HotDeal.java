@@ -13,6 +13,7 @@ public class HotDeal {
 	private int itemPrice;
 	private int showNotice;
 	private int numCount;
+	private String mainImage;
 	
 	public long getCtNum() {
 		return ctNum;
@@ -99,6 +100,14 @@ public class HotDeal {
 
 	public void setNumCount(int numCount) {
 		this.numCount = numCount;
+	}
+
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
 	}
 
 }

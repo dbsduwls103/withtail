@@ -441,7 +441,7 @@ function deleteCartSelect() {
                               <div style="float: right;">
                                 <input type="hidden" name="allPoint" value="${poi}">    
 								<input type="hidden" name="allPrice" value="${all}">
-								<input type="hidden" name="deliveryFee" value="">
+								<input type="text" name="deliveryFee" value="">
                                 <input type="hidden" name="allDisPrice" value="${dis}">
                                 <input type="hidden" name="finalPrice" value="${all}">
                               </div>
