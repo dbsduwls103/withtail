@@ -441,7 +441,6 @@ function switchImg(num){
 		      }
 		});
 	}
-	//window.location.href = "${pageContext.request.contextPath}/";
 	window.location.reload();
 }
 
@@ -449,14 +448,12 @@ function switchImg(num){
 		let data = 1;
 		localStorage.setItem('animal', data);
 		switchImg(1);
-		window.location.reload();
 	}
 	
 	function switchAnimal2(){
 		let data = 2;
 		localStorage.setItem('animal', data);
 		switchImg(2);
-		window.location.reload();
 	}
 	
 
