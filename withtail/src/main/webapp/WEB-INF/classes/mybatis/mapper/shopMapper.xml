@@ -72,7 +72,26 @@
 		) rv ON i.itemNum = rv.itemNum
 	    LEFT OUTER JOIN itemJjim ij ON i.itemNum = ij.itemNum
 	    WHERE showNotice = 0
-	    ORDER BY i.itemNum DESC
+	    <choose>
+	    	<when test="sortNo==1">
+	    		ORDER BY i.itemName
+	    	</when>
+	    	<when test="sortNo==2">
+	    		ORDER BY i.itemPrice
+	    	</when>
+	    	<when test="sortNo==3">
+	    		ORDER BY i.itemPrice DESC
+	    	</when>
+	    	<when test="sortNo==4">
+	    		ORDER BY orderCount DESC
+	    	</when>
+	    	<when test="sortNo==5">
+	    		ORDER BY rvCount DESC
+	    	</when>
+	    	<otherwise>
+	    		ORDER BY i.itemNum DESC
+	    	</otherwise>
+	    </choose>
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	 

@@ -61,6 +61,7 @@ public class ShopController {
 			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "itemName") String condition,
 			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "0") String sortNo,
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
@@ -96,6 +97,8 @@ public class ShopController {
 
 		map.put("offset", offset);
 		map.put("size", size);
+		
+		map.put("sortNo", sortNo);
 
 		// 글 리스트
 		List<Product> list = service.listProd(map);
@@ -112,6 +115,8 @@ public class ShopController {
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("sortNo", sortNo);
 		
 		return "shop/list";
 	}
