@@ -111,6 +111,7 @@
 			<exclude-mapping path="/uploads/dogmap/**"/>
 			
 			<exclude-mapping path="/switchImage"/>
+			<exclude-mapping path="/header"/>
 			
 
 			

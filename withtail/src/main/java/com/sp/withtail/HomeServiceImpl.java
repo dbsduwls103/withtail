@@ -53,4 +53,18 @@ public class HomeServiceImpl implements HomeService {
 		
 		return list;
 	}
+
+
+	@Override
+	public int cartCount(String id) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("home.cartCount", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

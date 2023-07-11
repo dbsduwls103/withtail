@@ -15,6 +15,8 @@ public class Home {
 	private int numCount;
 	private String mainImage;
 	
+	private int cartCount;
+	
 	public long getCtNum() {
 		return ctNum;
 	}
@@ -108,6 +110,15 @@ public class Home {
 	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
+
+	public int getCartCount() {
+		return cartCount;
+	}
+
+	public void setCartCount(int cartCount) {
+		this.cartCount = cartCount;
+	}
+
 
 	
 }

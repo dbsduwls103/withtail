@@ -62,7 +62,7 @@
 	
 	<delete id="deleteCartExpiration">
 		DELETE FROM cart
-		WHERE regDate + 15 &lt; SYSDATE
+		WHERE cartRegDate + 15 &lt; SYSDATE
 	</delete>
 
 </mapper>
