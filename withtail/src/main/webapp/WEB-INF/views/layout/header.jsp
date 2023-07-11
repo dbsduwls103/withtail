@@ -278,10 +278,10 @@ $(function(){
 					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;" id="animalImg">
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0;">
-					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" >
+					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" style="cursor:pointer;">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;"> 강아지
 					</a>
-					<a class="dropdown-item" onclick="return switchAnimal2();" data-value="2">
+					<a class="dropdown-item" onclick="return switchAnimal2();" data-value="2" style="cursor:pointer;">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_cat.png" alt="고양이" style="width: 34px;"> 고양이
 					</a>
 				</div>

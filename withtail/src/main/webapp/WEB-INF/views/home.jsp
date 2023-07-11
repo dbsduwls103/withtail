@@ -189,27 +189,6 @@ $(function(){
 	} 
 	
 	
-	/*
-	for(let item of product){
-		let itemNum = item.pnum;
-		let mainImage = item.pimg;
-		
-		out += "<li>"
-		out += "<a href='${pageContext.request.contextPath}/shop/info/"+itemNum+"'>" 
-		out += "<img src='${pageContext.request.contextPath}/uploads/item/"+mainImage+"'>"
-		out += "</a></li>";
-		
-	}
-	
-	
-	if (out === "") {
-	    $(".rc_layout").hide();
-	  } else {
-	    $(".ulclass").html(out);
-	  }
-	*/
-	
-	
 		   let product = JSON.parse(localStorage.getItem("product")) || [];
 		   let out = "";
 		   

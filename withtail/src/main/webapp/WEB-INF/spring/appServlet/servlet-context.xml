@@ -90,6 +90,7 @@
 			<exclude-mapping path="/member/idFind"/>
 
 			<exclude-mapping path="/shop/**"/>
+			<exclude-mapping path="/search/**"/>
 			<exclude-mapping path="/newest/**"/>
 			<exclude-mapping path="/ranking/**"/>
 			<exclude-mapping path="/tailPath/**"/>
@@ -110,6 +111,8 @@
 			<exclude-mapping path="/uploads/dogmap/**"/>
 			
 			<exclude-mapping path="/switchImage"/>
+			
+
 			
 			<beans:bean class="com.sp.withtail.member.LoginCheckInterceptor"/>
 		</interceptor>
