@@ -72,11 +72,12 @@
 		padding: 10px 0;
 		background: #eee;
 		box-sizing: border-box;
+		
 	}
 	
 	.tab-ul > li > a:hover {
 		background: #333;
-		color: #fff;
+		color: #fff !important;
 		font-weight: 600;
 	}
 	
@@ -115,6 +116,7 @@
 		color: #fff;
 		padding: 3px 20px;
 		display: inline-block;
+		border-radius: 5px;
 	}
 	
 	.exit-span {
@@ -122,6 +124,7 @@
 		color: #fff;
 		padding: 3px 20px;
 		display: inline-block;
+		border-radius: 5px;
 	}
 	
 	.event_img {
@@ -154,6 +157,17 @@
 		font-size: 18px;
 		margin-bottom: 0 !important;
 	}
+	
+	/*페이징*/
+	.block-27 ul li a, .block-27 ul li span {
+	    color: #666;
+	    vertical-align: middle;
+	}
+	
+	.block-27 ul li span.disabled {
+		color: #999;
+	}
+	
 </style>
 
 <section class="ftco-section" style="min-height: 550px;">
@@ -161,85 +175,72 @@
 		<h3 class="text-center notice-h3">이벤트</h3>
 		
 		<!-- 탭 -->
-		<ul class="tab-ul col-md-12 d-flex text-center mb-3">
-			<li class="col-md-4"><a href="#" class="active">진행중 이벤트</a></li>
-			<li class="col-md-4"><a href="#">종료된 이벤트</a></li>
-			<li class="col-md-4"><a href="#">당첨자 발표</a></li>
+		<ul class="tabs tab-ul col-md-12 d-flex text-center mb-3">
+			<li class="col-md-4" id="tab-progress" data-category="progress"><a>진행중 이벤트</a></li>
+			<li class="col-md-4" id="tab-ended" data-category="ended"><a>종료된 이벤트</a></li>
+			<li class="col-md-4" id="tab-winner" data-category="winner"><a>당첨자 발표</a></li>
 		</ul>
 		<!-- //탭 -->
 		
 		<div class="ev-div">
+			<c:forEach var="dto" items="${list}" varStatus="status">
 			<ul class="col-md-12 d-flex ev-ul">
 				<li class="col-md-4 ev-li">
-					<a href="${pageContext.request.contextPath}/event/article">
-						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/resources/images/sample/event01.png" class="event_img">
+					<a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${dto.num}">
+						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/uploads/pets/${dto.imageFileName}" class="event_img">
 					</a>
 				</li>
 				<li class="col-md-8">
 					<div class="ev-content">
-						<span class="ing-span mb-2">진행중</span>
-						<h3><a href="${pageContext.request.contextPath}/event/article">구매후기 이벤트</a></h3>
-						<p class="text-truncate" style="max-width: 550px;"><a href="#">구매후기를 올리시면 5명을 추첨하여 30% 할인 쿠폰을 드립니다.</a></p>
-						<p class="ev-date">2023-06-19 ~ 2023-06-26</p>
+						<c:if test="${category=='progress'}">
+							<span class="ing-span mb-2">진행중</span>
+						</c:if>
+						<c:if test="${category!='progress'}">
+							<span class="exit-span mb-2">종료</span>
+						</c:if>
+						
+						<h3><a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${dto.num}">${dto.subject}</a></h3>
+						<p class="text-truncate" style="max-width: 550px;"><a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${dto.num}">${dto.content}</a></p>
+						<p class="ev-date">${dto.startDate} ~ ${dto.endDate}</p>
 					</div>
 				</li>
 			</ul>
-			<ul class="col-md-12 d-flex ev-ul">
-				<li class="col-md-4 ev-li">
-					<a href="${pageContext.request.contextPath}/event/article">
-						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/resources/images/sample/event01.png" class="event_img">
-					</a>
-				</li>
-				<li class="col-md-8">
-					<div class="ev-content">
-						<span class="exit-span mb-2">종료</span>
-						<h3><a href="${pageContext.request.contextPath}/event/article">구매후기 이벤트</a></h3>
-						<p class="text-truncate" style="max-width: 550px;"><a href="#">구매후기를 올리시면 5명을 추첨하여 30% 할인 쿠폰을 드립니다.</a></p>
-						<p class="ev-date">2023-06-19 ~ 2023-06-26</p>
-					</div>
-				</li>
-			</ul>
+			</c:forEach>
 		</div>
 
 		<!-- 페이징 -->
-		<div class="row my-5">
-			<div class="col text-center">
-				<div class="block-27">
-					<ul>
-						<li><a href="#">&lt;</a></li>
-						<li class="active"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">&gt;</a></li>
-					</ul>
-				</div>
-			</div>
+		<!--
+		<div class="page-navigation">
+				${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
 		</div>
-		<!-- //페이징 -->
-
-		<div class="col-md-12 d-flex" style="align-items: center; padding-left: 0; padding-right: 0;">
-			<div class="col col-md-2 d-flex" style="align-items: center;">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
-			</div>
-			<div class="col col-md-8 text-center">
-				<form name="searchForm" class="d-flex gap-2 align-items-center justify-content-center">
-					<select name="condition" class="form-select" style="width: auto !important;">
-						<option value="all">제목+내용</option>
-						<option value="startDate">시작일</option>
-						<option value="endDate">종료일</option>
-						<option value="winningDate">발표일</option>
-					</select>
-					<input type="text" name="keyword" class="form-control" style="border-radius: 0.375rem; width: 200px;">
-					<button type="button" class="btn btn-outline-secondary" style="display: inline-block; border-radius: 0.375rem;">검색</button>
-				</form>
-			</div>
-			<div class="col col-md-2 text-right">
-				&nbsp;
-				<!--<button type="button" class="btn btn-outline-secondary" style="display: inline-block;" onclick="location.href='${pageContext.request.contextPath}/inquiry/write';">등록하기</button>-->
+		-->
+		
+		<div class="row my-5">
+		    <div class="col text-center">
+		        <div class="block-27 page-nav">
+		           ${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+		  		</div>
 			</div>
 		</div>
 		
+		<!-- //페이징 -->
+		
 	</div>
 </section>
+
+<script type="text/javascript">
+
+$(function(){
+	$('#tab-${category} a').addClass('active');
+
+	$('ul.tabs li').click(function() {
+		let category = $(this).attr('data-category');
+		
+		location.href = '${pageContext.request.contextPath}/event/'+category+'/list';
+	});
+	
+
+});
+
+
+</script>
