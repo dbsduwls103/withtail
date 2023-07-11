@@ -131,11 +131,11 @@ function reloadFaq() {
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 		
 				<li class="accordion-item" role="presentation">
-					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">모두</button>
+					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0" style="color: black">모두</button>
 				</li>
 				<c:forEach var="dto" items="${listCategory}" varStatus="status">
 					<li class="accordion-item" role="presentation">
-						<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.category}</button>
+						<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-categoryNum="${dto.categoryNum}" style="color: black">${dto.category}</button>
 					</li>
 				</c:forEach>
 			</ul>	

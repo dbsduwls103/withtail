@@ -8,7 +8,7 @@
 		<c:forEach var="dto" items="${list}" varStatus="status">
 			<div class="accordion-item" style="border: none;">
 				<h2 class="accordion-header" id="flush-heading-${status.index}">
-					<button class="accordion-button collapsed a-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-${status.index}" aria-expanded="false" aria-controls="flush-collapse-${status.index}">
+					<button class="accordion-button collapsed a-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-${status.index}" aria-expanded="false" aria-controls="flush-collapse-${status.index}"  style="border-bottom : 1px solid #ececec;">
 						${dto.subject}
 					</button>
 				</h2>
@@ -25,8 +25,5 @@
 		</c:forEach>
 	</div>
 </c:if>
- 
-<div class="page-navigation">
-	${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-</div>
+
 
