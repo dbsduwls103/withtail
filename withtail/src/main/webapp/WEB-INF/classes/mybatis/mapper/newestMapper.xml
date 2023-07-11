@@ -13,8 +13,8 @@
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum
-	    WHERE regDate >= SYSDATE - 7
-        ORDER BY regDate DESC	 
+	    WHERE regDate >= SYSDATE - 7 AND showNotice = 0
+        ORDER BY regDate DESC, itemNum DESC	 
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -27,7 +27,7 @@
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum
-	    WHERE regDate >= SYSDATE - 7
-        ORDER BY regDate DESC
+	    WHERE regDate >= SYSDATE - 7 AND showNotice = 0
+        ORDER BY regDate DESC, itemNum DESC
 	</select>
 </mapper>
