@@ -44,6 +44,11 @@
     	WHERE userId = #{userId}
     </update>
     
+    <insert id="getCoupon" parameterType="com.sp.withtail.member.Member">
+    	INSERT INTO memberCoupon(userId, couponNum, used)
+            VALUES(#{userId} , 15, 0)
+    </insert>
+    
     
     
     

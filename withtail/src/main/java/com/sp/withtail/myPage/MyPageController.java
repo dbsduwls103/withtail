@@ -485,11 +485,15 @@ public class MyPageController {
 		dto.setUserId(info.getUserId());
 		List<MyPage> list = service.listCoupon(dto);
 		
+		
 		int couponUnusedDataCount = 0;
     	
+		MyPage dto1 = service.readProfile(info.getUserId());
+		
 		couponUnusedDataCount = service.couponUnusedDataCount(info.getUserId());
 		
     	model.addAttribute("list", list);
+    	model.addAttribute("dto1",dto1);
     	model.addAttribute("couponUnusedDataCount", couponUnusedDataCount);
     	
    		return ".myPage.coupon";

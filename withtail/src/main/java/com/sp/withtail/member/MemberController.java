@@ -39,7 +39,8 @@ public class MemberController {
 		try {
 			
 			service.insertMember(dto);
-		
+			service.getCoupon(dto);
+			
 		} catch (DuplicateKeyException e) {
 			// 기본키 중복에 의한 제약 조건 위반
 			model.addAttribute("mode", "join");

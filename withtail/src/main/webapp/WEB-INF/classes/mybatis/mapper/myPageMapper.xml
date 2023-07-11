@@ -71,7 +71,7 @@
 	</select>
 	
 	<select id="readProfile" parameterType="String" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT num, userId, userName, nickname, email, enabled, userPwd
+		SELECT num, userId, userName, nickname, email, enabled, userPwd, regDate, TO_CHAR(regDate + 7, 'YYYY-MM-DD') AS couponEnd
 		FROM member1
 		WHERE userId = #{userId}
 	</select>

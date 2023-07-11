@@ -201,4 +201,15 @@ public class MemberServiceImpl implements MemberService {
 
 		return dto;
 	}
+
+	@Override
+	public void getCoupon(Member dto) throws Exception {
+		try {
+			
+			dao.insertData("member.getCoupon", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

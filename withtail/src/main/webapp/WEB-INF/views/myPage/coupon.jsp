@@ -196,22 +196,34 @@ a {
 										<div class="coupon-title valign-text-middle">${dto.couponName}</div>
 										<c:choose>
 											<c:when test="${dto.couponCategory eq 0}">
-												<div class="coupon-text valign-text-middle">${dto.couponPrice}원</div>
+											
+												<div class="coupon-text valign-text-middle"><fmt:formatNumber value="${dto.couponPrice}" pattern="#,###" />원 </div>
 											</c:when>
 											<c:otherwise>
-												<div class="coupon-text valign-text-middle">${dto.couponPrice}%</div>
+												<div class="coupon-text valign-text-middle"><fmt:formatNumber value="${dto.couponPrice}" pattern="#,###" />원 </div>
 											</c:otherwise>
 										</c:choose>
+									
 									</div>
 								</div>
 								<div class="coupon-lower">
 									<div class="restriction">
+											<c:if test="${dto.couponNum == 15}">
+												<p class="restriction-text valign-text-middle">
+													<span>- 사용기간 : ~</span> <span>${dto1.couponEnd}</span> <span>까지</span>
+												</p>							
+												<p class="restriction-text valign-text-middle">
+													<span>- 최소주문금액</span> <span>${dto.couponMinPrice}</span><span>원</span>
+												</p>
+											</c:if>
+										<c:if test="${dto.couponNum != 15}">
 										<p class="restriction-text valign-text-middle">
 											<span>- 사용기간 : ~</span> <span>${dto.endDate2}</span> <span>까지</span>
 										</p>							
 										<p class="restriction-text valign-text-middle">
 											<span>- 최소주문금액</span> <span>${dto.couponMinPrice}</span><span>원</span>
 										</p>
+										</c:if>
 									</div>
 								</div>
 							</div>

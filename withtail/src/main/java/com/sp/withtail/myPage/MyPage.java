@@ -40,7 +40,14 @@ public class MyPage {
 	private int failureCnt;
 	private long point;
 	private int enabled;
+	private String couponEnd;
 	
+	public String getCouponEnd() {
+		return couponEnd;
+	}
+	public void setCouponEnd(String couponEnd) {
+		this.couponEnd = couponEnd;
+	}
 	//회원정보상태
 	private long stateNum;
 	private int stateCode;
