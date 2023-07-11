@@ -30,7 +30,7 @@
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
 		LEFT JOIN (select stRegDate,userId,rank from(
-            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -53,7 +53,7 @@
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
 		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
-            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -76,7 +76,7 @@
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
 		LEFT JOIN (select stRegDate,userId,statecode,rank from(
-            select stRegDate,m1.userId,statecode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            select stRegDate,m1.userId,statecode,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -104,8 +104,8 @@
 			failureCnt,point,email
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
-		LEFT JOIN (select stRegDate,userId,rank from(
-            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+		LEFT OUTER JOIN (select stRegDate,userId,rank from(
+            select stRegDate,m1.userId,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -120,7 +120,7 @@
 			AND enabled = 1
 			AND membership &lt;= 1
 		</where> 
-		ORDER BY regDate DESC
+		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
@@ -135,7 +135,7 @@
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
 		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
-            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -150,7 +150,7 @@
 			AND enabled = 0 AND stateCode != 8
 			AND membership &lt;= 1
 		</where> 
-		ORDER BY regDate DESC
+		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -165,7 +165,7 @@
 		FROM member m
 		JOIN member1 m1 ON m.num = m1.num
 		LEFT JOIN (select stRegDate,userId,stateCode,rank from(
-            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY num ORDER BY stateNum desc)rank
+            select stRegDate,m1.userId,stateCode,ROW_NUMBER() OVER(PARTITION BY m1.userId ORDER BY stateNum desc)rank
             from member1 m1
             left JOIN memberState ms ON m1.userId= ms.userId
             )where rank=1
@@ -180,7 +180,7 @@
 			AND enabled = 0 AND stateCode = 8
 			AND membership &lt;= 1
 		</where> 
-		ORDER BY regDate DESC
+		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>	
 

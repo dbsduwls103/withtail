@@ -121,7 +121,7 @@ function searchList() {
 					<td class="td-name bw-100">작성자</td>
 					<td class="td-date">작성일</td>
 					<td class="td-result bw-100">조회수</td>
-					<td class="td-file bw-100">파일</td>
+					<td class="td-file bw-100"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -151,7 +151,7 @@ function searchList() {
 		<div class="row my-5">
 		    <div class="col text-center">
 		        <div class="block-27 page-nav">
-		           ${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+		           ${dataCount == 0 ? "등록된 게시글이 없습니다." : paging}
 		  		</div>
 			</div>
 		</div>
