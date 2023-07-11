@@ -225,6 +225,7 @@ $(function(){
 	//console.log(dataSt);
 	if (dataSt !== '2'){
 		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_dog.png";
+		
 	} else {
 		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_cat.png";
 	}
@@ -440,21 +441,19 @@ function switchImg(num){
 		      }
 		});
 	}
-	
+	window.location.reload();
 }
 
 	function switchAnimal1(){
 		let data = 1;
 		localStorage.setItem('animal', data);
 		switchImg(1);
-		window.location.reload();
 	}
 	
 	function switchAnimal2(){
 		let data = 2;
 		localStorage.setItem('animal', data);
 		switchImg(2);
-		window.location.reload();
 	}
 	
 
