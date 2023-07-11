@@ -367,6 +367,16 @@
     	display: none;
 	}
 	
+	/* 찜 버튼 */
+	.product-details button i {
+    	color: #82ae46;
+	}
+	
+	.product-details button:hover {
+		background: #fff !important;
+		color: #82ae46 !important;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -544,12 +554,12 @@
 				return false;
 			}
 			
-			let subNum2 = $(this).val();
+			let subNum = $(this).val();
 			
 			let b = true;
-			$(".order-area input[name=subNums2]").each(function(){
-				let snum2 = $(this).val();
-				if(subNum2 === snum2) {
+			$(".order-area input[name=subNums]").each(function(){
+				let snum = $(this).val();
+				if(subNum === snum) {
 					alert("선택된 옵션입니다.");
 					$(".option1").val("");
 					$(".option1").trigger("change");
@@ -586,7 +596,7 @@
 			out += '			</span>';
 			out += '			<input type="text" name="qtys" class="form-control input-number quantity" value="1" min="1" max="100" style="border-radius: 5px; width: 60px !important; display: inline-block;">';
 			out += '			<input type="hidden" name="itemNums" value="'+itemNum+'">';
-			out += '			<input type="hidden" name="subNums2" value="'+subNum2+'">';
+			out += '			<input type="hidden" name="subNums" value="'+subNum+'">';
 			out += '			<span class="input-group-btn ml-2">';
 			out += '				<button type="button" class="quantity-right-plus btn qt-btn" data-type="plus" data-field="">';
 			out += '					<i class="ion-ios-add"></i>';
@@ -634,7 +644,7 @@
   			$order.find("input[name=qtys]").val(qty);
   			let opPrice = $order.find(".op-price").attr("data-optionPrice");
   			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
-  			let itemPrice = parseInt(oriPrice) * qty;
+  			let itemPrice = parseInt(opPrice) * qty;
   			let totalPrice = itemPrice.toLocaleString();
   			
   			//let $total = $(this).closest(".order-area");
@@ -664,7 +674,7 @@
   			$order.find("input[name=qtys]").val(qty);
   			let opPrice = $order.find(".op-price").attr("data-optionPrice");
   			let oriPrice = $order.find(".op-price").attr("data-oriPrice");
-  			let itemPrice = parseInt(oriPrice) * qty;
+  			let itemPrice = parseInt(opPrice) * qty;
   			let totalPrice = itemPrice.toLocaleString();
   			
   			//let $total = $(this).closest(".order-area");
@@ -958,7 +968,7 @@
 									<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">장바구니</button>
 								</p>
 									
-								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜</button>
+								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;" onclick="login();">찜 <i class="bi bi-heart"></i></button>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -972,7 +982,7 @@
 									</button>
 								</p>
 									
-								<button type="button" class="btn btn-outline-success info-btn px-5" style="box-shadow: none;">찜</button>
+								<button type="button" class="btn btn-outline-success info-btn px-5 btn-wish" style="box-shadow: none;">찜 <i class="bi bi-heart"></i></button>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -1300,6 +1310,41 @@ $(function(){
 		}
 	});
 });
+</script>
+
+<script>
+// 상품 찜 여부
+$(function(){
+	$(".btn-wish").click(function(){
+		const $i = $(this).find("i");
+		let userLiked = $i.hasClass("bi bi-heart-fill");
+		let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
+		
+		if(! confirm( msg )) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/shop/insertLike";
+		let num = "${dto.itemNum}";
+		let query = "itemNum="+num+"&userLiked="+userLiked;
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === "true") {
+				if( userLiked ) {
+					$i.removeClass("bi bi-heart-fill").addClass("bi bi-heart");
+				} else {
+					$i.removeClass("bi bi-heart").addClass("bi bi-heart-fill");
+				}
+			} else if(state === "false") {
+				alert("찜 처리가 실패했습니다. !!!");
+			}
+		};
+		
+		ajaxProd(url, "post", query, "json", fn);
+	});
+});
+
 </script>
 
 <script>

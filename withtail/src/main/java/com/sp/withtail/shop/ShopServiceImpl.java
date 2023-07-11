@@ -1,6 +1,5 @@
 package com.sp.withtail.shop;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -142,6 +141,42 @@ public class ShopServiceImpl implements ShopService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public void insertLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("shop.insertLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void deleteLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("shop.deleteLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public boolean userLiked(Map<String, Object> map) {
+		boolean result = false;
+		
+		try {
+			Product dto = dao.selectOne("shop.deleteLike", map);
+			if(dto != null) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

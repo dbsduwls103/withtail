@@ -193,7 +193,7 @@ img {
 			<img class="character-image" alt="" src="${pageContext.request.contextPath}/resources/images/icon/character-image-1.png">
 			<div class="complete-text-layout">
 				<div class="main-text-layout">
-					<h1 class="main-text">주문이 정상적으로 완료되었습니다.</h1>
+					<h1 class="main-text">${msg}</h1>
 				</div>
 				<div class="order-number-layout">
 					<div class="order-number-text">
@@ -201,11 +201,11 @@ img {
 							주문번호
 						</div>
 						<div class="order-number-1">
-						 	#800
+						 	#${orderNum}
 						</div>
 					</div>
 					<div class="sub-text-1">
-						결제 완료
+						${state}
 					</div>
 				</div>
 				<div class="frame-342">
@@ -214,7 +214,7 @@ img {
 							결제수단
 						</div>
 						<div class="sub-text-2">
-						 	신용카드
+						 	${payMethod}
 						</div>
 					</div>
 					<div class="frame-3">
@@ -222,15 +222,15 @@ img {
 							결제금액
 						</div>
 						<div class="sub-text-3">
-							<span class="span0">7,000</span>
+							<span class="span0">${payment}</span>
 							<span class="span1">원</span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div>
-				<button type="button" class="btn45">주문 상세내역 바로가기</button>
-				<button type="button" class="btn46">쇼핑하러 가기</button>
+				<button type="button" class="btn45" onclick='location.href="${pageContext.request.contextPath}/myPage/orderDetail?orderNum=${orderNum}"'>주문 상세내역 바로가기</button>
+				<button type="button" class="btn46" onclick='location.href="${pageContext.request.contextPath}/"'>쇼핑하러 가기</button>
 			</div>
 		</div>
 	</div>

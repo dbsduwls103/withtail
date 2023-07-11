@@ -250,7 +250,8 @@ function SelectSendOk() {
 		}
 	});
 	
-	f.action = "${pageContext.request.contextPath}/cart/checkout";
+    //f.method = "post";
+	f.action = "${pageContext.request.contextPath}/order/payment";
 	f.submit();
 }
 
@@ -271,7 +272,36 @@ function sendOk() {
 	// 전부 구매하기
 	const f = document.cartForm;
 	
-	f.action = "${pageContext.request.contextPath}/cart/checkout";
+	/*
+	let itemNums = "";
+	let subNums = "";
+	let subNums2 = "";
+	let qtys = "";
+    
+    $("input[name=itemNums]").each(function(index, num) {
+    	itemNums += $(num).val() + ",";
+ 	});
+    itemNums = itemNums.substr(0,itemNums.lastIndexOf(","));
+    
+    $("input[name=subNums]").each(function(index, num) {
+    	subNums += $(num).val() + ",";
+ 	});
+    subNums = subNums.substr(0,subNums.lastIndexOf(","));
+	
+    $("input[name=subNums2]").each(function(index, num) {
+    	subNums2 += $(num).val() + ",";
+ 	});
+    subNums2 = subNums2.substr(0,subNums2.lastIndexOf(","));
+    
+    $("input[name=qtys]").each(function(index, num) {
+    	qtys += $(num).val() + ",";
+ 	});
+    qtys = qtys.substr(0,qtys.lastIndexOf(","));
+    */
+	
+	//location.href = "${pageContext.request.contextPath}/order/payment?itemNums="+itemNums+"&subNums="+subNums+"&subNums2="+subNums2+"&qtys="+qtys;
+	//f.method = "post";
+	f.action = "${pageContext.request.contextPath}/order/payment";
 	f.submit();
 }
 
@@ -369,9 +399,14 @@ function deleteCartSelect() {
 	                          <td>품절</td>
 	                          <td>품절</td>
 	                          <td>품절
+	                          
 	                          	 <input type="hidden" value="${dto.itemNum}" name="itemNums">
-		                         <input type="hidden" name="subNums" value="${dto.option2Num}">
-		                         <input type="hidden" name="subNums2" value="${dto.option2Num2}">
+	                          	 <c:if test="${not empty dto.option2Num}">
+	                          	 	<input type="hidden" name="subNums" value="${dto.option2Num}">
+	                          	 </c:if>
+		                         <c:if test="${not empty dto.option2Num2}">
+		                         	<input type="hidden" name="subNums2" value="${dto.option2Num2}">
+		                         </c:if>
 	                             <input type="hidden" value="0" name="itemPoint-${status.index}" id="itemPointN-${status.index}">
 	                          	 <input type="hidden" value="0" name="totalStock-${status.index}" id="totalStockN-${status.index}">
 		                         <input type="hidden" value="0" name="disPrice-${status.index}" id="disPriceN-${status.index}">
@@ -414,8 +449,13 @@ function deleteCartSelect() {
 		                          
 		                          <!-- hidden 처리 -->
 		                         <input type="hidden" value="${dto.itemNum}" name="itemNums">
-		                         <input type="hidden" name="subNums" value="${dto.option2Num}">
-		                         <input type="hidden" name="subNums2" value="${dto.option2Num2}">
+		                         <c:if test="${not empty dto.option2Num}">
+	                          	 	<input type="hidden" name="subNums" value="${dto.option2Num}">
+	                          	 </c:if>
+		                         <c:if test="${not empty dto.option2Num2}">
+		                         	<input type="hidden" name="subNums2" value="${dto.option2Num2}">
+		                         </c:if>
+		                         
 		                         <input type="hidden" value="${dto.itemPoint * dto.quantity}" name="itemPoint" id="itemPointN-${status.index}">
 		                         <input type="hidden" value="${dto.totalStock}" name="totalStock" id="totalStockN-${status.index}">
 		                         <input type="hidden" value="${dto.disPrice}" name="disPrice" id="disPriceN-${status.index}">
@@ -443,6 +483,7 @@ function deleteCartSelect() {
 								<input type="hidden" name="deliveryFee" value="">
                                 <input type="hidden" name="allDisPrice" value="${dis}">
                                 <input type="hidden" name="finalPrice" value="${all}">
+                                <input type="hidden" name="mode" value="buy">
                               </div>
                             </div>
                           </td>

@@ -65,8 +65,9 @@
 }
 
 .sort-list > a:hover {
-	color: #000;
+	color: #000 !important;
 	font-weight: 600 !important;
+	cursor: pointer;
 }
 		
 .color-bk {
@@ -103,6 +104,11 @@
 	color: #999;
 }
 
+.clicked {
+	color: #000 !important;
+	font-weight: 600 !important;
+}
+
 </style>
 
 	 <div class="hero-wrap hero-bread" style="background: #82ae46">
@@ -136,15 +142,15 @@
           <div class="-prodsort mb-5">
             <ul class="d-flex">
 	            		<li class="col-lg-6 col-md-6">
-	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">${category.ctName}</span><span class="li-span">&gt;</span>총 <span class="color-bk">98</span> 제품
+	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">${category.ctName}</span><span class="li-span">&gt;</span>총 <span class="color-bk">${dataCount}</span> 제품
 	            		</li>
 	            		<li class="col-lg-6 col-md-6 sort-list text-right" style="padding-right: 0;">
-	            			<a href="#">신상품</a>
-	            			<a href="#">상품명</a>
-	            			<a href="#">낮은가격</a>
-	            			<a href="#">높은가격</a>
-	            			<a href="#">인기상품</a>
-	            			<a href="#">사용후기</a>
+	            			<a class="sort-a clicked" data-sort="0">신상품</a>
+	            			<a class="sort-a" data-sort="1">상품명</a>
+	            			<a class="sort-a" data-sort="2">낮은가격</a>
+	            			<a class="sort-a" data-sort="3">높은가격</a>
+	            			<a class="sort-a" data-sort="4">인기상품</a>
+	            			<a class="sort-a" data-sort="5">사용후기</a>
 	            		</li>
 	         </ul>
           </div>
@@ -205,53 +211,26 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 
-// 로그인 불필요
-function ajaxFun2(url, method, query, dataType, fn) {
-	$.ajax({
-		type:method,
-		url:url,
-		data:query,
-		dataType:dataType,
-		success:function(data) {
-			fn(data);
-		},
-		beforeSend:function(jqXHR) {
-			jqXHR.setRequestHeader("AJAX", true);
-		},
-		error:function(jqXHR) {
-	    	if(jqXHR.status === 403) {
-	    		//login();
-	    		//return false;
-	    	} else if(jqXHR.status === 402) {
-	    		alert("권한이 없습니다.");
-	    		return false;
-			} else if(jqXHR.status === 400) {
-				alert("요청 처리가 실패 했습니다.");
-				return false;
-	    	} else if(jqXHR.status === 410) {
-	    		alert("삭제된 게시물입니다.");
-	    		return false;
-	    	}
-	    	
-			console.log(jqXHR.responseText);
-		}
-	});
-}
-
+$(function(){
+	listPage(1, 0);
+});
 
 $(function(){
-	listPage(1);
+	$("body").on("click", ".sort-a", function(){
+		let sortNo = $(this).attr("data-sort");
+		listPage(1, sortNo);
+	});
 });
 
 //상품 리스트
-function listPage(page) {
-	//let lectureSubCode = $(".list-group li.active").attr("data-lectureSubCode");
+function listPage(page, sortNo) {
 	let ctNum = "${ctNum}";
-	
+
 	let url = "${pageContext.request.contextPath}/shop/"+ctNum+"/list";
 	let query = "pageNo="+page;
 	let search = $('form[name=prodForm]').serialize();
-	query = query+"&"+search;
+	
+	query = query+"&"+search+"&sortNo="+sortNo;
 	let selector = ".content-frame";
 	
 	const fn = function(data){
@@ -271,8 +250,8 @@ $(".product-category").on("click", "li.li-sub:not(.active)", function(){
 function detailProd(itemNum, ctNum) {
 	let url = "${pageContext.request.contextPath}/shop/info/"+itemNum;
 	let query = "ctNum=${ctNum}";
-	//let search = $('form[name=searchForm]').serialize();
-	//query = query+"&pageNo="+page+"&"+search;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&pageNo="+page+"&"+search;
 	let selector = ".content-frame";
 	
 	const fn = function(data){

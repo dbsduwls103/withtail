@@ -3,21 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+		  
 		 <div class="-prodsort mb-5">
             <ul class="d-flex">
 	            		<li class="col-lg-6 col-md-6">
 	            			제품 목록<span class="li-span">&gt;</span><span class="color-bk">${category.ctName}</span><span class="li-span">&gt;</span>총 <span class="color-bk">${dataCount}</span> 제품
 	            		</li>
 	            		<li class="col-lg-6 col-md-6 sort-list text-right" style="padding-right: 0;">
-	            			<a href="#">신상품</a>
-	            			<a href="#">상품명</a>
-	            			<a href="#">낮은가격</a>
-	            			<a href="#">높은가격</a>
-	            			<a href="#">인기상품</a>
-	            			<a href="#">사용후기</a>
+	            			<a class="sort-a ${sortNo==0 ? 'clicked' : ''}" data-sort="0">신상품</a>
+	            			<a class="sort-a ${sortNo==1 ? 'clicked' : ''}" data-sort="1">상품명</a>
+	            			<a class="sort-a ${sortNo==2 ? 'clicked' : ''}" data-sort="2">낮은가격</a>
+	            			<a class="sort-a ${sortNo==3 ? 'clicked' : ''}" data-sort="3">높은가격</a>
+	            			<a class="sort-a ${sortNo==4 ? 'clicked' : ''}" data-sort="4">인기상품</a>
+	            			<a class="sort-a ${sortNo==5 ? 'clicked' : ''}" data-sort="5">사용후기</a>
 	            		</li>
 	         </ul>
           </div>
+        
           
 
           <div class="row">
@@ -108,5 +110,6 @@
 				&nbsp;
 			</div>
 		</div>
+
 
  

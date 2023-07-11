@@ -32,4 +32,13 @@ public interface ShopService {
 	
 	// 옵션 내용
 	public List<Product> listOptionDetail(long option1Num);
+	
+	// 상품 찜 추가
+	public void insertLike(Map<String, Object> map) throws Exception;
+	
+	// 상품 찜 삭제
+	public void deleteLike(Map<String, Object> map) throws Exception;
+	
+	// 상품 찜 여부
+	public boolean userLiked(Map<String, Object> map);
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,6 +61,7 @@ public class ShopController {
 			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "itemName") String condition,
 			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "0") String sortNo,
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
@@ -95,6 +97,8 @@ public class ShopController {
 
 		map.put("offset", offset);
 		map.put("size", size);
+		
+		map.put("sortNo", sortNo);
 
 		// 글 리스트
 		List<Product> list = service.listProd(map);
@@ -111,6 +115,8 @@ public class ShopController {
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("sortNo", sortNo);
 		
 		return "shop/list";
 	}
@@ -160,11 +166,40 @@ public class ShopController {
 	// 상품 옵션(AJAX - JSON)
 	@GetMapping("info/listOptionDetail2")
 	@ResponseBody
-	public List<Product> listOptionDetail2(@RequestParam long option1Num,
-			@RequestParam long option1Sub, @RequestParam long option2Num,
+	public List<Product> listOptionDetail2(@RequestParam Long option1Num,
+			@RequestParam Long option1Sub, @RequestParam Long option2Num,
 			 @RequestParam long extra1) {
 		List<Product> list = service.listOptionDetail(option1Sub);
 		return list;
+	}
+	
+	@PostMapping("insertLike")
+	@ResponseBody
+	public Map<String, Object> insertLike(@RequestParam long itemNum, 
+			@RequestParam boolean userLiked,
+			HttpSession session) {
+		
+		String state = "true";
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("itemNum", itemNum);
+		paramMap.put("userId", info.getUserId());
+		
+		try {
+			if(userLiked) {
+				service.deleteLike(paramMap);
+			} else {
+				service.insertLike(paramMap);
+			}
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		
+		return model;
 	}
 
 }
