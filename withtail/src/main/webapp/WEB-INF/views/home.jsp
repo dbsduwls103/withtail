@@ -133,7 +133,7 @@
 
 
 $(function(){
-	console.log("세션 : " + "${sessionScope.animal}");
+	//console.log("세션 : " + "${sessionScope.animal}");
 	
 	let animal = parseInt(localStorage.getItem('animal'));
 	
@@ -160,7 +160,7 @@ $(function(){
 		document.getElementById('iconText7').innerHTML = '외출';
 		document.getElementById('iconText8').innerHTML = '건강보조제';
 		
-		/*
+		
 		document.getElementById('iconLink1').onclick = function(){
 			location.href = "${pageContext.request.contextPath}/shop/11";
 		};
@@ -185,8 +185,32 @@ $(function(){
 		document.getElementById('iconLink8').onclick = function(){
 			location.href = "${pageContext.request.contextPath}/shop/18";
 		};
-		*/
-	} 
+	} else {
+		document.getElementById('iconLink1').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/3";
+		};
+		document.getElementById('iconLink2').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/4";
+		};
+		document.getElementById('iconLink3').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/5";
+		};
+		document.getElementById('iconLink4').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/6";
+		};
+		document.getElementById('iconLink5').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/7";
+		};
+		document.getElementById('iconLink6').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/8";
+		};
+		document.getElementById('iconLink7').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/9";
+		};
+		document.getElementById('iconLink8').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/10";
+		};
+	}
 	
 	
 		   let product = JSON.parse(localStorage.getItem("product")) || [];

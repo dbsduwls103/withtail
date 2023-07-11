@@ -79,7 +79,7 @@
 				<a href="${pageContext.request.contextPath}/">위드테일</a> <span>&gt;</span> <a href="#">랭킹</a>
 			</p>
 			-->
-			<img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="랭킹 배너">
+			<img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="검색 배너">
 		</div>
 		
     	<div class="container">
