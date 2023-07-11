@@ -150,7 +150,7 @@
 			<div class="row mt-5">
 				<div class="col text-center">
 					<div class="block-27">
-						${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+						${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 					</div>
 				</div>
 			</div>
