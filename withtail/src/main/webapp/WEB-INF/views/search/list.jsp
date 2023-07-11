@@ -85,7 +85,7 @@
     	<div class="container">
 			<div class="row justify-content-center mb-3 pb-3">
 	          <div class="col-md-12 ftco-animate">
-	            <h3 class="hotdeal-tit-h3">${keyword}에 대한 검색</h3>
+	            <h3 class="hotdeal-tit-h3">'${keyword}'에 대한 검색</h3>
 	           
 	          </div>
         	</div>   		
@@ -151,7 +151,7 @@
 			<div class="row mt-5">
 				<div class="col text-center">
 					<div class="block-27">
-						${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+						${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 					</div>
 				</div>
 			</div>
