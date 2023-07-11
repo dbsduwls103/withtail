@@ -228,6 +228,30 @@ $(function(){
 	} else {
 		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_cat.png";
 	}
+	
+	
+	let mySpan = document.getElementById("iconSearch");
+	mySpan.addEventListener("click", function() {
+		let keyword = document.getElementById("textSearch").value;
+		let xhr = new XMLHttpRequest();
+		let url = "${pageContext.request.contextPath}/search/list";
+		let data = "?keyword=" + encodeURIComponent(keyword);
+		
+		url += data;
+		
+		xhr.open("GET", url, true);
+		xhr.send(data);
+		
+	    xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      window.location.href = "${pageContext.request.contextPath}/search/list" + data;
+	    }
+	  };
+
+	  
+	});
+	
+	
 });
 
 
@@ -246,8 +270,8 @@ $(function(){
 		  <div class="searchbar">
 			<form class="search-form">
 				<div class="form-group">
-				  <span class="icon ion-ios-search"></span>
-				  <input type="text" class="" placeholder="위드테일에서 어떤 상품을 찾으세요?">
+				  <span class="icon ion-ios-search" id="iconSearch"></span>
+				  <input type="text" class="" id="textSearch" placeholder="위드테일에서 어떤 상품을 찾으세요?">
 				</div>
 			  </form>
 		  </div>

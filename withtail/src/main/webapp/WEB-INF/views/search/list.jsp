@@ -85,7 +85,7 @@
     	<div class="container">
 			<div class="row justify-content-center mb-3 pb-3">
 	          <div class="col-md-12 ftco-animate">
-	            <h3 class="hotdeal-tit-h3">검색</h3>
+	            <h3 class="hotdeal-tit-h3">${keyword}에 대한 검색</h3>
 	           
 	          </div>
         	</div>   		
