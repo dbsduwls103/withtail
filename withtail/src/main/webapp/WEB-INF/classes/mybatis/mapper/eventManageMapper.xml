@@ -111,7 +111,7 @@
 			TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate, 
 			TO_CHAR(winningDate, 'YYYY-MM-DD HH24:MI') winningDate, 
 			TO_CHAR(regDate, 'YYYY-MM-DD HH24:MI') regDate, 
-			maxCount, enabled, hitCount,imageFilename
+			maxCount, enabled, hitCount, imageFilename
 		FROM event
 		WHERE num = #{num}
 	</select>
@@ -185,7 +185,7 @@
 		SELECT e.num, e.userId, nickName, e.regDate, eventnum
 		FROM eventapply e
 		JOIN member1 m ON e.userId = m.userId
-		JOIN event v ON e.num = v.num
+		JOIN event v ON e.eventNum = v.num
 		WHERE eventnum = #{eventnum}
 		ORDER BY regDate ASC
 	</select>
