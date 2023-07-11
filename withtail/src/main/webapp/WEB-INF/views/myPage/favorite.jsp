@@ -424,7 +424,7 @@ $(function() {
 			 			<div class="f-product-info">
 						 	<div style="position: relative;">
 			 					<a class="f-product-image-layout" href="${pageContext.request.contextPath}/shop/info/${dto.itemNum}">
-			 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto1.mainImage}">
+			 						<img alt="f-product-image" class="f-product-image" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}">
 			 					</a>
 			 				</div>	
 			 				<div class="f-product-wrap">
