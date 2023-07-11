@@ -7,8 +7,60 @@ public class MyUtilCustom extends MyUtil {
 
 	@Override
 	public String paging(int current_page, int total_page, String list_url) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		
+		int numPerBlock = 5;
+		int currentPageSetup;
+		int n, page;
+		
+		if(current_page < 1 || total_page < current_page) {
+			return "";
+		}
+		
+		if(list_url.indexOf("?") != -1) {
+			list_url += "&";
+		} else {
+			list_url += "?";
+		}
+		
+		// currentPageSetup : 표시할첫페이지-1
+		currentPageSetup = (current_page / numPerBlock) * numPerBlock;
+		if(current_page % numPerBlock == 0) {
+			currentPageSetup = currentPageSetup - numPerBlock;
+		}
+
+		sb.append("<ul class='d-flex gap-1 justify-content-center'>");
+		
+		// 처음페이지, 이전(10페이지 전)
+		n = current_page - numPerBlock;
+		if(total_page > numPerBlock && currentPageSetup > 0) {
+			sb.append("<li><a href='" + list_url + "page=1'>&lt;&lt;</a></li>");
+			sb.append("<li><a href='" + list_url + "page=" + n + "'>&lt;</a></li>");
+		}
+		
+		// 페이징
+		page = currentPageSetup + 1;
+		while(page <= total_page && page <= (currentPageSetup + numPerBlock)) {
+			if(page == current_page) {
+				sb.append("<li class='active'><span>" + page + "</span></li>");
+			} else {
+				sb.append("<li><a href='" + list_url + "page=" + page + "'>" + page + "</a></li>");
+			}
+
+			page++;
+		}
+		
+		// 다음(10페이지 후), 마지막페이지
+		n = current_page + numPerBlock;
+		if(n > total_page) n = total_page;
+		if(total_page - currentPageSetup > numPerBlock) {
+			sb.append("<li><a href='" + list_url + "page=" + n + "'>&gt;</a></li>");
+			sb.append("<li><a href='" + list_url + "page=" + total_page + "'>&gt;&gt;</a></li>");
+		}
+		
+		sb.append("</ul>");
+	
+		return sb.toString();
 	}
 
 	// javascript 페이지 처리(javascript 지정 함수 호출, methodName:호출할 스크립트 함수명)
