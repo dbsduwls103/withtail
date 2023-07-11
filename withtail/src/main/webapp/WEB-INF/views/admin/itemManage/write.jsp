@@ -298,9 +298,9 @@ $(function(){
 				return false;
 			}
 			
-			let detailNum = $minus.parent(".input-group").find("input[name=option2Nums]").val();
-			let url = "${pageContext.request.contextPath}/admin/itemManage/deleteOptionDetail";
-			$.post(url, {detailNum:detailNum}, function(data){
+			let option2Num = $minus.parent(".input-group").find("input[name=option2Nums]").val();
+			let url = "${pageContext.request.contextPath}/admin/itemManage/deleteOption2";
+			$.post(url, {option2Num:option2Num}, function(data){
 				if(data.state === "true") {
 					$minus.closest(".input-group").remove();
 				} else {
@@ -352,8 +352,8 @@ $(function(){
 				return false;
 			}
 			
-			let detailNum = $minus.parent(".input-group").find("input[name=option2Num2]").val();
-			let url = "${pageContext.request.contextPath}/admin/product/deleteOptionDetail";
+			let option2Num = $minus.parent(".input-group").find("input[name=option2Num2]").val();
+			let url = "${pageContext.request.contextPath}/admin/itemManage/deleteOption2";
 			$.post(url, {option2Num:option2Num}, function(data){
 				if(data.state === "true") {
 					$minus.closest(".input-group").remove();

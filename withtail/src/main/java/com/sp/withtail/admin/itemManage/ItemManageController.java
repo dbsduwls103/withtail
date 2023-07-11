@@ -342,7 +342,9 @@ public class ItemManageController {
 		model.put("state", state);
 		return model;
 	}
-
+	
+	@RequestMapping(value = "deleteOption2", method = RequestMethod.POST)
+	@ResponseBody
 	public Map<String, Object> deleteOption2(@RequestParam long option2Num) throws Exception {
 		String state = "true";
 		try {
