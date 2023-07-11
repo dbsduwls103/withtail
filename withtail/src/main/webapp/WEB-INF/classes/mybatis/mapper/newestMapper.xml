@@ -9,7 +9,7 @@
 	    JOIN (
 	        SELECT ctNum
 	        FROM category
-	        WHERE CONNECT_BY_ROOT ctNum = 1
+	        WHERE CONNECT_BY_ROOT ctNum = #{condition}
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum
@@ -23,7 +23,7 @@
 	    JOIN (
 	        SELECT ctNum
 	        FROM category
-	        WHERE CONNECT_BY_ROOT ctNum = 1
+	        WHERE CONNECT_BY_ROOT ctNum = #{condition}
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum

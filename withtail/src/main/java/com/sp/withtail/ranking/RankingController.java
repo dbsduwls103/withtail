@@ -38,6 +38,14 @@ public class RankingController {
 			condition = URLDecoder.decode(condition, "utf-8");
 		}
 
+		if(req.getSession().getAttribute("animal") == null || (int)req.getSession().getAttribute("animal") == 1) {
+			req.getSession().setAttribute("animal", 1);
+			condition = "1";
+		} else {
+			req.getSession().setAttribute("animal", 2);
+			condition = "2";
+		}
+		
 		// 전체 페이지 수
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
