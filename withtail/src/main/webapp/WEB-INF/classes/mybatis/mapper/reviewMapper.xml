@@ -106,10 +106,18 @@
 	</select>
 	
 	<!-- 댓글 개수 -->
-	<select id="replyCount" parameterType="map" resultType="INTEGER">
+	<select id="replyCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) rvReplyCount
 		FROM review
 		WHERE reviewNum = #{rvNum}
+	</select>
+	
+	<!-- 리뷰 평균 -->
+	<select id="readAvgStar" parameterType="long" resultType="Double">
+		SELECT ROUND(NVL(AVG(star),0),1) AS avgStar
+		FROM review r
+		LEFT OUTER JOIN item i ON i.itemNum = r.itemNum
+		WHERE i.itemNum = #{itemNum}
 	</select>
 
 </mapper>

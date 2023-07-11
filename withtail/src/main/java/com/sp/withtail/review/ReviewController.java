@@ -79,6 +79,9 @@ public class ReviewController {
 		
 		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
 		
+		// 리뷰 평점
+		Double avgStar = service.readAvgStar(itemNum);
+		
 		model.addAttribute("itemNum", itemNum);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNo", current_page);
@@ -89,6 +92,8 @@ public class ReviewController {
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("avgStar", avgStar);
 		
 		return "review/list";
 	}

@@ -125,6 +125,19 @@ public class ReviewServiceImpl implements ReviewService {
 		return countMap;
 	}
 
+	@Override
+	public Double readAvgStar(long itemNum) {
+		Double result = null;
+		
+		try {
+			result = dao.selectOne("review.readAvgStar", itemNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	
 
 }

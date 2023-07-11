@@ -13,7 +13,7 @@
 						<div class="d-flex align-items-center justify-content-center" style="width: 40%; height: 200px; flex-direction: column;">
 							<div class="d-flex gap-2 align-items-center justify-content-center">
 								<h2 style="color: #82ae46;">★</h2>
-								<h2 class="rv-star-avg" style="font-weight: 600;">4.9</h2>
+								<h2 class="rv-star-avg" style="font-weight: 600;">${avgStar}</h2>
 							</div>
 							<div class="text-center">
 								<div class="rv-count-div">

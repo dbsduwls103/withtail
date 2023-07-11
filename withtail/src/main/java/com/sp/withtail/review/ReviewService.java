@@ -17,4 +17,6 @@ public interface ReviewService {
 	
 	public List<Reply> listReply(Map<String, Object> map);
 	public int replyCount(Map<String, Object> map);
+	
+	public Double readAvgStar(long itemNum);
 }
