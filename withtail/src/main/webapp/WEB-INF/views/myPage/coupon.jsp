@@ -184,12 +184,11 @@ a {
 	</div>
 	<div class="coupon-wrap">
 		<div class="coupon-layout">
-			<c:forEach var="dto" items="${list}" varStatus="status">
-			<c:choose>
-				<c:when test="${couponUnusedDataCount eq 0}">
+			<c:if test="${couponUnusedDataCount eq 0}">
 						<p class="empty-text">사용 가능한 쿠폰이 없어요.</p>
-				</c:when>
-				<c:otherwise>			
+			</c:if>
+			<c:forEach var="dto" items="${list}" varStatus="status">
+		
 						<c:if test="${dto.used eq 0}">
 							<div class="coupon">
 								<div class="coupon-upper">
@@ -217,8 +216,7 @@ a {
 								</div>
 							</div>
 						</c:if>
-				</c:otherwise>
-			</c:choose>
+
 			</c:forEach>
 		</div>
 	</div>
