@@ -86,7 +86,7 @@
 		FROM member1 m
 		LEFT OUTER JOIN memberCoupon mc ON m.userId = mc.userId
 		LEFT OUTER JOIN coupon c ON c.couponNum = mc.couponNum
-		WHERE m.userId = #{userId} AND mc.used = 0 AND c.endDate &lt; SYSDATE
+		WHERE m.userId = #{userId} AND mc.used = 0 AND c.endDate &gt; SYSDATE
 		ORDER BY mc.couponNum DESC
 	</select>
 	
