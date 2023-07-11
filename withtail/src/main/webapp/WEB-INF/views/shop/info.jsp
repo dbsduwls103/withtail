@@ -382,6 +382,11 @@
 		cursor: pointer;
 	}
 	
+	/*제목*/
+	.subheading {
+	    margin-top: 3rem;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -1068,9 +1073,9 @@
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Q&A</span>
 					<h2 class="mb-4">배송/교환/환불</h2>
-					<p>상품에 대해 궁금한점을 질문해주세요. 위드테일에서 답변해드립니다.</p>
+					<p class="mb-4">상품에 대해 궁금한점을 질문해주세요. 위드테일에서 답변해드립니다.</p>
 					<p>
-						<a href="#" class="btn btn-black py-3 px-5">Write a Question</a>
+						<a href="${pageContext.request.contextPath}/inquiry/write" class="btn btn-black py-3 px-5">1:1 문의 남기기</a>
 					</p>
 				</div>
 			</div>
@@ -1078,7 +1083,7 @@
 		</section>
 	
 	<section class="ftco-section">
-		<div class="container" style="padding-left: 0; padding-right: 0;">
+		<div class="container" style="padding-left: 0; padding-right: 0; border-top: 1px solid #999;">
 			<div class="row justify-content-center mb-3 pb-3">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<span class="subheading">Related Products</span>
@@ -1086,145 +1091,49 @@
 				</div>
 			</div>
 		</div>
-		<div class="container" style="padding-left: 0; padding-right: 0;">
+		<div class="container" style="padding-left: 0; padding-right: 0; border-bottom: 1px solid #999;">
 			<div class="row">
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid"
-							src="${pageContext.request.contextPath}/resources/images/product-1.jpg"
-							alt="Colorlib Template"> <span class="status">30%</span>
-							<div class="overlay"></div> </a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="#">Bell Pepper</a>
-							</h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price">
-										<span class="mr-2 price-dc">$120.00</span><span
-											class="price-sale">$80.00</span>
-									</p>
+				<!-- 아이템1 -->
+				<c:forEach var="vo" items="${listRelated}" varStatus="status" begin="0" end="3" step="1">
+					<div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp">
+						<div class="product">
+							<a href="${pageContext.request.contextPath}/shop/info/${vo.itemNum}" class="img-prod">
+								<img class="img-fluid" src="${pageContext.request.contextPath}/uploads/item/${vo.mainImage}"
+									alt="${vo.itemName}" style="min-height: 250px;">
+								<span class="status ${vo.discount==0 ? 'hidden' : ''}">${vo.discount}%</span>
+								<div class="overlay"></div>
+							</a>
+							<div class="text py-3 pb-4 px-3 text-center">
+								<h3 style="height: 42px;">
+									<a href="${pageContext.request.contextPath}/shop/info/${vo.itemNum}">${vo.itemName}</a>
+								</h3>
+								<div class="d-flex">
+									<div class="pricing">
+										<p class="price">
+											<span class="mr-2 price-dc ${vo.discount==0 ? 'hidden' : ''}"><fmt:formatNumber value="${vo.itemPrice}" type="currency"/></span>
+											<span class="price-sale"><fmt:formatNumber value="${vo.dcPrice}" type="currency"/></span>
+										</p>
+									</div>
 								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a> <a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid"
-							src="${pageContext.request.contextPath}/resources/images/product-2.jpg"
-							alt="Colorlib Template">
-							<div class="overlay"></div> </a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="#">Strawberry</a>
-							</h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price">
-										<span>$120.00</span>
-									</p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a> <a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
+								<div class="bottom-area d-flex px-3">
+									<div class="m-auto d-flex">
+										<a href="${pageContext.request.contextPath}/shop/info/${vo.itemNum}"
+											class="add-to-cart d-flex justify-content-center align-items-center text-center">
+											<span><i class="ion-ios-menu"></i></span>
+										</a> <a href="${pageContext.request.contextPath}/shop/info/${vo.itemNum}"
+											class="buy-now d-flex justify-content-center align-items-center mx-1">
+											<span><i class="ion-ios-cart"></i></span>
+										</a> <a href="${pageContext.request.contextPath}/shop/info/${vo.itemNum}"
+											class="heart d-flex justify-content-center align-items-center ">
+											<span><i class="ion-ios-heart"></i></span>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid"
-							src="${pageContext.request.contextPath}/resources/images/product-3.jpg"
-							alt="Colorlib Template">
-							<div class="overlay"></div> </a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="#">Green Beans</a>
-							</h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price">
-										<span>$120.00</span>
-									</p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a> <a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid"
-							src="${pageContext.request.contextPath}/resources/images/product-4.jpg"
-							alt="Colorlib Template">
-							<div class="overlay"></div> </a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3>
-								<a href="#">Purple Cabbage</a>
-							</h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price">
-										<span>$120.00</span>
-									</p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="#"
-										class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a> <a href="#"
-										class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a> <a href="#"
-										class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
+				<!-- //아이템1 -->
 			</div>
 		</div>
 	

@@ -274,10 +274,10 @@ $(function(){
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="...">
+		      <img src="${pageContext.request.contextPath}/resources/images/main/main_ban02.jpg" class="d-block w-100" alt="...">
 		    </div>
 		    <div class="carousel-item">
-		      <img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="...">
+		      <img src="${pageContext.request.contextPath}/resources/images/main/main_ban03.jpg" class="d-block w-100" alt="...">
 		    </div>
 		    <div class="carousel-item">
 		      <img src="${pageContext.request.contextPath}/resources/images/main/main_ban01.jpg" class="d-block w-100" alt="...">

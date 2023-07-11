@@ -41,4 +41,7 @@ public interface ShopService {
 	
 	// 상품 찜 여부
 	public boolean userLiked(Map<String, Object> map);
+	
+	// 연관상품 리스트
+	public List<Product> listRelated(long itemNum);
 }

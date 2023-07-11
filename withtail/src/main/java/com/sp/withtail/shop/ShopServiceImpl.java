@@ -179,4 +179,17 @@ public class ShopServiceImpl implements ShopService {
 		return result;
 	}
 
+	@Override
+	public List<Product> listRelated(long itemNum) {
+		List<Product> list = null;
+		
+		try {
+			list = dao.selectList("shop.listRelated", itemNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }

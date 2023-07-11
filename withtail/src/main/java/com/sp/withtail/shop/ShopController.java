@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.MyUtil;
 import com.sp.withtail.member.SessionInfo;
-import com.sp.withtail.order.Order;
-import com.sp.withtail.order.OrderService;
 
 @Controller("shop.shopController")
 @RequestMapping("/shop/*")
@@ -31,8 +29,8 @@ public class ShopController {
 	@Autowired
 	private ShopService service;
 	
-	@Autowired
-	private OrderService orderService;
+	//@Autowired
+	//private OrderService orderService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -151,15 +149,14 @@ public class ShopController {
 			listOptionDetail = service.listOptionDetail(listOption.get(0).getOption1Num());
 		}
 		
-		//SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		//Order orderDto = orderService.readUserCart(info.getUserId());
+		// 연관 상품 리스트
+		List<Product> listRelated = service.listRelated(itemNum);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("listProdImage", listProdImage);
 		model.addAttribute("listOption", listOption);
 		model.addAttribute("listOptionDetail", listOptionDetail);
-		//model.addAttribute("orderDto", orderDto);
+		model.addAttribute("listRelated", listRelated);
 		
 		return ".shop.info";
 	}

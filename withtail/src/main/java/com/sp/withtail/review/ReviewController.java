@@ -77,7 +77,7 @@ public class ReviewController {
 		// 리뷰 리스트
 		List<Review> list = service.listReview(map);
 		
-		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
+		String paging = myUtilCustom.pagingMethod2(current_page, total_page, "listPage");
 		
 		// 리뷰 평점
 		Double avgStar = service.readAvgStar(itemNum);
