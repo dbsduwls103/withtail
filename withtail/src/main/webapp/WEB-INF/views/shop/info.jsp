@@ -1242,7 +1242,7 @@
 	<div class="offcanvas-header my-4">
 		<h6 class="offcanvas-title" id="offcanvasExampleLabel">장바구니에 추가되었습니다.</h6>
 		<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-			aria-label="Close"></button>
+			aria-label="Close" onclick="location.href='${pageContext.request.contextPath}/cart/cart'"></button>
 	</div>
 	<div class="cart">
 		<div class="product-thumbnail">
