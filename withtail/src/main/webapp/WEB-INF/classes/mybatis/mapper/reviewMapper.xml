@@ -75,29 +75,29 @@
 		WHERE r.rvNum = #{rvNum}
 	</select>
 	
-	<!-- 리뷰 좋아요 -->
+	<!-- 리뷰 좋아요 추가 -->
 	<insert id="insertReviewLike" parameterType="map">
 		INSERT INTO reviewLike(reviewNum, userId)
-			VALUES (#{reviewNum}, #{userId})
+			VALUES (#{rvNum}, #{userId})
 	</insert>
 	
 	<!-- 리뷰 좋아요 삭제 -->
 	<insert id="deleteReviewLike" parameterType="map">
 		DELETE FROM reviewLike
-		WHERE reviewNum = #{reviewNum} AND userId = #{userId}
+		WHERE reviewNum = #{rvNum} AND userId = #{userId}
 	</insert>
 	
 	<!-- 리뷰 좋아요 개수 -->
-	<select id="reviewLikeCount" parameterType="Long" resultType="INTEGER">
+	<select id="reviewLikeCount" parameterType="map" resultType="map">
 		SELECT NVL(COUNT(*), 0) rvLikeCount 
-		FROM reviewLike WHERE reviewNum=#{reviewNum}
+		FROM reviewLike WHERE reviewNum=#{rvNum}
 	</select>
 	
 	<!-- 리뷰 좋아요 여부 -->
 	<select id="userRvLiked" parameterType="map" resultType="com.sp.withtail.review.Review">
 		SELECT reviewNum, userId 
 		FROM reviewLike 
-		WHERE reviewNum = #{reviewNum} AND userId = #{userId}
+		WHERE reviewNum = #{rvNum} AND userId = #{userId}
 	</select>
 	
 	<!-- 댓글 리스트 -->
@@ -109,7 +109,7 @@
 	<select id="replyCount" parameterType="map" resultType="INTEGER">
 		SELECT NVL(COUNT(*), 0) rvReplyCount
 		FROM review
-		WHERE reviewNum = #{reviewNum}
+		WHERE reviewNum = #{rvNum}
 	</select>
 
 </mapper>

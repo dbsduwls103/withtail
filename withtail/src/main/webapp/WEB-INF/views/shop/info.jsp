@@ -377,6 +377,11 @@
 		color: #82ae46 !important;
 	}
 	
+	/* 리뷰 좋아요 */
+	.rv-thumb:hover {
+		cursor: pointer;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -1276,16 +1281,54 @@
 	
 <script>
 $(function(){
-	listPage(1);
+	$("body").on("click", ".rv-thumb", function(){
+		let rvNum = $(this).attr("data-num");
+		listPage(1, rvNum);
+		
+		const $i = $(this).find("i");
+		let userLiked = $i.hasClass("bi bi-heart-fill");
+		let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
+		
+		if(! confirm( msg )) {
+			return false;
+		}
+		
+		let url2 = "${pageContext.request.contextPath}/review/insertReviewLike";
+		let query2 = "rvNum="+num+"&userLiked="+userLiked;
+		
+		const fn2 = function(data){
+			let state = data.state;
+			if(state === "true") {
+				if( userLiked ) {
+					$i.removeClass("bi bi-hand-thumbs-up-fill").addClass("bi bi-hand-thumbs-up");
+				} else {
+					$i.removeClass("bi bi-hand-thumbs-up").addClass("bi bi-hand-thumbs-up-fill");
+				}
+			} else if(state === "liked") {
+				alert("좋아요 표시는 한번만 가능합니다.");
+			} else if(state === "false") {
+				alert("처리가 실패했습니다.");
+			}
+		};
+		
+		ajaxProd(url2, "get", query2, "html", fn2);
+		listPage(1, rvNum);
+	});
+});
+</script>
+	
+<script>
+$(function(){
+	listPage(1, 0);
 });
 
 //리뷰 리스트
-function listPage(page) {
+function listPage(page, rvNum) {
 	let itemNum = "${itemNum}";
 	let url = "${pageContext.request.contextPath}/review/list?itemNum="+itemNum;
 	let query = "pageNo="+page;
 	let search = $('form[name=reviewForm]').serialize();
-	query = query+"&"+search;
+	query = query+"&"+search+"&rvNum="+rvNum;
 	let selector = ".rv-div";
 	
 	const fn = function(data){
@@ -1336,16 +1379,19 @@ $(function(){
 				} else {
 					$i.removeClass("bi bi-heart").addClass("bi bi-heart-fill");
 				}
+			} else if(state === "liked") {
+				alert("찜은 한번만 가능합니다.");
 			} else if(state === "false") {
-				alert("찜 처리가 실패했습니다. !!!");
+				alert("찜 처리가 실패했습니다.");
 			}
 		};
 		
 		ajaxProd(url, "post", query, "json", fn);
 	});
 });
-
 </script>
+
+
 
 <script>
 	// 네비게이터 클릭 시 섹션으로 스크롤 이동

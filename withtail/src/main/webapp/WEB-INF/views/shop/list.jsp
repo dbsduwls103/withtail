@@ -85,7 +85,7 @@
           </div>
           -->
           
-           <div class="row mt-5">
+           <div class="row my-5">
           	<div class="col text-center">
             	<div class="block-27 page-nav">
 	              ${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
@@ -93,6 +93,7 @@
           	</div>
           </div>
           
+          <!--  
           <div class="col-md-12 d-flex mt-5 mb-5" style="align-items: center; padding-left: 0; padding-right: 0;">
 			<div class="col col-md-2 d-flex" style="align-items: center;">
 				&nbsp;
@@ -110,6 +111,7 @@
 				&nbsp;
 			</div>
 		</div>
+		-->
 
 
  

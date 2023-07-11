@@ -11,9 +11,9 @@ public interface ReviewService {
 	public List<Review> listReviewImage(long rvNum);
 	
 	public void insertReviewLike(Map<String, Object> map) throws Exception;
-	public void deleteReviewLike(Map<String, Object> map) throws Exception;
-	public int reviewLikeCount(long rvNum);
-	public boolean userRvLiked(Map<String, Object> map);
+	//public void deleteReviewLike(Map<String, Object> map) throws Exception;
+	public  Map<String, Object> reviewLikeCount(Map<String, Object> map);
+	//public boolean userRvLiked(Map<String, Object> map);
 	
 	public List<Reply> listReply(Map<String, Object> map);
 	public int replyCount(Map<String, Object> map);

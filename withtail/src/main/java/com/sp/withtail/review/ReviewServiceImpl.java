@@ -5,18 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.sp.withtail.common.FileManager;
 import com.sp.withtail.common.dao.CommonDAO;
 
 @Service("review.reviewService")
 public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private CommonDAO dao;
-	
-	@Autowired
-	private FileManager fileManager;
 
 	@Override
 	public void insertReview(Review dto, String pathname) throws Exception {
@@ -92,45 +87,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void deleteReviewLike(Map<String, Object> map) throws Exception {
-		try {
-			dao.insertData("review.deleteReviewLike", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	@Override
-	public int reviewLikeCount(long rvNum) {
-		int result = 0;
-		
-		try {
-			result = dao.selectOne("review.reviewLikeCount", rvNum);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-
-	@Override
-	public boolean userRvLiked(Map<String, Object> map) {
-		boolean result = false;
-		
-		try {
-			Review dto = dao.selectOne("review.userRvLiked", map);
-			if(dto != null) {
-				result = true; 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-
-	@Override
 	public List<Reply> listReply(Map<String, Object> map) {
 		List<Reply> list = null;
 		
@@ -154,6 +110,19 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Map<String, Object> reviewLikeCount(Map<String, Object> map) {
+		Map<String, Object> countMap = null;
+		
+		try {
+			countMap = dao.selectOne("review.reviewLikeCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return countMap;
 	}
 
 	

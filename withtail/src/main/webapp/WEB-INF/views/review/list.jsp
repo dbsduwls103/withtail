@@ -66,7 +66,7 @@
 											</c:when>
 										</c:choose>
 									</div>
-									<ul class="d-flex gap-2">
+									<ul class="d-flex gap-2" style="overflow: hidden;">
 										<!-- 이미지 출력 foreach -->
 										<c:if test="${not empty dto.saveName}">
 											<c:forEach var="vo" items="${fn:split(dto.saveName, ',') }">
@@ -83,27 +83,29 @@
 										${dto.rvContent}
 									</div>
 									<div class="rv-like-div">
-										<a class="rv-thumb" href="#">
-											<i class="fa-regular fa-thumbs-up"></i> 유용해요 ${dto.rvLikeCount}
+										<a class="rv-thumb" data-num="${dto.rvNum}" data-like="1">
+											<i class="bi bi-hand-thumbs-up"></i> 유용해요 <span>${dto.rvLikeCount}</span>
 										</a>
 										<a class="reply-btn" data-replyNum="${dto.rvNum}" style="cursor: pointer;">
-											댓글 ${dto.replyId=="" ? 0 : 1}
+											댓글 ${dto.replyId==null ? 0 : 1}
 										</a>
 									</div>
 								</li>
 							</ul>
 							<!-- review/listReply 로 분리 -->
 							<!-- 댓글 foreach -->
-							<ul class='rv-reply-container hidden'>
-								<li class="rv-reply-user col-md-3 d-flex gap-2 align-items-center">
-									<span style="color: #333; font-weight: 600;">${dto.replyName}</span>
-									<span>|</span>
-									<span>${dto.replyDate}</span>
-								</li>
-								<li class="rv-reply-cont col-md-9">
-									${dto.replyContent}
-								</li>
-							</ul>
+							<c:if test="${not empty dto.replyId}">
+								<ul class='rv-reply-container hidden'>
+									<li class="rv-reply-user col-md-3 d-flex gap-2 align-items-center">
+										<span style="color: #333; font-weight: 600;">${dto.replyName}</span>
+										<span>|</span>
+										<span>${dto.replyDate}</span>
+									</li>
+									<li class="rv-reply-cont col-md-9">
+										${dto.replyContent}
+									</li>
+								</ul>
+							</c:if>
 							<!-- //댓글 foreach -->
 							<!-- // review/listReply.jsp 로 분리 -->
 						</div>

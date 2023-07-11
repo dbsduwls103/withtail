@@ -1,5 +1,6 @@
 package com.sp.withtail.review;
 
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.MyUtil;
+import com.sp.withtail.member.SessionInfo;
 
 @Controller("review.reviewController")
 @RequestMapping("/review/*")
@@ -86,5 +91,35 @@ public class ReviewController {
 		model.addAttribute("keyword", keyword);
 		
 		return "review/list";
+	}
+	
+	// 리뷰 좋아요 추가/삭제
+	@PostMapping("insertReviewLike")
+	@ResponseBody
+	public Map<String, Object> insertReviewLike(@RequestParam Map<String, Object> paramMap,
+			HttpSession session) {
+		
+		String state = "true";
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Map<String, Object> model = new HashMap<>();
+		
+		try {
+			paramMap.put("userId", info.getUserId());
+			service.insertReviewLike(paramMap);
+		} catch (DuplicateKeyException e) {
+			state = "liked";
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> countMap = service.reviewLikeCount(paramMap);
+		
+		// 마이바티스의 resultType이 map인 경우 int는 BigDecimal로 넘어옴
+		int likeCount = ((BigDecimal) countMap.get("LIKECOUNT")).intValue();
+		
+		model.put("rvLikeCount", likeCount);
+		model.put("state", state);
+		return model;
 	}
 }
