@@ -166,7 +166,7 @@ img {
 		</div>
 		<div class="rw-completed-info">
 			<div class="rw-completed-image-layout">
-				<img class="rw-completed-image" alt="" src="${pageContext.request.contextPath}/resources/images/main/product_sample.png">
+				<img class="rw-completed-image" alt="" src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}">
 			</div>
 			<div class="rw-completed-pdname">
 				<div class="rw-completed-pdtext valign-text-middle">${dto.madeBy}</div>
