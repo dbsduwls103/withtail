@@ -9,12 +9,12 @@
 }
 </style>
 
-<div class="container">
+<div class="container" style="min-height: 372px;">
 	<div class="body-container">	
 
         <div class="row justify-content-md-center mt-5">
-            <div class="col-md-8">
-                <div class="border border-primary mt-5 p-4">
+            <div class="col-md-8" style="margin-left: 321px; margin-bottom: 120px;">
+                <div class="border border-primary mt-5 p-4" style="border: 1px solid gray !important;">
                        <h4 class="text-center fw-bold">${title}</h4>
                        <hr class="mt-4">
                        
