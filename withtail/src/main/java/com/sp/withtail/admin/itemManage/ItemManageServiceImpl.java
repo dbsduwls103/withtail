@@ -93,7 +93,7 @@ public class ItemManageServiceImpl implements ItemManageService {
 				}
 
 			} else if((dto.getOption2Names() != null && dto.getOption2Names().size() != 0) &&
-					(dto.getOption2Names2() == null && dto.getOption2Names2().size() == 0)){
+					(dto.getOption2Names2() == null || dto.getOption2Names2().size() == 0)){
 				long option1Num = dao.selectOne("itemManage.option1Seq");
 				dto.setOption1Num(option1Num);
 				dto.setParent(null);
@@ -113,7 +113,6 @@ public class ItemManageServiceImpl implements ItemManageService {
 
 				for(long op2Num : dto.getOption2Nums()) {
 					stock.setOption2Num(op2Num);
-
 					dao.insertData("itemManage.insertItemStock", stock);
 				}
 
@@ -614,7 +613,5 @@ public class ItemManageServiceImpl implements ItemManageService {
 		}
 		return result;
 	}
-
-
 
 }
