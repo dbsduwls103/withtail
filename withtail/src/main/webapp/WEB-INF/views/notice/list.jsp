@@ -132,7 +132,7 @@ function searchList() {
 			</tbody>
 		</table>
 
-		<div class="row mt-5">
+		<div class="row my-5">
 			<div class="col text-center">
 				<div class="block-27 page-nav">
 					${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
