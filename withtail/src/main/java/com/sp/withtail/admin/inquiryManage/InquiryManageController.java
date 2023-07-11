@@ -118,6 +118,9 @@ public class InquiryManageController {
 		if (dto == null) {
 			return "redirect:/admin/inquiryManage/list?" + query;
 		}
+		
+		dto.setContent(myUtil.htmlSymbols(dto.getContent()));
+		dto.setAnswer(myUtil.htmlSymbols(dto.getAnswer()));
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);

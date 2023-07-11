@@ -117,8 +117,8 @@ $(function() {
 	            dataType: "JSON",
 	            success: function(data) {
 	              console.log("입력 성공");
-	              alert("지원했습니다")
-	           
+	              alert("지원했습니다");
+	           	  window.location.reload();
 	            },
 	            error: function(xhr, status, error) {
 	             

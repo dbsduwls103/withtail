@@ -153,7 +153,7 @@
         LEFT OUTER JOIN option2 o2 ON o2.option2Num = od.option2Num
 		LEFT OUTER JOIN option2 o22 ON o22.option2Num = od.option2Num2
         LEFT OUTER JOIN payDetail pd ON pd.orderNum = ol.orderNum
-		WHERE od.orderNum=71
+		WHERE od.orderNum=#{orderNum}
 		GROUP BY m.userId, ol.purchaseDate, ol.orderNum, tel, zip, addr1, addr2, memo, orderName, orderState,totalOriPrice,deliveryCharge,usedPoint, usedCoupon,totalPurchasePrice,
                 orderStateDate , companyName, invoiceNumber,o2.extraPrice, (totalOriPrice + NVL(o2.extraPrice,0) +  NVL(o22.extraPrice,0)), cardName, o2.extraPrice, o22.extraPrice
     
