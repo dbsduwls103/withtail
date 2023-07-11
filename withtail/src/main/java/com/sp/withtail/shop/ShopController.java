@@ -104,7 +104,7 @@ public class ShopController {
 		// 글 리스트
 		List<Product> list = service.listProd(map);
 
-		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
+		String paging = myUtilCustom.pagingMethod2(current_page, total_page, "listPage");
 		
 		model.addAttribute("category", category);
 		model.addAttribute("list", list);

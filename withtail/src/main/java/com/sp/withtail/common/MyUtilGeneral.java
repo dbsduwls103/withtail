@@ -242,4 +242,10 @@ public class MyUtilGeneral extends MyUtil {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public String pagingMethod2(int current_page, int total_page, String methodName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

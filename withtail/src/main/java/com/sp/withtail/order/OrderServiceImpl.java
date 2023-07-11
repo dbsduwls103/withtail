@@ -279,6 +279,8 @@ public class OrderServiceImpl implements OrderService {
 				dao.updateData("order.updateUsedCoupon", dto.getUsedCouponNum());
 			}
 			
+			dto.setBalance(dto.getPoint() - dto.getUsedPoint());
+			
 			// 포인트 사용
 			dao.updateData("order.updateMemberPoint", dto);
 			dao.insertData("order.insertPointDetail", dto);
