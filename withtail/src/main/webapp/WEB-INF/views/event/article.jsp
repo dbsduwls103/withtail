@@ -65,6 +65,17 @@
 		font-weight: normal;
 	}
 	
+	.exit-span {
+		background: #999;
+		color: #fff;
+		padding: 3px 10px;
+		display: inline-block;
+		border-radius: 0.375rem;
+		font-size: 14px;
+		vertical-align: middle;
+		font-weight: normal;
+	}
+	
 	.va-m {
 		vertical-align: middle;
 	}
@@ -86,6 +97,41 @@
 	
 </style>
 
+<script>
+$(function() {
+	   $('.btnEventApply').click(function() {
+	     
+	      let num = ${dto.num}
+	      
+	      console.log(num);
+	      
+	      insertEventApply(num);
+	      
+	   });
+	   
+	   function insertEventApply(num) {
+	      $.ajax({
+	            url: "${pageContext.request.contextPath}/event/insertApply",
+	            type: "POST", 
+	            data: { num:num },
+	            dataType: "JSON",
+	            success: function(data) {
+	              console.log("입력 성공");
+	              alert("지원했습니다")
+	           
+	            },
+	            error: function(xhr, status, error) {
+	             
+	              console.error("실패");
+	            
+	            }
+	          });
+	   }
+	   
+	});
+
+</script>
+
 <section class="ftco-section" style="min-height: 550px;">
 	<div class="container">
 		<h3 class="text-center notice-h3">
@@ -96,25 +142,33 @@
 			<tbody style="border-top: 2px solid #999;">
 				<tr>
 					<td colspan="2" class="ev-tit" style="border-bottom: 1px solid #999 !important;">
-						<span class="ing-span mr-2">진행중</span><span class="va-m">구매후기 이벤트</span>
+					<c:if test="${category=='progress'}">
+						<span class="ing-span mr-2">진행중</span>
+					</c:if>
+					<c:if test="${category!='progress'}">
+						<span class="exit-span mr-2">종료</span>
+					</c:if>
+						
+						<span class="va-m">구매후기 이벤트</span>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						이벤트 기간 : 2023-06-19 09:00 ~ 2023-06-26 17:00
+						이벤트 기간 : ${dto.startDate} ~ ${dto.endDate}
 					</td>
 					<td style="text-align: right !important;">
-						작성자 : 관리자<span class="bar-span">|</span>조회 : 0
+						작성자 : 관리자<span class="bar-span">|</span>조회 : ${dto.hitCount}
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						당첨일자 : 2023-06-26 18:00
+						당첨일자 : ${dto.winningDate}
 					</td>
 					<td style="text-align: right !important;">
-						당첨인원 : 5명
+						당첨인원 : ${winnerNum}명
 					</td>
 				</tr>
+				<!--  
 				<tr>
 					<td colspan="2">
 						<p style="margin: 0; padding: 1rem 0; font-size: 16px;">
@@ -122,22 +176,50 @@
 						</p>
 					</td>
 				</tr>
+				-->
 				<tr>
 					<td colspan="2" style="text-align: left !important; vertical-align: top;">
-						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/resources/images/sample/event01.png" class="event_img mb-2">
-						구매후기를 올리시면 5명을 추첨하여 30% 할인 쿠폰을 드립니다.
+						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/uploads/pets/${dto.imageFileName}" class="event_img mb-2">
+						${dto.content}
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="padding: 20px 0;">
-						<button type="button" class="btn btn-outline-secondary btnEventWinnerList">이벤트 당첨자 확인</button>
+						  <c:if test="${category == 'progress'}">
+						  	<c:if test="${result == 0}">
+	                     		<button type="button" class="btn btn-outline-secondary btnEventApply">
+									참여하기
+								</button>
+							</c:if>
+							<c:if test="${result != 0}">
+	                     		<button type="button" class="btn btn-outline-secondary btnEventApply" disabled="disabled">
+									참여불가
+								</button>
+							</c:if>
+		                  </c:if>
+		                  <c:if test="${category == 'ended' || category == 'winner'}">
+		                     <button type="button" class="btn btn-outline-secondary btnEventWinnerList">
+								이벤트 당첨자 확인
+							</button>
+		                  </c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: left !important;">이전글 : </td>
+					<td colspan="2" style="text-align: left !important;">
+						이전글 :
+						<c:if test="${not empty preReadDto}">
+							<a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${preReadDto.num}">${preReadDto.subject}</a>
+						</c:if>
+					</td>
+					
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: left !important;">다음글 : </td>
+					<td colspan="2" style="text-align: left !important;">
+						다음글 :
+						<c:if test="${not empty nextReadDto}">
+							<a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
+						</c:if>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -147,7 +229,7 @@
 				<!--<button type="button" class="btn btn-outline-secondary">삭제</button>-->
 			</div>
 			<div class="col-md-6 text-end" style="padding-left: 0; padding-right: 0;">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/event/list';">리스트</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/event/${category}/list';">리스트</button>
 			</div>
 		</div>
 	</div>
@@ -172,12 +254,25 @@
 	                 <div class="row row-cols-4 g-1">
 	                 		<div class="col">
 	                 			<div class="border winner-div">
-									<span>
-										1등 :
-									</span>
-									<span style="font-weight: 500;">
-										김*바(kim**)
-									</span>
+	                 				
+	                 				<c:forEach var="dto" items="${list}">
+		                 				<c:if test="${dto.rank != 0}">
+		                 					<span>
+												${dto.rank}등 :
+											</span>
+											<span style="font-weight: 500;">
+												${dto.nickName}(${dto.userId})
+											</span>
+											<br>
+										</c:if>
+										<c:if test="${dto.rank == 0}">
+											<span style="font-weight: 500;">
+												${dto.nickName}(${dto.userId})
+												<br>
+											</span>
+										</c:if>
+	                 				</c:forEach>
+									
 								</div>
 	                 		</div>
 	                 </div>

@@ -222,114 +222,38 @@
 
 $(function(){
 	let dataSt = localStorage.getItem('animal');
-	console.log(dataSt);
+	//console.log(dataSt);
 	if (dataSt !== '2'){
 		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_dog.png";
 	} else {
 		document.getElementById("animalImg").src = "${pageContext.request.contextPath}/resources/images/header/icon_cat.png";
 	}
+	
+	
+	let mySpan = document.getElementById("iconSearch");
+	mySpan.addEventListener("click", function() {
+		let keyword = document.getElementById("textSearch").value;
+		let xhr = new XMLHttpRequest();
+		let url = "${pageContext.request.contextPath}/search/list";
+		let data = "?keyword=" + encodeURIComponent(keyword);
+		
+		url += data;
+		
+		xhr.open("GET", url, true);
+		xhr.send(data);
+		
+	    xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      window.location.href = "${pageContext.request.contextPath}/search/list" + data;
+	    }
+	  };
+
+	  
+	});
+	
 });
 
 
-function switchImg(num){
-	if(num === 2){
-		$.ajax({
-			  
-			  url: '${pageContext.request.contextPath}/switchImage',  
-		      method: 'POST',
-		      data: {animal: num },
-		      success: function(response) {
-		        // 이미지 요청이 성공
-		        $('#animalImg').attr('src', response.imgUrl);
-		        console.log(response.imgUrl);
-		        console.log(response.animal);
-		        console.log("성공2");
-		      },
-		      error: function() {
-		        // 이미지 요청이 실패
-		        console.log('이미지 요청에 실패했습니다.');
-		      }
-		});
-	} else {
-		$.ajax({
-			
-			  url: '${pageContext.request.contextPath}/switchImage',  
-		      method: 'POST',
-		      data: {animal: num },
-		      success: function(response) {
-		        // 이미지 요청이 성공
-		        $('#animalImg').attr('src', response.imgUrl);
-		        console.log(response.imgUrl);
-		        console.log(response.animal);
-		        console.log("성공1");
-		      },
-		      error: function() {
-		        // 이미지 요청이 실패
-		        console.log('이미지 요청에 실패했습니다.');
-		      }
-		});
-	}
-	
-}
-
-
-
-
-
-
-
-/*
-	function switchImg(num){
-		
-		if(num === 2){
-			$.ajax({
-				  
-				  url: '${pageContext.request.contextPath}/resources/images/header/icon_cat.png',  
-			      method: 'POST',
-			      data: {dataSt: dataSt },
-			      success: function(response) {
-			        // 이미지 요청이 성공
-			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_cat.png');
-			        console.log("성공2");
-			      },
-			      error: function() {
-			        // 이미지 요청이 실패
-			        console.log('이미지 요청에 실패했습니다.');
-			      }
-			});
-		} else {
-			$.ajax({
-				
-				  url: '${pageContext.request.contextPath}/resources/images/header/icon_dog.png',  
-			      method: 'POST',
-			      data: {dataSt: dataSt },
-			      success: function(response) {
-			        // 이미지 요청이 성공
-			        $('#animalImg').attr('src', '${pageContext.request.contextPath}/resources/images/header/icon_dog.png');
-			        console.log("성공1");
-			      },
-			      error: function() {
-			        // 이미지 요청이 실패
-			        console.log('이미지 요청에 실패했습니다.');
-			      }
-			});
-		}
-		
-	}
-*/	
-	
-	function switchAnimal1(){
-		let data = 1;
-		localStorage.setItem('animal', data);
-		switchImg(1);
-	}
-	
-	function switchAnimal2(){
-		let data = 2;
-		localStorage.setItem('animal', data);
-		switchImg(2);
-	}
-	
 
 </script>
 
@@ -345,8 +269,8 @@ function switchImg(num){
 		  <div class="searchbar">
 			<form class="search-form">
 				<div class="form-group">
-				  <span class="icon ion-ios-search"></span>
-				  <input type="text" class="" placeholder="위드테일에서 어떤 상품을 찾으세요?">
+				  <span class="icon ion-ios-search" id="iconSearch"></span>
+				  <input type="text" class="" id="textSearch" placeholder="위드테일에서 어떤 상품을 찾으세요?">
 				</div>
 			  </form>
 		  </div>
@@ -377,10 +301,10 @@ function switchImg(num){
 					<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;" id="animalImg">
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown02" style="margin: 0; padding: 0; padding: 0.25rem 0;">
-					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" >
+					<a class="dropdown-item" onclick="return switchAnimal1();" data-value="1" style="cursor:pointer;">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_dog.png" alt="강아지" style="width: 34px;"> 강아지
 					</a>
-					<a class="dropdown-item" onclick="return switchAnimal2();" data-value="2">
+					<a class="dropdown-item" onclick="return switchAnimal2();" data-value="2" style="cursor:pointer;">
 						<img src="${pageContext.request.contextPath}/resources/images/header/icon_cat.png" alt="고양이" style="width: 34px;"> 고양이
 					</a>
 				</div>
@@ -480,3 +404,56 @@ function switchImg(num){
 	</nav>
 <!-- //menu2 -->
 
+
+<script>
+function switchImg(num){
+	if(num === 2){
+		$.ajax({
+			  
+			  url: '${pageContext.request.contextPath}/switchImage',  
+		      method: 'POST',
+		      data: {animal: num },
+		      success: function(response) {
+			     // 이미지 요청이 성공
+			     let img = '${pageContext.request.contextPath}/resources/images/header/' + response.imgUrl ;
+		        $('#animalImg').attr('src', img);
+		      },
+		      error: function() {
+		        // 이미지 요청이 실패
+		        //console.log('이미지 요청에 실패했습니다.');
+		      }
+		});
+	} else {
+		$.ajax({
+			
+			  url: '${pageContext.request.contextPath}/switchImage',  
+		      method: 'POST',
+		      data: {animal: num },
+		      success: function(response) {
+		        // 이미지 요청이 성공
+		        let img = '${pageContext.request.contextPath}/resources/images/header/' + response.imgUrl ;
+		        $('#animalImg').attr('src', img);
+		      },
+		      error: function() {
+		        // 이미지 요청이 실패
+		        //console.log('이미지 요청에 실패했습니다.');
+		      }
+		});
+	}
+	
+}
+
+	function switchAnimal1(){
+		let data = 1;
+		localStorage.setItem('animal', data);
+		switchImg(1);
+	}
+	
+	function switchAnimal2(){
+		let data = 2;
+		localStorage.setItem('animal', data);
+		switchImg(2);
+	}
+	
+
+</script>

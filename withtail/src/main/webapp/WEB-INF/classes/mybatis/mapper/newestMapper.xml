@@ -9,12 +9,12 @@
 	    JOIN (
 	        SELECT ctNum
 	        FROM category
-	        WHERE CONNECT_BY_ROOT ctNum = 1
+	        WHERE CONNECT_BY_ROOT ctNum = #{condition}
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum
-	    WHERE regDate >= SYSDATE - 7
-        ORDER BY regDate DESC	 
+	    WHERE regDate >= SYSDATE - 7 AND showNotice = 0
+        ORDER BY regDate DESC, itemNum DESC	 
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -23,11 +23,11 @@
 	    JOIN (
 	        SELECT ctNum
 	        FROM category
-	        WHERE CONNECT_BY_ROOT ctNum = 1
+	        WHERE CONNECT_BY_ROOT ctNum = #{condition}
 	        START WITH parentCT IS NULL
 	        CONNECT BY PRIOR ctNum = parentCT
 	    ) c ON c.ctNum =  i.ctNum
-	    WHERE regDate >= SYSDATE - 7
-        ORDER BY regDate DESC
+	    WHERE regDate >= SYSDATE - 7 AND showNotice = 0
+        ORDER BY regDate DESC, itemNum DESC
 	</select>
 </mapper>
