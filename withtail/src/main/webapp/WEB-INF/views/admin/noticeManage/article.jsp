@@ -55,7 +55,7 @@
 			<thead>
 				<tr>
 					<td colspan="2" align="center" style="border-bottom: 1px solid #999;  border-top: 2px solid #999; height: 47px;">
-						${dto.subject}${dto.alarm == 1 ? "" : " [숨김]" }
+						${dto.subject}${dto.enabled == 1 ? "" : " [숨김]" }
 					</td>
 				</tr>
 			</thead>
