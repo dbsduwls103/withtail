@@ -76,11 +76,11 @@
 			   </if>
 		FROM event e
 		<if test="category != 'winner'">
-			LEFT OUTER JOIN (
-				SELECT num, COUNT(*) applyCount
+            LEFT OUTER JOIN (
+				SELECT num, eventnum, COUNT(*) applyCount
 				FROM eventapply
-				GROUP BY num
-			) t ON e.num = t.num
+				GROUP BY num, eventnum
+			) t ON e.num = t.eventnum
 		</if>
 		<if test="category == 'winner'">
 			LEFT OUTER JOIN (

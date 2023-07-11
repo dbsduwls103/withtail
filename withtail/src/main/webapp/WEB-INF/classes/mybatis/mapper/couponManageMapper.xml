@@ -82,16 +82,10 @@
 		WHERE couponNum = #{couponNum} or couponNum is null
         ) cm on m2.userId = cm.userId
         order by m2.num asc
-        ORDER BY memberNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
     </select>
+   
     
-    <select id="allMemberCount" parameterType="long" resultType="int">
-    
-    
-    </select>
-    
-   <select id="nocouponMember" parameterType="long" resultType="int">
+   <select id="nocouponMember" parameterType="long" resultType="com.sp.withtail.admin.couponManage.CouponManage">
 		SELECT m2.userId, m2.userName, m2.num memberNum, couponNum
         from member1 m2
         Full outer join (
@@ -102,8 +96,6 @@
         ) cm on m2.userId = cm.userId
         where couponNum is null
         order by m2.num asc
-		ORDER BY memberNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
     </select>
      
     <insert id="insertToMember" parameterType="map">
