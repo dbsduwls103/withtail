@@ -71,6 +71,33 @@
 		}
 	</style>
 
+<script>
+$(function(){
+	console.log("세션 : " + "${sessionScope.animal}");
+	
+	let animal = parseInt(localStorage.getItem('animal'));
+	
+	if (!animal){
+		animal = 1;
+	}
+
+	$.ajax({
+		url : '${pageContext.request.contextPath}/switchImage',
+		method : 'POST',
+		data : {animal : animal},
+		success: function(response){
+			console.log('home : ' + response.animal);
+		},
+		error:function(){
+			console.log("실패");
+		}
+	});
+});
+</script>
+
+
+
+
 	<section class="ftco-section" style="padding-top: 0;">
 		<div class="container">
 			<!--  

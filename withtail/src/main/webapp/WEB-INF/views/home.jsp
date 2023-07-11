@@ -129,40 +129,67 @@
 	
 
 <script type="text/javascript">
+
+
+
 $(function(){
+	console.log("세션 : " + "${sessionScope.animal}");
+	
 	let animal = parseInt(localStorage.getItem('animal'));
 	
 	if (!animal){
 		animal = 1;
 	}
-	
-	//console.log(animal);
 
-/*	
 	$.ajax({
-		url : '${pageContext.request.contextPath}/checkAnimal',
+		url : '${pageContext.request.contextPath}/switchImage',
 		method : 'POST',
 		data : {animal : animal},
 		success: function(response){
-			var result = response.animal;
-			console.log("성공: ", result);
+			//console.log('home : ' + response.imgUrl);
 		},
 		error:function(){
-			console.log("실패");
+			//console.log("실패");
 		}
 	});
-	*/
 	
-	if(animal !== 1){
+	if (animal !== 1) {
 		document.getElementById('iconText4').innerHTML = '장난감';
 		document.getElementById('iconText5').innerHTML = '홈/리빙';
 		document.getElementById('iconText6').innerHTML = '목욕/위생';
 		document.getElementById('iconText7').innerHTML = '외출';
 		document.getElementById('iconText8').innerHTML = '건강보조제';
-	}
+		
+		/*
+		document.getElementById('iconLink1').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/11";
+		};
+		document.getElementById('iconLink2').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/12";
+		};
+		document.getElementById('iconLink3').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/13";
+		};
+		document.getElementById('iconLink4').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/14";
+		};
+		document.getElementById('iconLink5').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/15";
+		};
+		document.getElementById('iconLink6').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/16";
+		};
+		document.getElementById('iconLink7').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/17";
+		};
+		document.getElementById('iconLink8').onclick = function(){
+			location.href = "${pageContext.request.contextPath}/shop/18";
+		};
+		*/
+	} 
+	
 	
 	/*
-	
 	for(let item of product){
 		let itemNum = item.pnum;
 		let mainImage = item.pimg;
@@ -181,6 +208,31 @@ $(function(){
 	    $(".ulclass").html(out);
 	  }
 	*/
+	
+	
+		   let product = JSON.parse(localStorage.getItem("product")) || [];
+		   let out = "";
+		   
+		   
+		   for(let item of product){
+		      let itemNum = item.pnum;
+		      let mainImage = item.pimg;
+		      
+		      out += "<li>"
+		      out += "<a href='${pageContext.request.contextPath}/shop/info/"+itemNum+"'>" 
+		      out += "<img src='${pageContext.request.contextPath}/uploads/item/"+mainImage+"'>"
+		      out += "</a></li>";
+		      
+		   }
+		   
+		   
+		   if (out === "") {
+		       $(".rc_layout").hide();
+		     } else {
+		       $(".ulclass").html(out);
+		     }
+		   
+
 });
 </script>
 
@@ -245,91 +297,115 @@ $(function(){
 		<div class="container" id ="iconId">
 			<div class="row no-gutters ftco-services">
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/3'" id="iconLink1">
 						<div
 							class="icon bg-color-4 active d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-bone"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText1">주식</h3>
+							<h3 class="heading" id="iconText1">
+								주식
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/4'" id="iconLink2">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-cookie"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText2">간식</h3>
+							<h3 class="heading" id="iconText2">
+								간식
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/5'" id="iconLink3">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-shirt"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText3">패션</h3>
+							<h3 class="heading" id="iconText3">
+								패션
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/6'" id="iconLink4">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-paw"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText4">산책·외출</h3>
+							<h3 class="heading" id="iconText4">
+								산책·외출
+							</h3>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/7'" id="iconLink5">
 						<div
 							class="icon bg-color-4 active d-flex justify-content-center align-items-center mb-2">
 							<span ><i class="fa-solid fa-notes-medical"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText5">건강보조제</h3>
+							<h3 class="heading" id="iconText5">
+								건강보조제
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4" 
+					onclick="location.href='${pageContext.request.contextPath}/shop/8'" id="iconLink6">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-house"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText6">홈·리빙</h3>
+							<h3 class="heading" id="iconText6">
+								홈·리빙
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/9'" id="iconLink7">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-basket-shopping"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText7">장난감</h3>
+							<h3 class="heading" id="iconText7">
+								장난감
+							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="col text-center d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services mb-md-0 mb-4">
+					<div class="media block-6 services mb-md-0 mb-4"
+					onclick="location.href='${pageContext.request.contextPath}/shop/10'" id="iconLink8">
 						<div
 							class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
 							<span><i class="fa-solid fa-bath"></i></span>
 						</div>
 						<div class="media-body">
-							<h3 class="heading" id="iconText8">목욕·위생</h3>
+							<h3 class="heading" id="iconText8">
+								목욕·위생
+							</h3>
 						</div>
 					</div>
 				</div>
