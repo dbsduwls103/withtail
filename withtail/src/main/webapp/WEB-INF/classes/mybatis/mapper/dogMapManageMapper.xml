@@ -23,7 +23,7 @@
        SELECT NVL(COUNT(*), 0) FROM dogmap
         <where>
 	         <if test="kwd != null and kwd != '' ">
-	            AND <include refid="where-list"/>
+	            <include refid="where-list"/>
 	         </if>
         </where>       
    </select>
@@ -48,7 +48,7 @@
        FROM dogmap
         <where>
 	         <if test="kwd != null and kwd != '' ">
-	            AND <include refid="where-list"/>
+	           <include refid="where-list"/>
 	         </if>
         </where>
       ORDER BY placeNum DESC

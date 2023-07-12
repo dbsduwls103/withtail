@@ -77,9 +77,9 @@
 		FROM event e
 		<if test="category != 'winner'">
             LEFT OUTER JOIN (
-				SELECT num, eventnum, COUNT(*) applyCount
+				SELECT eventnum, COUNT(*) applyCount
 				FROM eventapply
-				GROUP BY num, eventnum
+				GROUP BY eventnum
 			) t ON e.num = t.eventnum
 		</if>
 		<if test="category == 'winner'">
