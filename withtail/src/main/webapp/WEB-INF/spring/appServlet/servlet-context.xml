@@ -108,7 +108,8 @@
 			<exclude-mapping path="/uploads/review/**"/>
 			<exclude-mapping path="/uploads/event/**"/>
 			<exclude-mapping path="/uploads/notice/**"/>
-			<exclude-mapping path="/uploads/dogmap/**"/>
+			<exclude-mapping path="/uploads/dogMap/**"/>
+			<exclude-mapping path="/uploads/image/**"/>
 			
 			<exclude-mapping path="/switchImage"/>
 			<exclude-mapping path="/header"/>
