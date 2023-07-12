@@ -420,7 +420,12 @@ function deleteCartSelect() {
 	                          </c:when>
 	                          <c:otherwise>
 	                          
-	                          <td class="price"><span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
+	                          
+	                          <td class="price">
+		                          <c:if test="${dto.discount != 0}"> 
+		                          <span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
+		                          </c:if>
+	                   
 	                         <div><span class="price-sale" id="price2-${status.index}">${dto.finalPrice}</span></div>
 
 	                          </td>
