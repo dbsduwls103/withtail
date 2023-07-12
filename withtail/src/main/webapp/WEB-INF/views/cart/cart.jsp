@@ -520,25 +520,25 @@ function deleteCartSelect() {
              <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 상품금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 배송비</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+<a id="deliveryFee"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+ <a id="deliveryFee">></a> 원</li>
                 </ul>
                 <ul class="-ul">
 
                    <li class="-head" style="display: inline-block; ">총 할인금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">결제 예정금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"></a> 원</li>
                 </ul>            
              </div>
              <div style="margin-top: 30px;">
                 <p style="display: inline-block;">
-                <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;" onclick="refer()">쇼핑계속하기</button>
+                <a href="${pageContext.request.contextPath}"><button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button></a>
                </p> 
                <p style="display: inline-block; float: right;"> 
                    <button type="button" class="-btn1" onclick="SelectSendOk()" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
