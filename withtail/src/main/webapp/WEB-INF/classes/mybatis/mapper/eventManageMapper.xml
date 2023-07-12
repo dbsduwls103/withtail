@@ -186,7 +186,7 @@
 		FROM eventapply e
 		JOIN member1 m ON e.userId = m.userId
 		JOIN event v ON e.eventNum = v.num
-		WHERE eventnum = #{eventnum}
+		WHERE eventnum = #{num}
 		ORDER BY regDate ASC
 	</select>
 	
@@ -195,7 +195,7 @@
 		INSERT INTO eventWinner(winnerNum, rank, regDate) 
 			SELECT num, 0, SYSDATE FROM (
 				SELECT * FROM eventapply
-				WHERE num = #{num}
+				WHERE eventNum = #{num}
 				ORDER BY DBMS_RANDOM.VALUE
 			) tb WHERE ROWNUM &lt;= #{maxCount}
 	</update>
@@ -217,11 +217,12 @@
 	
 	<!-- 이벤트 당첨자 리스트 -->
 	<select id="listEventWinner" parameterType="Long" resultType="com.sp.withtail.admin.eventManage.EventManage">
-		SELECT winnerNum, p.userId, nickName, p.regDate
+       SELECT winnerNum, p.userId, nickName, p.regDate
 		FROM eventWinner w
 		JOIN eventapply p ON p.num = w.winnerNum
+        JOIN event e on e.num = p.eventnum
 		JOIN member1 m ON m.userId = p.userId
-		WHERE winnernum = #{winnernum}
+		WHERE p.eventnum = #{num}
 		ORDER BY rank ASC
 	</select>
 
