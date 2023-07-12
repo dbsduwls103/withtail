@@ -626,12 +626,12 @@ $(function() {
 				        비밀번호를 수정하시겠어요?
 				      </div>
 				      <input type="hidden" id="currentPwd1" value="${dto1.userPwd}">				     
-				      <input type="text" placeholder="현재 비밀번호" class="inp7" id="currentPwd">
+				      <input type="password" placeholder="현재 비밀번호" class="inp7" id="currentPwd">
 				      <div id="confirmPasswordError" style="color: #da1e28; margin-left: 17px;"></div>
 				     
-				      <input type="text" placeholder="새 비밀번호" class="inp7" id="newPwd">
+				      <input type="password" placeholder="새 비밀번호" class="inp7" id="newPwd">
 				     
-				      <input type="text" placeholder="새 비밀번호 확인" class="inp7" id="confirmPwd">			
+				      <input type="password" placeholder="새 비밀번호 확인" class="inp7" id="confirmPwd">			
 				   	  <div id="confirmPasswordError1" style="color: #da1e28; margin-left: 17px;"></div>
 				     
 				      <div class="modal-footer" style="justify-content: center; border-top: none;">

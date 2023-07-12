@@ -200,7 +200,7 @@ a {
 												<div class="coupon-text valign-text-middle"><fmt:formatNumber value="${dto.couponPrice}" pattern="#,###" />원 </div>
 											</c:when>
 											<c:otherwise>
-												<div class="coupon-text valign-text-middle"><fmt:formatNumber value="${dto.couponPrice}" pattern="#,###" />원 </div>
+												<div class="coupon-text valign-text-middle">${dto.couponPrice}% </div>
 											</c:otherwise>
 										</c:choose>
 									
