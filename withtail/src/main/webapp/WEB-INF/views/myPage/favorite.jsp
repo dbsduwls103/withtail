@@ -405,7 +405,7 @@ $(function() {
 					<img class="order-image-1" alt="" src="${pageContext.request.contextPath}/resources/images/icon/order-image-1.png" width="120" height="100">
 					<div class="orderhistory-text-layout">
 						<p class="orderhistory-text">
-							해당 기간에 주문하신 상품이 없습니다.
+							찜하신 상품이 없습니다.
 							<br>
 							펫하이를 한번 둘러보시는 건 어떠신가요?
 						</p>
