@@ -439,25 +439,6 @@ $(function() {
 					</div>
 				</form>
 			</div>
-			
-			<div style="margin-top: 30px;">
-				<table class="table">
-					<tr>
-						<td align="center">
-							<form name="searchForm" action="" method="post">
-								<select name="condition" class="form-select">
-									<option value="num"
-										${condition=="num"?"selected='selected'":""}>코드</option>
-									<option value="userId"
-										${condition=="userId"?"selected='selected'":""}>아이디</option>
-								</select> <input type="text" name="keyword" value="${keyword}"
-									class="form-control">
-								<button type="button" class="btn" onclick="">검색</button>
-							</form>
-						</td>
-					</tr>
-				</table>
-			</div>
 		</div>
 	</div>
 </div>

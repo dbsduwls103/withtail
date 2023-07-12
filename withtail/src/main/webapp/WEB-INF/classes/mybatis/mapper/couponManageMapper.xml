@@ -75,11 +75,11 @@
    <select id="allMember" parameterType="long" resultType="com.sp.withtail.admin.couponManage.CouponManage">
 		SELECT m2.userId, m2.userName, m2.num memberNum, couponNum, used
         from member1 m2
-        Full outer join (
+        join (
            SELECT m.userId, m.num memberNum, couponNum, used
 		FROM member1 m
 		FULL OUTER JOIN membercoupon c ON m.userId = c.userId
-		WHERE couponNum = #{couponNum} or couponNum is null
+		WHERE couponNum = #{couponNum}
         ) cm on m2.userId = cm.userId
         order by m2.num asc
     </select>

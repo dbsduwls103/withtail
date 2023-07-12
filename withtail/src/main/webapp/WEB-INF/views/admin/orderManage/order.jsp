@@ -527,7 +527,7 @@ $(function() {
     <div class="modal-window">
        <div class="modal-top">
         <div class="title">
-            <h2>모달</h2>
+            <h2>발송처리</h2>
         </div>
         <div class="close-area">X</div> 
       </div>     

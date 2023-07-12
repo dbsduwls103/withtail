@@ -199,7 +199,14 @@ function searchList() {
 						<div class="coupon-title valign-text-middle">
 							${dto.couponName }
 						</div>
-						<div class="coupon-text valign-text-middle">${dto.couponPrice }</div>
+						<div class="coupon-text valign-text-middle">${dto.couponPrice }
+						<c:if test="${dto.couponCategory == 0 }">
+						    <span> 원</span>
+						</c:if>
+						<c:if test="${dto.couponCategory == 1 }">
+						    <span> %</span>
+						</c:if>
+						</div>
 					</div>
 				</div>
 				<div class="coupon-lower">
@@ -217,7 +224,7 @@ function searchList() {
 	</div>
 	<div style="width: 100%">
 		<div style="text-align: center;" class="page-navigation">
-			${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
+			${dataCount == 0 ? "등록된 쿠폰이 없습니다." : paging}
 		</div>
 	</div>
 		<table class="table">

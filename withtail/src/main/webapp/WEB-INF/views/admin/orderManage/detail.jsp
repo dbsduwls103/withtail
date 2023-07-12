@@ -71,10 +71,6 @@
 					</tr>
 					</c:if>
 			</table>
-				<c:if test="${order.orderState == 1}">
-						<button type="button" class="btn btn-light btn-prepare-order" data-orderNum="${order.orderNum}">발송처리</button>
-				</c:if>
-			
 			<table class="table table-borderless mb-1">
 				<tr>
 					<td class="text-end" style="text-align: right;">
