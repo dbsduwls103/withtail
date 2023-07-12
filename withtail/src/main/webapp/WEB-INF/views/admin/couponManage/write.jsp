@@ -71,13 +71,13 @@ function check() {
         return false;
     }
     
-    if(f.category.value == 1 ){
+    if(f.couponCategory.value == 1 ){
 		if(!/^(\d){1,2}$/.test(f.couponPrice.value)) {
 			alert("할인율을 입력 하세요.");
 			f.couponPrice.focus();
 			return false;
 		}
-	} else if(f.category.value == 0 ) {
+	} else if(f.couponCategory.value == 0 ) {
 		if(!/^(\d){1,8}$/.test(f.couponPrice.value)) {
 			alert("쿠폰가격을 입력 하세요.");
 			f.couponPrice.focus();
@@ -162,8 +162,8 @@ function check() {
 				 <tr>
 	            	<td class="form-control-plaintext">구분</td>
 					<td>            	
-					<label><input type="radio" name="category" value="0" checked="checked">할인가</label>
-					<label><input type="radio" name="category" value="1">할인율</label>
+					<label><input type="radio" name="couponCategory" value="0" checked="checked">할인가</label>
+					<label><input type="radio" name="couponCategory" value="1">할인율</label>
 					</td>
 	            </tr>
 	            <tr>
