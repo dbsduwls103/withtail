@@ -375,12 +375,15 @@ public class ItemManageServiceImpl implements ItemManageService {
 			if (pathname != null) {
 				fileManager.doFileDelete(pathname2);
 			}
-
+			
+			Long photoNum = null;
 			List<String> photos = dao.selectList("itemManage.listItemPhotoName", itemNum);
+			List<Long> nums = dao.selectList("itemManage.listItemPhotoNum", itemNum);
 
 			for(int i = 0; i < photos.size(); i++) {
 				pathname = pathname + photos.get(i);
-				deleteItemPhoto(itemNum, pathname);
+				photoNum = nums.get(i);
+				deleteItemPhoto(photoNum, pathname);
 			}
 
 			dao.deleteData("itemManage.deleteStock", itemNum);

@@ -186,6 +186,12 @@
 	    WHERE itemNum = #{itemNum}
 	</select>
 	
+	<select id="listItemPhotoNum" parameterType="Long" resultType="Long">
+	    SELECT photoNum
+	    FROM itemPhoto
+	    WHERE itemNum = #{itemNum}
+	</select>
+	
 	<select id="listOption1" parameterType="Long" resultType="com.sp.withtail.admin.itemManage.ItemManage">
 	   SELECT option1Num, option1Name, parent
 	   FROM option1
