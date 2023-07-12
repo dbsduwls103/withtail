@@ -38,7 +38,7 @@ public class MyUtilCustom extends MyUtil {
 			sb.append("<li><span class='disabled'>&lt;&lt;</span></li>");
 		}
 		
-		// 이전 페이지(5페이지전)
+		// 이전 페이지
 		n = current_page - numPerBlock;
 		if (total_page > numPerBlock && currentPageSetup > 0) {
 			sb.append("<li><a href='" + list_url + "page=" + n + "'>&lt;</a></li>");
@@ -48,7 +48,7 @@ public class MyUtilCustom extends MyUtil {
 		
 		// 페이징
 		page = currentPageSetup + 1;
-		while(page <= total_page && page <= (currentPageSetup + numPerBlock)) {
+		while (page <= total_page && page <= (currentPageSetup + numPerBlock)) {
 			if(page == current_page) {
 				sb.append("<li class='active'><span>" + page + "</span></li>");
 			} else {
@@ -58,20 +58,13 @@ public class MyUtilCustom extends MyUtil {
 			page++;
 		}
 		
-		// 다음(10페이지 후)
+		// 다음(5페이지 후)
 		n = current_page + numPerBlock;
 		if (n > total_page) n = total_page;
 		if (total_page - currentPageSetup > numPerBlock) {
 			sb.append("<li><a href='" + list_url + "page=" + n + ");>&gt;</a></li>");
 		} else {
 			sb.append("<li><span class='disabled'>&gt;</span></li>");
-		}
-		
-		// 마지막 페이지
-		if (current_page < total_page) {
-			sb.append("<li><a href='" + list_url + "page=" + total_page + ");'>&gt;&gt;</a></li>");
-		} else {
-			sb.append("<li><span class='disabled'>&gt;&gt;</span></li>");
 		}
 		
 		sb.append("</ul>");

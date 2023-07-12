@@ -58,11 +58,9 @@ public class NewestController {
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(dataCount, size);
 		
-		/*
 		if (dataCount != 0) {
 			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 		}
-		*/
 		
 		// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
 		if (total_page < current_page) {

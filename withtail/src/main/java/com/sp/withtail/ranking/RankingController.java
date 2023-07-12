@@ -20,6 +20,8 @@ import com.sp.withtail.common.MyUtil;
 @RequestMapping("/ranking/*")
 public class RankingController {
 	@Autowired
+	private MyUtil myUtil;
+	@Autowired
 	private MyUtil myUtilCustom;
 	@Autowired
 	private RankingService service;
@@ -27,10 +29,11 @@ public class RankingController {
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "1") String condition,
+			@RequestParam(value = "size", defaultValue = "12") int size,
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
-		int size = 12;
+		size = 12;
 		int total_page = 0;
 		int dataCount = 0;
 
@@ -51,9 +54,12 @@ public class RankingController {
 		map.put("condition", condition);
 
 		dataCount = service.dataCount(map);
+		total_page = myUtil.pageCount(dataCount, size);
+		/*
 		if (dataCount != 0) {
 			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 		}
+		*/
 		
 		// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
 		if (total_page < current_page) {
@@ -69,8 +75,14 @@ public class RankingController {
 
 		// 글 리스트
 		List<Ranking> list = service.listRank(map);
+		
+		String cp = req.getContextPath();
+		String query = "size=" + size;
+		String listUrl = cp + "/ranking/list";
+		
+		listUrl += "?" + query;
 
-		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
+		String paging = myUtilCustom.paging(current_page, total_page, listUrl);
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);

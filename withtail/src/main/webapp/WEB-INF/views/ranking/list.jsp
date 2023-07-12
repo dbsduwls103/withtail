@@ -58,7 +58,7 @@
 		
 		.color-bk {
 			color: #000;
-				
+		}		
 /*페이징*/
 .block-27 ul li a, .block-27 ul li span {
     color: #666;
@@ -68,7 +68,7 @@
 .block-27 ul li span.disabled {
 	color: #999;
 }
-		}
+
 	</style>
 
 

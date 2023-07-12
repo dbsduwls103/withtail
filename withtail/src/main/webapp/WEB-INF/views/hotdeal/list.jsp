@@ -58,6 +58,7 @@
 		
 		.color-bk {
 			color: #000;
+		}
 				
 /*페이징*/
 .block-27 ul li a, .block-27 ul li span {
@@ -68,7 +69,6 @@
 .block-27 ul li span.disabled {
 	color: #999;
 }
-		}
 	</style>
 
 	<section class="ftco-section" style="padding-top: 0;">
