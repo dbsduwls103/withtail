@@ -387,6 +387,12 @@
 	    margin-top: 3rem;
 	}
 	
+	/**/
+	.min480 {
+		min-width: 480px;
+		min-height: 480px;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -767,7 +773,7 @@
 				<div class="col-lg-6 mb-5 animate__animated animate__fadeInUp" style="padding-left: 0 !important;">
 					<a href="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}" class="image-popup lg-img">
 						<img src="${pageContext.request.contextPath}/uploads/item/${dto.mainImage}"
-							class="img-fluid" alt="${dto.itemName}">
+							class="img-fluid min480" alt="${dto.itemName}">
 					</a>
 					<ul class="d-flex sm-img">
 						<c:forEach var="vo" items="${listProdImage}">
@@ -1196,11 +1202,13 @@ $(function(){
 		
 		const $i = $(this).find("i");
 		let userLiked = $i.hasClass("bi bi-heart-fill");
-		let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
+		//let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
 		
+		/*
 		if(! confirm( msg )) {
 			return false;
 		}
+		*/
 		
 		let url2 = "${pageContext.request.contextPath}/review/insertReviewLike";
 		let query2 = "rvNum="+num+"&userLiked="+userLiked;
@@ -1270,11 +1278,13 @@ $(function(){
 	$(".btn-wish").click(function(){
 		const $i = $(this).find("i");
 		let userLiked = $i.hasClass("bi bi-heart-fill");
-		let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
+		//let msg = userLiked ? "찜을 해제하시겠습니까 ? " : "찜을 하시겠습니까 ? ";
 		
+		/*
 		if(! confirm( msg )) {
 			return false;
 		}
+		*/
 		
 		let url = "${pageContext.request.contextPath}/shop/insertLike";
 		let num = "${dto.itemNum}";
