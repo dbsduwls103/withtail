@@ -485,12 +485,12 @@ function deleteCartSelect() {
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                               <span style="float: left; margin-right: auto;"></span>
                               <div style="float: right;">
-                                <input type="text" name="allPoint" value="${poi}">    
-								<input type="text" name="allPrice" value="${all}">
-								<input type="text" name="deliveryFee" value="">
-                                <input type="text" name="allDisPrice" value="${dis}">
-                                <input type="text" name="finalPrice" value="${all}">
-                                <input type="text" name="mode" value="buy">
+                                <input type="hidden" name="allPoint" value="${poi}">    
+								<input type="hidden" name="allPrice" value="${all}">
+								<input type="hidden" name="deliveryFee" value="">
+                                <input type="hidden" name="allDisPrice" value="${dis}">
+                                <input type="hidden" name="finalPrice" value="${all}">
+                                <input type="hidden" name="mode" value="buy">
                               </div>
                             </div>
                           </td>
@@ -642,9 +642,7 @@ function deleteCartSelect() {
 					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-		            	   if(!document.getElementById("chk-" + i).checked){
-		            		   continue;
-		            	   }
+
 		            	   
 		            	   allPrice = allPrice + parseInt(document.getElementById('price1N-' + i).value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPriceN-' + i).value);
@@ -701,9 +699,7 @@ function deleteCartSelect() {
 					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-		            	   if(!document.getElementById("chk-" + i).checked){
-		            		   continue;
-		            	   }
+
 		            	   allPrice = allPrice + parseInt(document.getElementById('price1N-' + i).value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPriceN-' + i).value);
 		            	   allPoint =  allPoint + parseInt(document.getElementById('itemPointN-' + i).value);
