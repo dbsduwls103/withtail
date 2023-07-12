@@ -364,7 +364,7 @@ function deleteCartSelect() {
                       <c:forEach var="dto" items="${list}" varStatus="status">
                       
                         	<tr class="text-center">
-	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.cartNum}" id="chk-${status.index}" onclick="chkbox(this)"></td>
+	                          <td class="product-remove"><input type="checkbox" name="nums" value="${dto.cartNum}"></td>
 	                          
 	                          <td class="image-prod">
 	                          	  <div onclick="location.href ='${pageContext.request.contextPath}/shop/info/${dto.itemNum}';">
@@ -396,7 +396,7 @@ function deleteCartSelect() {
 	                          	                          
 	                          <c:choose>
 	                          <c:when test="${dto.totalStock == 0 }">
-	                          <td>품절</td>
+	                          <td id="pum">품절</td>
 	                          <td>-</td>
 	                          <td>-</td>
 	                          <td>-</td>
@@ -485,12 +485,12 @@ function deleteCartSelect() {
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                               <span style="float: left; margin-right: auto;"></span>
                               <div style="float: right;">
-                                <input type="hidden" name="allPoint" value="${poi}">    
-								<input type="hidden" name="allPrice" value="${all}">
-								<input type="hidden" name="deliveryFee" value="">
-                                <input type="hidden" name="allDisPrice" value="${dis}">
-                                <input type="hidden" name="finalPrice" value="${all}">
-                                <input type="hidden" name="mode" value="buy">
+                                <input type="text" name="allPoint" value="${poi}">    
+								<input type="text" name="allPrice" value="${all}">
+								<input type="text" name="deliveryFee" value="">
+                                <input type="text" name="allDisPrice" value="${dis}">
+                                <input type="text" name="finalPrice" value="${all}">
+                                <input type="text" name="mode" value="buy">
                               </div>
                             </div>
                           </td>
@@ -737,48 +737,6 @@ function deleteCartSelect() {
       });
       
       
-      function chkbox(checkbox){
-    	  let size = "${list.size()}";
-			let allPrice = 0; //정가 총합
-			let allDisPrice = 0; //할인금액 총합
-			let allPoint = 0; //총 적립포인트
-			let allTotalPrice = 0; //정가에서 할인적용 총합
-    	  for(let i = 0; i < size; i ++){
-       	   if(!document.getElementById("chk-" + i).checked){
-       		   continue;
-       	   }
-       	   
-
-       	   
-       	   allPrice = allPrice + parseInt(document.getElementById('price1N-' + i).value);
-       	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPriceN-' + i).value);
-       	   allPoint =  allPoint + parseInt(document.getElementById('itemPointN-' + i).value);
-       	   allTotalPrice = allTotalPrice + parseInt(document.getElementById('totalPriceN-' + i).value);
-       	   
-       	   
-       	document.getElementsByName('allPoint')[0].value = allPoint;
-        document.getElementById('allPrice').innerHTML = allPrice.toLocaleString();
-        document.getElementsByName('allPrice')[0].value = allPrice;
-        document.getElementById('allDisPrice').innerHTML = allDisPrice.toLocaleString();
-        document.getElementsByName('allDisPrice')[0].value = allDisPrice;
-        
-        if(allTotalPrice >= 100000){
-     	   document.getElementsByName('deliveryFee')[0].value = 0;
-     	   document.getElementById('deliveryFee').innerHTML = 0;
-        } else {
-     	   document.getElementById('deliveryFee').innerHTML = parseInt('${deliveryFeeMax.deliveryFeeMax}').toLocaleString();
-     	   document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
-     	   allTotalPrice += parseInt('${deliveryFeeMax.deliveryFeeMax}');
-        }
-        
-        document.getElementsByName('finalPrice')[0].value = allTotalPrice;
-        document.getElementById('finalPrice').innerHTML = allTotalPrice.toLocaleString();
-       	   
-       	   
-          }
-
-    	 
-      }
-
+    
       
    </script>
