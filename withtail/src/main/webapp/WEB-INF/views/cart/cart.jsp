@@ -520,25 +520,25 @@ function deleteCartSelect() {
              <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 상품금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 배송비</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+<a id="deliveryFee"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+ <a id="deliveryFee"></a> 원</li>
                 </ul>
                 <ul class="-ul">
 
                    <li class="-head" style="display: inline-block; ">총 할인금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">결제 예정금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"></a> 원</li>
                 </ul>            
              </div>
              <div style="margin-top: 30px;">
                 <p style="display: inline-block;">
-                <button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;" onclick="refer()">쇼핑계속하기</button>
+                <a href="${pageContext.request.contextPath}"><button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button></a>
                </p> 
                <p style="display: inline-block; float: right;"> 
                    <button type="button" class="-btn1" onclick="SelectSendOk()" style="padding: 0 18px; height: 41px !important; ">선택 상품만 주문</button>
@@ -571,9 +571,9 @@ function deleteCartSelect() {
 	
       $(document).ready(function(){
 
-    	  document.getElementById('allPrice').innerHTML = '<c:out value="${all}"/>';
-    	  document.getElementById('allDisPrice').innerHTML = '<c:out value="${dis}"/>';
-    	  document.getElementById('finalPrice').innerHTML = '<c:out value="${fin}"/>';
+    	  document.getElementById('allPrice').innerHTML = parseInt('<c:out value="${all}"/>').toLocaleString();
+    	  document.getElementById('allDisPrice').innerHTML = parseInt('<c:out value="${dis}"/>').toLocaleString();
+    	  document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>').toLocaleString();
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
 	   	 	
 	  	<c:if test="${dto.totalStock != 0}">	
@@ -582,12 +582,12 @@ function deleteCartSelect() {
 				document.getElementById('deliveryFee').innerHTML = 0;
 				document.getElementsByName('deliveryFee')[0].value = 0;
 				document.getElementsByName('finalPrice')[0].value = parseInt('<c:out value="${fin}"/>');
-				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>');
+				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>').toLocaleString();
 			} else {
-				document.getElementById('deliveryFee').innerHTML = '${deliveryFeeMax.deliveryFeeMax}';
+				document.getElementById('deliveryFee').innerHTML = parseInt('${deliveryFeeMax.deliveryFeeMax}').toLocaleString();
 				document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
 				document.getElementsByName('finalPrice')[0].value = parseInt('<c:out value="${fin}"/>') + parseInt('${deliveryFeeMax.deliveryFeeMax}');
-				document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>') + parseInt('${deliveryFeeMax.deliveryFeeMax}'); 
+				document.getElementById('finalPrice').innerHTML = (parseInt('<c:out value="${fin}"/>') + parseInt('${deliveryFeeMax.deliveryFeeMax}')).toLocaleString(); 
 			} 
 			
 			  var size = '${fn:length(list)}';
@@ -641,9 +641,9 @@ function deleteCartSelect() {
 					
 
 		               document.getElementsByName('allPoint')[0].value = allPoint;
-		               document.getElementById('allPrice').innerHTML = allPrice;
+		               document.getElementById('allPrice').innerHTML = allPrice.toLocaleString();
 		               document.getElementsByName('allPrice')[0].value = allPrice;
-		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               document.getElementById('allDisPrice').innerHTML = allDisPrice.toLocaleString();
 		               document.getElementsByName('allDisPrice')[0].value = allDisPrice;
 		               
 		               
@@ -651,14 +651,14 @@ function deleteCartSelect() {
 		            	   document.getElementsByName('deliveryFee')[0].value = 0;
 		            	   document.getElementById('deliveryFee').innerHTML = 0;
 		               } else {
-		            	   document.getElementById('deliveryFee').innerHTML ='${deliveryFeeMax.deliveryFeeMax}';
+		            	   document.getElementById('deliveryFee').innerHTML =parseInt('${deliveryFeeMax.deliveryFeeMax}').toLocaleString();
 		            	   document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
 		            	   allTotalPrice += parseInt('${deliveryFeeMax.deliveryFeeMax}');
 		               }
 		               
 		               
 		               document.getElementsByName('finalPrice')[0].value = allTotalPrice;
-		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
+		               document.getElementById('finalPrice').innerHTML = allTotalPrice.toLocaleString();
 
 	          });
 	
@@ -695,22 +695,22 @@ function deleteCartSelect() {
 		               }
 
 		               document.getElementsByName('allPoint')[0].value = allPoint;
-		               document.getElementById('allPrice').innerHTML = allPrice;
+		               document.getElementById('allPrice').innerHTML = allPrice.toLocaleString();
 		               document.getElementsByName('allPrice')[0].value = allPrice;
-		               document.getElementById('allDisPrice').innerHTML = allDisPrice;
+		               document.getElementById('allDisPrice').innerHTML = allDisPrice.toLocaleString();
 		               document.getElementsByName('allDisPrice')[0].value = allDisPrice;
 		               
 		               if(allTotalPrice >= 100000){
 		            	   document.getElementsByName('deliveryFee')[0].value = 0;
 		            	   document.getElementById('deliveryFee').innerHTML = 0;
 		               } else {
-		            	   document.getElementById('deliveryFee').innerHTML ='${deliveryFeeMax.deliveryFeeMax}';
+		            	   document.getElementById('deliveryFee').innerHTML = parseInt('${deliveryFeeMax.deliveryFeeMax}').toLocaleString();
 		            	   document.getElementsByName('deliveryFee')[0].value = '${deliveryFeeMax.deliveryFeeMax}';
 		            	   allTotalPrice += parseInt('${deliveryFeeMax.deliveryFeeMax}');
 		               }
 		               
 		               document.getElementsByName('finalPrice')[0].value = allTotalPrice;
-		               document.getElementById('finalPrice').innerHTML = allTotalPrice;
+		               document.getElementById('finalPrice').innerHTML = allTotalPrice.toLocaleString();
 	              }
 	
 	          });
