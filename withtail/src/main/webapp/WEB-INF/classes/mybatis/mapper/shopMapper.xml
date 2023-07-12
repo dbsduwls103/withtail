@@ -97,7 +97,7 @@
 	 
 	<!-- 상품 보기 -->
 	<select id="readProd" parameterType="Long" resultType="com.sp.withtail.shop.Product">
-		SELECT i.itemNum, i.itemName, i.discount, i.mainImage, i.itemPrice, i.itemContent,
+		SELECT DISTINCT i.itemNum, i.itemName, i.discount, i.mainImage, i.itemPrice, TO_CHAR(i.itemContent) itemContent,
 		    i.itemPrice - (i.itemPrice * (i.discount/100)) dcPrice,
 		    i.itemPoint, i.deliveryFee,
 		    NVL(rvCount, 0) rvCount
