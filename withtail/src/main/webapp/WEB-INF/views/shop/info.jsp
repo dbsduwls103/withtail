@@ -393,6 +393,10 @@
 		min-height: 480px;
 	}
 	
+	.info-img img {
+		max-width: 960px !important;
+	}
+	
   </style>
   
   <script type="text/javascript">
@@ -1023,7 +1027,7 @@
 				</div>
 			</div>
 			<div class="row justify-content-center mb-3 pb-3">
-				<div class="col-md-12 heading-section text-center ftco-animate">
+				<div class="col-md-12 heading-section text-center ftco-animate info-img">
 					<span class="subheading">Detail</span>
 					<h2 class="mb-4">상품상세</h2>
 					<div>
