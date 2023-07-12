@@ -166,10 +166,10 @@ $(function() {
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						당첨일자 : ${dto.winningDate}
+						종료일자 : ${dto.winningDate}
 					</td>
 					<td style="text-align: right !important;">
-						당첨인원 : ${winnerNum}명
+						추첨인원 : ${dto.maxCount}명
 					</td>
 				</tr>
 				<!--  
