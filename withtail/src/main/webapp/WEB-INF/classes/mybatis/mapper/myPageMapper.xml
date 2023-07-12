@@ -117,7 +117,7 @@
 	</select>
 
 	<select id="listOrder" parameterType="com.sp.withtail.myPage.MyPage" resultType="com.sp.withtail.myPage.MyPage">
-		SELECT ol.orderNum, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년"MM"월"DD"일" DY"요일"') purchaseDate,orderState, salePrice
+		SELECT ol.orderNum, purchaseMoney,count, itemName, madeBy, mainImage,o2.option2Name, o22.option2Name AS option2Name2, TO_CHAR(purchaseDate, 'YYYY"년 "MM"월 "DD"일" DY"요일"') purchaseDate,orderState, salePrice
 		,i.itemNum, o2.option2Num, o22.option2Num AS option2Num2, od.orderDetailNum, NVL(reviewWrite, 0) reviewWrite
 		FROM orderList ol
 		JOIN orderDetail OD ON ol.orderNum = od.orderNum

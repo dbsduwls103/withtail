@@ -1224,7 +1224,7 @@ img {
 											</div>
 										</c:forEach>
 										<!-- //쿠폰 foreach -->
-										<input type="hidden" name="usedCoupon" value="">									
+										<!--<input type="hidden" name="usedCoupon" value="">-->									
 									</div>
 								</div>
 							</div>
