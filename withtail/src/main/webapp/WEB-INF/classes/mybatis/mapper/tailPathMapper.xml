@@ -6,5 +6,6 @@
 			INSERT INTO dogmap(placeNum, placeName)
 			VALUES (dogmap_seq.NEXTVAL, #{item})
 	</insert>
+
 </mapper>
 

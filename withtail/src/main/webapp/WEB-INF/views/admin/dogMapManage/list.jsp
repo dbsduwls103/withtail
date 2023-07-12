@@ -119,11 +119,11 @@ function searchList() {
 				</td>
 				<td align="center">
 					<form name="searchForm" action="${pageContext.request.contextPath}/admin/dogMapManage/list" method="post">
-						<select name="condition" class="form-select">
-							<option value="placeName" ${condition=="placeName"?"selected='selected'":""}>시설명</option>
-							<option value="placeNum" ${condition=="placeNum"?"selected='selected'":""}>시설번호</option>
+						<select name="col" class="form-select">
+							<option value="placeName" ${col=="placeName"?"selected='selected'":""}>시설명</option>
+							<option value="placeNum" ${col=="placeNum"?"selected='selected'":""}>시설번호</option>
 						</select>
-						<input type="text" name="keyword" value="${keyword}" class="form-control">
+						<input type="text" name="kwd" value="${kwd}" class="form-control">
 						<button type="button" class="btn" onclick="searchList()">검색</button>
 					</form>
 				</td>

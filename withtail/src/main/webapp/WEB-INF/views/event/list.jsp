@@ -187,7 +187,7 @@
 			<ul class="col-md-12 d-flex ev-ul">
 				<li class="col-md-4 ev-li">
 					<a href="${pageContext.request.contextPath}/event/article?category=${category}&num=${dto.num}">
-						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/uploads/pets/${dto.imageFileName}" class="event_img">
+						<img alt="이벤트 배너" src="${pageContext.request.contextPath}/uploads/event/${dto.imageFileName}" class="event_img">
 					</a>
 				</li>
 				<li class="col-md-8">
