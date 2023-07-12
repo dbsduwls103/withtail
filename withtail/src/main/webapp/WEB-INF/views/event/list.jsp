@@ -176,9 +176,9 @@
 		
 		<!-- 탭 -->
 		<ul class="tabs tab-ul col-md-12 d-flex text-center mb-3">
-			<li class="col-md-4" id="tab-progress" data-category="progress"><a>진행중 이벤트</a></li>
-			<li class="col-md-4" id="tab-ended" data-category="ended"><a>종료된 이벤트</a></li>
-			<li class="col-md-4" id="tab-winner" data-category="winner"><a>당첨자 발표</a></li>
+			<li class="col-md-4" id="tab-progress" data-category="progress"><a href="">진행중 이벤트</a></li>
+			<li class="col-md-4" id="tab-ended" data-category="ended"><a href="">종료된 이벤트</a></li>
+			<li class="col-md-4" id="tab-winner" data-category="winner"><a href="">당첨자 발표</a></li>
 		</ul>
 		<!-- //탭 -->
 		

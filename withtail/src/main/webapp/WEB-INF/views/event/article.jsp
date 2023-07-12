@@ -95,6 +95,10 @@
 		padding: 5px 10px;
 	}
 	
+	img {
+		max-width: 100%;
+	}
+	
 </style>
 
 <script>
