@@ -384,8 +384,10 @@ function deleteCartSelect() {
 	                             <c:otherwise>
 	                             <div onclick="location.href ='${pageContext.request.contextPath}/shop/info/${dto.itemNum}';" style="cursor:pointer;"> 
 	                             	<h3>품절된 상품입니다.</h3>
-		                            <h3 style="color:#808080; text-decoration:line-through;">${dto.itemName}</h3>                        
-		                            <p style="color:#808080; text-decoration:line-through;">${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
+		                            <h3 style="color:#808080; text-decoration:line-through;">${dto.itemName}</h3>
+		                            <c:if test="${not empty dto.option2Name}">                     
+		                            	<p style="color:#808080; text-decoration:line-through;">${dto.option2Name}&nbsp;&nbsp;${dto.option2Name2}</p>
+		                         	</c:if>
 		                         </div>
 	                             </c:otherwise>
 								</c:choose>
@@ -395,10 +397,10 @@ function deleteCartSelect() {
 	                          <c:choose>
 	                          <c:when test="${dto.totalStock == 0 }">
 	                          <td>품절</td>
-	                          <td>품절</td>
-	                          <td>품절</td>
-	                          <td>품절</td>
-	                          <td>품절
+	                          <td>-</td>
+	                          <td>-</td>
+	                          <td>-</td>
+	                          <td>-
 	                          
 	                          	 <input type="hidden" value="${dto.itemNum}" name="itemNums">
 	                          	 <c:if test="${not empty dto.option2Num}">
@@ -518,20 +520,20 @@ function deleteCartSelect() {
              <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 상품금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 배송비</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+<a id="deliveryFee"></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+<a id="deliveryFee"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
                 </ul>
                 <ul class="-ul">
 
                    <li class="-head" style="display: inline-block; ">총 할인금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- <a id="allDisPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">결제 예정금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"><fmt:formatNumber value="" pattern="#,###" /></a> 원</li>
                 </ul>            
              </div>
              <div style="margin-top: 30px;">
@@ -566,6 +568,7 @@ function deleteCartSelect() {
       </section>
 
 	<script>
+	
       $(document).ready(function(){
 
     	  document.getElementById('allPrice').innerHTML = '<c:out value="${all}"/>';
