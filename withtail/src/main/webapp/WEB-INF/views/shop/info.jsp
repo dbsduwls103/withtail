@@ -1020,7 +1020,7 @@
 					<a href="#detailSection" class="bb-green">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection">리뷰</a>
+					<a href="#reviewSection">리뷰(${rvDataCount})</a>
 				</div>
 				<div class="moveToQnA">
 					<a href="#qnaSection">배송/교환/환불</a>
@@ -1045,7 +1045,7 @@
 					<a href="#detailSection">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection" class="bb-green">리뷰</a>
+					<a href="#reviewSection" class="bb-green">리뷰(${rvDataCount})</a>
 				</div>
 				<div class="moveToQnA">
 					<a href="#qnaSection">배송/교환/환불</a>
@@ -1073,7 +1073,7 @@
 					<a href="#detailSection">상품상세</a>
 				</div>
 				<div class="moveToReview">
-					<a href="#reviewSection">리뷰</a>
+					<a href="#reviewSection">리뷰(${rvDataCount})</a>
 				</div>
 				<div class="moveToQnA">
 					<a href="#qnaSection" class="bb-green">배송/교환/환불</a>
