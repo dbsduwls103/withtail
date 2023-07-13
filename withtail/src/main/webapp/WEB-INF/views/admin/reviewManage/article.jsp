@@ -189,7 +189,7 @@ function sendAnswerOk() {
 					<tr >
 						<td style="width: 60px;"></td>
 						<td style="padding: 0px;">${dto.userName }(${dto.userId })</td>
-						<td style="padding: 0px; text-align: right;">${dto.regDate }</td>
+						<td style="padding: 0px; text-align: right; width: 100px;">${dto.regDate }</td>
 					</tr>
 					<tr style="border-bottom: 1px solid #ced4da; ">
 						<td style="width: 60px;"></td>

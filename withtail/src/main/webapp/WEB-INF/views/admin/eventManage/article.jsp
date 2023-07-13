@@ -151,7 +151,7 @@ $(function(){
 								첨부파일 :
 						</td>
 						<td>	
-							<img src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}" 
+							<img src="${pageContext.request.contextPath}/uploads/event/${dto.imageFilename}" 
 								class="img-fluid img-thumbnail w-100 h-auto">
 						</td>
 					</tr>
