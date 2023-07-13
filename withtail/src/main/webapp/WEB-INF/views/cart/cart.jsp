@@ -396,7 +396,7 @@ function deleteCartSelect() {
 	                          	                          
 	                          <c:choose>
 	                          <c:when test="${dto.totalStock == 0 }">
-	                          <td id="pum">품절</td>
+	                          <td>품절</td>
 	                          <td>-</td>
 	                          <td>-</td>
 	                          <td>-</td>
@@ -422,7 +422,7 @@ function deleteCartSelect() {
 	                          
 	                          
 	                          <td class="price">
-		                          <c:if test="${dto.discount != 0}"> 
+		                          <c:if test="${empty dto.discount}"> 
 		                          <span style="color:#808080; text-decoration:line-through;" id="price0-${status.index}">${dto.itemPrice}</span>
 		                          </c:if>
 	                   
@@ -479,22 +479,23 @@ function deleteCartSelect() {
 
 
 						</c:forEach>
-			
+
                         <tr>
                           <td colspan="10" style="padding-bottom: 20px !important; padding-top: 20px !important; background: #fbfafa;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                               <span style="float: left; margin-right: auto;"></span>
                               <div style="float: right;">
-                                <input type="hidden" name="allPoint" value="${poi}">    
-								<input type="hidden" name="allPrice" value="${all}">
-								<input type="hidden" name="deliveryFee" value="">
-                                <input type="hidden" name="allDisPrice" value="${dis}">
-                                <input type="hidden" name="finalPrice" value="${all}">
+                                <input type="hidden" name="allPoint" value="${poi == null ? 0 : poi}">    
+								<input type="hidden" name="allPrice" value="${all == null ? 0 : all}">
+								<input type="hidden" name="deliveryFee" value="0">
+                                <input type="hidden" name="allDisPrice" value="${dis == null ? 0 : dis}">
+                                <input type="hidden" name="finalPrice" value="${all == null ? 0 : all}">
                                 <input type="hidden" name="mode" value="buy">
                               </div>
                             </div>
                           </td>
                         </tr>
+  
                       </tbody>
                     </table>
                  </div>
@@ -521,11 +522,15 @@ function deleteCartSelect() {
                    height: 21px !important;" onclick="deleteCartAll()">장바구니비우기</button>
                 </p>
              </div>
-             
+             <c:choose>
+			<c:when test="${list.size() != 0}">
              <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 상품금액</li>
-                   <li class="-price" style="display: inline-block; font-weight: 1000; "><a id="allPrice"></a> 원</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">
+                   <a id="allPrice"></a> 원
+                   
+                   </li>
                 </ul>
                 <ul class="-ul">
                    <li class="-head" style="display: inline-block; ">총 배송비</li>
@@ -541,6 +546,34 @@ function deleteCartSelect() {
                    <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= <a id="finalPrice"></a> 원</li>
                 </ul>            
              </div>
+               </c:when>
+             <c:otherwise>
+                 <div style="padding: 20px 0 30px 30px; border-top: double #666; border-bottom: double #eaeaea;">
+                <ul class="-ul">
+                   <li class="-head" style="display: inline-block; ">총 상품금액</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">
+                   0 원
+
+                   </li>
+                </ul>
+                <ul class="-ul">
+                   <li class="-head" style="display: inline-block; ">총 배송비</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">+ 0 원</li>
+                </ul>
+                <ul class="-ul">
+
+                   <li class="-head" style="display: inline-block; ">총 할인금액</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; ">- 0 원</li>
+                </ul>
+                <ul class="-ul">
+                   <li class="-head" style="display: inline-block; ">결제 예정금액</li>
+                   <li class="-price" style="display: inline-block; font-weight: 1000; color: #008e61;">= 0 원</li>
+                </ul>            
+             </div>
+             
+             </c:otherwise>
+
+             </c:choose>
              <div style="margin-top: 30px;">
                 <p style="display: inline-block;">
                 <a href="${pageContext.request.contextPath}"><button type="button" class="-btn1" style="padding: 0 18px; height: 41px !important;">쇼핑계속하기</button></a>
@@ -574,18 +607,14 @@ function deleteCartSelect() {
 
 	<script>
 	
-      $(document).ready(function(){ 	  
+      $(document).ready(function(){
+
     	  document.getElementById('allPrice').innerHTML = parseInt('<c:out value="${all}"/>').toLocaleString();
     	  document.getElementById('allDisPrice').innerHTML = parseInt('<c:out value="${dis}"/>').toLocaleString();
     	  document.getElementById('finalPrice').innerHTML = parseInt('<c:out value="${fin}"/>').toLocaleString();
 	   	 <c:forEach items="${list}" varStatus="status" var="dto">
 	   	 	
-	  	<c:if test="${dto.totalStock != 0}">
-	  	
-	  	
-	  	
-	  	
-	  	
+	  	<c:if test="${dto.totalStock != 0}">	
 	   	 //10만원 이상시 배달비 무료
 			if(parseInt('<c:out value="${all}"/>') >= 100000){
 				document.getElementById('deliveryFee').innerHTML = 0;
@@ -642,8 +671,6 @@ function deleteCartSelect() {
 					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-
-		            	   
 		            	   allPrice = allPrice + parseInt(document.getElementById('price1N-' + i).value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPriceN-' + i).value);
 		            	   allPoint =  allPoint + parseInt(document.getElementById('itemPointN-' + i).value);
@@ -699,7 +726,6 @@ function deleteCartSelect() {
 					let allPoint = 0; //총 적립포인트
 					let allTotalPrice = 0; //정가에서 할인적용 총합
 		               for(let i = 0; i < size; i ++){
-
 		            	   allPrice = allPrice + parseInt(document.getElementById('price1N-' + i).value);
 		            	   allDisPrice = allDisPrice + parseInt(document.getElementById('disPriceN-' + i).value);
 		            	   allPoint =  allPoint + parseInt(document.getElementById('itemPointN-' + i).value);
@@ -731,8 +757,4 @@ function deleteCartSelect() {
 	           
 	  
       });
-      
-      
-    
-      
    </script>
