@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.withtail.common.MyUtil;
 import com.sp.withtail.member.SessionInfo;
+import com.sp.withtail.review.ReviewService;
 
 @Controller("shop.shopController")
 @RequestMapping("/shop/*")
@@ -31,6 +32,9 @@ public class ShopController {
 	
 	//@Autowired
 	//private OrderService orderService;
+	
+	@Autowired
+	private ReviewService rvService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -81,6 +85,7 @@ public class ShopController {
 		map.put("keyword", keyword);
 		
 		dataCount = service.dataCount(map);
+		
 		if (dataCount != 0) {
 			total_page = myUtil.pageCount(dataCount, size);
 		}
@@ -126,6 +131,8 @@ public class ShopController {
 			@PathVariable long itemNum,
 			HttpServletResponse resp,
 			Model model) throws Exception {
+		
+		int rvDataCount = 0;
 
 		// 상품
 		Product dto = service.readProd(itemNum);
@@ -152,11 +159,17 @@ public class ShopController {
 		// 연관 상품 리스트
 		List<Product> listRelated = service.listRelated(itemNum);
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("itemNum", itemNum);
+		
+		rvDataCount = rvService.dataCount(map);
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("listProdImage", listProdImage);
 		model.addAttribute("listOption", listOption);
 		model.addAttribute("listOptionDetail", listOptionDetail);
 		model.addAttribute("listRelated", listRelated);
+		model.addAttribute("rvDataCount", rvDataCount);
 		
 		return ".shop.info";
 	}

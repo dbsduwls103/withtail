@@ -192,4 +192,17 @@ public class ShopServiceImpl implements ShopService {
 		return list;
 	}
 
+	@Override
+	public int rvDataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("shop.rvDataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 }

@@ -44,4 +44,7 @@ public interface ShopService {
 	
 	// 연관상품 리스트
 	public List<Product> listRelated(long itemNum);
+	
+	// 리뷰 개수
+	public int rvDataCount(Map<String, Object> map);
 }

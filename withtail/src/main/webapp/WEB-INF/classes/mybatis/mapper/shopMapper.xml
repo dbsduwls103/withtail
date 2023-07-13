@@ -161,5 +161,13 @@
 	    WHERE showNotice = 0 AND i.ctNum=(SELECT ctNum FROM item WHERE itemNum=#{itemNum})
 	    	AND NOT i.itemNum=#{itemNum}
 	</select>
+	
+	<!-- 리뷰 개수 -->
+	<select id="rvDataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) rvCount
+		FROM review r
+		JOIN item i ON r.itemNum = i.itemNum
+		WHERE i.itemNum = #{itemNum}
+	</select>
 
 </mapper>
