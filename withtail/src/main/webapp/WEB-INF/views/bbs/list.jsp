@@ -139,7 +139,7 @@ function searchList() {
 							</c:url>
 							<a href="${url}">${dto.subject}<span class="reply-span"><c:if test="${dto.replyCount!=0}">(${dto.replyCount})</c:if></span></a>
 						</td>
-						<td>${dto.userName}</td>
+						<td>${dto.nickname}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hitCount}</td>
 						<td>&nbsp;</td>

@@ -56,7 +56,7 @@
 	<select id="listBoard" parameterType="map" resultType="com.sp.withtail.bbs.Board">
 		SELECT b.num, b.userId, userName, subject, 
 			   TO_CHAR(b.regDate, 'YYYY-MM-DD') regDate,
-			   hitCount,
+			   hitCount, nickname,
 			   NVL(replyCount, 0) replyCount
 		FROM bbs b
 		JOIN member1 m ON b.userId=m.userId
@@ -77,7 +77,7 @@
 	<!-- 글보기 -->
 	<select id="readBoard" parameterType="Long" resultType="com.sp.withtail.bbs.Board">
 		SELECT b.num, b.userId, userName, subject, content,
-			   hitCount, b.regDate,
+			   hitCount, b.regDate,nickname,
 			   NVL(boardLikeCount, 0) boardLikeCount
 		FROM bbs b
 		JOIN member1 m ON b.userId=m.userId
@@ -171,7 +171,7 @@
 	<!-- 댓글리스트 -->
 	<select id="listReply" parameterType="map" resultType="com.sp.withtail.bbs.Reply">
 		SELECT r.replyNum, r.userId, userName, r.num, content, r.regDate,
-			   NVL(answerCount, 0) answerCount
+			   NVL(answerCount, 0) answerCount, nickname
 		FROM bbsReply r
 		JOIN member1 m ON r.userId = m.userId
 		LEFT OUTER JOIN (
@@ -195,7 +195,7 @@
 	
 	<!-- 댓글의 답글 리스트 -->
 	<select id="listReplyAnswer" parameterType="map" resultType="com.sp.withtail.bbs.Reply">
-		SELECT replyNum, r.num, r.userId, userName, content, r.regDate, preNum
+		SELECT replyNum, r.num, r.userId, userName, content, r.regDate, preNum, nickname
 		FROM bbsReply r
 		JOIN member1 m ON r.userId = m.userId
 		WHERE preNum = #{preNum}

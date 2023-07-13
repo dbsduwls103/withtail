@@ -10,7 +10,14 @@ public class Board {
     private String content;
     private String regDate;
     private int hitCount;
+    private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	private String saveFilename;
 	private String originalFilename;
 	private MultipartFile selectFile; // <input type='file' name='selectFile' ..

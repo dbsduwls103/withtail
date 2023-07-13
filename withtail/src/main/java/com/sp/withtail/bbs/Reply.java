@@ -11,7 +11,14 @@ public class Reply {
 	private int answerCount;
 	private int likeCount;
 	private int disLikeCount;
+	private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public long getPreNum() {
 		return preNum;
 	}
