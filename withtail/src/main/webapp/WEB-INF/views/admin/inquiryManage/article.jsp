@@ -126,7 +126,7 @@ function sendAnswerOk() {
 				</tr>
 				
 				<tr>
-					<td colspan="2" valign="top" height="120" style=" border-bottom: 1px solid #eee;font-weight: 600; padding: 20px;">
+					<td colspan="2" valign="top" height="120" style=" border-bottom: 1px solid #eee; padding: 20px;">
 						${dto.content}
 					</td>
 				</tr>
@@ -151,7 +151,7 @@ function sendAnswerOk() {
 					</tr>
 					
 					<tr>
-						<td colspan="2" valign="top" height="120" style="font-weight: 600; padding: 20px;">
+						<td colspan="2" valign="top" height="120" style=" padding: 20px;">
 							${dto.answer}
 						</td>
 					</tr>

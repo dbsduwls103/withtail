@@ -402,7 +402,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td style="text-align: left !important;">
-						작성자 : ${dto.userName}
+						작성자 : ${dto.nickname}
 					</td>
 					<td style="text-align: right !important;">
 						작성일 : ${dto.regDate}<span class="bar-span">|</span>조회 : ${dto.hitCount}

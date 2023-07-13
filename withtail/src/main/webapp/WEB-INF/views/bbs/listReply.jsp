@@ -18,7 +18,7 @@
 			</td>
 			<td class="td-writer" style="text-align: left !important; max-width: 700px; border-bottom: 0 !important;">
 				<div class='col-auto align-self-center rp-con'>
-					<div class='name'>${vo.userName}</div>
+					<div class='name'>${vo.nickname}</div>
 					<p style="margin-bottom: 0;">${vo.content}</p>
 				</div>
 			</td>

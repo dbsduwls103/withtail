@@ -398,7 +398,7 @@ function searchList() {
 							</div>
 							<!-- 리뷰글보기 링크연결 -->
 							<a class="f-price-layout" href='${articleUrl}&rvNum=${dto.rvNum}'><!-- &rvNum=${dto.rvNum}&itemNum=${dto.itemNum }&mainImage=${dto.mainImage} -->
-								<div class="f-price-text valign-text-middle" style="padding-left: 3px;">
+								<div class="f-price-text valign-text-middle" style="padding-left: 3px; text-align: left;">
 									${dto.rvContent }
 								</div>
 							</a> 						

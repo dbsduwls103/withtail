@@ -10,7 +10,7 @@
 				<div class='reply-writer d-flex'>
 					<div class="td-icon" style="width: 45px;"><i class='bi bi-person-circle text-muted icon'></i></div>
 					<div class="rp-con" style="text-align: left !important; margin-top: 5px; max-width: 650px;">
-						<div class='name'>${vo.userName}</div>
+						<div class='name'>${vo.nickname}</div>
 						<p style="margin-bottom: 0;">${vo.content}</p>
 					</div>
 				</div>

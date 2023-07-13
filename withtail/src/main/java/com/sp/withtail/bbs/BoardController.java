@@ -81,7 +81,13 @@ public class BoardController {
 		// 글 리스트
 		List<Board> list = service.listBoard(map);
 
-		String paging = myUtilCustom.pagingMethod(current_page, total_page, "listPage");
+		String cp = req.getContextPath();
+		String query = "size=" + size;
+		String listUrl = cp + "/bbs/list";
+		
+		listUrl += "?" + query;
+		
+		String paging = myUtilCustom.paging(current_page, total_page, listUrl);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
