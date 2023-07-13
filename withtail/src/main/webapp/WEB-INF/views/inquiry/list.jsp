@@ -92,7 +92,7 @@ function searchList() {
 						</td>
 						<td>${dto.nickName}</td>
 						<td>${dto.regDate}</td>
-						<td>${empty dto.answerDate ? "답변대기" : "답변완료"}</td>
+						<td>${dto.answerDate == null ? "답변대기" : "답변완료"}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
