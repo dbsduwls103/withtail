@@ -27,6 +27,8 @@ public class InquiryController {
 	private InquiryService service;
 	@Autowired
 	private MyUtil myUtil;
+	@Autowired
+	private MyUtil myUtilCustom;
 
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -83,7 +85,7 @@ public class InquiryController {
 			articleUrl += "&" + query;
 		}
 
-		String paging = myUtil.paging(current_page, total_page, listUrl);
+		String paging = myUtilCustom.pagingMethod(current_page, total_page, listUrl);
 
 		model.addAttribute("list", list);
 		model.addAttribute("articleUrl", articleUrl);
