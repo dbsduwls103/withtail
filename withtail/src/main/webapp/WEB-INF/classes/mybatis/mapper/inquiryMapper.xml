@@ -40,7 +40,7 @@
 
 	<!-- 글리스트 -->
     <select id="listInquiry" parameterType="map" resultType="com.sp.withtail.inquiry.Inquiry">    
-   	 	SELECT i.num, i.userId, nickName, category, subject, TO_CHAR(i.regDate, 'YYYY-MM-DD') regDate
+   	 	SELECT i.num, i.userId, nickName, category, subject, TO_CHAR(i.regDate, 'YYYY-MM-DD') regDate, answerDate
     	FROM inquiry i
     	JOIN member1 m ON i.userId=m.userId
 		<where>
